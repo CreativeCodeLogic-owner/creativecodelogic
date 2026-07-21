@@ -1,4 +1,21 @@
 {
   "version": 1,
-  "bugs": []
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-07-21T11:15:46.672Z",
+      "error_message": "Missing guard clause",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "No early return/throw for edge case: !panel",
+      "fix": "Added guard clause: if (!panel)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T11:15:46.672Z"
+    }
+  ]
 }
