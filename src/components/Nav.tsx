@@ -57,7 +57,7 @@ export function Nav() {
           href="#signature"
           onClick={go("#signature")}
           className="flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-          aria-label="Creative Code Logic — back to top"
+          aria-label="CCL — Creative Code Logic, back to top"
         >
           <Triquetra className="h-7 w-7" />
           <span className="font-display text-sm font-semibold tracking-[0.22em] text-ink">

@@ -678,6 +678,70 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T18:37:21.659Z"
+    },
+    {
+      "id": "bug-042",
+      "timestamp": "2026-07-21T19:11:32.132Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "Had \"Creative Code Logic — back to top\"",
+      "fix": "Changed to \"CCL — Creative Code Logic, back to top\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T19:11:32.132Z"
+    },
+    {
+      "id": "bug-043",
+      "timestamp": "2026-07-21T19:11:34.041Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "Had \"border-b border-ink/10 px-5 py-3 text-xs text-mis",
+      "fix": "Changed to \"border-b border-ink/10 px-5 py-3 text-xs text-mis",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T19:11:34.041Z"
+    },
+    {
+      "id": "bug-044",
+      "timestamp": "2026-07-21T19:14:19.114Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"lighthouse performance 98\", kind: \"ok\" → \"lighthouse performance 95\", kind: \"ok\"",
+      "fix": "Changed text: \"lighthouse performance 98\", kind: \"ok\" → \"lighthouse performance 95\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T19:14:19.114Z"
+    },
+    {
+      "id": "bug-045",
+      "timestamp": "2026-07-21T19:18:01.907Z",
+      "error_message": "Significant refactor of ",
+      "file": "index.html",
+      "root_cause": "20 lines replaced/restructured",
+      "fix": "Rewrote 45→21 lines (20 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T19:18:01.907Z"
     }
   ]
 }

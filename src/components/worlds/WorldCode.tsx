@@ -12,9 +12,10 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 //   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
 //     bunx lighthouse http://localhost:4173 --preset=desktop --output=json \
 //     --chrome-flags="--headless=new"
-// Results: vite 8.1.5 · 45 modules · tsc --noEmit clean · verify6 3/3 viewports
-//   0 console errors · Lighthouse desktop performance 98, LCP 0.7s
-//   (accessibility 96, best-practices 100, SEO 91).
+// Results (fonts now self-hosted): vite 8.1.5 · 45 modules · tsc --noEmit clean
+//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 95
+//   (stable across runs), LCP 0.6s (accessibility 100, best-practices 100,
+//   SEO 100).
 // NOTE: these are LOCALHOST numbers — re-measure against the real production URL
 // after deploy; fonts / CDN / hosting can shift LCP and the performance score.
 const BUILD_LOG: LogLine[] = [
@@ -23,12 +24,12 @@ const BUILD_LOG: LogLine[] = [
   { text: "45 modules transformed", kind: "ok" },
   { text: "type-check clean — 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports — 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 98", kind: "ok" },
+  { text: "lighthouse performance 95", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 98, decimals: 0, suffix: "" },
-  { label: "LCP", target: 0.7, decimals: 1, suffix: "s" },
+  { label: "Lighthouse", target: 95, decimals: 0, suffix: "" },
+  { label: "LCP", target: 0.6, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
 
@@ -412,7 +413,7 @@ export function WorldCode() {
         </div>
 
         <div className="rounded-xl border border-ink/10 bg-[#060d18] font-mono text-[13px] leading-6 lg:order-1">
-          <div className="border-b border-ink/10 px-5 py-3 text-xs text-mist/60">
+          <div className="border-b border-ink/10 px-5 py-3 text-xs text-mist/80">
             ccl — production build
           </div>
           <div

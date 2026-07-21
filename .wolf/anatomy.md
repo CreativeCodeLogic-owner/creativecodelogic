@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T18:37:21.628Z
-> Files: 54 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T19:18:36.311Z
+> Files: 56 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -9,7 +9,7 @@
 - `.gitignore` — Git ignore rules (~88 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
 - `CLAUDE.md` — OpenWolf (~445 tok)
-- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~368 tok)
+- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~628 tok)
 - `package.json` — Node.js package manifest (~181 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
 - `vite.config.ts` — Vite build configuration (~98 tok)
@@ -46,6 +46,11 @@
 
 - `2026-07-18-polish-pass-design.md` — Team + Reviewer Polish Pass — Design Spec (~913 tok)
 
+## public/
+
+- `robots.txt` (~19 tok)
+- `sitemap.xml` (~47 tok)
+
 ## scripts/
 
 - `extract_triquetra.py` — Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade). (~2211 tok)
@@ -55,12 +60,12 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~7563 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~7748 tok)
 
 ## src/
 
 - `App.tsx` — App — uses useEffect (~314 tok)
-- `index.css` — Styles: 19 rules, 8 vars (~1047 tok)
+- `index.css` — Styles: 22 rules, 8 vars (~1248 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
@@ -73,7 +78,7 @@
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1768 tok)
 - `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1555 tok)
-- `Nav.tsx` — MENU_ID (~1307 tok)
+- `Nav.tsx` — MENU_ID (~1308 tok)
 - `ProgressLine.tsx` — The journey line — a thin cyan rule down the page edge, drawn by scroll. (~297 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2222 tok)
 - `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~840 tok)
@@ -81,7 +86,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4703 tok)
+- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4718 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 
