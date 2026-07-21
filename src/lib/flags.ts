@@ -2,11 +2,14 @@
 export const SHOW_WORK = import.meta.env.VITE_SHOW_WORK === "true";
 
 /**
- * Formspark form id for the brief flow. Empty/undefined → the brief still works
- * but the final submit composes a mailto: instead of POSTing (see BriefForm).
+ * Formspark form ids — one per form. Empty/undefined → that form still works
+ * but its final submit composes a mailto: instead of POSTing (brief only;
+ * the contact drawer has no email fallback).
  */
-export const FORMSPARK_FORM_ID =
-  (import.meta.env.VITE_FORMSPARK_FORM_ID as string | undefined) ?? "";
+export const FORMSPARK_FORM_ID_BRIEF =
+  (import.meta.env.VITE_FORMSPARK_FORM_ID_BRIEF as string | undefined) ?? "";
+export const FORMSPARK_FORM_ID_CONTACT =
+  (import.meta.env.VITE_FORMSPARK_FORM_ID_CONTACT as string | undefined) ?? "";
 
 /**
  * Invisible reCAPTCHA v2 site key. Empty/undefined → captcha is skipped

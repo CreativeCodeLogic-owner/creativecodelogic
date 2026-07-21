@@ -1,28 +1,22 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap, startScroll, stopScroll } from "@/lib/scroll";
 import { sealStampTl } from "@/lib/seal";
-import { CAPTCHA_SITEKEY } from "@/lib/flags";
-import { mountInvisibleCaptcha, type InvisibleCaptcha } from "@/lib/captcha";
+import { CAPTCHA_SITEKEY, FORMSPARK_FORM_ID_CONTACT } from "@/lib/flags";
+import { renderCheckbox, type CheckboxCaptcha } from "@/lib/captcha";
 import { submitForm, type SubmitResult } from "@/lib/submit";
-import { CaptchaNotice } from "@/components/CaptchaNotice";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-const MAILTO = "hello@creativecodelogic.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const HEADING_ID = "hello-heading";
 
 const fieldClass =
   "w-full rounded-md border border-ink/15 bg-transparent px-4 py-2.5 text-sm text-ink placeholder:text-mist/70 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";
 
-function mailtoHref(email: string, message: string): string {
-  const body = [`From: ${email}`, "", message].join("\n");
-  return `mailto:${MAILTO}?subject=${encodeURIComponent("Say hello — Creative Code Logic")}&body=${encodeURIComponent(body)}`;
-}
-
 /**
- * A slide-in drawer for a quick hello. Same Formspark endpoint as the brief,
- * tagged form:"hello". role=dialog, focus trapped, Esc + backdrop close, scroll
- * locked while open. Reduced motion: instant show/hide, no slide.
+ * A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form
+ * (tagged form:"hello") with a VISIBLE reCAPTCHA v2 checkbox. No email address
+ * appears anywhere in this UI. role=dialog, focus trapped, Esc + backdrop close,
+ * scroll locked while open. Reduced motion: instant show/hide, no slide.
  */
 export function HelloDrawer({ onClose }: { onClose: () => void }) {
   const reduced = usePrefersReducedMotion();
@@ -31,15 +25,19 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
   const emailRef = useRef<HTMLInputElement>(null);
   const sealRef = useRef<HTMLSpanElement>(null);
   const captchaBoxRef = useRef<HTMLDivElement>(null);
-  const captchaRef = useRef<InvisibleCaptcha | null>(null);
+  const captchaRef = useRef<CheckboxCaptcha | null>(null);
   const closing = useRef(false);
 
   const [status, setStatus] = useState<SubmitResult | "form" | "sending">("form");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const [captchaSolved, setCaptchaSolved] = useState(false);
 
-  const valid = EMAIL_RE.test(email) && message.trim().length >= 5;
+  const valid =
+    EMAIL_RE.test(email) &&
+    message.trim().length >= 5 &&
+    (!CAPTCHA_SITEKEY || captchaSolved);
 
   // enter animation + scroll lock + initial focus
   useLayoutEffect(() => {
@@ -54,13 +52,16 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
     return () => startScroll();
   }, [reduced]);
 
-  // lazy-load the captcha the first time the drawer opens
+  // lazy-load + render the visible captcha the first time the drawer opens
   useEffect(() => {
     if (!CAPTCHA_SITEKEY || !captchaBoxRef.current) return;
     let cancelled = false;
-    mountInvisibleCaptcha(captchaBoxRef.current)
+    renderCheckbox(captchaBoxRef.current, (solved) => {
+      if (!cancelled) setCaptchaSolved(solved);
+    })
       .then((c) => {
-        if (!cancelled) captchaRef.current = c;
+        if (cancelled) c.reset();
+        else captchaRef.current = c;
       })
       .catch(() => {});
     return () => {
@@ -78,6 +79,7 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
   const handleClose = () => {
     if (closing.current) return;
     closing.current = true;
+    captchaRef.current?.reset();
     if (reduced || !panelRef.current || !backdropRef.current) {
       onClose();
       return;
@@ -91,37 +93,47 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
     });
   };
 
+  // Esc-to-close. (Won't fire while focus is inside the cross-origin reCAPTCHA
+  // iframe — the sentinels below keep focus from ever leaking past the panel.)
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
       e.preventDefault();
       handleClose();
-      return;
     }
-    if (e.key !== "Tab" || !panelRef.current) return;
-    const nodes = panelRef.current.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  };
+
+  // Focus sentinels trap focus even across the reCAPTCHA iframe: a keydown trap
+  // can't see Tab from inside a cross-origin frame, but a guard element that
+  // *receives* focus when it wraps out can bounce it back to the other end.
+  const realFocusables = () =>
+    Array.from(
+      panelRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])',
+      ) ?? [],
+    ).filter(
+      (el) =>
+        !el.hasAttribute("data-sentinel") &&
+        el.tabIndex !== -1 && // skip the honeypot
+        el.offsetParent !== null, // skip hidden (honeypot / reCAPTCHA's g-recaptcha-response textarea)
     );
-    if (nodes.length === 0) return;
-    const first = nodes[0];
-    const last = nodes[nodes.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
+  const focusFirst = () => realFocusables()[0]?.focus();
+  const focusLast = () => {
+    const els = realFocusables();
+    els[els.length - 1]?.focus();
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid || status === "sending") return;
     setStatus("sending");
+    const token = captchaRef.current?.getToken() ?? "";
     const result = await submitForm(
+      FORMSPARK_FORM_ID_CONTACT,
       { form: "hello", email, message, _gotcha: honeypot },
-      mailtoHref(email, message),
-      captchaRef.current,
+      null, // no email fallback in the contact UI
+      token,
     );
+    captchaRef.current?.reset(); // clear the checkbox for a retry
     setStatus(result);
   };
 
@@ -140,6 +152,9 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
         aria-labelledby={HEADING_ID}
         className="absolute top-0 right-0 flex h-full w-full max-w-full flex-col overflow-y-auto border-l border-ink/10 bg-navy px-6 py-8 md:max-w-[420px] md:px-8"
       >
+        {/* top focus sentinel: shift-tab out of the top wraps to the bottom */}
+        <div data-sentinel tabIndex={0} aria-hidden="true" onFocus={focusLast} />
+
         <div className="mb-6 flex items-start justify-between">
           <h2 id={HEADING_ID} className="font-display text-2xl font-semibold text-ink">
             Say hello
@@ -198,7 +213,7 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
+              placeholder="Where should we reply?"
               aria-describedby={status === "error" ? "hello-error" : undefined}
               className={fieldClass}
             />
@@ -216,15 +231,12 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
               className={`${fieldClass} resize-none`}
             />
 
+            {/* visible reCAPTCHA v2 checkbox (dark, normal) — only when configured */}
+            {CAPTCHA_SITEKEY && <div ref={captchaBoxRef} data-captcha className="mt-5" />}
+
             {status === "error" && (
-              <p id="hello-error" role="alert" className="mt-3 text-sm text-mist">
-                Something broke on the way.{" "}
-                <a
-                  href={mailtoHref(email, message)}
-                  className="text-accent underline underline-offset-2"
-                >
-                  Send it by email instead →
-                </a>
+              <p id="hello-error" role="alert" className="mt-4 text-sm text-mist">
+                Something broke on the way. Give it another try.
               </p>
             )}
 
@@ -240,29 +252,30 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
               className="hidden"
             />
 
-            <button
-              type="submit"
-              data-hello-submit
-              disabled={!valid || status === "sending"}
-              className="mt-7 self-start rounded-full border border-accent bg-accent/10 px-6 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {status === "sending" ? "Sending…" : "Send"}
-            </button>
-
-            <div ref={captchaBoxRef} />
-            <CaptchaNotice />
-
-            <p className="mt-6 text-xs text-mist/60">
-              Prefer email?{" "}
-              <a
-                href={`mailto:${MAILTO}`}
-                className="text-mist underline underline-offset-2 hover:text-ink"
+            {status === "error" ? (
+              <button
+                type="button"
+                data-hello-retry
+                onClick={() => setStatus("form")}
+                className="mt-5 self-start rounded-full border border-accent bg-accent/10 px-6 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                {MAILTO}
-              </a>
-            </p>
+                Try again
+              </button>
+            ) : (
+              <button
+                type="submit"
+                data-hello-submit
+                disabled={!valid || status === "sending"}
+                className="mt-5 self-start rounded-full border border-accent bg-accent/10 px-6 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {status === "sending" ? "Sending…" : "Send"}
+              </button>
+            )}
           </form>
         )}
+
+        {/* bottom focus sentinel: tab off the last control wraps to the top */}
+        <div data-sentinel tabIndex={0} aria-hidden="true" onFocus={focusFirst} />
       </div>
     </div>
   );

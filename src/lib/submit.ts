@@ -1,37 +1,28 @@
-import { FORMSPARK_FORM_ID, CAPTCHA_SITEKEY } from "@/lib/flags";
-import type { InvisibleCaptcha } from "@/lib/captcha";
-
 export type SubmitResult = "success" | "error";
 
 /**
- * Shared submission path for the brief and the hello drawer. Honeypot short-
- * circuits, no form id → mailto: fallback (never dead-ends), otherwise POST
- * JSON to Formspark with the reCAPTCHA token when one is available.
+ * Shared submission path. Honeypot short-circuits; an empty form id falls back
+ * to the mailto: href when one is provided (brief) or silently succeeds when it
+ * is not (contact drawer — no email in its UI). Otherwise POST JSON to
+ * Formspark, including the reCAPTCHA token when the caller has one.
  */
 export async function submitForm(
+  formId: string,
   payload: Record<string, string>,
-  mailtoHref: string,
-  captcha: InvisibleCaptcha | null,
+  mailtoHref: string | null,
+  token: string,
 ): Promise<SubmitResult> {
   if (payload._gotcha) return "success"; // bot — swallow silently
 
-  if (!FORMSPARK_FORM_ID) {
-    window.location.href = mailtoHref; // graceful fallback
-    return "success";
+  if (!formId) {
+    if (mailtoHref) window.location.href = mailtoHref; // brief fallback
+    return "success"; // never dead-ends
   }
 
-  let token = "";
-  if (CAPTCHA_SITEKEY && captcha) {
-    try {
-      token = await captcha.execute();
-    } catch {
-      token = ""; // proceed tokenless; Formspark rejects → error state handles it
-    }
-  }
   const body = token ? { ...payload, "g-recaptcha-response": token } : payload;
 
   try {
-    const res = await fetch(`https://submit-form.com/${FORMSPARK_FORM_ID}`, {
+    const res = await fetch(`https://submit-form.com/${formId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(body),

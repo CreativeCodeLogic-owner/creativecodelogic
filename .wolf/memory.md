@@ -58,3 +58,22 @@
 | 15:20 | Invisible reCAPTCHA v2 + say-hello drawer: captcha.ts (lazy-load, invisible widget) + submit.ts (shared Formspark path w/ token) + CaptchaNotice; HelloDrawer.tsx (portal, focus-trap, Esc/backdrop, scroll-lock); BriefForm tagged form:"brief"; scroll.ts stop/startScroll; verify6 sec 6+7 | captcha.ts, submit.ts, CaptchaNotice.tsx, HelloDrawer.tsx, BriefForm.tsx, Invitation.tsx, flags.ts, scroll.ts, index.css, .env.example, verify6.mjs | build clean; verify6 3 passes 0 errors; lazy-load proven (recaptchaBeforeOpen=false/After=true), drawer dialog+focus-trap+esc+backdrop+focus-return all pass; reduced-motion drawer smoke clean | ~12000 |
 | 16:46 | Session end: 37 writes across 14 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 17 reads | ~42592 tok |
 | 15:40 | Debugged Formspark 500 (form RBavvWpyd) via curl probes | .wolf/buglog.json (bug-013) | ROOT CAUSE = dashboard-side: every submit rejected as spam (header formspark-status: spam), incl. minimal token-less body + matching Origin → reCAPTCHA secret missing/mismatched with VITE_CAPTCHA_SITEKEY. No code change (payload correct). | ~600 |
+| 17:21 | Session end: 37 writes across 14 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 17 reads | ~42592 tok |
+| 18:00 | Edited src/lib/flags.ts | 6→9 lines | ~127 |
+| 18:00 | Created src/lib/submit.ts | — | ~326 |
+| 18:00 | Created src/lib/captcha.ts | — | ~690 |
+| 18:01 | Edited src/index.css | removed 6 lines | ~4 |
+| 18:01 | Edited src/components/BriefForm.tsx | 8→6 lines | ~93 |
+| 18:01 | Edited src/components/BriefForm.tsx | removed 18 lines | ~6 |
+| 18:01 | Edited src/components/BriefForm.tsx | 6→7 lines | ~70 |
+| 18:01 | Edited src/components/BriefForm.tsx | 9→5 lines | ~12 |
+| 18:02 | Created src/components/HelloDrawer.tsx | — | ~2959 |
+| 18:03 | Edited scripts/verify6.mjs | reduced (-13 lines) | ~42 |
+| 18:03 | Edited scripts/verify6.mjs | added 1 condition(s) | ~674 |
+| 18:07 | Edited src/components/HelloDrawer.tsx | added optional chaining | ~274 |
+| 18:08 | Edited src/components/HelloDrawer.tsx | CSS: sentinel | ~125 |
+| 18:08 | Edited src/components/HelloDrawer.tsx | CSS: sentinel | ~64 |
+| 18:08 | Edited scripts/verify6.mjs | 6→8 lines | ~108 |
+| 18:14 | Edited src/components/HelloDrawer.tsx | 6→11 lines | ~127 |
+| 18:14 | Edited scripts/verify6.mjs | modified if() | ~41 |
+| 16:10 | Contact restructure: 2 Formspark forms (BRIEF/CONTACT), brief drops captcha entirely, HelloDrawer gets VISIBLE reCAPTCHA v2 checkbox (dark), no emails in contact UI (removed Prefer-email + mailto error fallback → Try again). Deleted CaptchaNotice + badge CSS. Fixed focus trap across cross-origin iframe (sentinels) + hidden-focusable filter | flags.ts, .env.example, submit.ts, captcha.ts, BriefForm.tsx, HelloDrawer.tsx, index.css, verify6.mjs, deleted CaptchaNotice.tsx | build clean; verify6 3 passes 0 errors; brief noRecaptcha=true; drawer checkbox iframe renders, send gated by captcha, focus trap+esc+backdrop+focus-return all pass | ~14000 |

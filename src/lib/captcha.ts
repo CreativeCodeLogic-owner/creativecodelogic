@@ -2,15 +2,16 @@ import { CAPTCHA_SITEKEY } from "@/lib/flags";
 
 type RenderParams = {
   sitekey: string;
-  size: "invisible";
-  callback: (token: string) => void;
+  size: "normal" | "invisible";
+  theme?: "dark" | "light";
+  callback?: (token: string) => void;
   "error-callback"?: () => void;
   "expired-callback"?: () => void;
 };
 
 type Grecaptcha = {
   render: (container: HTMLElement, params: RenderParams) => number;
-  execute: (id: number) => void;
+  getResponse: (id: number) => string;
   reset: (id: number) => void;
 };
 
@@ -43,52 +44,50 @@ function loadScript(): Promise<void> {
   return scriptPromise;
 }
 
-export type InvisibleCaptcha = { execute: () => Promise<string> };
+export type CheckboxCaptcha = {
+  /** The current token, or "" if the checkbox has not been solved. */
+  getToken: () => string;
+  /** Clear the checkbox (after submit / on drawer close). */
+  reset: () => void;
+};
 
 /**
- * Mount an invisible reCAPTCHA widget into `container` and return an executor.
- * execute() resolves the token — or "" on any failure/timeout, so callers
- * never hang on a spinner — and resets the widget for reuse.
+ * Lazy-load reCAPTCHA and render a VISIBLE v2 checkbox into `container`.
+ * `onChange(solved)` fires true when solved, false when expired/errored — the
+ * caller uses it to gate the submit button.
  */
-export async function mountInvisibleCaptcha(
+export async function renderCheckbox(
   container: HTMLElement,
-): Promise<InvisibleCaptcha> {
+  onChange: (solved: boolean) => void,
+): Promise<CheckboxCaptcha> {
   await loadScript();
   const g = window.grecaptcha;
   if (!g) throw new Error("recaptcha unavailable");
 
-  let resolver: ((t: string) => void) | null = null;
-  const finish = (t: string) => {
-    const r = resolver;
-    resolver = null;
-    r?.(t);
-  };
-
   const id = g.render(container, {
     sitekey: CAPTCHA_SITEKEY,
-    size: "invisible",
-    callback: (token: string) => finish(token),
-    "error-callback": () => finish(""),
-    "expired-callback": () => finish(""),
+    size: "normal",
+    theme: "dark",
+    callback: () => onChange(true),
+    "expired-callback": () => onChange(false),
+    "error-callback": () => onChange(false),
   });
 
   return {
-    execute: () =>
-      new Promise<string>((resolve) => {
-        resolver = resolve;
-        window.setTimeout(() => finish(""), 8000); // never hang
-        try {
-          g.execute(id);
-        } catch {
-          finish("");
-        }
-      }).then((t) => {
-        try {
-          g.reset(id);
-        } catch {
-          /* widget already gone — ignore */
-        }
-        return t;
-      }),
+    getToken: () => {
+      try {
+        return g.getResponse(id);
+      } catch {
+        return "";
+      }
+    },
+    reset: () => {
+      try {
+        g.reset(id);
+      } catch {
+        /* widget already gone — ignore */
+      }
+      onChange(false);
+    },
   };
 }

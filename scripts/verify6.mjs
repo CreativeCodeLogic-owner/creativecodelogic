@@ -253,19 +253,6 @@ async function scrollToEl(page, sel, offset = -60) {
   );
   await page.click("[data-brief-open]");
   await sleep(600);
-  // captcha configured? (attribution present ⇒ sitekey set). If so, the script
-  // must now be injected; skip gracefully when no sitekey is configured.
-  brief.captchaConfigured = await page.evaluate(() =>
-    /Protected by reCAPTCHA/i.test(document.body.textContent || ""),
-  );
-  if (brief.captchaConfigured) {
-    await sleep(800);
-    brief.recaptchaAfterOpen = await page.evaluate(
-      () => !!document.querySelector('script[src*="recaptcha"]'),
-    );
-  } else {
-    brief.recaptchaAfterOpen = "skipped (no sitekey)";
-  }
   brief.formShown = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
   brief.heightStableOnOpen = (await docH()) === shClosed; // scrollHeight unchanged (±0)
   brief.footerStableOnOpen = (await footTop()) === footClosed; // footer does not shift
@@ -294,6 +281,10 @@ async function scrollToEl(page, sel, offset = -60) {
   brief.submitEnabledValid = await page.evaluate(
     () => document.querySelector("[data-brief-submit]").disabled === false,
   );
+  // brief loads NO reCAPTCHA — captcha is contact-drawer only now (flipped)
+  brief.noRecaptchaAfterBriefWalk = await page.evaluate(
+    () => !document.querySelector('script[src*="recaptcha"]'),
+  );
   // STOP here — do NOT submit (no network call to submit-form.com in CI)
   await page.screenshot({ path: `${OUT}/full-brief.png` });
 
@@ -305,6 +296,39 @@ async function scrollToEl(page, sel, offset = -60) {
     () => !!document.querySelector('[role="dialog"][aria-modal="true"]'),
   );
   hello.focusEmail = await page.evaluate(() => document.activeElement?.id === "hello-email");
+  // no email anywhere in the contact UI
+  hello.noMailto = await page.evaluate(
+    () => document.querySelectorAll('[role="dialog"] a[href^="mailto:"]').length === 0,
+  );
+  hello.noAtInText = await page.evaluate(
+    () => !((document.querySelector('[role="dialog"]')?.innerText) || "").includes("@"),
+  );
+  // captcha: contact drawer only, lazy-loaded on open. [data-captcha] present ⇒
+  // sitekey configured ⇒ script + checkbox iframe must render. Skip if no key.
+  hello.captchaConfigured = await page.evaluate(
+    () => !!document.querySelector('[role="dialog"] [data-captcha]'),
+  );
+  if (hello.captchaConfigured) {
+    await sleep(2500); // let api.js + the checkbox iframe load
+    hello.recaptchaScriptLoaded = await page.evaluate(
+      () => !!document.querySelector('script[src*="recaptcha"]'),
+    );
+    hello.checkboxIframe = await page.evaluate(
+      () => !!document.querySelector('[role="dialog"] iframe[src*="recaptcha"]'),
+    );
+  } else {
+    hello.recaptchaScriptLoaded = "skipped (no sitekey)";
+    hello.checkboxIframe = "skipped (no sitekey)";
+  }
+  // valid fields but captcha unsolved → Send stays disabled (CI can't solve it).
+  // Without a sitekey there is no captcha gate, so Send is enabled instead.
+  await page.type("#hello-email", "sam@clinic.io");
+  await page.type("#hello-message", "Quick hello, just a short note.");
+  await sleep(150);
+  hello.sendGatedByCaptcha = await page.evaluate((configured) => {
+    const disabled = document.querySelector("[data-hello-submit]").disabled;
+    return configured ? disabled === true : disabled === false;
+  }, hello.captchaConfigured);
   await page.screenshot({ path: `${OUT}/full-hello.png` });
   // Tab many times — focus must never leave the dialog
   for (let i = 0; i < 12; i++) await page.keyboard.press("Tab");
@@ -317,7 +341,9 @@ async function scrollToEl(page, sel, offset = -60) {
   hello.shiftTabStaysInside = await page.evaluate(
     () => document.querySelector('[role="dialog"]')?.contains(document.activeElement) === true,
   );
-  // Esc closes + focus returns to the trigger
+  // Esc closes + focus returns to the trigger (from a form control, as a user
+  // would — Esc inside the cross-origin captcha iframe can't be intercepted)
+  await page.focus("#hello-email");
   await page.keyboard.press("Escape");
   await sleep(500);
   hello.closedByEsc = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
