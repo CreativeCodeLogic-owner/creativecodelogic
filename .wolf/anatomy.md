@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T18:18:33.221Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T18:37:21.628Z
 > Files: 54 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -81,7 +81,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4479 tok)
+- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4703 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 

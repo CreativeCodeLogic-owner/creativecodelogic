@@ -651,10 +651,33 @@
       "file": "src/components/worlds/WorldCreative.tsx",
       "root_cause": "The new 40px swatch hit targets (bug from the mobile-menu/touch task) made the single side-by-side row (2 groups x 4 swatches + labels + gap-6) wider than the panel; the palette container is absolutely positioned and centered on --gx, so it overflowed into the panel's overflow-hidden clip.",
       "fix": "Below md the two groups now stack vertically (flex-col items-center gap-3) and the container is clamped (max-w-[92vw] px-2); md+ keeps the side-by-side row (md:flex-row md:gap-6). Swatch gap tightened gap-2→gap-1 for a tighter desktop rhythm. 40px hit area / 16px dot kept intact. layout() now MEASURES the real palette height (data-palette offsetHeight, varies by breakpoint) instead of the hard-coded PALETTE_H=36, so the mark centering and the mobile --mobile-body-mt (body copy offset) stay correct with the taller/stacked palette.",
-      "tags": ["responsive", "mobile", "layout", "overflow", "touch-target", "tsx"],
+      "tags": [
+        "responsive",
+        "mobile",
+        "layout",
+        "overflow",
+        "touch-target",
+        "tsx"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T19:05:00.000Z"
+    },
+    {
+      "id": "bug-041",
+      "timestamp": "2026-07-21T18:37:21.659Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"deployed to production\", kind: \"ok\" → \"lighthouse performance 98\", kind: \"ok\"",
+      "fix": "Changed text: \"deployed to production\", kind: \"ok\" → \"lighthouse performance 98\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T18:37:21.659Z"
     }
   ]
 }
