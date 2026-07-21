@@ -194,6 +194,24 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T13:41:28.936Z"
+    },
+    {
+      "id": "bug-013",
+      "timestamp": "2026-07-21T14:20:00.000Z",
+      "error_message": "Formspark POST returns HTTP 500 'Internal server error' on real brief/hello submissions (form RBavvWpyd)",
+      "file": "Formspark dashboard (external) — not a code defect",
+      "root_cause": "Formspark rejects EVERY submission to form RBavvWpyd as spam: the 500 response carries header `formspark-status: spam`. Reproduced with curl for a minimal token-less JSON body {email,message}, and unchanged by adding form/_gotcha/an invalid g-recaptcha-response, by form-urlencoded body, or by matching Origin/Referer (prod, www, localhost). Because the real site (which sends a valid token) also 500s, the reCAPTCHA verification is failing server-side — the reCAPTCHA SECRET configured in Formspark is missing or does not match the site key (VITE_CAPTCHA_SITEKEY) that mints the token, and/or reCAPTCHA is enabled with the wrong key type (v2-invisible vs v3). Our payload shape is correct (probe 1, simpler than what submit.ts sends, already fails).",
+      "fix": "No code change. Dashboard-side: in Formspark form RBavvWpyd's spam/reCAPTCHA settings, set the reCAPTCHA SECRET that pairs with VITE_CAPTCHA_SITEKEY (both must be the same reCAPTCHA v2 'Invisible' key pair), and ensure the reCAPTCHA admin console lists creativecodelogic.com + localhost. If the intent was to launch without captcha, disable reCAPTCHA on the form — then token-less submits succeed. Note: requests sent WITHOUT `Accept: application/json` get a 302 redirect instead of the JSON 500, but that is Formspark's redirect flow, not proof of acceptance.",
+      "tags": [
+        "formspark",
+        "recaptcha",
+        "external-config",
+        "spam",
+        "http-500"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T14:20:00.000Z"
     }
   ]
 }
