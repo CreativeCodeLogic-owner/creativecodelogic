@@ -107,3 +107,13 @@
 | 20:17 | Edited src/components/Invitation.tsx | CSS: closes | ~328 |
 | 20:20 | Edited src/components/Invitation.tsx | CSS: visibility, opacity, opacity | ~128 |
 | 18:15 | Brief flow close affordance + state preservation: lifted brief data (step+answers) to Invitation so it survives close/reopen; × close (data-brief-close, contextual "Done" on success) + scoped Esc; reset only on success. Fixed two bugs: (1) React reused the CTA/brief-wrap <div> node → brief invisible/unclickable → distinct keys; (2) autoAlpha CTA fade-in blocked focus → opacity | BriefForm.tsx, Invitation.tsx, verify6.mjs | build clean; verify6 3 passes 0 errors; close/reopen preserves step+chips+text+email, focus returns to CTA, footer unchanged, Esc scoped (outside=no close), reduced-motion instant swaps | ~9000 |
+| 20:26 | Session end: 78 writes across 15 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 21 reads | ~62723 tok |
+| 20:44 | Created src/components/MobileMenu.tsx | — | ~1576 |
+| 20:44 | Edited src/components/MobileMenu.tsx | 8→7 lines | ~87 |
+| 20:44 | Edited src/components/Nav.tsx | modified Nav() | ~246 |
+| 20:45 | Edited src/components/Nav.tsx | added optional chaining | ~733 |
+| 20:45 | Edited src/components/HeroSignature.tsx | 14→14 lines | ~187 |
+| 20:45 | Edited src/components/worlds/WorldCreative.tsx | expanded (+6 lines) | ~287 |
+| 20:47 | Edited scripts/verify6.mjs | added 1 condition(s) | ~222 |
+| 20:48 | Edited scripts/verify6.mjs | added 2 condition(s) | ~855 |
+| 18:55 | Mobile menu + site-wide focus/touch polish: MobileMenu.tsx (full-screen overlay, sentinel focus-trap, Esc, scroll-lock, portal, opacity reveal) wired into Nav.tsx with a 44px hamburger (right of CTA pill); focus-visible rings on nav links/logo/CTAs/hero CTAs; palette swatches → 40px hit area w/ 16px dot | MobileMenu.tsx, Nav.tsx, HeroSignature.tsx, WorldCreative.tsx, verify6.mjs | build clean; verify6 3 passes 0 errors; menu dialog+focus+trap+esc+scroll-lock+nav-scroll+reduced all pass; hamburgerHiddenDesktop=true; paletteHit 40/dot 16 | ~10000 |

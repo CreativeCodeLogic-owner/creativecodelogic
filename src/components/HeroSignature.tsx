@@ -214,14 +214,14 @@ export function HeroSignature() {
         <a
           href="#process"
           onClick={go("#process")}
-          className="rounded-full border border-accent/50 px-6 py-3 text-sm font-medium text-accent transition-colors duration-300 hover:bg-accent hover:text-navy"
+          className="rounded-full border border-accent/50 px-6 py-3 text-sm font-medium text-accent transition-colors duration-300 hover:bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
           See how we build ↓
         </a>
         <a
           href="#contact"
           onClick={go("#contact")}
-          className="text-sm text-mist transition-colors duration-300 hover:text-ink"
+          className="rounded-md text-sm text-mist transition-colors duration-300 hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
           Start a project
         </a>

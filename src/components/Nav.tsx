@@ -1,8 +1,12 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Triquetra } from "@/components/Triquetra";
+import { MobileMenu } from "@/components/MobileMenu";
 import { ScrollTrigger, scrollToId } from "@/lib/scroll";
 import { SHOW_WORK } from "@/lib/flags";
 import { useMagnetic } from "@/hooks/useMagnetic";
+
+const MENU_ID = "mobile-menu";
 
 const LINKS = [
   { label: "The Mark", hash: "#signature" },
@@ -14,6 +18,8 @@ const LINKS = [
 export function Nav() {
   const barRef = useRef<HTMLElement>(null);
   const ctaRef = useMagnetic<HTMLAnchorElement>(3, 60);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useLayoutEffect(() => {
     const bar = barRef.current;
@@ -50,7 +56,7 @@ export function Nav() {
         <a
           href="#signature"
           onClick={go("#signature")}
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
           aria-label="Creative Code Logic — back to top"
         >
           <Triquetra className="h-7 w-7" />
@@ -65,7 +71,7 @@ export function Nav() {
               <a
                 href={link.hash}
                 onClick={go(link.hash)}
-                className="text-sm text-mist transition-colors duration-300 hover:text-ink"
+                className="rounded-md text-sm text-mist transition-colors duration-300 hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
                 {link.label}
               </a>
@@ -73,15 +79,48 @@ export function Nav() {
           ))}
         </ul>
 
-        <a
-          ref={ctaRef}
-          href="#contact"
-          onClick={go("#contact")}
-          className="rounded-full border border-accent/50 px-4 py-2 text-sm font-medium text-accent transition-colors duration-300 hover:bg-accent hover:text-navy"
-        >
-          Start a project
-        </a>
+        <div className="flex items-center gap-1">
+          <a
+            ref={ctaRef}
+            href="#contact"
+            onClick={go("#contact")}
+            className="rounded-full border border-accent/50 px-4 py-2 text-sm font-medium text-accent transition-colors duration-300 hover:bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+          >
+            Start a project
+          </a>
+
+          {/* hamburger — mobile only; the full-screen menu carries the × */}
+          <button
+            ref={hamburgerRef}
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls={MENU_ID}
+            onClick={() => setMenuOpen(true)}
+            className="relative flex h-11 w-11 items-center justify-center rounded-md text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none md:hidden"
+          >
+            <span className="absolute h-[1.5px] w-6 -translate-y-1 bg-ink" />
+            <span className="absolute h-[1.5px] w-6 translate-y-1 bg-ink" />
+          </button>
+        </div>
       </nav>
+
+      {menuOpen &&
+        createPortal(
+          <MobileMenu
+            id={MENU_ID}
+            links={LINKS}
+            onClose={() => {
+              setMenuOpen(false);
+              hamburgerRef.current?.focus();
+            }}
+            onNavigate={(hash) => {
+              setMenuOpen(false);
+              requestAnimationFrame(() => scrollToId(hash));
+            }}
+          />,
+          document.body,
+        )}
     </header>
   );
 }

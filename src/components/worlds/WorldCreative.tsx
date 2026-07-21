@@ -528,13 +528,19 @@ export function WorldCreative() {
                   aria-label={`${label}: ${c.name}`}
                   aria-pressed={selected === i}
                   onClick={() => pick(i)}
-                  className={`h-4 w-4 rounded-full transition-all duration-200 ${
-                    selected === i
-                      ? "scale-125 ring-2 ring-ink/70 ring-offset-2 ring-offset-navy"
-                      : "opacity-50 hover:opacity-100"
-                  }`}
-                  style={{ backgroundColor: c.value }}
-                />
+                  className="group flex h-10 w-10 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                >
+                  {/* 40px hit area; the visible dot stays 16px */}
+                  <span
+                    aria-hidden="true"
+                    className={`h-4 w-4 rounded-full transition-all duration-200 ${
+                      selected === i
+                        ? "scale-125 ring-2 ring-ink/70 ring-offset-2 ring-offset-navy"
+                        : "opacity-50 group-hover:opacity-100"
+                    }`}
+                    style={{ backgroundColor: c.value }}
+                  />
+                </button>
               ))}
             </div>
           </div>

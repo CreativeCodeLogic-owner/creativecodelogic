@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T17:20:33.414Z
-> Files: 53 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T17:48:16.369Z
+> Files: 54 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -55,7 +55,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~6394 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~7361 tok)
 
 ## src/
 
@@ -70,9 +70,10 @@
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2078 tok)
 - `Footer.tsx` — Footer (~112 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3339 tok)
-- `HeroSignature.tsx` — Chapter 1 — The Mark. (~2168 tok)
+- `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1768 tok)
-- `Nav.tsx` — LINKS (~827 tok)
+- `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1555 tok)
+- `Nav.tsx` — MENU_ID (~1307 tok)
 - `ProgressLine.tsx` — The journey line — a thin cyan rule down the page edge, drawn by scroll. (~297 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2222 tok)
 - `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~840 tok)
@@ -81,7 +82,7 @@
 ## src/components/worlds/
 
 - `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4479 tok)
-- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5363 tok)
+- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5466 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 
 ## src/data/

@@ -85,6 +85,22 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.click('button[aria-label="outline color: sand gold"]');
   await sleep(300);
   await page.screenshot({ path: `${OUT}/full-comet-palette.png` });
+  // palette swatch: ≥40px hit area while the visible dot stays 16px (offsetWidth
+  // ignores the selected scale transform)
+  out.paletteHit = await page.evaluate(() => {
+    const btn = document.querySelector('button[aria-label^="outline color:"]');
+    if (!btn) return null;
+    const dot = btn.firstElementChild;
+    return {
+      hit: Math.min(btn.offsetWidth, btn.offsetHeight),
+      dot: dot ? dot.offsetWidth : 0,
+    };
+  });
+  // hamburger is desktop-hidden at ≥768px
+  out.hamburgerHiddenDesktop = await page.evaluate(() => {
+    const h = document.querySelector('[aria-label="Open menu"]');
+    return h ? getComputedStyle(h).display === "none" : false;
+  });
 
   // layout checks for Creative: mark/grid clear of copy, palette in viewport
   out.creativeNoOverlap = await page.evaluate(() => {
@@ -510,6 +526,72 @@ async function scrollToEl(page, sel, offset = -60) {
     const t = document.querySelector("[data-ascii-stage]")?.textContent ?? "";
     return t.split("\n").filter((r) => r.trim().length > 0).length;
   });
+
+  // --- mobile menu ------------------------------------------------------------
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await sleep(400);
+  const menu = {};
+  menu.hamburgerVisible = await page.evaluate(() => {
+    const h = document.querySelector('[aria-label="Open menu"]');
+    if (!h) return false;
+    const r = h.getBoundingClientRect();
+    return getComputedStyle(h).display !== "none" && r.width >= 44 && r.height >= 44;
+  });
+  await page.click('[aria-label="Open menu"]');
+  await sleep(500);
+  await page.screenshot({ path: `${OUT}/m-menu.png` });
+  menu.dialogRole = await page.evaluate(() => {
+    const d = document.querySelector("#mobile-menu");
+    return d?.getAttribute("role") === "dialog" && d?.getAttribute("aria-modal") === "true";
+  });
+  menu.focusInside = await page.evaluate(
+    () => document.querySelector("#mobile-menu")?.contains(document.activeElement) === true,
+  );
+  menu.scrollLocked = await page.evaluate(
+    () => getComputedStyle(document.documentElement).overflow === "hidden",
+  );
+  for (let i = 0; i < 10; i++) await page.keyboard.press("Tab");
+  menu.tabStaysInside = await page.evaluate(
+    () => document.querySelector("#mobile-menu")?.contains(document.activeElement) === true,
+  );
+  await page.keyboard.press("Escape");
+  await sleep(400);
+  menu.closedByEsc = await page.evaluate(() => !document.querySelector("#mobile-menu"));
+  menu.focusBackOnHamburger = await page.evaluate(
+    () => document.activeElement?.getAttribute("aria-label") === "Open menu",
+  );
+  menu.scrollUnlocked = await page.evaluate(
+    () => getComputedStyle(document.documentElement).overflow !== "hidden",
+  );
+  // open → click Process → menu closes AND page scrolls to #process
+  await page.click('[aria-label="Open menu"]');
+  await sleep(500);
+  await page.click('#mobile-menu a[href="#process"]');
+  await sleep(2000);
+  menu.closedByNav = await page.evaluate(() => !document.querySelector("#mobile-menu"));
+  menu.scrolledToProcess = await page.evaluate(() => {
+    const el = document.querySelector("#process");
+    if (!el) return false;
+    const top = el.getBoundingClientRect().top;
+    return top >= -140 && top <= 340; // near the top (scrollToId offset -64)
+  });
+  out.menu = menu;
+
+  // reduced-motion: menu opens/closes instantly, no errors
+  const rmPage = await browser.newPage();
+  const rmErrors = watch(rmPage);
+  await rmPage.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
+  await rmPage.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
+  await sleep(1500);
+  await rmPage.click('[aria-label="Open menu"]');
+  await sleep(200);
+  menu.rmOpens = await rmPage.evaluate(() => !!document.querySelector("#mobile-menu"));
+  await rmPage.keyboard.press("Escape");
+  await sleep(200);
+  menu.rmCloses = await rmPage.evaluate(() => !document.querySelector("#mobile-menu"));
+  errors.push(...rmErrors);
+  await rmPage.close();
+
   console.log("\n=== MOBILE ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
