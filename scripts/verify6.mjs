@@ -238,11 +238,11 @@ async function scrollToEl(page, sel, offset = -60) {
   });
   await page.screenshot({ path: `${OUT}/full-logic.png` });
 
-  // --- 4. process dots fill ---------------------------------------------------
+  // --- 4. process dots fill (pin now draws over +=80% — slower pacing) --------
   await page.evaluate(() => {
     const el = document.querySelector("[data-steps]");
     const y = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2;
-    window.scrollTo({ top: y + window.innerHeight * 0.14, behavior: "instant" });
+    window.scrollTo({ top: y + window.innerHeight * 0.4, behavior: "instant" });
   });
   await sleep(1500);
   out.dotsMid = await page.evaluate(() =>
@@ -250,10 +250,14 @@ async function scrollToEl(page, sel, offset = -60) {
       (d) => getComputedStyle(d).backgroundColor === "rgb(87, 211, 254)",
     ),
   );
+  // step 04 is now "Ship"
+  out.step04Heading = await page.evaluate(
+    () => [...document.querySelectorAll("[data-step] h3")].map((h) => h.textContent)[3],
+  );
   await page.evaluate(() => {
     const el = document.querySelector("[data-steps]");
     const y = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2;
-    window.scrollTo({ top: y + window.innerHeight * 0.5, behavior: "instant" });
+    window.scrollTo({ top: y + window.innerHeight * 0.75, behavior: "instant" });
   });
   await sleep(1500);
   out.dotsEnd = await page.evaluate(() =>
@@ -261,6 +265,7 @@ async function scrollToEl(page, sel, offset = -60) {
       (d) => getComputedStyle(d).backgroundColor === "rgb(87, 211, 254)",
     ),
   );
+  // the Ship step's seal stamps during the pin
   out.sealStamped = await page.evaluate(() => {
     const s = document.querySelector("[data-step] [data-seal]");
     return s ? parseFloat(getComputedStyle(s).opacity) > 0.9 : false;
@@ -460,6 +465,24 @@ async function scrollToEl(page, sel, offset = -60) {
     () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
   );
 
+  // --- 9. progress line (edge-glued, capped, tip rides to bottom) + footer ----
+  out.progressLine = await page.evaluate(() => {
+    const c = document.querySelector("[data-progress]");
+    const tip = document.querySelector("[data-progress-tip]");
+    return {
+      leftEdge: c ? Math.round(c.getBoundingClientRect().left) : null,
+      cap: !!document.querySelector("[data-progress-cap]"),
+      tip: !!tip,
+      // at page bottom the tip rests at the track bottom (≈ viewport bottom)
+      tipAtBottom: tip
+        ? Math.abs(tip.getBoundingClientRect().top - (window.innerHeight - 5)) <= 14
+        : false,
+    };
+  });
+  out.footerFontSize = await page.evaluate(
+    () => getComputedStyle(document.querySelector("footer p")).fontSize,
+  );
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -476,6 +499,26 @@ async function scrollToEl(page, sel, offset = -60) {
   await sleep(2500);
   const out = {};
   out.rotatingLine = await page.evaluate(() => !!document.querySelector("[data-hero-line]"));
+  // progress line renders statically (full-height, both caps) under reduced motion
+  out.progressLineStatic = await page.evaluate(() => {
+    const line = document.querySelector("[data-progress-line]");
+    const cap = document.querySelector("[data-progress-cap]");
+    const tip = document.querySelector("[data-progress-tip]");
+    return (
+      !!line &&
+      !!cap &&
+      !!tip &&
+      line.getBoundingClientRect().height > window.innerHeight * 0.9
+    );
+  });
+  // Ship step renders statically with its seal shown (no stamp animation)
+  await scrollToEl(page, "#process");
+  await sleep(400);
+  out.shipStepReduced = await page.evaluate(() => {
+    const headings = [...document.querySelectorAll("[data-step] h3")].map((h) => h.textContent);
+    const seal = document.querySelector("[data-step] [data-seal]");
+    return headings[3] === "Ship" && !!seal && getComputedStyle(seal).opacity !== "0";
+  });
   await scrollToEl(page, '[data-world="1"]');
   await sleep(600);
   out.terminalStatic = await page.evaluate(() => {

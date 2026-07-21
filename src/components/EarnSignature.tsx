@@ -29,7 +29,7 @@ const STEPS = [
     name: "Build",
     body: "Designed, engineered, and tested to the standard above.",
   },
-  { name: "Mark", body: "The mark goes on only when the standard is met." },
+  { name: "Ship", body: "It goes live only when it earns the mark." },
 ];
 
 /**
@@ -69,7 +69,7 @@ export function EarnSignature() {
         scrollTrigger: {
           trigger: "[data-steps]",
           start: "center center",
-          end: "+=25%",
+          end: "+=80%",
           pin: true,
           scrub: 0.4,
         },
@@ -96,7 +96,7 @@ export function EarnSignature() {
             i / (all.length - 1),
           );
         });
-      // the "Mark" step stamps its seal right after its dot fills
+      // the "Ship" step stamps its seal right after its dot fills
       const markStep = gsap.utils.toArray<HTMLElement>("[data-step]").at(-1);
       const seal = markStep?.querySelector("[data-seal]");
       if (seal) drawTl.add(sealStampTl(seal), 1.05);
@@ -188,7 +188,7 @@ export function EarnSignature() {
                   <h3 className="font-display text-xl font-semibold text-ink">
                     {step.name}
                   </h3>
-                  {step.name === "Mark" && (
+                  {step.name === "Ship" && (
                     <span
                       data-seal
                       aria-hidden="true"

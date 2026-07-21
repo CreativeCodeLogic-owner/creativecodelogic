@@ -742,6 +742,38 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T19:18:01.907Z"
+    },
+    {
+      "id": "bug-046",
+      "timestamp": "2026-07-21T20:23:56.204Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/EarnSignature.tsx",
+      "root_cause": "Had \"Mark\"",
+      "fix": "Changed to \"Ship\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-07-21T20:24:01.318Z"
+    },
+    {
+      "id": "bug-047",
+      "timestamp": "2026-07-21T20:24:06.677Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Footer.tsx",
+      "root_cause": "Had \"text-sm text-mist\"",
+      "fix": "Changed to \"text-[10px] leading-relaxed text-mist\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T20:24:06.677Z"
     }
   ]
 }

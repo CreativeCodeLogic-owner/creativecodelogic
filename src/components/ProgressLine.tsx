@@ -2,38 +2,67 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
+const CAP = 5; // px — top cap + tip size
+const WIDE = 3; // px — track width; the line tapers from this to 1px
+
 /**
- * The journey line — a thin cyan rule down the page edge, drawn by scroll.
- * Purely decorative; omitted entirely under prefers-reduced-motion.
+ * The journey line — a cyan rule glued to the left edge, drawn by scroll. A
+ * fixed square caps the top; a small dot rides the growing tip (an echo of the
+ * blueprint plotter head). The line tapers from ~3px near the top to 1px as
+ * progress approaches 1. Reduced motion: static full-height thin line + caps.
  */
 export function ProgressLine() {
   const reduced = usePrefersReducedMotion();
   const lineRef = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
-    if (reduced || !lineRef.current) return;
+    if (reduced) return;
+    const line = lineRef.current;
+    const tip = tipRef.current;
+    if (!line || !tip) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          transformOrigin: "top center",
-          scrollTrigger: { start: 0, end: "max", scrub: 0.3 },
-        },
+      // one scrubbed timeline off the whole-page scroll drives all three:
+      // the draw (scaleY), the taper (scaleX), and the riding tip (translateY)
+      gsap.set(line, { transformOrigin: "top left", scaleY: 0, scaleX: 1 });
+      gsap.set(tip, { y: 0 });
+      const tl = gsap.timeline({
+        scrollTrigger: { start: 0, end: "max", scrub: 0.3, invalidateOnRefresh: true },
+      });
+      tl.to(line, { scaleY: 1, scaleX: 1 / WIDE, ease: "none" }, 0).to(
+        tip,
+        { y: () => window.innerHeight - CAP, ease: "none" },
+        0,
       );
     });
     return () => ctx.revert();
   }, [reduced]);
 
-  if (reduced) return null;
-
   return (
     <div
-      ref={lineRef}
+      data-progress
       aria-hidden="true"
-      className="fixed top-0 left-3 z-40 h-full w-px bg-accent/70 md:left-8"
-    />
+      className="pointer-events-none fixed top-0 left-0 z-40 h-full w-[3px]"
+    >
+      {/* the drawn rule — scaleY draws it, scaleX tapers it (origin top-left) */}
+      <div
+        ref={lineRef}
+        data-progress-line
+        className="h-full w-full origin-top-left bg-accent/70"
+        style={reduced ? { transform: "scaleY(1) scaleX(0.3333)" } : undefined}
+      />
+      {/* fixed cap at the top of the track */}
+      <span
+        data-progress-cap
+        className="absolute top-0 left-0 h-[5px] w-[5px] bg-accent"
+      />
+      {/* dot riding the drawn tip; rests at the track bottom at 100% */}
+      <span
+        ref={tipRef}
+        data-progress-tip
+        className="absolute top-0 left-0 h-[5px] w-[5px] rounded-full bg-accent shadow-[0_0_6px_rgba(87,211,254,0.7)]"
+        style={reduced ? { transform: "translateY(calc(100vh - 5px))" } : undefined}
+      />
+    </div>
   );
 }
