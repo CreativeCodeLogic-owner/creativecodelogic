@@ -288,6 +288,58 @@ async function scrollToEl(page, sel, offset = -60) {
   // STOP here — do NOT submit (no network call to submit-form.com in CI)
   await page.screenshot({ path: `${OUT}/full-brief.png` });
 
+  // --- 6b. brief close affordance + state preservation -----------------------
+  // brief is open at step 3 (kind/problem/timing/email all set). Close via ×,
+  // reopen, and confirm the flow resumes exactly where it was left.
+  const briefClose = {};
+  const footBeforeClose = await footTop();
+  await page.click("[data-brief-close]");
+  await sleep(500);
+  briefClose.ctaVisibleAfterClose = await page.evaluate(
+    () => !!document.querySelector("[data-brief-open]") && !document.querySelector("[data-brief-form]"),
+  );
+  briefClose.focusOnCta = await page.evaluate(
+    () => document.activeElement?.hasAttribute("data-brief-open") === true,
+  );
+  briefClose.footerUnchanged = (await footTop()) === footBeforeClose;
+  // reopen — must resume at step 3 with the email + timing intact
+  await page.click("[data-brief-open]");
+  await sleep(500);
+  briefClose.reopenSameStep = await page.evaluate(() => !!document.querySelector("[data-brief-submit]"));
+  briefClose.emailIntact = await page.evaluate(
+    () => (document.querySelector("#brief-email")?.value ?? "").includes("@"),
+  );
+  briefClose.timingChipIntact = await page.evaluate(
+    () => [...document.querySelectorAll("[data-chip]")].some((c) => c.getAttribute("aria-pressed") === "true"),
+  );
+  // step 2 text + step 1 chip also survived (walk back)
+  await page.click("[data-brief-back]");
+  await sleep(300);
+  briefClose.problemIntact = await page.evaluate(
+    () => (document.querySelector("#brief-problem")?.value?.length ?? 0) > 0,
+  );
+  await page.click("[data-brief-back]");
+  await sleep(300);
+  briefClose.chipIntact = await page.evaluate(
+    () => [...document.querySelectorAll("[data-chip]")].some((c) => c.getAttribute("aria-pressed") === "true"),
+  );
+  // Esc from inside the brief closes it
+  await page.focus("#brief-kind-note");
+  await page.keyboard.press("Escape");
+  await sleep(400);
+  briefClose.escInsideCloses = await page.evaluate(() => !document.querySelector("[data-brief-form]"));
+  // reopen, then Esc from OUTSIDE the brief (a nav link) must NOT close it
+  await page.click("[data-brief-open]");
+  await sleep(400);
+  await page.focus('header a[href="#process"]');
+  await page.keyboard.press("Escape");
+  await sleep(300);
+  briefClose.escOutsideNoClose = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
+  // tidy up: close the brief before moving on
+  await page.click("[data-brief-close]");
+  await sleep(400);
+  out.briefClose = briefClose;
+
   // --- 7. hello drawer (opened + closed every way; never submitted) ----------
   const hello = {};
   await page.click("[data-hello-open]");
@@ -407,6 +459,25 @@ async function scrollToEl(page, sel, offset = -60) {
       document.querySelectorAll('button[aria-label^="Drag node"]').length === 0,
   );
   out.pinSpacer = await page.evaluate(() => !!document.querySelector(".pin-spacer"));
+
+  // brief close/reopen works with instant swaps under reduced motion
+  await page.evaluate(() => document.querySelector("#contact").scrollIntoView({ block: "center" }));
+  await sleep(300);
+  await page.click("[data-brief-open]");
+  await sleep(200);
+  out.rmBriefOpens = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
+  await page.click("[data-chip]"); // leave some state
+  await page.click("[data-brief-close]");
+  await sleep(200);
+  out.rmBriefCloses = await page.evaluate(
+    () => !!document.querySelector("[data-brief-open]") && !document.querySelector("[data-brief-form]"),
+  );
+  await page.click("[data-brief-open]");
+  await sleep(200);
+  out.rmBriefReopensWithState = await page.evaluate(
+    () => [...document.querySelectorAll("[data-chip]")].some((c) => c.getAttribute("aria-pressed") === "true"),
+  );
+
   // nav scrolled-state must apply under reduced motion too (would fail pre-fix)
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await sleep(500);

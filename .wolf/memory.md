@@ -95,3 +95,15 @@
 | 19:03 | Edited scripts/verify6.mjs | added optional chaining | ~110 |
 | 19:03 | Edited scripts/verify6.mjs | added optional chaining | ~138 |
 | 17:15 | Fix nav .nav-scrolled dropping at page bottom: bounded ScrollTrigger toggleClass (start:40 end:max) deactivates past max → class stripped. Replaced with unbounded start:0 end:max + manual onUpdate/onRefresh toggle on self.scroll()>40, initial apply(window.scrollY), and removed reduced-motion early-return (scroll-state ≠ motion). verify6: nav-scrolled holds at absolute bottom in full + reduced passes | Nav.tsx, verify6.mjs | build clean; 3 passes 0 errors; navScrolledAtBottom true in FULL + REDUCED | ~2500 |
+| 19:07 | Session end: 68 writes across 15 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 19 reads | ~52836 tok |
+| 20:01 | Created src/components/BriefForm.tsx | — | ~3847 |
+| 20:02 | Edited src/components/Invitation.tsx | 2→2 lines | ~39 |
+| 20:02 | Edited src/components/Invitation.tsx | 4→7 lines | ~114 |
+| 20:02 | Edited src/components/Invitation.tsx | added optional chaining | ~318 |
+| 20:02 | Edited src/components/Invitation.tsx | expanded (+6 lines) | ~88 |
+| 20:03 | Edited scripts/verify6.mjs | added optional chaining | ~717 |
+| 20:04 | Edited scripts/verify6.mjs | expanded (+19 lines) | ~295 |
+| 20:14 | Edited src/components/Invitation.tsx | CSS: below | ~161 |
+| 20:17 | Edited src/components/Invitation.tsx | CSS: closes | ~328 |
+| 20:20 | Edited src/components/Invitation.tsx | CSS: visibility, opacity, opacity | ~128 |
+| 18:15 | Brief flow close affordance + state preservation: lifted brief data (step+answers) to Invitation so it survives close/reopen; × close (data-brief-close, contextual "Done" on success) + scoped Esc; reset only on success. Fixed two bugs: (1) React reused the CTA/brief-wrap <div> node → brief invisible/unclickable → distinct keys; (2) autoAlpha CTA fade-in blocked focus → opacity | BriefForm.tsx, Invitation.tsx, verify6.mjs | build clean; verify6 3 passes 0 errors; close/reopen preserves step+chips+text+email, focus returns to CTA, footer unchanged, Esc scoped (outside=no close), reduced-motion instant swaps | ~9000 |

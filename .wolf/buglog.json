@@ -433,10 +433,110 @@
       "file": "src/components/Nav.tsx",
       "root_cause": "The nav used ScrollTrigger.create({ start: 40, end: 'max', toggleClass }). A BOUNDED trigger DEACTIVATES once scroll passes its end, and toggleClass strips the class on deactivation — so at/near the bottom (scroll >= cached max, cache easily stale after the brief/drawer change the page height) the class was removed. Also latent: the effect early-returned under prefers-reduced-motion, so reduced-motion users never got the scrolled nav at all (this is scroll-state styling, not motion).",
       "fix": "Replaced with an unbounded ScrollTrigger.create({ start: 0, end: 'max', onUpdate/onRefresh: (self) => bar.classList.toggle('nav-scrolled', self.scroll() > 40) }) plus an initial apply(window.scrollY) on mount (handles loading mid-scroll via #anchor). Removed the reduced-motion early return so the toggle runs regardless. Reaching/passing the bottom can no longer strip the class.",
-      "tags": ["scrolltrigger", "toggleclass", "reduced-motion", "nav", "tsx"],
-      "related_bugs": ["bug-015"],
+      "tags": [
+        "scrolltrigger",
+        "toggleclass",
+        "reduced-motion",
+        "nav",
+        "tsx"
+      ],
+      "related_bugs": [
+        "bug-015"
+      ],
       "occurrences": 1,
       "last_seen": "2026-07-21T17:10:00.000Z"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-07-21T17:02:17.041Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:02:17.041Z"
+    },
+    {
+      "id": "bug-029",
+      "timestamp": "2026-07-21T17:03:43.047Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:03:43.047Z"
+    },
+    {
+      "id": "bug-030",
+      "timestamp": "2026-07-21T17:14:59.421Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 10→13 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:14:59.422Z"
+    },
+    {
+      "id": "bug-031",
+      "timestamp": "2026-07-21T17:17:56.811Z",
+      "error_message": "Missing guard clause",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "No early return/throw for edge case: reset",
+      "fix": "Added guard clause: if (reset)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:17:56.811Z"
+    },
+    {
+      "id": "bug-032",
+      "timestamp": "2026-07-21T17:20:33.447Z",
+      "error_message": "Type error",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:20:33.447Z"
+    },
+    {
+      "id": "bug-017",
+      "timestamp": "2026-07-21T18:10:00.000Z",
+      "error_message": "After adding the brief close affordance, the opened brief was invisible/unclickable — real clicks + typing did nothing (chips/inputs never updated); only synthetic el.click() worked",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "The CTA <div> and the brief-wrap <div> sit at the same position in a {open ? <div> : <div>} conditional, so React RE-USED the same DOM node across the swap. openBrief animates that node to autoAlpha:0 (visibility:hidden) as the CTA; when it became the brief-wrap it kept those inline gsap styles, so the whole brief rendered visibility:hidden (getBoundingClientRect reported a box, but elementFromPoint at that box returned the swap-box ancestor; real pointer/keyboard events can't hit a hidden element, while synthetic el.click() can — which is why the chip state 'worked' via evaluate but not via page.click/type).",
+      "fix": "Gave the two conditional <div>s distinct keys (key=\"brief\" / key=\"cta\") so React mounts a fresh node each way, with no carried-over gsap inline styles. Also moved the on-close CTA fade-in + focus into a post-commit useLayoutEffect and switched that fade from autoAlpha to opacity (autoAlpha's visibility:hidden would again block focus() — same trap as bug-004).",
+      "tags": ["react", "reconciliation", "keys", "gsap", "autoAlpha", "focus", "tsx"],
+      "related_bugs": ["bug-004"],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T18:10:00.000Z"
     }
   ]
 }
