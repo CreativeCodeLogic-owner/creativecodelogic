@@ -47,4 +47,16 @@ export function scrollToId(hash: string): void {
   }
 }
 
+/** Lock page scroll (Lenis + native) while a modal/drawer is open. */
+export function stopScroll(): void {
+  lenis?.stop();
+  document.documentElement.style.overflow = "hidden";
+}
+
+/** Release the scroll lock. */
+export function startScroll(): void {
+  lenis?.start();
+  document.documentElement.style.overflow = "";
+}
+
 export { gsap, ScrollTrigger };

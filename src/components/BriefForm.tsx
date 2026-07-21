@@ -1,7 +1,10 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/lib/scroll";
 import { sealStampTl } from "@/lib/seal";
-import { FORMSPARK_FORM_ID } from "@/lib/flags";
+import { CAPTCHA_SITEKEY } from "@/lib/flags";
+import { mountInvisibleCaptcha, type InvisibleCaptcha } from "@/lib/captcha";
+import { submitForm } from "@/lib/submit";
+import { CaptchaNotice } from "@/components/CaptchaNotice";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const MAILTO = "hello@creativecodelogic.com";
@@ -62,6 +65,22 @@ export function BriefForm() {
   const firstControlRef = useRef<HTMLElement | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const sealRef = useRef<HTMLSpanElement>(null);
+  const captchaBoxRef = useRef<HTMLDivElement>(null);
+  const captchaRef = useRef<InvisibleCaptcha | null>(null);
+
+  // lazy-load + mount the invisible captcha the first time the brief opens
+  useEffect(() => {
+    if (!CAPTCHA_SITEKEY || !captchaBoxRef.current) return;
+    let cancelled = false;
+    mountInvisibleCaptcha(captchaBoxRef.current)
+      .then((c) => {
+        if (!cancelled) captchaRef.current = c;
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const stepValid =
     step === 1 ? kind !== "" : step === 2 ? problem.trim().length >= 10 : timing !== "" && EMAIL_RE.test(email);
@@ -94,27 +113,13 @@ export function BriefForm() {
 
   async function send() {
     const answers: Answers = { kind, kindOther, problem, timing, email };
-    if (honeypot) {
-      setStatus("success"); // bot — swallow silently
-      return;
-    }
-    if (!FORMSPARK_FORM_ID) {
-      window.location.href = mailtoHref(answers); // graceful fallback, never dead-ends
-      setStatus("success");
-      return;
-    }
     setStatus("sending");
-    try {
-      const res = await fetch(`https://submit-form.com/${FORMSPARK_FORM_ID}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ kind, kindOther, problem, timing, email }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    }
+    const result = await submitForm(
+      { form: "brief", kind, kindOther, problem, timing, email, _gotcha: honeypot },
+      mailtoHref(answers),
+      captchaRef.current,
+    );
+    setStatus(result);
   }
 
   const onSubmit = (e: React.FormEvent) => {
@@ -328,6 +333,10 @@ export function BriefForm() {
           </button>
         )}
       </div>
+
+      {/* invisible reCAPTCHA anchor + required attribution */}
+      <div ref={captchaBoxRef} />
+      <CaptchaNotice />
     </form>
   );
 }

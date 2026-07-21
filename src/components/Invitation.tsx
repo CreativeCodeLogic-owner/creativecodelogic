@@ -1,10 +1,10 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { gsap, ScrollTrigger } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { BriefForm } from "@/components/BriefForm";
-
-const CONTACT_HREF = "mailto:hello@creativecodelogic.com";
+import { HelloDrawer } from "@/components/HelloDrawer";
 
 /**
  * Chapter 5 — The Invitation.
@@ -17,7 +17,9 @@ export function Invitation() {
   const rootRef = useRef<HTMLElement>(null);
   const ctaRef = useMagnetic<HTMLButtonElement>(6, 60);
   const ctaBlockRef = useRef<HTMLDivElement>(null);
+  const helloTriggerRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [helloOpen, setHelloOpen] = useState(false);
 
   useLayoutEffect(() => {
     if (reduced) return;
@@ -100,13 +102,27 @@ export function Invitation() {
         )}
       </div>
 
-      <a
+      <button
+        ref={helloTriggerRef}
+        type="button"
+        data-hello-open
         data-invite-stagger
-        href={CONTACT_HREF}
-        className="mt-8 text-sm text-mist transition-colors duration-300 hover:text-ink"
+        onClick={() => setHelloOpen(true)}
+        className="mt-8 text-sm text-mist transition-colors duration-300 hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
       >
         Or just say hello →
-      </a>
+      </button>
+
+      {helloOpen &&
+        createPortal(
+          <HelloDrawer
+            onClose={() => {
+              setHelloOpen(false);
+              helloTriggerRef.current?.focus();
+            }}
+          />,
+          document.body,
+        )}
     </section>
   );
 }

@@ -37,3 +37,22 @@
 | 15:12 | Edited src/components/Invitation.tsx | "mt-10 flex w-full min-h-[" → "mt-10 flex w-full min-h-[" | ~28 |
 | 15:14 | Edited scripts/verify6.mjs | added optional chaining | ~681 |
 | 14:55 | Built inline 3-question brief flow: BriefForm.tsx (Formspark POST + mailto fallback, honeypot, a11y, reduced-motion), wired into Invitation.tsx with a fixed-height swap box; added flags.FORMSPARK_FORM_ID + .env.example line; verify6 section 6 | BriefForm.tsx, Invitation.tsx, flags.ts, .env.example, verify6.mjs | build clean; verify6 3 passes 0 errors; footShift=0 open/steps, focus 1/2/3 land, submit gated until valid; fixed autoAlpha→opacity focus bug | ~9000 |
+| 15:18 | Session end: 20 writes across 8 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 15 reads | ~35954 tok |
+| 16:36 | Edited src/lib/flags.ts | expanded (+7 lines) | ~97 |
+| 16:36 | Edited src/lib/scroll.ts | added optional chaining | ~101 |
+| 16:36 | Edited src/index.css | CSS: visibility | ~38 |
+| 16:37 | Created src/lib/captcha.ts | — | ~709 |
+| 16:37 | Created src/lib/submit.ts | — | ~394 |
+| 16:37 | Created src/components/CaptchaNotice.tsx | — | ~244 |
+| 16:37 | Edited src/components/BriefForm.tsx | added 3 import(s) | ~134 |
+| 16:38 | Edited src/components/BriefForm.tsx | added 2 condition(s) | ~205 |
+| 16:38 | Edited src/components/BriefForm.tsx | CSS: form, _gotcha | ~96 |
+| 16:38 | Edited src/components/BriefForm.tsx | 7→11 lines | ~72 |
+| 16:39 | Created src/components/HelloDrawer.tsx | — | ~2874 |
+| 16:39 | Edited src/components/Invitation.tsx | added 2 import(s) | ~111 |
+| 16:39 | Edited src/components/Invitation.tsx | 2→4 lines | ~59 |
+| 16:39 | Edited src/components/Invitation.tsx | added optional chaining | ~183 |
+| 16:41 | Edited scripts/verify6.mjs | added 1 condition(s) | ~124 |
+| 16:41 | Edited scripts/verify6.mjs | added 1 condition(s) | ~258 |
+| 16:41 | Edited scripts/verify6.mjs | added optional chaining | ~486 |
+| 15:20 | Invisible reCAPTCHA v2 + say-hello drawer: captcha.ts (lazy-load, invisible widget) + submit.ts (shared Formspark path w/ token) + CaptchaNotice; HelloDrawer.tsx (portal, focus-trap, Esc/backdrop, scroll-lock); BriefForm tagged form:"brief"; scroll.ts stop/startScroll; verify6 sec 6+7 | captcha.ts, submit.ts, CaptchaNotice.tsx, HelloDrawer.tsx, BriefForm.tsx, Invitation.tsx, flags.ts, scroll.ts, index.css, .env.example, verify6.mjs | build clean; verify6 3 passes 0 errors; lazy-load proven (recaptchaBeforeOpen=false/After=true), drawer dialog+focus-trap+esc+backdrop+focus-return all pass; reduced-motion drawer smoke clean | ~12000 |

@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T12:14:19.914Z
-> Files: 49 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T13:41:28.913Z
+> Files: 53 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -55,21 +55,23 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~4172 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~4859 tok)
 
 ## src/
 
 - `App.tsx` — App — uses useEffect (~314 tok)
-- `index.css` — Styles: 19 rules, 8 vars, 2 media queries, 5 animations (~1047 tok)
+- `index.css` — Styles: 20 rules, 8 vars (~1082 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
 
-- `BriefForm.tsx` — The brief flow — three questions, one at a time, that resolve into a real (~3407 tok)
+- `BriefForm.tsx` — The brief flow — three questions, one at a time, that resolve into a real (~3508 tok)
+- `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2078 tok)
 - `Footer.tsx` — Footer (~112 tok)
+- `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Same Formspark endpoint as the brief, (~2874 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2168 tok)
-- `Invitation.tsx` — Chapter 5 — The Invitation. (~1036 tok)
+- `Invitation.tsx` — Chapter 5 — The Invitation. (~1198 tok)
 - `Nav.tsx` — LINKS (~723 tok)
 - `ProgressLine.tsx` — The journey line — a thin cyan rule down the page edge, drawn by scroll. (~297 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2222 tok)
@@ -93,6 +95,8 @@
 
 ## src/lib/
 
-- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~118 tok)
-- `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~391 tok)
+- `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~709 tok)
+- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~184 tok)
+- `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~483 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~330 tok)
+- `submit.ts` — Shared submission path for the brief and the hello drawer. Honeypot short- (~394 tok)

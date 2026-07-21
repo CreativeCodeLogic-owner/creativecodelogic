@@ -98,6 +98,102 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T12:14:19.940Z"
+    },
+    {
+      "id": "bug-007",
+      "timestamp": "2026-07-21T13:36:53.946Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/lib/scroll.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T13:36:53.946Z"
+    },
+    {
+      "id": "bug-008",
+      "timestamp": "2026-07-21T13:37:55.965Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/BriefForm.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→8 lines (2 removed) | Also: if (honeypot) {; setStatus(\"success\"); // bot — swallow silently",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-21T13:38:12.373Z"
+    },
+    {
+      "id": "bug-009",
+      "timestamp": "2026-07-21T13:38:04.130Z",
+      "error_message": "Missing error handling in unknown",
+      "file": "src/components/BriefForm.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T13:38:04.130Z"
+    },
+    {
+      "id": "bug-010",
+      "timestamp": "2026-07-21T13:39:49.187Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T13:39:49.187Z"
+    },
+    {
+      "id": "bug-011",
+      "timestamp": "2026-07-21T13:41:07.791Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 8→12 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T13:41:07.791Z"
+    },
+    {
+      "id": "bug-012",
+      "timestamp": "2026-07-21T13:41:28.936Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T13:41:28.936Z"
     }
   ]
 }

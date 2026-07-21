@@ -18,10 +18,14 @@ async function launch(viewport) {
 }
 function watch(page) {
   const errors = [];
+  // ignore third-party reCAPTCHA noise — we only assert on our own code
+  const ignore = (t) => /recaptcha|grecaptcha|gstatic|google\.com\/recaptcha/i.test(t || "");
   page.on("console", (m) => {
-    if (m.type() === "error") errors.push(`console.error: ${m.text()}`);
+    if (m.type() === "error" && !ignore(m.text())) errors.push(`console.error: ${m.text()}`);
   });
-  page.on("pageerror", (e) => errors.push(`pageerror: ${e.message}`));
+  page.on("pageerror", (e) => {
+    if (!ignore(e.message)) errors.push(`pageerror: ${e.message}`);
+  });
   return errors;
 }
 async function scrollToEl(page, sel, offset = -60) {
@@ -242,9 +246,26 @@ async function scrollToEl(page, sel, offset = -60) {
   const docH = () => page.evaluate(() => Math.round(document.documentElement.scrollHeight));
   const shClosed = await docH();
   const footClosed = await footTop();
+  const brief = {};
+  // lazy-load proof: no reCAPTCHA script before any form is opened
+  brief.recaptchaBeforeOpen = await page.evaluate(
+    () => !!document.querySelector('script[src*="recaptcha"]'),
+  );
   await page.click("[data-brief-open]");
   await sleep(600);
-  const brief = {};
+  // captcha configured? (attribution present ⇒ sitekey set). If so, the script
+  // must now be injected; skip gracefully when no sitekey is configured.
+  brief.captchaConfigured = await page.evaluate(() =>
+    /Protected by reCAPTCHA/i.test(document.body.textContent || ""),
+  );
+  if (brief.captchaConfigured) {
+    await sleep(800);
+    brief.recaptchaAfterOpen = await page.evaluate(
+      () => !!document.querySelector('script[src*="recaptcha"]'),
+    );
+  } else {
+    brief.recaptchaAfterOpen = "skipped (no sitekey)";
+  }
   brief.formShown = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
   brief.heightStableOnOpen = (await docH()) === shClosed; // scrollHeight unchanged (±0)
   brief.footerStableOnOpen = (await footTop()) === footClosed; // footer does not shift
@@ -275,7 +296,42 @@ async function scrollToEl(page, sel, offset = -60) {
   );
   // STOP here — do NOT submit (no network call to submit-form.com in CI)
   await page.screenshot({ path: `${OUT}/full-brief.png` });
+
+  // --- 7. hello drawer (opened + closed every way; never submitted) ----------
+  const hello = {};
+  await page.click("[data-hello-open]");
+  await sleep(600);
+  hello.dialogRole = await page.evaluate(
+    () => !!document.querySelector('[role="dialog"][aria-modal="true"]'),
+  );
+  hello.focusEmail = await page.evaluate(() => document.activeElement?.id === "hello-email");
+  await page.screenshot({ path: `${OUT}/full-hello.png` });
+  // Tab many times — focus must never leave the dialog
+  for (let i = 0; i < 12; i++) await page.keyboard.press("Tab");
+  hello.tabStaysInside = await page.evaluate(
+    () => document.querySelector('[role="dialog"]')?.contains(document.activeElement) === true,
+  );
+  await page.keyboard.down("Shift");
+  for (let i = 0; i < 4; i++) await page.keyboard.press("Tab");
+  await page.keyboard.up("Shift");
+  hello.shiftTabStaysInside = await page.evaluate(
+    () => document.querySelector('[role="dialog"]')?.contains(document.activeElement) === true,
+  );
+  // Esc closes + focus returns to the trigger
+  await page.keyboard.press("Escape");
+  await sleep(500);
+  hello.closedByEsc = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
+  hello.focusBackOnTrigger = await page.evaluate(
+    () => document.activeElement?.hasAttribute("data-hello-open") === true,
+  );
+  // reopen, then backdrop click closes (desktop: panel is right-anchored)
+  await page.click("[data-hello-open]");
+  await sleep(600);
+  await page.mouse.click(20, 20);
+  await sleep(500);
+  hello.closedByBackdrop = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
   out.brief = brief;
+  out.hello = hello;
 
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));

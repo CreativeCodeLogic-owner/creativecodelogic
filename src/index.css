@@ -60,6 +60,11 @@ html.lenis body {
   );
 }
 
+/* Hidden reCAPTCHA badge — attribution is shown inline under each form. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 .blueprint {
   background-image:
     linear-gradient(rgb(87 211 254 / 0.06) 1px, transparent 1px),
