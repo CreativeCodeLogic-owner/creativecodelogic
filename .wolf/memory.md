@@ -15,3 +15,7 @@
 | 13:59 | Session end: 4 writes across 2 files (.gitignore, CLAUDE.md) | 2 reads | ~1169 tok |
 | 14:08 | Created .gitattributes | — | ~4 |
 | 14:08 | Edited .gitignore | 3→4 lines | ~27 |
+| 14:15 | Created src/components/worlds/WorldLogic.tsx | — | ~3195 |
+| 14:15 | Edited scripts/verify6.mjs | added 1 condition(s) | ~452 |
+| 14:20 | Task A hygiene: .gitattributes (* text=auto) + renormalize + ignore hook _session.json; commit 343f6d3 | .gitattributes, .gitignore | LF/CRLF noise gone, tree clean | ~120 |
+| 14:22 | Task B: reworked World Logic (03) → blueprint construction of the mark; added Logic coverage to verify6 | WorldLogic.tsx, verify6.mjs | build clean; verify6 full+reduced+mobile pass, 0 console errors; guides=5/loops=3/ticks=12/fragments=0; stage box 420/380 unchanged | ~4100 |

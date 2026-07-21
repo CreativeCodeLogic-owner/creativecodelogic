@@ -1,113 +1,75 @@
-import { useLayoutEffect, useRef } from "react";
-import { Triquetra } from "@/components/Triquetra";
+import { useLayoutEffect, useMemo, useRef } from "react";
+import { TRIQUETRA_LOOPS, TRIQUETRA_VIEWBOX } from "@/data/triquetra";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-type Fragment = {
-  kind: "label" | "toggle" | "input" | "card" | "slider" | "badge" | "button" | "logo";
-  /** final grid position (% of the fragments container) and width */
-  x: number;
-  y: number;
-  w?: string;
-  /** centre the fragment horizontally instead of using x */
-  cx?: boolean;
-  /** extra landing delay in the scrub timeline (the keystone) */
-  late?: number;
-  /** scattered start: pixel offsets + rotation (deg) */
-  sx: number;
-  sy: number;
-  r: number;
-  title?: string;
-  value?: string;
-  bar?: string;
-  text?: string;
-};
+// The mark reads as a technical drawing: faint construction geometry that the
+// three loops trace over, then a low fill so it stays a "drawing", not a solid.
+const GUIDE_DRAW_OPACITY = 0.35;
+const GUIDE_RESOLVED_OPACITY = 0.14; // ~40% of the draw opacity
+const LOOP_FILL_OPACITY = 0.12;
+const TICK_OPACITY = 0.3;
+const DRAG_CLAMP = 40; // px, any direction
+const VIEW = 512; // TRIQUETRA_VIEWBOX is "0 0 512 512"
 
-const FRAGMENTS: Fragment[] = [
-  { kind: "label", text: "Weekly report", x: 0, y: 0, sx: -160, sy: -70, r: -8 },
-  { kind: "toggle", x: 88, y: 1, sx: 180, sy: -110, r: 11 },
-  { kind: "input", text: "ghassan@ccl.dev", x: 0, y: 20, w: "62%", sx: -220, sy: 60, r: 6 },
-  { kind: "card", title: "Revenue", value: "+18%", bar: "66%", x: 0, y: 44, w: "44%", sx: -120, sy: 150, r: -12 },
-  { kind: "card", title: "Uptime", value: "99.98%", bar: "94%", x: 52, y: 44, w: "44%", sx: 200, sy: 140, r: 9 },
-  { kind: "slider", x: 0, y: 70, w: "56%", sx: -180, sy: 220, r: -6 },
-  { kind: "badge", text: "Earned ✦", x: 66, y: 71, sx: 140, sy: 60, r: 14 },
-  { kind: "button", text: "Save changes", x: 66, y: 88, w: "34%", sx: 220, sy: 200, r: -10 },
-  // the keystone: the mark itself, snapping in last at top-centre
-  { kind: "logo", x: 0, y: 2, cx: true, late: 0.2, sx: 60, sy: -300, r: 18 },
-];
+type Guide = { cx: number; cy: number; r: number };
+type Tick = { x1: number; y1: number; x2: number; y2: number };
 
-function FragmentBody({ f }: { f: Fragment }) {
-  switch (f.kind) {
-    case "label":
-      return (
-        <p className="text-xs font-medium tracking-[0.2em] text-mist uppercase">
-          {f.text}
-        </p>
-      );
-    case "toggle":
-      return (
-        <div className="flex h-7 w-12 items-center rounded-full border border-accent/50 bg-accent/10 px-1">
-          <div className="ml-auto h-5 w-5 rounded-full bg-accent" />
-        </div>
-      );
-    case "input":
-      return (
-        <div className="rounded-md border border-ink/15 px-4 py-2.5 text-sm text-mist">
-          {f.text}
-        </div>
-      );
-    case "card":
-      return (
-        <div className="rounded-lg border border-ink/12 bg-ink/[0.03] p-4">
-          <p className="text-xs text-mist">{f.title}</p>
-          <p className="mt-1 font-display text-lg font-medium text-ink">
-            {f.value}
-          </p>
-          <div className="mt-3 h-1 rounded bg-ink/10">
-            <div
-              className="h-1 rounded bg-accent/70"
-              style={{ width: f.bar }}
-            />
-          </div>
-        </div>
-      );
-    case "slider":
-      return (
-        <div className="relative flex h-6 items-center">
-          <div className="h-px w-full bg-ink/20" />
-          <div className="absolute left-[35%] h-3.5 w-3.5 rounded-full border-2 border-accent bg-navy" />
-        </div>
-      );
-    case "badge":
-      return (
-        <span className="inline-flex items-center rounded-full border border-sand/50 px-3 py-1 text-xs text-sand">
-          {f.text}
-        </span>
-      );
-    case "button":
-      return (
-        <div className="rounded-full border border-accent/60 bg-accent/10 px-5 py-2.5 text-center text-sm font-medium text-accent">
-          {f.text}
-        </div>
-      );
-    case "logo":
-      return (
-        <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-ink/12 bg-ink/[0.03] p-3">
-          <Triquetra className="h-full w-full" />
-        </div>
-      );
+/**
+ * Approximate each loop's bounding circle from its path (centroid + average
+ * radius), the composition centre from the loop centroids, and a few tick
+ * marks along the centre lines. Sampled once at mount — pure geometry, no text.
+ */
+function buildGeometry(): { guides: Guide[]; center: { x: number; y: number }; ticks: Tick[] } {
+  const sampler = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  const guides = TRIQUETRA_LOOPS.map<Guide>((d) => {
+    sampler.setAttribute("d", d);
+    const len = sampler.getTotalLength();
+    const steps = Math.max(64, Math.round(len / 6));
+    let sx = 0;
+    let sy = 0;
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= steps; i++) {
+      const p = sampler.getPointAtLength((i / steps) * len);
+      pts.push({ x: p.x, y: p.y });
+      sx += p.x;
+      sy += p.y;
+    }
+    const cx = sx / pts.length;
+    const cy = sy / pts.length;
+    let r = 0;
+    for (const p of pts) r += Math.hypot(p.x - cx, p.y - cy);
+    return { cx, cy, r: r / pts.length };
+  });
+  const center = {
+    x: guides.reduce((a, g) => a + g.cx, 0) / guides.length,
+    y: guides.reduce((a, g) => a + g.cy, 0) / guides.length,
+  };
+  const ticks: Tick[] = [];
+  for (const d of [60, 120, 180]) {
+    // vertical ticks along the horizontal centre line
+    ticks.push({ x1: center.x - d, y1: center.y - 6, x2: center.x - d, y2: center.y + 6 });
+    ticks.push({ x1: center.x + d, y1: center.y - 6, x2: center.x + d, y2: center.y + 6 });
+    // horizontal ticks along the vertical centre line
+    ticks.push({ x1: center.x - 6, y1: center.y - d, x2: center.x + 6, y2: center.y - d });
+    ticks.push({ x1: center.x - 6, y1: center.y + d, x2: center.x + 6, y2: center.y + d });
   }
+  return { guides, center, ticks };
 }
 
 /**
- * World C — Logic. Generic interface fragments start scattered and rotated;
- * scroll (scrubbed, reversible) fades in a blueprint grid and snaps every
- * fragment into a tidy, aligned mini-interface. Reduced motion: final state.
+ * World C — Logic: "The Blueprint". A blueprint grid fades in, dashed
+ * construction guides (three loop circles + centre crosshair) draw over it,
+ * then the three triquetra loops trace in sequence and settle with a low fill
+ * as the guides fade back and tick marks appear. Scrubbed and reversible.
+ * Once assembled, each loop can be dragged and springs back — the "solid"
+ * proof. Reduced motion: the resolved drawing, statically.
  */
 export function WorldLogic() {
   const reduced = usePrefersReducedMotion();
   const panelRef = useRef<HTMLElement>(null);
   const assembled = useRef(false);
+  const { guides, center, ticks } = useMemo(buildGeometry, []);
 
   useLayoutEffect(() => {
     if (reduced) return;
@@ -120,58 +82,88 @@ export function WorldLogic() {
         scrollTrigger: { trigger: panelRef.current, start: "top 78%", once: true },
       });
 
-      const fragments = gsap.utils.toArray<HTMLElement>(
-        "[data-fragment]",
+      const guideEls = gsap.utils.toArray<SVGGeometryElement>(
+        "[data-guide]",
+        panelRef.current,
+      );
+      const loopEls = gsap.utils.toArray<SVGPathElement>(
+        "[data-loop]",
         panelRef.current,
       );
 
+      // hidden start state (useLayoutEffect → set before paint, no flash)
+      gsap.set("[data-blueprint]", { opacity: 0 });
+      gsap.set("[data-tick]", { opacity: 0 });
+      guideEls.forEach((el) => gsap.set(el, { strokeDashoffset: 18, strokeOpacity: 0 }));
+      loopEls.forEach((el) => {
+        const len = el.getTotalLength();
+        el.style.strokeDasharray = `${len}`;
+        gsap.set(el, { strokeDashoffset: len, attr: { "fill-opacity": 0 } });
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: "[data-fragments]",
+          trigger: "[data-stage]",
           start: "top 78%",
           end: "center 45%",
           scrub: 0.5,
           onUpdate: (self) => {
-            // once fully assembled, fragments become draggable
             const on = self.progress >= 0.98;
             if (on !== assembled.current) {
               assembled.current = on;
-              fragments.forEach((el) => el.classList.toggle("cursor-grab", on));
+              loopEls.forEach((el) => el.classList.toggle("cursor-grab", on));
             }
           },
         },
       });
-      tl.fromTo(
-        "[data-blueprint]",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: "none" },
-        0,
-      );
-      fragments.forEach((el, i) => {
-        const f = FRAGMENTS[i];
-        tl.from(
+
+      // 1. blueprint grid
+      tl.to("[data-blueprint]", { opacity: 1, duration: 0.15, ease: "none" }, 0);
+      // 2. construction guides draw in, staggered
+      guideEls.forEach((el, i) => {
+        tl.to(
           el,
           {
-            x: f.sx,
-            y: f.sy,
-            rotation: f.r,
-            duration: 0.55,
-            ease: "back.out(1.2)",
+            strokeDashoffset: 0,
+            strokeOpacity: GUIDE_DRAW_OPACITY,
+            duration: 0.25,
+            ease: "power1.out",
           },
-          0.12 + i * 0.05 + (f.late ?? 0),
+          0.1 + i * 0.04,
         );
       });
+      // 3. loops trace over the guides, in sequence, slightly overlapping
+      loopEls.forEach((el, i) => {
+        tl.to(
+          el,
+          { strokeDashoffset: 0, duration: 0.2, ease: "power1.inOut" },
+          0.42 + i * 0.12,
+        );
+      });
+      // 4. resolve: fills whisper in, guides fade back, ticks appear
+      loopEls.forEach((el) => {
+        tl.to(
+          el,
+          { attr: { "fill-opacity": LOOP_FILL_OPACITY }, duration: 0.2, ease: "power2.out" },
+          0.8,
+        );
+      });
+      guideEls.forEach((el) => {
+        tl.to(
+          el,
+          { strokeOpacity: GUIDE_RESOLVED_OPACITY, duration: 0.2, ease: "power2.out" },
+          0.82,
+        );
+      });
+      tl.to("[data-tick]", { opacity: TICK_OPACITY, duration: 0.2, ease: "power2.out" }, 0.84);
 
-      // drag a fragment out of place; it springs back to its slot
-      let drag: {
-        el: HTMLElement;
-        startX: number;
-        startY: number;
-      } | null = null;
+      // interaction: once assembled, drag a loop out of place; it springs back
+      let drag: { el: SVGPathElement; startX: number; startY: number } | null = null;
+      const clamp = (v: number) => Math.max(-DRAG_CLAMP, Math.min(DRAG_CLAMP, v));
 
-      const onDown = (el: HTMLElement) => (e: PointerEvent) => {
+      const onDown = (el: SVGPathElement) => (e: PointerEvent) => {
         if (!assembled.current) return;
-        gsap.killTweensOf(el);
+        gsap.killTweensOf(el, "x,y"); // stop an in-flight spring, keep timeline tweens
         drag = { el, startX: e.clientX, startY: e.clientY };
         el.setPointerCapture(e.pointerId);
         el.classList.add("cursor-grabbing");
@@ -180,24 +172,19 @@ export function WorldLogic() {
       const onMove = (e: PointerEvent) => {
         if (!drag) return;
         gsap.set(drag.el, {
-          x: e.clientX - drag.startX,
-          y: e.clientY - drag.startY,
+          x: clamp(e.clientX - drag.startX),
+          y: clamp(e.clientY - drag.startY),
         });
       };
       const onUp = () => {
         if (!drag) return;
         drag.el.classList.remove("cursor-grabbing");
-        gsap.to(drag.el, {
-          x: 0,
-          y: 0,
-          duration: 0.3,
-          ease: "back.out(1.7)",
-        });
+        gsap.to(drag.el, { x: 0, y: 0, duration: 0.4, ease: "back.out(1.7)" });
         drag = null;
       };
 
       const removers: (() => void)[] = [];
-      fragments.forEach((el) => {
+      loopEls.forEach((el) => {
         el.style.touchAction = "pan-y";
         const down = onDown(el);
         el.addEventListener("pointerdown", down);
@@ -241,26 +228,92 @@ export function WorldLogic() {
       </div>
 
       <div
-        data-fragments
+        data-stage
         aria-hidden="true"
         className="relative mt-14 h-[380px] w-full select-none md:h-[420px]"
       >
         {/* blueprint grid — fades in with the scrub, static when reduced */}
-        <div data-blueprint className="blueprint absolute -inset-4" />
-        {FRAGMENTS.map((f, i) => (
-          <div
-            key={i}
-            data-fragment
-            className="absolute"
-            style={{
-              left: f.cx ? "calc(50% - 2rem)" : `${f.x}%`,
-              top: `${f.y}%`,
-              width: f.w,
-            }}
-          >
-            <FragmentBody f={f} />
-          </div>
-        ))}
+        <div
+          data-blueprint
+          className="blueprint absolute -inset-4"
+          style={{ opacity: reduced ? 1 : 0 }}
+        />
+        <svg
+          viewBox={TRIQUETRA_VIEWBOX}
+          className="absolute inset-0 h-full w-full overflow-visible"
+        >
+          {/* construction guides: loop circles + centre crosshair */}
+          <g>
+            {guides.map((g, i) => (
+              <circle
+                key={`c${i}`}
+                data-guide
+                cx={g.cx}
+                cy={g.cy}
+                r={g.r}
+                fill="none"
+                stroke="#57D3FE"
+                strokeWidth={1.2}
+                strokeDasharray="5 5"
+                strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
+              />
+            ))}
+            <line
+              data-guide
+              x1={0}
+              y1={center.y}
+              x2={VIEW}
+              y2={center.y}
+              stroke="#57D3FE"
+              strokeWidth={1.2}
+              strokeDasharray="5 5"
+              strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
+            />
+            <line
+              data-guide
+              x1={center.x}
+              y1={0}
+              x2={center.x}
+              y2={VIEW}
+              stroke="#57D3FE"
+              strokeWidth={1.2}
+              strokeDasharray="5 5"
+              strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
+            />
+          </g>
+
+          {/* tick marks along the centre lines */}
+          <g>
+            {ticks.map((t, i) => (
+              <line
+                key={`t${i}`}
+                data-tick
+                x1={t.x1}
+                y1={t.y1}
+                x2={t.x2}
+                y2={t.y2}
+                stroke="#57D3FE"
+                strokeWidth={1}
+                strokeOpacity={0.9}
+                opacity={reduced ? TICK_OPACITY : 0}
+              />
+            ))}
+          </g>
+
+          {/* the mark: three loops trace over the guides, then fill low */}
+          {TRIQUETRA_LOOPS.map((d, i) => (
+            <path
+              key={`l${i}`}
+              data-loop
+              d={d}
+              fill="#57D3FE"
+              fillOpacity={reduced ? LOOP_FILL_OPACITY : 0}
+              stroke="#57D3FE"
+              strokeWidth={2}
+              strokeLinejoin="round"
+            />
+          ))}
+        </svg>
       </div>
     </article>
   );

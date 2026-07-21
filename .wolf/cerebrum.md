@@ -24,3 +24,4 @@
 ## Decision Log
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->
+- [2026-07-21] World Logic (03) reworked from UI-fragment assembly (fake emails/names/metric cards) to blueprint-construction of the triquetra: a scrubbed technical drawing where dashed guides draw in, the three loops trace over them, then fills whisper in with the guides fading back. Now all three worlds resolve into the mark (01 comet draws it, 02 matrix assembles it, 03 constructs it). No personal data or text lives inside the visuals. Data attrs: data-blueprint, data-guide, data-loop, data-tick; drag interaction moved from [data-fragment] to [data-loop] (loop springs back with back.out(1.7)). verify6.mjs previously had zero Logic-world coverage — added a structural check (guides=5, loops=3, ticks=12, fragments=0, no personal text, loops grabbable when assembled).

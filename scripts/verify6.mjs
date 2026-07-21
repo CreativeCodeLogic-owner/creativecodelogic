@@ -164,6 +164,36 @@ async function scrollToEl(page, sel, offset = -60) {
     });
   }
 
+  // --- 3b. logic blueprint ----------------------------------------------------
+  // assemble the mark: put the stage centre ~40% up the viewport (scrub → 1)
+  await page.evaluate(() => {
+    const stage = document.querySelector('[data-world="2"] [data-stage]');
+    const r = stage.getBoundingClientRect();
+    const target = r.top + window.scrollY + r.height / 2 - window.innerHeight * 0.4;
+    window.scrollTo({ top: target, behavior: "instant" });
+  });
+  await sleep(1400); // scrub settle
+  out.logic = await page.evaluate(() => {
+    const panel = document.querySelector('[data-world="2"]');
+    if (!panel) return null;
+    return {
+      blueprint: panel.querySelectorAll("[data-blueprint]").length,
+      guides: panel.querySelectorAll("[data-guide]").length, // 3 circles + 2 centre lines
+      loops: panel.querySelectorAll("[data-loop]").length,
+      ticks: panel.querySelectorAll("[data-tick]").length,
+      fragments: panel.querySelectorAll("[data-fragment]").length, // old mechanic, must be 0
+      hasPersonalText: /ghassan|weekly report|revenue|uptime|save changes|earned/i.test(
+        panel.textContent || "",
+      ),
+    };
+  });
+  out.logicLoopDrag = await page.evaluate(() => {
+    // once assembled the three loops carry the grab cursor (drag → springs back)
+    const loops = [...document.querySelectorAll('[data-world="2"] [data-loop]')];
+    return loops.length === 3 && loops.every((l) => l.classList.contains("cursor-grab"));
+  });
+  await page.screenshot({ path: `${OUT}/full-logic.png` });
+
   // --- 4. process dots fill ---------------------------------------------------
   await page.evaluate(() => {
     const el = document.querySelector("[data-steps]");
