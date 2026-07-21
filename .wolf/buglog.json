@@ -308,6 +308,78 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T15:14:15.088Z"
+    },
+    {
+      "id": "bug-020",
+      "timestamp": "2026-07-21T15:35:41.984Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 16→21 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T15:35:41.984Z"
+    },
+    {
+      "id": "bug-021",
+      "timestamp": "2026-07-21T15:38:39.206Z",
+      "error_message": "Wrong return value",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "Was returning: () => startScroll();",
+      "fix": "Now returns: () => {",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T15:38:39.206Z"
+    },
+    {
+      "id": "bug-022",
+      "timestamp": "2026-07-21T15:41:22.794Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T15:41:22.794Z"
+    },
+    {
+      "id": "bug-014",
+      "timestamp": "2026-07-21T16:40:00.000Z",
+      "error_message": "Contact drawer: Send button never enables after solving the reCAPTCHA checkbox (stays disabled/shadowed)",
+      "file": "src/components/HelloDrawer.tsx, src/lib/captcha.ts",
+      "root_cause": "The reCAPTCHA solve happens inside Google's cross-origin iframe and triggers no React re-render, so the submit gate never re-evaluated. (The gate needs a state update driven by the widget's own callback.)",
+      "fix": "captcha.ts renderCheckbox now pushes the token to React via an onToken(token) arg wired to the widget's callback/expired-callback/error-callback; HelloDrawer holds captchaToken in state and gates Send on captchaToken !== \"\" (sends it as g-recaptcha-response, resets to \"\" after submit + on close). Added a defensive path: renderCheckbox rejection → quiet error state instead of a dead button. Guarded the render with a renderedRef so React StrictMode's double-invoke doesn't throw 'already rendered' and trip that error path.",
+      "tags": ["recaptcha", "react-state", "strictmode", "form-gating", "tsx"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T16:40:00.000Z"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-07-21T16:45:00.000Z",
+      "error_message": "Nav loses its backdrop-blur / .nav-scrolled treatment after the contact drawer closes, until the next scroll",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "Diagnosed: after close the header STILL carried .nav-scrolled and computed backdrop-filter was still blur(12px) — the class was present, so this is the Chromium compositing bug where unmounting an overlapping backdrop-filter layer (the drawer backdrop's backdrop-blur-sm) drops the nav's backdrop-filter rendering until a repaint. (A separate class-drop on programmatic scroll was proven a test-harness artifact: it reproduces with scrollBy/wheel WITHOUT ever opening the drawer, from scrollIntoView desyncing Lenis vs ScrollTrigger.)",
+      "fix": "Removed backdrop-blur-sm from the drawer backdrop; use bg-navy/75 (visually equivalent over the dark contact section) so there is no second backdrop-filter layer to unmount. Also added requestAnimationFrame(() => ScrollTrigger.update()) after startScroll() on close as defensive re-sync of the scrolled-state class.",
+      "tags": ["chromium", "backdrop-filter", "compositing", "scrolltrigger", "lenis", "tsx"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T16:45:00.000Z"
     }
   ]
 }

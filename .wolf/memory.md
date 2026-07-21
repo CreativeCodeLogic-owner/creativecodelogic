@@ -77,3 +77,15 @@
 | 18:14 | Edited src/components/HelloDrawer.tsx | 6→11 lines | ~127 |
 | 18:14 | Edited scripts/verify6.mjs | modified if() | ~41 |
 | 16:10 | Contact restructure: 2 Formspark forms (BRIEF/CONTACT), brief drops captcha entirely, HelloDrawer gets VISIBLE reCAPTCHA v2 checkbox (dark), no emails in contact UI (removed Prefer-email + mailto error fallback → Try again). Deleted CaptchaNotice + badge CSS. Fixed focus trap across cross-origin iframe (sentinels) + hidden-focusable filter | flags.ts, .env.example, submit.ts, captcha.ts, BriefForm.tsx, HelloDrawer.tsx, index.css, verify6.mjs, deleted CaptchaNotice.tsx | build clean; verify6 3 passes 0 errors; brief noRecaptcha=true; drawer checkbox iframe renders, send gated by captcha, focus trap+esc+backdrop+focus-return all pass | ~14000 |
+| 18:20 | Session end: 54 writes across 14 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 17 reads | ~49730 tok |
+| 18:35 | Edited src/lib/captcha.ts | onChange() → onToken() | ~318 |
+| 18:35 | Edited src/components/HelloDrawer.tsx | 10→10 lines | ~115 |
+| 18:35 | Edited src/components/HelloDrawer.tsx | added 1 condition(s) | ~214 |
+| 18:35 | Edited src/components/HelloDrawer.tsx | 10→9 lines | ~95 |
+| 18:38 | Edited src/components/HelloDrawer.tsx | inline fix | ~22 |
+| 18:38 | Edited src/components/HelloDrawer.tsx | 3→8 lines | ~87 |
+| 18:38 | Edited src/components/HelloDrawer.tsx | 6→6 lines | ~43 |
+| 18:41 | Edited scripts/verify6.mjs | added optional chaining | ~139 |
+| 18:46 | Edited src/components/HelloDrawer.tsx | 3→4 lines | ~52 |
+| 18:46 | Edited src/components/HelloDrawer.tsx | 17→15 lines | ~159 |
+| 16:50 | Two real-device bug fixes on contact drawer. Bug A: Send never enabled after captcha solve → token now driven into React state via widget callback (captcha.ts onToken), gate on captchaToken; +renderedRef guard for StrictMode double-render, +defensive error path. Bug B: nav blur lost after drawer close (class PRESENT → Chromium backdrop-filter compositing) → dropped drawer backdrop-blur (bg-navy/75) + rAF ScrollTrigger.update() on close | HelloDrawer.tsx, captcha.ts, verify6.mjs | build clean; verify6 3 passes 0 errors; navScrolledSurvivesCycle=true; sendGatedByCaptcha=true (solve path is manual — CI can't solve captcha) | ~6000 |

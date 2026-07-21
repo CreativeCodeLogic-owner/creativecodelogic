@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T15:14:15.032Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T15:46:53.257Z
 > Files: 53 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -55,7 +55,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~5243 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~5330 tok)
 
 ## src/
 
@@ -69,7 +69,7 @@
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2078 tok)
 - `Footer.tsx` — Footer (~112 tok)
-- `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3169 tok)
+- `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3339 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2168 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1198 tok)
 - `Nav.tsx` — LINKS (~723 tok)
@@ -95,7 +95,7 @@
 
 ## src/lib/
 
-- `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~690 tok)
+- `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~670 tok)
 - `flags.ts` — Feature flags from the environment (see .env / .env.example). (~234 tok)
 - `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~483 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~330 tok)

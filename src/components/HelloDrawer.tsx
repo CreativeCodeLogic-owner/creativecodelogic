@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { gsap, startScroll, stopScroll } from "@/lib/scroll";
+import { gsap, ScrollTrigger, startScroll, stopScroll } from "@/lib/scroll";
 import { sealStampTl } from "@/lib/seal";
 import { CAPTCHA_SITEKEY, FORMSPARK_FORM_ID_CONTACT } from "@/lib/flags";
 import { renderCheckbox, type CheckboxCaptcha } from "@/lib/captcha";
@@ -26,18 +26,19 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
   const sealRef = useRef<HTMLSpanElement>(null);
   const captchaBoxRef = useRef<HTMLDivElement>(null);
   const captchaRef = useRef<CheckboxCaptcha | null>(null);
+  const renderedRef = useRef(false);
   const closing = useRef(false);
 
   const [status, setStatus] = useState<SubmitResult | "form" | "sending">("form");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
-  const [captchaSolved, setCaptchaSolved] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
 
   const valid =
     EMAIL_RE.test(email) &&
     message.trim().length >= 5 &&
-    (!CAPTCHA_SITEKEY || captchaSolved);
+    (!CAPTCHA_SITEKEY || captchaToken !== "");
 
   // enter animation + scroll lock + initial focus
   useLayoutEffect(() => {
@@ -49,24 +50,32 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
       gsap.to(panelRef.current, { xPercent: 0, duration: 0.45, ease: "power3.out" });
     }
     emailRef.current?.focus();
-    return () => startScroll();
+    return () => {
+      startScroll();
+      // re-sync ScrollTrigger after the Lenis stop/start so the nav's
+      // scrolled-state class isn't dropped by a stale scroll reading on close
+      requestAnimationFrame(() => ScrollTrigger.update());
+    };
   }, [reduced]);
 
-  // lazy-load + render the visible captcha the first time the drawer opens
+  // lazy-load + render the visible captcha the first time the drawer opens.
+  // The widget's callback pushes the token into state (see captcha.ts). If the
+  // widget fails to render (bad sitekey / disallowed domain), surface the quiet
+  // error state rather than leaving Send permanently dead.
   useEffect(() => {
-    if (!CAPTCHA_SITEKEY || !captchaBoxRef.current) return;
-    let cancelled = false;
-    renderCheckbox(captchaBoxRef.current, (solved) => {
-      if (!cancelled) setCaptchaSolved(solved);
-    })
+    const box = captchaBoxRef.current;
+    // render exactly once — guards against StrictMode's double-invoke, which
+    // would otherwise throw "already rendered" and trip the error path below
+    if (!CAPTCHA_SITEKEY || !box || renderedRef.current) return;
+    renderedRef.current = true;
+    renderCheckbox(box, (token) => setCaptchaToken(token))
       .then((c) => {
-        if (cancelled) c.reset();
-        else captchaRef.current = c;
+        captchaRef.current = c;
       })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
+      .catch(() => {
+        renderedRef.current = false; // allow a retry
+        setStatus("error");
+      });
   }, []);
 
   // stamp the seal on success
@@ -126,14 +135,13 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     if (!valid || status === "sending") return;
     setStatus("sending");
-    const token = captchaRef.current?.getToken() ?? "";
     const result = await submitForm(
       FORMSPARK_FORM_ID_CONTACT,
       { form: "hello", email, message, _gotcha: honeypot },
       null, // no email fallback in the contact UI
-      token,
+      captchaToken,
     );
-    captchaRef.current?.reset(); // clear the checkbox for a retry
+    captchaRef.current?.reset(); // clear the checkbox + token for a retry
     setStatus(result);
   };
 
@@ -143,7 +151,7 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
         ref={backdropRef}
         onClick={handleClose}
         aria-hidden="true"
-        className="absolute inset-0 bg-navy/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-navy/75"
       />
       <div
         ref={panelRef}

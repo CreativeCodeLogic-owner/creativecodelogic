@@ -356,6 +356,12 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.mouse.click(20, 20);
   await sleep(500);
   hello.closedByBackdrop = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
+  // after the open/close/reopen cycle (still scrolled into contact), the nav's
+  // scrolled-state class must survive — no drop from the drawer's teardown
+  await sleep(250);
+  hello.navScrolledSurvivesCycle = await page.evaluate(
+    () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
+  );
   out.brief = brief;
   out.hello = hello;
 

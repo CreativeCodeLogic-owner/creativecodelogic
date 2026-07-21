@@ -45,20 +45,20 @@ function loadScript(): Promise<void> {
 }
 
 export type CheckboxCaptcha = {
-  /** The current token, or "" if the checkbox has not been solved. */
-  getToken: () => string;
-  /** Clear the checkbox (after submit / on drawer close). */
+  /** Clear the checkbox (after submit / on drawer close); also emits token "". */
   reset: () => void;
 };
 
 /**
  * Lazy-load reCAPTCHA and render a VISIBLE v2 checkbox into `container`.
- * `onChange(solved)` fires true when solved, false when expired/errored — the
- * caller uses it to gate the submit button.
+ * The widget's own callbacks push the token into React via `onToken` — the
+ * solve happens inside Google's iframe and triggers no re-render otherwise, so
+ * polling getResponse() at render time would never see it. Empty token on
+ * expiry/error.
  */
 export async function renderCheckbox(
   container: HTMLElement,
-  onChange: (solved: boolean) => void,
+  onToken: (token: string) => void,
 ): Promise<CheckboxCaptcha> {
   await loadScript();
   const g = window.grecaptcha;
@@ -68,26 +68,19 @@ export async function renderCheckbox(
     sitekey: CAPTCHA_SITEKEY,
     size: "normal",
     theme: "dark",
-    callback: () => onChange(true),
-    "expired-callback": () => onChange(false),
-    "error-callback": () => onChange(false),
+    callback: (token: string) => onToken(token),
+    "expired-callback": () => onToken(""),
+    "error-callback": () => onToken(""),
   });
 
   return {
-    getToken: () => {
-      try {
-        return g.getResponse(id);
-      } catch {
-        return "";
-      }
-    },
     reset: () => {
       try {
         g.reset(id);
       } catch {
         /* widget already gone — ignore */
       }
-      onChange(false);
+      onToken("");
     },
   };
 }
