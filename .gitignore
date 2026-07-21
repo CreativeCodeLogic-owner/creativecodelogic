@@ -16,6 +16,7 @@ www-v4.code-workspace
 # openwolf runtime artifacts
 .wolf/token-ledger.json
 .wolf/cron-state.json
+.wolf/hooks/_session.json
 .wolf/designqc-report.json
 .wolf/designqc-captures/
 .wolf/suggestions.json
