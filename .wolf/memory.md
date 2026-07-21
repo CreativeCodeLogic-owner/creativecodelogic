@@ -24,3 +24,8 @@
 | 14:29 | Edited src/components/worlds/WorldLogic.tsx | 3→1 lines | ~8 |
 | 14:29 | Edited scripts/verify6.mjs | 14→18 lines | ~261 |
 | 14:35 | World Logic drafting-detail pass: plotter head, dimension/annotation layer, registration marks, per-loop lock pulses; extended verify6 3b | WorldLogic.tsx, verify6.mjs | build clean; verify6 full+reduced+mobile pass, 0 console errors; plotter=1/dims=16/regmarks=4/120°=true; scrollHeight 4431 unchanged | ~5600 |
+| 14:33 | Session end: 11 writes across 5 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 8 reads | ~25674 tok |
+| 14:38 | Edited src/components/worlds/WorldLogic.tsx | 12→15 lines | ~186 |
+| 14:41 | Edited src/components/worlds/WorldLogic.tsx | CSS: g | ~116 |
+| 14:42 | Edited src/components/worlds/WorldLogic.tsx | 10→11 lines | ~106 |
+| 14:45 | Polish: World Logic annotation spacing — R labels ride radially outward from composition centre (fixes R2/R3 overlap), 120° pushed clear, vertical dim line drops its "1:1" (keeps ticks), deleted stray shot | WorldLogic.tsx | build clean; verify6 3 passes, 0 errors; dims 16→15; screenshot confirms no label/stroke overlap | ~250 |

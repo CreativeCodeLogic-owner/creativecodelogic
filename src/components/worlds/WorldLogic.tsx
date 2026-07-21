@@ -87,14 +87,13 @@ function buildGeometry() {
     { x1: vX - 5, y1: maxY, x2: vX + 5, y2: maxY },
   ];
 
-  // --- radius leaders: centre → circumference of each guide circle
-  const la = -Math.PI / 4;
-  const leaders = guides.map<Line>((g) => ({
-    x1: g.cx,
-    y1: g.cy,
-    x2: g.cx + g.r * Math.cos(la),
-    y2: g.cy + g.r * Math.sin(la),
-  }));
+  // --- radius leaders: each guide centre → circumference, aimed radially
+  // outward from the composition centre so labels land clear of the mark
+  const leaderAngle = (g: Guide) => Math.atan2(g.cy - center.y, g.cx - center.x);
+  const leaders = guides.map<Line>((g) => {
+    const a = leaderAngle(g);
+    return { x1: g.cx, y1: g.cy, x2: g.cx + g.r * Math.cos(a), y2: g.cy + g.r * Math.sin(a) };
+  });
 
   // --- 120° arc between loop axes, near the centre
   const ar = 34;
@@ -105,16 +104,20 @@ function buildGeometry() {
 
   // --- labels (abstract drafting notation only)
   const labels: Label[] = [
+    // "1:1" on the horizontal dimension line only; the vertical keeps its ticks
     { x: (minX + maxX) / 2, y: hY + 14, text: "1:1", anchor: "middle" },
-    { x: vX - 8, y: (minY + maxY) / 2, text: "1:1", anchor: "end" },
-    { x: center.x + (ar + 16) * Math.cos(am), y: center.y + (ar + 16) * Math.sin(am), text: "120°", anchor: "middle" },
+    // push the 120° label clear of the centroid cluster
+    { x: center.x + (ar + 30) * Math.cos(am), y: center.y + (ar + 30) * Math.sin(am), text: "120°", anchor: "middle" },
   ];
+  // R labels ride outward along each leader's direction so they clear the stroke
+  const LABEL_GAP = 30;
   guides.forEach((g, i) => {
+    const a = leaderAngle(g);
     labels.push({
-      x: g.cx + g.r * Math.cos(la) + 6,
-      y: g.cy + g.r * Math.sin(la) - 5,
+      x: g.cx + (g.r + LABEL_GAP) * Math.cos(a),
+      y: g.cy + (g.r + LABEL_GAP) * Math.sin(a),
       text: `R${i + 1}`,
-      anchor: "start",
+      anchor: Math.cos(a) < -0.3 ? "end" : "start",
     });
   });
 

@@ -16,6 +16,22 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T11:15:46.672Z"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-07-21T11:38:47.399Z",
+      "error_message": "CSS fix: x, y",
+      "file": "src/components/worlds/WorldLogic.tsx",
+      "root_cause": "x: g.cx + g.r * Math.cos(la) + 6, → g.cx + (g.r + LABEL_GAP) * Math.cos(la),; y: g.cy + g.r * Math.sin(la) - 5, → g.cy + (g.r + LABEL_GAP) * Math.sin(la),",
+      "fix": "Changed x: g.cx + g.r * Math.cos(la) + 6, → g.cx + (g.r + LABEL_GAP) * Math.cos(la),; y: g.cy + g.r * Math.sin(la) - 5, → g.cy + (g.r + LABEL_GAP) * Math.sin(la),",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-07-21T11:42:04.852Z"
     }
   ]
 }
