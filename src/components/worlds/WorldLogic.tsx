@@ -9,19 +9,35 @@ const GUIDE_DRAW_OPACITY = 0.35;
 const GUIDE_RESOLVED_OPACITY = 0.14; // ~40% of the draw opacity
 const LOOP_FILL_OPACITY = 0.12;
 const TICK_OPACITY = 0.3;
+const REG_OPACITY = 0.25;
 const DRAG_CLAMP = 40; // px, any direction
 const VIEW = 512; // TRIQUETRA_VIEWBOX is "0 0 512 512"
+const PLOTTER_COLOR = "#D2F2FF"; // same bright tint as the comet head
+
+// trace-phase schedule (timeline units): loop i draws over [start, start+dur]
+const LOOP_START = 0.42;
+const LOOP_GAP = 0.12;
+const LOOP_DUR = 0.2;
+const loopStart = (i: number) => LOOP_START + i * LOOP_GAP;
 
 type Guide = { cx: number; cy: number; r: number };
-type Tick = { x1: number; y1: number; x2: number; y2: number };
+type Line = { x1: number; y1: number; x2: number; y2: number };
+type Label = { x: number; y: number; text: string; anchor?: "start" | "middle" | "end" };
 
 /**
- * Approximate each loop's bounding circle from its path (centroid + average
- * radius), the composition centre from the loop centroids, and a few tick
- * marks along the centre lines. Sampled once at mount — pure geometry, no text.
+ * Sampled once at mount — pure geometry, no text or data:
+ *  - guides: each loop's bounding circle (centroid + average radius)
+ *  - center: composition centre from the loop centroids
+ *  - bbox: the mark's extent, for the dimension lines
+ *  - ticks / dimLines / leaders / arcPath / labels: drafting notation
  */
-function buildGeometry(): { guides: Guide[]; center: { x: number; y: number }; ticks: Tick[] } {
+function buildGeometry() {
   const sampler = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+
   const guides = TRIQUETRA_LOOPS.map<Guide>((d) => {
     sampler.setAttribute("d", d);
     const len = sampler.getTotalLength();
@@ -34,6 +50,10 @@ function buildGeometry(): { guides: Guide[]; center: { x: number; y: number }; t
       pts.push({ x: p.x, y: p.y });
       sx += p.x;
       sy += p.y;
+      if (p.x < minX) minX = p.x;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.y > maxY) maxY = p.y;
     }
     const cx = sx / pts.length;
     const cy = sy / pts.length;
@@ -41,35 +61,90 @@ function buildGeometry(): { guides: Guide[]; center: { x: number; y: number }; t
     for (const p of pts) r += Math.hypot(p.x - cx, p.y - cy);
     return { cx, cy, r: r / pts.length };
   });
+
   const center = {
     x: guides.reduce((a, g) => a + g.cx, 0) / guides.length,
     y: guides.reduce((a, g) => a + g.cy, 0) / guides.length,
   };
-  const ticks: Tick[] = [];
+  const ticks: Line[] = [];
   for (const d of [60, 120, 180]) {
-    // vertical ticks along the horizontal centre line
     ticks.push({ x1: center.x - d, y1: center.y - 6, x2: center.x - d, y2: center.y + 6 });
     ticks.push({ x1: center.x + d, y1: center.y - 6, x2: center.x + d, y2: center.y + 6 });
-    // horizontal ticks along the vertical centre line
     ticks.push({ x1: center.x - 6, y1: center.y - d, x2: center.x + 6, y2: center.y - d });
     ticks.push({ x1: center.x - 6, y1: center.y + d, x2: center.x + 6, y2: center.y + d });
   }
-  return { guides, center, ticks };
+
+  // --- dimension lines (drafting style: line + short perpendicular end ticks)
+  const PAD = 26;
+  const hY = maxY + PAD; // horizontal dim line, under the mark
+  const vX = minX - PAD; // vertical dim line, left of the mark
+  const dimLines: Line[] = [
+    { x1: minX, y1: hY, x2: maxX, y2: hY },
+    { x1: minX, y1: hY - 5, x2: minX, y2: hY + 5 },
+    { x1: maxX, y1: hY - 5, x2: maxX, y2: hY + 5 },
+    { x1: vX, y1: minY, x2: vX, y2: maxY },
+    { x1: vX - 5, y1: minY, x2: vX + 5, y2: minY },
+    { x1: vX - 5, y1: maxY, x2: vX + 5, y2: maxY },
+  ];
+
+  // --- radius leaders: centre → circumference of each guide circle
+  const la = -Math.PI / 4;
+  const leaders = guides.map<Line>((g) => ({
+    x1: g.cx,
+    y1: g.cy,
+    x2: g.cx + g.r * Math.cos(la),
+    y2: g.cy + g.r * Math.sin(la),
+  }));
+
+  // --- 120° arc between loop axes, near the centre
+  const ar = 34;
+  const a1 = -Math.PI / 2;
+  const a2 = a1 + (2 * Math.PI) / 3;
+  const arcPath = `M ${center.x + ar * Math.cos(a1)} ${center.y + ar * Math.sin(a1)} A ${ar} ${ar} 0 0 1 ${center.x + ar * Math.cos(a2)} ${center.y + ar * Math.sin(a2)}`;
+  const am = (a1 + a2) / 2;
+
+  // --- labels (abstract drafting notation only)
+  const labels: Label[] = [
+    { x: (minX + maxX) / 2, y: hY + 14, text: "1:1", anchor: "middle" },
+    { x: vX - 8, y: (minY + maxY) / 2, text: "1:1", anchor: "end" },
+    { x: center.x + (ar + 16) * Math.cos(am), y: center.y + (ar + 16) * Math.sin(am), text: "120°", anchor: "middle" },
+  ];
+  guides.forEach((g, i) => {
+    labels.push({
+      x: g.cx + g.r * Math.cos(la) + 6,
+      y: g.cy + g.r * Math.sin(la) - 5,
+      text: `R${i + 1}`,
+      anchor: "start",
+    });
+  });
+
+  // --- registration marks: just inside the sheet corners
+  const REG = 16;
+  const regmarks = [
+    { x: REG, y: REG },
+    { x: VIEW - REG, y: REG },
+    { x: REG, y: VIEW - REG },
+    { x: VIEW - REG, y: VIEW - REG },
+  ];
+
+  return { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks };
 }
 
 /**
- * World C — Logic: "The Blueprint". A blueprint grid fades in, dashed
- * construction guides (three loop circles + centre crosshair) draw over it,
- * then the three triquetra loops trace in sequence and settle with a low fill
- * as the guides fade back and tick marks appear. Scrubbed and reversible.
- * Once assembled, each loop can be dragged and springs back — the "solid"
- * proof. Reduced motion: the resolved drawing, statically.
+ * World C — Logic: "The Blueprint". A blueprint grid + registration marks fade
+ * in, dashed construction guides draw over them, the three triquetra loops
+ * trace in sequence (a plotter head riding each tip), each loop "locks" with a
+ * guide-circle pulse as it completes, then the mark fills low while a drafting
+ * dimension/annotation layer resolves. Scrubbed and reversible. Once assembled,
+ * each loop can be dragged and springs back. Reduced motion: the resolved
+ * drawing (dims, labels, regmarks included), statically — no plotter, no pulses.
  */
 export function WorldLogic() {
   const reduced = usePrefersReducedMotion();
   const panelRef = useRef<HTMLElement>(null);
   const assembled = useRef(false);
-  const { guides, center, ticks } = useMemo(buildGeometry, []);
+  const geo = useMemo(buildGeometry, []);
+  const { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks } = geo;
 
   useLayoutEffect(() => {
     if (reduced) return;
@@ -82,23 +157,24 @@ export function WorldLogic() {
         scrollTrigger: { trigger: panelRef.current, start: "top 78%", once: true },
       });
 
-      const guideEls = gsap.utils.toArray<SVGGeometryElement>(
-        "[data-guide]",
-        panelRef.current,
-      );
-      const loopEls = gsap.utils.toArray<SVGPathElement>(
-        "[data-loop]",
-        panelRef.current,
-      );
+      const root = panelRef.current;
+      const guideEls = gsap.utils.toArray<SVGGeometryElement>("[data-guide]", root);
+      const guideCircles = gsap.utils.toArray<SVGCircleElement>("circle[data-guide]", root);
+      const guideLines = gsap.utils.toArray<SVGLineElement>("line[data-guide]", root);
+      const loopEls = gsap.utils.toArray<SVGPathElement>("[data-loop]", root);
+      const plotterEl = root?.querySelector<SVGGElement>("[data-plotter]") ?? null;
+      const loopLens = loopEls.map((el) => el.getTotalLength());
 
       // hidden start state (useLayoutEffect → set before paint, no flash)
       gsap.set("[data-blueprint]", { opacity: 0 });
+      gsap.set("[data-regmark]", { opacity: 0 });
       gsap.set("[data-tick]", { opacity: 0 });
+      gsap.set("[data-dim]", { autoAlpha: 0 });
+      if (plotterEl) gsap.set(plotterEl, { autoAlpha: 0 });
       guideEls.forEach((el) => gsap.set(el, { strokeDashoffset: 18, strokeOpacity: 0 }));
-      loopEls.forEach((el) => {
-        const len = el.getTotalLength();
-        el.style.strokeDasharray = `${len}`;
-        gsap.set(el, { strokeDashoffset: len, attr: { "fill-opacity": 0 } });
+      loopEls.forEach((el, i) => {
+        el.style.strokeDasharray = `${loopLens[i]}`;
+        gsap.set(el, { strokeDashoffset: loopLens[i], attr: { "fill-opacity": 0 } });
       });
 
       const tl = gsap.timeline({
@@ -113,12 +189,31 @@ export function WorldLogic() {
               assembled.current = on;
               loopEls.forEach((el) => el.classList.toggle("cursor-grab", on));
             }
+            // plotter head rides the tip of whichever loop is drawing
+            if (!plotterEl) return;
+            const t = self.animation?.time() ?? 0;
+            let active = -1;
+            for (let i = loopEls.length - 1; i >= 0; i--) {
+              const s = loopStart(i);
+              if (t >= s && t < s + LOOP_DUR) {
+                active = i;
+                break;
+              }
+            }
+            if (active >= 0) {
+              const frac = Math.min(1, Math.max(0, (t - loopStart(active)) / LOOP_DUR));
+              const p = loopEls[active].getPointAtLength(frac * loopLens[active]);
+              gsap.set(plotterEl, { x: p.x, y: p.y, autoAlpha: 1 });
+            } else {
+              gsap.set(plotterEl, { autoAlpha: 0 });
+            }
           },
         },
       });
 
-      // 1. blueprint grid
+      // 1. blueprint grid + registration marks frame the sheet
       tl.to("[data-blueprint]", { opacity: 1, duration: 0.15, ease: "none" }, 0);
+      tl.to("[data-regmark]", { opacity: 1, duration: 0.15, ease: "none", stagger: 0.02 }, 0);
       // 2. construction guides draw in, staggered
       guideEls.forEach((el, i) => {
         tl.to(
@@ -132,15 +227,29 @@ export function WorldLogic() {
           0.1 + i * 0.04,
         );
       });
-      // 3. loops trace over the guides, in sequence, slightly overlapping
+      // 3. loops trace over the guides (linear, so the plotter tracks the tip),
+      //    each locking with a guide-circle pulse the moment it completes
       loopEls.forEach((el, i) => {
+        tl.to(el, { strokeDashoffset: 0, duration: LOOP_DUR, ease: "none" }, loopStart(i));
+      });
+      guideCircles.forEach((c, i) => {
         tl.to(
-          el,
-          { strokeDashoffset: 0, duration: 0.2, ease: "power1.inOut" },
-          0.42 + i * 0.12,
+          c,
+          {
+            keyframes: [
+              { strokeOpacity: 0.8, strokeWidth: 2.2, duration: 0.1, ease: "power2.out" },
+              {
+                strokeOpacity: GUIDE_RESOLVED_OPACITY,
+                strokeWidth: 1.2,
+                duration: 0.15,
+                ease: "power2.in",
+              },
+            ],
+          },
+          loopStart(i) + LOOP_DUR,
         );
       });
-      // 4. resolve: fills whisper in, guides fade back, ticks appear
+      // 4. resolve: fills whisper in, guide lines fade back, ticks + dims appear
       loopEls.forEach((el) => {
         tl.to(
           el,
@@ -148,14 +257,11 @@ export function WorldLogic() {
           0.8,
         );
       });
-      guideEls.forEach((el) => {
-        tl.to(
-          el,
-          { strokeOpacity: GUIDE_RESOLVED_OPACITY, duration: 0.2, ease: "power2.out" },
-          0.82,
-        );
+      guideLines.forEach((el) => {
+        tl.to(el, { strokeOpacity: GUIDE_RESOLVED_OPACITY, duration: 0.2, ease: "power2.out" }, 0.82);
       });
       tl.to("[data-tick]", { opacity: TICK_OPACITY, duration: 0.2, ease: "power2.out" }, 0.84);
+      tl.to("[data-dim]", { autoAlpha: 1, duration: 0.15, ease: "power2.out", stagger: 0.02 }, 0.9);
 
       // interaction: once assembled, drag a loop out of place; it springs back
       let drag: { el: SVGPathElement; startX: number; startY: number } | null = null;
@@ -242,6 +348,23 @@ export function WorldLogic() {
           viewBox={TRIQUETRA_VIEWBOX}
           className="absolute inset-0 h-full w-full overflow-visible"
         >
+          {/* registration marks — frame the sheet */}
+          {regmarks.map((m, i) => (
+            <g key={`r${i}`} data-regmark style={{ opacity: reduced ? 1 : 0 }}>
+              <circle
+                cx={m.x}
+                cy={m.y}
+                r={5}
+                fill="none"
+                stroke="#57D3FE"
+                strokeWidth={1.2}
+                strokeOpacity={REG_OPACITY}
+              />
+              <line x1={m.x - 9} y1={m.y} x2={m.x + 9} y2={m.y} stroke="#57D3FE" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
+              <line x1={m.x} y1={m.y - 9} x2={m.x} y2={m.y + 9} stroke="#57D3FE" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
+            </g>
+          ))}
+
           {/* construction guides: loop circles + centre crosshair */}
           <g>
             {guides.map((g, i) => (
@@ -300,6 +423,64 @@ export function WorldLogic() {
             ))}
           </g>
 
+          {/* dimension / annotation layer — resolves late in the scrub */}
+          <g>
+            {dimLines.map((l, i) => (
+              <line
+                key={`d${i}`}
+                data-dim
+                x1={l.x1}
+                y1={l.y1}
+                x2={l.x2}
+                y2={l.y2}
+                stroke="#57D3FE"
+                strokeWidth={1}
+                strokeOpacity={0.32}
+                style={reduced ? undefined : { visibility: "hidden" }}
+              />
+            ))}
+            {leaders.map((l, i) => (
+              <line
+                key={`ld${i}`}
+                data-dim
+                x1={l.x1}
+                y1={l.y1}
+                x2={l.x2}
+                y2={l.y2}
+                stroke="#57D3FE"
+                strokeWidth={1}
+                strokeOpacity={0.3}
+                style={reduced ? undefined : { visibility: "hidden" }}
+              />
+            ))}
+            <path
+              data-dim
+              d={arcPath}
+              fill="none"
+              stroke="#57D3FE"
+              strokeWidth={1}
+              strokeOpacity={0.3}
+              style={reduced ? undefined : { visibility: "hidden" }}
+            />
+            {labels.map((l, i) => (
+              <text
+                key={`lb${i}`}
+                data-dim
+                x={l.x}
+                y={l.y}
+                textAnchor={l.anchor ?? "start"}
+                dominantBaseline="middle"
+                className="font-mono"
+                fontSize={12}
+                fill="#a9a6a7"
+                fillOpacity={0.5}
+                style={reduced ? undefined : { visibility: "hidden" }}
+              >
+                {l.text}
+              </text>
+            ))}
+          </g>
+
           {/* the mark: three loops trace over the guides, then fill low */}
           {TRIQUETRA_LOOPS.map((d, i) => (
             <path
@@ -313,6 +494,14 @@ export function WorldLogic() {
               strokeLinejoin="round"
             />
           ))}
+
+          {/* plotter head — rides the drawing tip; never shown under reduced motion */}
+          <g data-plotter style={{ opacity: 0 }}>
+            <circle cx={0} cy={0} r={6} fill={PLOTTER_COLOR} fillOpacity={0.22} />
+            <line x1={-7} y1={0} x2={7} y2={0} stroke={PLOTTER_COLOR} strokeWidth={1} />
+            <line x1={0} y1={-7} x2={0} y2={7} stroke={PLOTTER_COLOR} strokeWidth={1} />
+            <circle cx={0} cy={0} r={1.6} fill={PLOTTER_COLOR} />
+          </g>
         </svg>
       </div>
     </article>

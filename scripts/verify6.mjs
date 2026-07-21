@@ -181,6 +181,10 @@ async function scrollToEl(page, sel, offset = -60) {
       guides: panel.querySelectorAll("[data-guide]").length, // 3 circles + 2 centre lines
       loops: panel.querySelectorAll("[data-loop]").length,
       ticks: panel.querySelectorAll("[data-tick]").length,
+      plotter: panel.querySelectorAll("[data-plotter]").length, // drafting-detail pass
+      dims: panel.querySelectorAll("[data-dim]").length, // dimension/annotation layer
+      regmarks: panel.querySelectorAll("[data-regmark]").length, // sheet corners
+      hasAngleLabel: /120°/.test(panel.textContent || ""),
       fragments: panel.querySelectorAll("[data-fragment]").length, // old mechanic, must be 0
       hasPersonalText: /ghassan|weekly report|revenue|uptime|save changes|earned/i.test(
         panel.textContent || "",

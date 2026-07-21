@@ -19,3 +19,8 @@
 | 14:15 | Edited scripts/verify6.mjs | added 1 condition(s) | ~452 |
 | 14:20 | Task A hygiene: .gitattributes (* text=auto) + renormalize + ignore hook _session.json; commit 343f6d3 | .gitattributes, .gitignore | LF/CRLF noise gone, tree clean | ~120 |
 | 14:22 | Task B: reworked World Logic (03) → blueprint construction of the mark; added Logic coverage to verify6 | WorldLogic.tsx, verify6.mjs | build clean; verify6 full+reduced+mobile pass, 0 console errors; guides=5/loops=3/ticks=12/fragments=0; stage box 420/380 unchanged | ~4100 |
+| 14:21 | Session end: 8 writes across 5 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 8 reads | ~20031 tok |
+| 14:29 | Created src/components/worlds/WorldLogic.tsx | — | ~5356 |
+| 14:29 | Edited src/components/worlds/WorldLogic.tsx | 3→1 lines | ~8 |
+| 14:29 | Edited scripts/verify6.mjs | 14→18 lines | ~261 |
+| 14:35 | World Logic drafting-detail pass: plotter head, dimension/annotation layer, registration marks, per-loop lock pulses; extended verify6 3b | WorldLogic.tsx, verify6.mjs | build clean; verify6 full+reduced+mobile pass, 0 console errors; plotter=1/dims=16/regmarks=4/120°=true; scrollHeight 4431 unchanged | ~5600 |
