@@ -1,16 +1,18 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T19:18:36.311Z
-> Files: 56 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T19:28:46.946Z
+> Files: 60 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~88 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CLAUDE.md` — OpenWolf (~445 tok)
+- `CHANGELOG.md` — Changelog (~657 tok)
+- `CLAUDE.md` — OpenWolf (~462 tok)
 - `index.html` — Creative Code Logic — Built with creativity, code, and logic (~628 tok)
 - `package.json` — Node.js package manifest (~181 tok)
+- `README.md` — Project documentation (~1308 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
 - `vite.config.ts` — Vite build configuration (~98 tok)
 - `www-v4.code-workspace` (~16 tok)
@@ -37,6 +39,11 @@
 
 - `homepage-narrative-v1.md` — CCL Website — Homepage Narrative v1 (~1612 tok)
 - `homepage-narrative-v2.md` — CCL Website — Homepage Narrative v2 (~1294 tok)
+
+## docs/
+
+- `architecture.md` — Architecture (~1228 tok)
+- `deployment.md` — Deployment (~775 tok)
 
 ## docs/superpowers/plans/
 

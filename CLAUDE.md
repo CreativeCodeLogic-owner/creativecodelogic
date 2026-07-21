@@ -22,6 +22,7 @@ AGENTS.md is deprecated — never follow it.
 - Styling = Tailwind utilities with theme tokens (text-ink, text-mist, bg-navy, text-accent, text-sand, font-display, font-mono); bespoke shared effects live in src/index.css.
 - Copy voice: measured, intelligent, direct, humble-confident. No exclamation marks. Source of truth: copy/.
 - Never touch .secrets/ or .env.
+- Every feature/fix commit updates CHANGELOG.md under [Unreleased].
 
 # Commands
 - bun run dev (:5173) | bun run build (tsc --noEmit + vite build) | bun run preview
