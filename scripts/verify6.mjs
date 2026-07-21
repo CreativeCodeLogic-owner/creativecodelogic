@@ -527,6 +527,24 @@ async function scrollToEl(page, sel, offset = -60) {
     return t.split("\n").filter((r) => r.trim().length > 0).length;
   });
 
+  // --- palette must not clip at 390px + must not overlap the body copy --------
+  await scrollToEl(page, '[data-world="0"]');
+  await sleep(800);
+  out.paletteInViewportMobile = await page.evaluate(() => {
+    const sw = [...document.querySelectorAll("[data-palette] button")];
+    if (sw.length < 8) return false;
+    return sw.every((b) => {
+      const r = b.getBoundingClientRect();
+      return r.left >= 0 && r.right <= 390;
+    });
+  });
+  out.paletteNoBodyOverlap = await page.evaluate(() => {
+    const pal = document.querySelector("[data-palette]");
+    const body = document.querySelector("[data-world-copy-body]");
+    if (!pal || !body) return null;
+    return pal.getBoundingClientRect().bottom <= body.getBoundingClientRect().top + 1;
+  });
+
   // --- mobile menu ------------------------------------------------------------
   await page.evaluate(() => window.scrollTo(0, 0));
   await sleep(400);

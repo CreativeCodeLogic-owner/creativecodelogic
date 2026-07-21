@@ -117,3 +117,9 @@
 | 20:47 | Edited scripts/verify6.mjs | added 1 condition(s) | ~222 |
 | 20:48 | Edited scripts/verify6.mjs | added 2 condition(s) | ~855 |
 | 18:55 | Mobile menu + site-wide focus/touch polish: MobileMenu.tsx (full-screen overlay, sentinel focus-trap, Esc, scroll-lock, portal, opacity reveal) wired into Nav.tsx with a 44px hamburger (right of CTA pill); focus-visible rings on nav links/logo/CTAs/hero CTAs; palette swatches → 40px hit area w/ 16px dot | MobileMenu.tsx, Nav.tsx, HeroSignature.tsx, WorldCreative.tsx, verify6.mjs | build clean; verify6 3 passes 0 errors; menu dialog+focus+trap+esc+scroll-lock+nav-scroll+reduced all pass; hamburgerHiddenDesktop=true; paletteHit 40/dot 16 | ~10000 |
+| 20:55 | Session end: 86 writes across 18 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 25 reads | ~68954 tok |
+| 21:17 | Edited src/components/worlds/WorldCreative.tsx | 8→11 lines | ~157 |
+| 21:17 | Edited src/components/worlds/WorldCreative.tsx | 2 → 1 | ~25 |
+| 21:17 | Edited src/components/worlds/WorldCreative.tsx | modified if() | ~411 |
+| 21:18 | Edited scripts/verify6.mjs | added 2 condition(s) | ~283 |
+| 19:05 | Fix palette clipping at 390px: 40px targets made the side-by-side row overflow the panel clip. Stack groups vertically below md (flex-col gap-3, max-w-[92vw]), keep side-by-side md+; tightened swatch gap-2→gap-1; layout() now measures real palette height (data-palette offsetHeight) for mark centering + --mobile-body-mt | WorldCreative.tsx, verify6.mjs | build clean; verify6 3 passes 0 errors; paletteInViewportMobile+paletteNoBodyOverlap true; desktop tighter single row; 40px hit/16px dot intact | ~3000 |

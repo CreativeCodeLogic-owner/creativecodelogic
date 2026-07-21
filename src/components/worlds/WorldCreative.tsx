@@ -154,7 +154,11 @@ export function WorldCreative() {
       let cx: number;
       let cy: number;
       const PALETTE_GAP = 20;
-      const PALETTE_H = 36;
+      // measure the real palette height — it varies by breakpoint (stacked on
+      // mobile) and grew with the 40px touch targets, so a hard-coded value
+      // would misplace the mark / mobile body copy
+      const paletteEl = panel.querySelector<HTMLElement>("[data-palette]");
+      const PALETTE_H = paletteEl?.offsetHeight || 60;
 
       if (w >= 768) {
         // Desktop: copy takes the left 40%, game lives in the right 60% column
@@ -502,9 +506,12 @@ export function WorldCreative() {
         </p>
       </div>
 
-      {/* the palette — the only interaction — hugging the mark */}
+      {/* the palette — the only interaction — hugging the mark. Below md the two
+          groups stack (the 40px touch targets make a single row too wide for a
+          phone); md and up they sit side by side. */}
       <div
-        className="absolute z-20 flex -translate-x-1/2 items-start gap-6"
+        data-palette
+        className="absolute z-20 flex max-w-[92vw] -translate-x-1/2 flex-col items-center gap-3 px-2 md:max-w-none md:flex-row md:items-start md:gap-6 md:px-0"
         style={{
           left: "var(--gx, 68%)",
           top: "calc(var(--gy, 46%) + var(--gs, 250px) / 2 + 20px)",
@@ -520,7 +527,7 @@ export function WorldCreative() {
             <span className="text-[10px] tracking-[0.18em] text-mist/60 uppercase">
               {label}
             </span>
-            <div role="group" aria-label={label} className="flex justify-center gap-2">
+            <div role="group" aria-label={label} className="flex justify-center gap-1">
               {PALETTE.map((c, i) => (
                 <button
                   key={c.value}

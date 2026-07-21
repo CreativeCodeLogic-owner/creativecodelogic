@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T17:48:16.369Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T18:18:33.221Z
 > Files: 54 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -55,7 +55,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~7361 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~7563 tok)
 
 ## src/
 
@@ -82,7 +82,7 @@
 ## src/components/worlds/
 
 - `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4479 tok)
-- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5466 tok)
+- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 
 ## src/data/
