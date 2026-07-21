@@ -234,6 +234,49 @@ async function scrollToEl(page, sel, offset = -60) {
   });
   out.scrollHeight = await page.evaluate(() => Math.round(document.body.scrollHeight));
 
+  // --- 6. brief flow (opens inline; walked but never actually submitted) ------
+  await page.evaluate(() => document.querySelector("#contact").scrollIntoView({ block: "center" }));
+  await sleep(400);
+  const footTop = () =>
+    page.evaluate(() => Math.round(document.querySelector("footer").getBoundingClientRect().top + window.scrollY));
+  const docH = () => page.evaluate(() => Math.round(document.documentElement.scrollHeight));
+  const shClosed = await docH();
+  const footClosed = await footTop();
+  await page.click("[data-brief-open]");
+  await sleep(600);
+  const brief = {};
+  brief.formShown = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
+  brief.heightStableOnOpen = (await docH()) === shClosed; // scrollHeight unchanged (±0)
+  brief.footerStableOnOpen = (await footTop()) === footClosed; // footer does not shift
+  brief.focusStep1 = await page.evaluate(() => document.activeElement?.hasAttribute("data-chip") === true);
+  // step 1: choose a chip, Enter advances from the optional note field
+  await page.click("[data-chip]");
+  brief.chipPressed = await page.evaluate(
+    () => document.querySelector("[data-chip]").getAttribute("aria-pressed") === "true",
+  );
+  await page.focus("#brief-kind-note");
+  await page.keyboard.press("Enter");
+  await sleep(400);
+  brief.focusStep2 = await page.evaluate(() => document.activeElement?.tagName === "TEXTAREA");
+  brief.nextDisabledShort = await page.evaluate(() => document.querySelector("[data-brief-next]").disabled === true);
+  await page.type("#brief-problem", "A booking system for a small clinic.");
+  brief.nextEnabledValid = await page.evaluate(() => document.querySelector("[data-brief-next]").disabled === false);
+  await page.click("[data-brief-next]");
+  await sleep(400);
+  brief.focusStep3 = await page.evaluate(() => document.activeElement?.hasAttribute("data-chip") === true);
+  brief.submitDisabledInvalid = await page.evaluate(
+    () => document.querySelector("[data-brief-submit]").disabled === true,
+  );
+  await page.click("[data-chip]"); // pick a timing
+  await page.type("#brief-email", "sam@clinic.io");
+  await sleep(150);
+  brief.submitEnabledValid = await page.evaluate(
+    () => document.querySelector("[data-brief-submit]").disabled === false,
+  );
+  // STOP here — do NOT submit (no network call to submit-form.com in CI)
+  await page.screenshot({ path: `${OUT}/full-brief.png` });
+  out.brief = brief;
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");

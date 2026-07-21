@@ -29,3 +29,11 @@
 | 14:41 | Edited src/components/worlds/WorldLogic.tsx | CSS: g | ~116 |
 | 14:42 | Edited src/components/worlds/WorldLogic.tsx | 10→11 lines | ~106 |
 | 14:45 | Polish: World Logic annotation spacing — R labels ride radially outward from composition centre (fixes R2/R3 overlap), 120° pushed clear, vertical dim line drops its "1:1" (keeps ticks), deleted stray shot | WorldLogic.tsx | build clean; verify6 3 passes, 0 errors; dims 16→15; screenshot confirms no label/stroke overlap | ~250 |
+| 14:45 | Session end: 14 writes across 5 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 9 reads | ~28999 tok |
+| 15:08 | Edited src/lib/flags.ts | added nullish coalescing | ~118 |
+| 15:09 | Created src/components/BriefForm.tsx | — | ~3367 |
+| 15:10 | Created src/components/Invitation.tsx | — | ~1036 |
+| 15:12 | Edited src/components/BriefForm.tsx | CSS: visibility, opacity, opacity | ~98 |
+| 15:12 | Edited src/components/Invitation.tsx | "mt-10 flex w-full min-h-[" → "mt-10 flex w-full min-h-[" | ~28 |
+| 15:14 | Edited scripts/verify6.mjs | added optional chaining | ~681 |
+| 14:55 | Built inline 3-question brief flow: BriefForm.tsx (Formspark POST + mailto fallback, honeypot, a11y, reduced-motion), wired into Invitation.tsx with a fixed-height swap box; added flags.FORMSPARK_FORM_ID + .env.example line; verify6 section 6 | BriefForm.tsx, Invitation.tsx, flags.ts, .env.example, verify6.mjs | build clean; verify6 3 passes 0 errors; footShift=0 open/steps, focus 1/2/3 land, submit gated until valid; fixed autoAlpha→opacity focus bug | ~9000 |

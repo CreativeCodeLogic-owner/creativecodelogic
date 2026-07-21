@@ -32,6 +32,72 @@
       "related_bugs": [],
       "occurrences": 3,
       "last_seen": "2026-07-21T11:42:04.852Z"
+    },
+    {
+      "id": "bug-003",
+      "timestamp": "2026-07-21T12:08:56.852Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/lib/flags.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T12:08:56.852Z"
+    },
+    {
+      "id": "bug-004",
+      "timestamp": "2026-07-21T12:12:02.297Z",
+      "error_message": "Brief flow: focus() did not land on a step's first control on step change/open",
+      "file": "src/components/BriefForm.tsx",
+      "root_cause": "The step-panel reveal used gsap autoAlpha, which sets the container to visibility:hidden at the from-state. Calling focus() on a control inside a visibility:hidden ancestor silently no-ops, so focus was never moved (verify saw focusStep1/2/3 = false).",
+      "fix": "Changed the panel reveal from autoAlpha to opacity (y:12/opacity:0 → y:0/opacity:1); opacity does not toggle visibility, so the control stays focusable and focus() lands.",
+      "tags": [
+        "gsap",
+        "accessibility",
+        "focus-management",
+        "autoAlpha",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T12:12:02.297Z"
+    },
+    {
+      "id": "bug-005",
+      "timestamp": "2026-07-21T12:12:07.150Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "Had \"mt-10 flex w-full min-h-[17rem] items-center just",
+      "fix": "Changed to \"mt-10 flex w-full min-h-[22rem] items-center just",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T12:12:07.150Z"
+    },
+    {
+      "id": "bug-006",
+      "timestamp": "2026-07-21T12:14:19.940Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T12:14:19.940Z"
     }
   ]
 }
