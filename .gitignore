@@ -1,0 +1,22 @@
+node_modules/
+dist/
+
+.env
+
+# misc folders
+.brief/
+.review
+.secrets/
+prompts/
+
+# misc
+AGENTS.md
+www-v4.code-workspace
+
+# openwolf runtime artifacts
+.wolf/token-ledger.json
+.wolf/cron-state.json
+.wolf/designqc-report.json
+.wolf/designqc-captures/
+.wolf/suggestions.json
+scripts/shots/
