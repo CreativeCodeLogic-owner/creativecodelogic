@@ -364,7 +364,13 @@
       "file": "src/components/HelloDrawer.tsx, src/lib/captcha.ts",
       "root_cause": "The reCAPTCHA solve happens inside Google's cross-origin iframe and triggers no React re-render, so the submit gate never re-evaluated. (The gate needs a state update driven by the widget's own callback.)",
       "fix": "captcha.ts renderCheckbox now pushes the token to React via an onToken(token) arg wired to the widget's callback/expired-callback/error-callback; HelloDrawer holds captchaToken in state and gates Send on captchaToken !== \"\" (sends it as g-recaptcha-response, resets to \"\" after submit + on close). Added a defensive path: renderCheckbox rejection → quiet error state instead of a dead button. Guarded the render with a renderedRef so React StrictMode's double-invoke doesn't throw 'already rendered' and trip that error path.",
-      "tags": ["recaptcha", "react-state", "strictmode", "form-gating", "tsx"],
+      "tags": [
+        "recaptcha",
+        "react-state",
+        "strictmode",
+        "form-gating",
+        "tsx"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T16:40:00.000Z"
@@ -376,10 +382,61 @@
       "file": "src/components/HelloDrawer.tsx",
       "root_cause": "Diagnosed: after close the header STILL carried .nav-scrolled and computed backdrop-filter was still blur(12px) — the class was present, so this is the Chromium compositing bug where unmounting an overlapping backdrop-filter layer (the drawer backdrop's backdrop-blur-sm) drops the nav's backdrop-filter rendering until a repaint. (A separate class-drop on programmatic scroll was proven a test-harness artifact: it reproduces with scrollBy/wheel WITHOUT ever opening the drawer, from scrollIntoView desyncing Lenis vs ScrollTrigger.)",
       "fix": "Removed backdrop-blur-sm from the drawer backdrop; use bg-navy/75 (visually equivalent over the dark contact section) so there is no second backdrop-filter layer to unmount. Also added requestAnimationFrame(() => ScrollTrigger.update()) after startScroll() on close as defensive re-sync of the scrolled-state class.",
-      "tags": ["chromium", "backdrop-filter", "compositing", "scrolltrigger", "lenis", "tsx"],
+      "tags": [
+        "chromium",
+        "backdrop-filter",
+        "compositing",
+        "scrolltrigger",
+        "lenis",
+        "tsx"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-21T16:45:00.000Z"
+    },
+    {
+      "id": "bug-025",
+      "timestamp": "2026-07-21T16:02:37.299Z",
+      "error_message": "CSS fix: start",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "start: 40, → 0,",
+      "fix": "Changed start: 40, → 0,",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T16:02:37.299Z"
+    },
+    {
+      "id": "bug-026",
+      "timestamp": "2026-07-21T16:03:07.491Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check) | Also: // nav scrolled-state must apply under reduced motion too (w; await page.evaluate(() => window.scrollTo(0, document.docume",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-21T16:03:14.470Z"
+    },
+    {
+      "id": "bug-016",
+      "timestamp": "2026-07-21T17:10:00.000Z",
+      "error_message": "Nav loses .nav-scrolled (background + blur) at the bottom of the page — process/footer text bleeds through a transparent header",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "The nav used ScrollTrigger.create({ start: 40, end: 'max', toggleClass }). A BOUNDED trigger DEACTIVATES once scroll passes its end, and toggleClass strips the class on deactivation — so at/near the bottom (scroll >= cached max, cache easily stale after the brief/drawer change the page height) the class was removed. Also latent: the effect early-returned under prefers-reduced-motion, so reduced-motion users never got the scrolled nav at all (this is scroll-state styling, not motion).",
+      "fix": "Replaced with an unbounded ScrollTrigger.create({ start: 0, end: 'max', onUpdate/onRefresh: (self) => bar.classList.toggle('nav-scrolled', self.scroll() > 40) }) plus an initial apply(window.scrollY) on mount (handles loading mid-scroll via #anchor). Removed the reduced-motion early return so the toggle runs regardless. Reaching/passing the bottom can no longer strip the class.",
+      "tags": ["scrolltrigger", "toggleclass", "reduced-motion", "nav", "tsx"],
+      "related_bugs": ["bug-015"],
+      "occurrences": 1,
+      "last_seen": "2026-07-21T17:10:00.000Z"
     }
   ]
 }

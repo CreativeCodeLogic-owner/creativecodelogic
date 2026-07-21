@@ -365,6 +365,13 @@ async function scrollToEl(page, sel, offset = -60) {
   out.brief = brief;
   out.hello = hello;
 
+  // --- 8. nav scrolled-state holds at the very bottom (unbounded trigger) -----
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(500);
+  out.navScrolledAtBottom = await page.evaluate(
+    () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
+  );
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -400,6 +407,12 @@ async function scrollToEl(page, sel, offset = -60) {
       document.querySelectorAll('button[aria-label^="Drag node"]').length === 0,
   );
   out.pinSpacer = await page.evaluate(() => !!document.querySelector(".pin-spacer"));
+  // nav scrolled-state must apply under reduced motion too (would fail pre-fix)
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(500);
+  out.navScrolledAtBottom = await page.evaluate(
+    () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
+  );
   await page.screenshot({ path: `${OUT}/rm-terminal.png` });
   console.log("\n=== REDUCED ===");
   console.log(JSON.stringify(out, null, 1));

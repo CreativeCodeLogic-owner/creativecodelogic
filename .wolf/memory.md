@@ -89,3 +89,9 @@
 | 18:46 | Edited src/components/HelloDrawer.tsx | 3→4 lines | ~52 |
 | 18:46 | Edited src/components/HelloDrawer.tsx | 17→15 lines | ~159 |
 | 16:50 | Two real-device bug fixes on contact drawer. Bug A: Send never enabled after captcha solve → token now driven into React state via widget callback (captcha.ts onToken), gate on captchaToken; +renderedRef guard for StrictMode double-render, +defensive error path. Bug B: nav blur lost after drawer close (class PRESENT → Chromium backdrop-filter compositing) → dropped drawer backdrop-blur (bg-navy/75) + rAF ScrollTrigger.update() on close | HelloDrawer.tsx, captcha.ts, verify6.mjs | build clean; verify6 3 passes 0 errors; navScrolledSurvivesCycle=true; sendGatedByCaptcha=true (solve path is manual — CI can't solve captcha) | ~6000 |
+| 18:50 | Session end: 64 writes across 14 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 19 reads | ~51775 tok |
+| 19:02 | Edited src/components/Nav.tsx | 6→5 lines | ~72 |
+| 19:02 | Edited src/components/Nav.tsx | CSS: scroll, onUpdate, onRefresh | ~254 |
+| 19:03 | Edited scripts/verify6.mjs | added optional chaining | ~110 |
+| 19:03 | Edited scripts/verify6.mjs | added optional chaining | ~138 |
+| 17:15 | Fix nav .nav-scrolled dropping at page bottom: bounded ScrollTrigger toggleClass (start:40 end:max) deactivates past max → class stripped. Replaced with unbounded start:0 end:max + manual onUpdate/onRefresh toggle on self.scroll()>40, initial apply(window.scrollY), and removed reduced-motion early-return (scroll-state ≠ motion). verify6: nav-scrolled holds at absolute bottom in full + reduced passes | Nav.tsx, verify6.mjs | build clean; 3 passes 0 errors; navScrolledAtBottom true in FULL + REDUCED | ~2500 |

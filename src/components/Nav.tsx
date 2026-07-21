@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef } from "react";
 import { Triquetra } from "@/components/Triquetra";
 import { ScrollTrigger, scrollToId } from "@/lib/scroll";
 import { SHOW_WORK } from "@/lib/flags";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMagnetic } from "@/hooks/useMagnetic";
 
 const LINKS = [
@@ -13,19 +12,26 @@ const LINKS = [
 ].filter((link) => SHOW_WORK || link.hash !== "#work");
 
 export function Nav() {
-  const reduced = usePrefersReducedMotion();
   const barRef = useRef<HTMLElement>(null);
   const ctaRef = useMagnetic<HTMLAnchorElement>(3, 60);
 
   useLayoutEffect(() => {
-    if (reduced || !barRef.current) return;
+    const bar = barRef.current;
+    if (!bar) return;
+    // Scroll-STATE styling, not motion — applies even under reduced motion.
+    // Unbounded (start:0 end:max) with a manual toggle so reaching/passing the
+    // bottom can never strip the class the way a bounded toggleClass does when
+    // its trigger deactivates past "max".
+    const apply = (scroll: number) => bar.classList.toggle("nav-scrolled", scroll > 40);
+    apply(window.scrollY); // correct initial state (page may load mid-scroll via #anchor)
     const trigger = ScrollTrigger.create({
-      start: 40,
+      start: 0,
       end: "max",
-      toggleClass: { targets: barRef.current, className: "nav-scrolled" },
+      onUpdate: (self) => apply(self.scroll()),
+      onRefresh: (self) => apply(self.scroll()),
     });
     return () => trigger.kill();
-  }, [reduced]);
+  }, []);
 
   const go = (hash: string) => (event: React.MouseEvent) => {
     event.preventDefault();

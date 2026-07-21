@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T15:46:53.257Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-21T16:03:14.448Z
 > Files: 53 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -55,7 +55,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~5330 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~5508 tok)
 
 ## src/
 
@@ -72,7 +72,7 @@
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3339 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2168 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1198 tok)
-- `Nav.tsx` — LINKS (~723 tok)
+- `Nav.tsx` — LINKS (~827 tok)
 - `ProgressLine.tsx` — The journey line — a thin cyan rule down the page edge, drawn by scroll. (~297 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2222 tok)
 - `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~840 tok)
