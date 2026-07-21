@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* Self-hosted fonts (latin subset, variable woff2) — no third-party runtime
+   dependency. Weight ranges cover the axis; family names match the @theme
+   tokens below so nothing else changes. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/inter.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/fonts/space-grotesk.woff2") format("woff2");
+}
+
 @theme {
   --color-navy: #091220;
   --color-accent: #57d3fe;

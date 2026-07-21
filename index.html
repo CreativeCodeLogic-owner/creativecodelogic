@@ -10,6 +10,17 @@
     />
     <meta name="theme-color" content="#091220" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- self-hosted fonts: preload the hero's first-paint face (Space Grotesk,
+         the h1 renders 600 within the variable range) -->
+    <link
+      rel="preload"
+      href="/fonts/space-grotesk.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Creative Code Logic — Built with creativity, code, and logic" />
     <meta
@@ -17,12 +28,6 @@
       content="CCL builds websites, webapps, and apps with unique creativity, lightweight code, and solid logic."
     />
     <meta property="og:image" content="/og.jpg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="root"></div>

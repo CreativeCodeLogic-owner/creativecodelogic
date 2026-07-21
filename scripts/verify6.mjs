@@ -44,8 +44,28 @@ async function scrollToEl(page, sel, offset = -60) {
   const browser = await launch({ width: 1440, height: 900 });
   const page = await browser.newPage();
   const errors = watch(page);
+  // fonts are self-hosted — no third-party font requests allowed
+  let googleFontReq = false;
+  page.on("request", (r) => {
+    if (/fonts\.(googleapis|gstatic)\.com/.test(r.url())) googleFontReq = true;
+  });
   await page.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
   const out = {};
+
+  // --- 0. self-hosted fonts --------------------------------------------------
+  await sleep(1500);
+  out.noGoogleFonts = !googleFontReq;
+  out.fonts = await page.evaluate(() => {
+    const fam = (sel) => {
+      const el = document.querySelector(sel);
+      return el ? getComputedStyle(el).fontFamily : null;
+    };
+    return {
+      h1: fam("#hero-heading"),
+      body: getComputedStyle(document.body).fontFamily,
+      terminal: fam("[data-terminal-body]"),
+    };
+  });
 
   // --- 1. hero y-stability over two loops -----------------------------------
   await sleep(12500);
