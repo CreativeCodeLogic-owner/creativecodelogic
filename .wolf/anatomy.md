@@ -1,16 +1,18 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T08:40:43.383Z
-> Files: 63 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T08:55:22.120Z
+> Files: 65 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
+- `.firebaserc` (~18 tok)
 - `.gitattributes` (~4 tok)
-- `.gitignore` — Git ignore rules (~88 tok)
+- `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~922 tok)
+- `CHANGELOG.md` — Changelog (~1083 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
-- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~628 tok)
+- `firebase.json` (~225 tok)
+- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~709 tok)
 - `package.json` — Node.js package manifest (~181 tok)
 - `README.md` — Project documentation (~1308 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
@@ -55,10 +57,10 @@
 
 ## public/
 
-- `privacy.html` — Privacy Policy — Creative Code Logic (~1366 tok)
+- `privacy.html` — Privacy Policy — Creative Code Logic (~1447 tok)
 - `robots.txt` (~19 tok)
-- `sitemap.xml` (~86 tok)
-- `terms.html` — Terms of Use — Creative Code Logic (~1381 tok)
+- `sitemap.xml` (~83 tok)
+- `terms.html` — Terms of Use — Creative Code Logic (~1461 tok)
 
 ## scripts/
 
@@ -83,7 +85,7 @@
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)
-- `Footer.tsx` — Footer (~262 tok)
+- `Footer.tsx` — Footer (~259 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3339 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1768 tok)
@@ -96,7 +98,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4718 tok)
+- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4657 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 

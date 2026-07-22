@@ -234,3 +234,19 @@
 | 11:40 | Edited CHANGELOG.md | 1→4 lines | ~165 |
 | 11:40 | Edited CHANGELOG.md | 8→6 lines | ~209 |
 | 11:41 | ambient constellation: 1 anchor(150-190)+satellites(48-72), alt sides, +2px boundary PAD, verify+lighthouse | AmbientField.tsx, verify6.mjs, CHANGELOG.md | perf 98, CLS 0, all clear | ~14k |
+| 11:42 | Session end: 4 writes across 2 files (verify6.mjs, CHANGELOG.md) | 3 reads | ~11906 tok |
+| 11:47 | Edited index.html | 2→6 lines | ~116 |
+| 11:47 | Edited public/terms.html | 2→6 lines | ~102 |
+| 11:47 | Edited public/privacy.html | 2→6 lines | ~102 |
+| 11:48 | Edited src/components/Footer.tsx | "/terms.html" → "/terms" | ~8 |
+| 11:48 | Edited src/components/Footer.tsx | "/privacy.html" → "/privacy" | ~8 |
+| 11:48 | Edited public/terms.html | "/privacy.html" → "/privacy" | ~20 |
+| 11:48 | Edited public/sitemap.xml | 4→4 lines | ~32 |
+| 11:48 | Created firebase.json | — | ~225 |
+| 11:48 | Created .firebaserc | — | ~18 |
+| 11:49 | Edited firebase.json | inline fix | ~16 |
+| 11:52 | Edited src/components/worlds/WorldCode.tsx | CSS: deployment, https | ~328 |
+| 11:54 | Edited CHANGELOG.md | reduced (-7 lines) | ~262 |
+| 11:54 | Edited CHANGELOG.md | expanded (+6 lines) | ~283 |
+| 11:55 | deploy Firebase Hosting: firebase.json(cleanUrls+cache headers), .firebaserc(beta-creativecodelogic), extensionless legal links, live metrics update | firebase.json, WorldCode.tsx, Footer.tsx, sitemap.xml | live 98/100/100/100, LCP 0.8s | ~10k |
+| 11:55 | Edited .gitignore | 2→5 lines | ~15 |

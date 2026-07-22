@@ -8,14 +8,14 @@ export function Footer() {
           perform.
           {" · "}
           <a
-            href="/terms.html"
+            href="/terms"
             className="rounded-sm transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
           >
             Terms
           </a>
           {" · "}
           <a
-            href="/privacy.html"
+            href="/privacy"
             className="rounded-sm transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
           >
             Privacy

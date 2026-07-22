@@ -7,29 +7,26 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 
 // Every line here is REAL and measured — the brand's pitch is "judge it now",
 // so the terminal must not claim anything untrue.
-// Measured 2026-07-21 against the production build served locally:
-//   bun run build && bun run preview                      # serves dist on :4173
+// Measured 2026-07-22 against the LIVE production deployment:
+//   bun run build && firebase deploy --only hosting
 //   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
-//     bunx lighthouse http://localhost:4173 --preset=desktop --output=json \
-//     --chrome-flags="--headless=new"
-// Results (fonts now self-hosted): vite 8.1.5 · 45 modules · tsc --noEmit clean
-//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 95
-//   (stable across runs), LCP 0.6s (accessibility 100, best-practices 100,
-//   SEO 100).
-// NOTE: these are LOCALHOST numbers — re-measure against the real production URL
-// after deploy; fonts / CDN / hosting can shift LCP and the performance score.
+//     lighthouse https://beta-creativecodelogic.web.app/ --preset=desktop \
+//     --output=json --chrome-flags="--headless=new"
+// Results (fonts self-hosted): vite 8.1.5 · 46 modules · tsc --noEmit clean
+//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 98,
+//   LCP 0.8s (accessibility 100, best-practices 100, SEO 100).
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
-  { text: "45 modules transformed", kind: "ok" },
+  { text: "46 modules transformed", kind: "ok" },
   { text: "type-check clean — 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports — 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 95", kind: "ok" },
+  { text: "lighthouse performance 98", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 95, decimals: 0, suffix: "" },
-  { label: "LCP", target: 0.6, decimals: 1, suffix: "s" },
+  { label: "Lighthouse", target: 98, decimals: 0, suffix: "" },
+  { label: "LCP", target: 0.8, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
 

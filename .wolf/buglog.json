@@ -1108,6 +1108,70 @@
       ],
       "occurrences": 1,
       "last_seen": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "id": "bug-068",
+      "timestamp": "2026-07-22T08:48:08.607Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Footer.tsx",
+      "root_cause": "Had \"/terms.html\"",
+      "fix": "Changed to \"/terms\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-22T08:48:12.331Z"
+    },
+    {
+      "id": "bug-069",
+      "timestamp": "2026-07-22T08:48:21.200Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/terms.html",
+      "root_cause": "Had \"/privacy.html\"",
+      "fix": "Changed to \"/privacy\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:48:21.200Z"
+    },
+    {
+      "id": "bug-070",
+      "timestamp": "2026-07-22T08:49:07.220Z",
+      "error_message": "Incorrect value in code",
+      "file": "firebase.json",
+      "root_cause": "Had \"**/*.@(png|jpg|jpeg|gif|svg|ico|webp)\"",
+      "fix": "Changed to \"/*.@(png|jpg|jpeg|gif|svg|ico|webp)\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:49:07.220Z"
+    },
+    {
+      "id": "bug-071",
+      "timestamp": "2026-07-22T08:52:55.277Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"lighthouse performance 95\", kind: \"ok\" → \"lighthouse performance 98\", kind: \"ok\"",
+      "fix": "Changed text: \"lighthouse performance 95\", kind: \"ok\" → \"lighthouse performance 98\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:52:55.277Z"
     }
   ]
 }
