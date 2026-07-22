@@ -4,6 +4,11 @@
 
 This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
 
+# CLAUDE Session ID _(DO NOT DELETE)_
+claude --resume da4caafb-5690-4a2c-8b59-2f79a228aaf2
+claude --resume da4caafb-5690-4a2c-8b59-2f79a228aaf2
+
+
 # Project
 CCL (Creative Code Logic) corporate website v4 — single-page scroll-driven
 marketing site. React 19 + TypeScript strict, Vite 8, Tailwind CSS v4
