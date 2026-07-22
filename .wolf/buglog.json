@@ -790,6 +790,86 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-22T06:23:57.722Z"
+    },
+    {
+      "id": "bug-049",
+      "timestamp": "2026-07-22T06:35:29.925Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/App.tsx",
+      "root_cause": "Had \"@/components/ProgressLine\"",
+      "fix": "Changed to \"@/components/AmbientField\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T06:35:29.925Z"
+    },
+    {
+      "id": "bug-050",
+      "timestamp": "2026-07-22T06:38:05.138Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check) | Also: // ambient field is a single static scatter (frame counter f; out.ambientStatic = await page.evaluate(() => {",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-22T06:38:18.181Z"
+    },
+    {
+      "id": "bug-051",
+      "timestamp": "2026-07-22T06:45:12.416Z",
+      "error_message": "Missing guard clause",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "No early return/throw for edge case: cancelled",
+      "fix": "Added guard clause: if (cancelled)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T06:45:12.416Z"
+    },
+    {
+      "id": "bug-052",
+      "timestamp": "2026-07-22T06:45:31.983Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T06:45:31.983Z"
+    },
+    {
+      "id": "bug-053",
+      "timestamp": "2026-07-22T06:46:16.359Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 9→11 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T06:46:16.359Z"
     }
   ]
 }

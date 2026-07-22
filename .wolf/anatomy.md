@@ -1,14 +1,14 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T06:24:19.129Z
-> Files: 62 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T06:51:17.466Z
+> Files: 63 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~88 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~771 tok)
+- `CHANGELOG.md` — Changelog (~824 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `index.html` — Creative Code Logic — Built with creativity, code, and logic (~628 tok)
 - `package.json` — Node.js package manifest (~181 tok)
@@ -69,16 +69,17 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~8594 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~9118 tok)
 
 ## src/
 
-- `App.tsx` — App — uses useEffect (~314 tok)
+- `App.tsx` — App (~337 tok)
 - `index.css` — Styles: 22 rules, 8 vars (~1248 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
 
+- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~2344 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)

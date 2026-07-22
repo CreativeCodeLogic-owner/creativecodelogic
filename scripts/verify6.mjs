@@ -515,6 +515,32 @@ async function scrollToEl(page, sel, offset = -60) {
     await lp.close();
   }
 
+  // --- 11. ambient field (behind everything, per-chapter crossfade, idle) -----
+  out.ambient = await page.evaluate(() => {
+    const c = document.querySelector("[data-ambient]");
+    const cs = c ? getComputedStyle(c) : null;
+    return {
+      canvas: c?.tagName === "CANVAS",
+      pointerEventsNone: cs?.pointerEvents === "none",
+      ariaHidden: c?.getAttribute("aria-hidden") === "true",
+      belowContent: cs ? parseInt(cs.zIndex, 10) < 0 : false,
+    };
+  });
+  const chaps = new Set();
+  for (const f of [0, 0.25, 0.5, 0.75, 1]) {
+    await page.evaluate((frac) => window.scrollTo(0, document.documentElement.scrollHeight * frac), f);
+    await sleep(800);
+    chaps.add(await page.evaluate(() => document.querySelector("[data-ambient]").getAttribute("data-ambient-chapter")));
+  }
+  out.ambient.distinctChapters = chaps.size;
+  // rAF idle: with scroll still, the canvas must not repaint for 2s
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * 0.5));
+  await sleep(1600); // let the crossfade settle
+  const af1 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
+  await sleep(2000);
+  const af2 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
+  out.ambient.idleFramesFrozen = af1 === af2;
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -531,6 +557,17 @@ async function scrollToEl(page, sel, offset = -60) {
   await sleep(2500);
   const out = {};
   out.rotatingLine = await page.evaluate(() => !!document.querySelector("[data-hero-line]"));
+  // ambient field is a single static scatter (frame counter frozen) under reduced motion
+  out.ambientStatic = await page.evaluate(() => {
+    const c = document.querySelector("[data-ambient]");
+    return { present: !!c, chapter: c?.getAttribute("data-ambient-chapter") };
+  });
+  {
+    const rf1 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
+    await sleep(2000);
+    const rf2 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
+    out.ambientStatic.framesFrozen = rf1 === rf2;
+  }
   // progress line renders statically (full-height, both caps) under reduced motion
   out.progressLineStatic = await page.evaluate(() => {
     const line = document.querySelector("[data-progress-line]");

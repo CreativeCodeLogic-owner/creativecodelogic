@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { initSmoothScroll, ScrollTrigger } from "@/lib/scroll";
 import { SHOW_WORK } from "@/lib/flags";
 import { Nav } from "@/components/Nav";
+import { AmbientField } from "@/components/AmbientField";
 import { ProgressLine } from "@/components/ProgressLine";
 import { HeroSignature } from "@/components/HeroSignature";
 import { SignatureMeaning } from "@/components/SignatureMeaning";
@@ -20,6 +21,7 @@ export function App() {
 
   return (
     <>
+      <AmbientField />
       <ProgressLine />
       <Nav />
       <main>

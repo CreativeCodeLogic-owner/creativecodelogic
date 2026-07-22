@@ -171,3 +171,17 @@
 | 09:23 | Edited scripts/verify6.mjs | added optional chaining | ~387 |
 | 09:24 | Edited CHANGELOG.md | 4→7 lines | ~79 |
 | 09:30 | Legal pages: static public/terms.html + privacy.html (self-contained, brand CSS, @font-face → /fonts/*.woff2, Space Grotesk/Inter, prose column, true copy only — no placeholders/DPO/jurisdiction); Footer.tsx +Terms/Privacy links (text-[10px], focus-visible); sitemap.xml +2 URLs; CHANGELOG [Unreleased]; verify6 sec 10 (pages 200/h1/email/no-brackets) + footer legal links | terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs, CHANGELOG.md | build clean; dist has both pages; verify6 3/3 0 errors; footerLegal count=2 focusable; legal 200/h1/email/noPlaceholders | ~4000 |
+| 09:28 | Session end: 6 writes across 6 files (terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs) | 2 reads | ~3860 tok |
+| 09:35 | Created src/components/AmbientField.tsx | — | ~2118 |
+| 09:35 | Edited src/App.tsx | added 1 import(s) | ~45 |
+| 09:35 | Edited src/App.tsx | 4→5 lines | ~22 |
+| 09:38 | Edited scripts/verify6.mjs | added optional chaining | ~420 |
+| 09:38 | Edited scripts/verify6.mjs | added optional chaining | ~214 |
+| 09:44 | Edited src/components/AmbientField.tsx | CSS: teardown, handle, 6 | ~208 |
+| 09:45 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~45 |
+| 09:45 | Edited src/components/AmbientField.tsx | 4→5 lines | ~42 |
+| 09:45 | Edited src/components/AmbientField.tsx | added optional chaining | ~134 |
+| 09:46 | Edited src/components/AmbientField.tsx | 5→4 lines | ~46 |
+| 09:46 | Edited src/components/AmbientField.tsx | modified requestIdleCallback() | ~99 |
+| 09:51 | Edited CHANGELOG.md | 2→3 lines | ~97 |
+| 10:15 | Ambient triquetra field (AmbientField.tsx, mounted in App behind main): 1 fixed canvas -z-10, stroke-only marks from TRIQUETRA_LOOPS, alpha 0.05 (worlds chapter ×0.5), density 10 desktop/6 mobile, margin-biased (outer 25%), seeded mulberry32 per chapter; ScrollTrigger onToggle crossfade (0.6s) + per-mark parallax; rAF idle when still (data-ambient-frames); reduced=1 static scatter. PERF GATE: first measure perf 92/CLS0/TBT~225 FAIL → deferred setup to requestIdleCallback + density 14→10/8→6 → perf 94/96/95 CLS0 TBT~170 PASS | AmbientField.tsx, App.tsx, verify6.mjs, CHANGELOG.md | build clean; verify6 3/3 0 errors; canvas pe-none/aria/z<0, 4 distinct chapters, idle frozen, reduced static frozen | ~9000 |
