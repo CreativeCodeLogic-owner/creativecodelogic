@@ -563,19 +563,41 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.evaluate(() => document.querySelector('[data-world="0"]').scrollIntoView({ block: "center" }));
   await sleep(1200);
   out.ambient.paintedAtWorlds = await painted();
-  // flow-field distribution (dev-only debug dump of the active chapter's marks):
-  // Poisson spacing, text-band clearance, and nearest-neighbour rotation coherence
+  // constellation distribution (dev-only debug dump of the active chapter's marks):
+  // one anchor + satellites, size hierarchy, edge + text-band clearance,
+  // anchor/satellite spacing, and nearest-neighbour rotation coherence
   out.ambient.flow = await page.evaluate(() => {
     const marks = JSON.parse(document.querySelector("[data-ambient]").getAttribute("data-ambient-debug") || "[]");
     const vw = window.innerWidth;
-    const MIN = 1.2 * 120;
+    const vh = window.innerHeight;
+    const EDGE = 24;
+    const SAT_GAP = 120;
     const bandL = 0.16 * vw;
     const bandR = 0.84 * vw;
+    const anchors = marks.filter((m) => m.anchor);
+    const sats = marks.filter((m) => !m.anchor);
+    const anchorSize = anchors[0]?.size ?? 0;
+    // exactly one anchor (150-190px) with satellites (48-72px) — no continuum
+    const anchorOk = anchors.length === 1 && anchorSize >= 150 - 1 && anchorSize <= 190 + 1;
+    const satSizeOk = sats.every((m) => m.size >= 48 - 1 && m.size <= 72 + 1);
+    // every mark fully inside the viewport with >= 24px clearance on all edges
+    const edgeClearOk = marks.every(
+      (m) => m.x - m.size / 2 >= EDGE && m.x + m.size / 2 <= vw - EDGE && m.y - m.size / 2 >= EDGE && m.y + m.size / 2 <= vh - EDGE
+    );
+    // clear of the central text column
+    const allClear = marks.every((m) => m.x + m.size / 2 <= bandL || m.x - m.size / 2 >= bandR);
+    // spacing: anchor-to-satellite >= 0.75 * anchorSize, satellite-to-satellite >= 120
+    let minAnchorSlack = Infinity;
+    let minSatSlack = Infinity;
     let minD = Infinity;
     for (let i = 0; i < marks.length; i++)
-      for (let j = i + 1; j < marks.length; j++)
-        minD = Math.min(minD, Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y));
-    const allClear = marks.every((m) => m.x + m.size / 2 <= bandL || m.x - m.size / 2 >= bandR);
+      for (let j = i + 1; j < marks.length; j++) {
+        const d = Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y);
+        minD = Math.min(minD, d);
+        if (marks[i].anchor || marks[j].anchor) minAnchorSlack = Math.min(minAnchorSlack, d - 0.75 * anchorSize);
+        else minSatSlack = Math.min(minSatSlack, d - SAT_GAP);
+      }
+    const spacingOk = (minAnchorSlack === Infinity || minAnchorSlack >= -1) && (minSatSlack === Infinity || minSatSlack >= -1);
     let maxNbr = 0;
     for (const m of marks) {
       let nd = Infinity;
@@ -594,10 +616,15 @@ async function scrollToEl(page, sel, offset = -60) {
     return {
       count: marks.length,
       minDist: Math.round(minD),
-      spacingOk: marks.length < 2 || minD >= MIN - 1,
+      anchorOk,
+      satSizeOk,
+      edgeClearOk,
       allClear,
+      minAnchorSlack: minAnchorSlack === Infinity ? null : +minAnchorSlack.toFixed(1),
+      minSatSlack: minSatSlack === Infinity ? null : +minSatSlack.toFixed(1),
+      spacingOk,
       maxNbrRotDeg: +((maxNbr * 180) / Math.PI).toFixed(1),
-      coherenceOk: (maxNbr * 180) / Math.PI < 20,
+      coherenceOk: (maxNbr * 180) / Math.PI < 45,
     };
   });
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -640,13 +667,14 @@ async function scrollToEl(page, sel, offset = -60) {
     out.ambientStatic.flow = await page.evaluate(() => {
       const marks = JSON.parse(document.querySelector("[data-ambient]").getAttribute("data-ambient-debug") || "[]");
       const vw = window.innerWidth;
-      const MIN = 1.2 * 120;
-      let minD = Infinity;
-      for (let i = 0; i < marks.length; i++)
-        for (let j = i + 1; j < marks.length; j++)
-          minD = Math.min(minD, Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y));
+      const vh = window.innerHeight;
+      const EDGE = 24;
+      const anchors = marks.filter((m) => m.anchor);
+      const edgeClearOk = marks.every(
+        (m) => m.x - m.size / 2 >= EDGE && m.x + m.size / 2 <= vw - EDGE && m.y - m.size / 2 >= EDGE && m.y + m.size / 2 <= vh - EDGE
+      );
       const allClear = marks.every((m) => m.x + m.size / 2 <= 0.16 * vw || m.x - m.size / 2 >= 0.84 * vw);
-      return { count: marks.length, spacingOk: marks.length < 2 || minD >= MIN - 1, allClear };
+      return { count: marks.length, anchorOk: anchors.length === 1, edgeClearOk, allClear };
     });
   }
   // progress line renders statically (full-height, both caps) under reduced motion

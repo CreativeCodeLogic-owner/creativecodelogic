@@ -7,17 +7,20 @@ const ACCENT = "87, 211, 254"; // #57d3fe
 const VIEWBOX = 512; // TRIQUETRA_VIEWBOX
 const BASE_ALPHA = 0.12; // per-mark stroke alpha (worlds chapter halves it → 0.06)
 const STROKE = 1.6; // on-screen stroke width (px)
-const MIN_SIZE = 56; // below ~48px the three loops alias into a blob
-const MAX_SIZE = 120;
-const MARGIN = 130; // vertical wrap margin (≥ MAX_SIZE for clean wrap)
 const EDGE_BAND = 0.16; // marks live in the outer 16% each side (text-clear)
+const EDGE_CLEAR = 24; // min clearance from every viewport edge (no cropping)
 const FADE = 0.6; // crossfade seconds
 const MAX_ANGLE = 0.61; // ±35° the field swings around each chapter's base angle
 const DRIFT = 0.00006; // rad per scrolled px — the whole field slowly rotates
-const POISSON_MIN = 1.2 * MAX_SIZE; // min centre-to-centre spacing → no clumps
+const PARALLAX = 0.15; // gentle scroll drift factor (clamped so it never crops)
+const ANCHOR_MIN = 150; // exactly one dominant anchor per chapter…
+const ANCHOR_MAX = 190;
+const SAT_MIN = 48; // …the rest are satellites, clearly smaller
+const SAT_MAX = 72;
+const SAT_GAP = 120; // satellite-to-satellite min spacing
 
 // `angle` is the field-derived lean (rotation at draw time = angle + scroll drift)
-type Mark = { x: number; y: number; size: number; speed: number; angle: number };
+type Mark = { x: number; y: number; size: number; speed: number; angle: number; anchor: boolean };
 
 /** Deterministic PRNG so a chapter's scatter is identical across reloads. */
 function mulberry32(seed: number): () => number {
@@ -54,44 +57,78 @@ function makeField(seed: number) {
   return { base, at };
 }
 
-/** A seeded scatter: Poisson-disc placement in the left/right margin bands (no
- *  clumps, and every mark fully clear of the central text column), with each
- *  mark's lean and size read from the smooth field. */
-function makeScatter(seed: number, vw: number, vh: number, count: number): Mark[] {
+/** A seeded CONSTELLATION per chapter: one dominant anchor plus satellites,
+ *  weighted to one side (the side alternates per chapter, so crossfades read as
+ *  the composition's weight swinging across the page). Poisson-spaced, every
+ *  mark fully inside the viewport (≥EDGE_CLEAR from all edges) and clear of the
+ *  central text column; lean (and satellite size) come from the smooth field. */
+function makeScatter(
+  seed: number,
+  vw: number,
+  vh: number,
+  count: number,
+  heavyRight: boolean,
+): Mark[] {
   const rng = mulberry32(seed);
   const field = makeField(seed ^ 0x9e3779b9);
-  const half = MAX_SIZE / 2; // clearance from the band's inner edge (max mark)
-  const ATTEMPTS = 40;
+  const EDGE_L = EDGE_BAND * vw;
+  const EDGE_R = (1 - EDGE_BAND) * vw;
+  const PAD = 2; // a hair of slack past every boundary so nothing sits exactly on it
+  // largest mark a margin can hold with edge + text-band clearance
+  const marginMax = Math.max(20, Math.min(EDGE_L, vw - EDGE_R) - EDGE_CLEAR - 2 * PAD);
   const marks: Mark[] = [];
-  for (let i = 0; i < count; i++) {
+
+  const boundsFor = (right: boolean, half: number) => ({
+    xlo: right ? EDGE_R + PAD + half : EDGE_CLEAR + PAD + half,
+    xhi: right ? vw - EDGE_CLEAR - PAD - half : EDGE_L - PAD - half,
+    ylo: EDGE_CLEAR + PAD + half,
+    yhi: vh - EDGE_CLEAR - PAD - half,
+  });
+  // min spacing to an existing mark: anchor pairs are looser (its own scale),
+  // satellite-to-satellite is a flat gap
+  const anchorSize = Math.min(ANCHOR_MIN + rng() * (ANCHOR_MAX - ANCHOR_MIN), marginMax);
+  const required = (m: Mark) => (m.anchor ? 0.75 * anchorSize : SAT_GAP);
+
+  const place = (right: boolean, half: number) => {
+    const b = boundsFor(right, half);
     let best: { x: number; y: number } | null = null;
-    let bestD = -1;
-    for (let a = 0; a < ATTEMPTS; a++) {
-      const left = rng() < 0.5;
-      const lo = left ? 8 : (1 - EDGE_BAND) * vw + half;
-      const hi = left ? EDGE_BAND * vw - half : vw - 8;
-      const x = lo + rng() * Math.max(1, hi - lo);
-      const y = rng() * vh;
-      let d = Infinity;
-      for (const m of marks) d = Math.min(d, Math.hypot(m.x - x, m.y - y));
-      if (d >= POISSON_MIN) {
-        best = { x, y };
-        break;
-      }
-      if (d > bestD) {
-        bestD = d; // best-effort candidate — never loops forever
+    let bestSlack = -Infinity;
+    for (let a = 0; a < 40; a++) {
+      // Math.max(0, …): on a degenerate (single-point) band, stay exactly on it
+      // rather than overflow the text/edge boundary by up to a pixel
+      const x = b.xlo + rng() * Math.max(0, b.xhi - b.xlo);
+      const y = b.ylo + rng() * Math.max(0, b.yhi - b.ylo);
+      let slack = Infinity;
+      for (const m of marks) slack = Math.min(slack, Math.hypot(m.x - x, m.y - y) - required(m));
+      if (slack >= 0) return { x, y };
+      if (slack > bestSlack) {
+        bestSlack = slack; // best-effort — never loops forever
         best = { x, y };
       }
     }
-    if (!best) continue;
-    const fv = field.at(best.x, best.y); // [-1, 1]
-    marks.push({
-      x: best.x,
-      y: best.y,
-      size: MIN_SIZE + (fv * 0.5 + 0.5) * (MAX_SIZE - MIN_SIZE), // size from the field too
-      angle: field.base + fv * MAX_ANGLE,
-      speed: 0.9 + rng() * 0.2,
-    });
+    return best;
+  };
+
+  // 1) the anchor, on the heavy side
+  {
+    const p = place(heavyRight, anchorSize / 2);
+    if (p) {
+      const fv = field.at(p.x, p.y);
+      marks.push({ x: p.x, y: p.y, size: anchorSize, angle: field.base + fv * MAX_ANGLE, speed: 0.9 + rng() * 0.2, anchor: true });
+    }
+  }
+
+  // 2) satellites — one shares the heavy side (when there's room), the rest sit
+  //    on the light side so the weight clearly favours the anchor's side
+  const heavySats = count >= 5 ? 1 : 0;
+  const satHalf = Math.min(SAT_MAX, marginMax) / 2; // reserve the real footprint (capped on thin margins)
+  for (let i = 0; i < count - 1; i++) {
+    const right = i < heavySats ? heavyRight : !heavyRight;
+    const p = place(right, satHalf);
+    if (!p) continue;
+    const fv = field.at(p.x, p.y);
+    const size = Math.min(SAT_MIN + (fv * 0.5 + 0.5) * (SAT_MAX - SAT_MIN), marginMax);
+    marks.push({ x: p.x, y: p.y, size, angle: field.base + fv * MAX_ANGLE, speed: 0.9 + rng() * 0.2, anchor: false });
   }
   return marks;
 }
@@ -101,10 +138,11 @@ function makeScatter(seed: number, vw: number, vh: number, count: number): Mark[
 function debugJSON(marks: Mark[]): string {
   return JSON.stringify(
     marks.map((m) => ({
-      x: Math.round(m.x),
-      y: Math.round(m.y),
-      size: Math.round(m.size),
+      x: +m.x.toFixed(1),
+      y: +m.y.toFixed(1),
+      size: +m.size.toFixed(1),
       a: +m.angle.toFixed(3),
+      anchor: m.anchor,
     })),
   );
 }
@@ -138,7 +176,7 @@ export function AmbientField() {
     let vh = 0;
     let dpr = 1;
     let frames = 0;
-    const count = () => (window.innerWidth < 768 ? 6 : 10);
+    const count = () => (window.innerWidth < 768 ? 3 : 5);
 
     const resizeCanvas = () => {
       vw = window.innerWidth;
@@ -178,7 +216,7 @@ export function AmbientField() {
       };
       const build = () => {
         resizeCanvas();
-        scatter = makeScatter(1337, vw, vh, count());
+        scatter = makeScatter(1337, vw, vh, count(), true);
         if (import.meta.env.DEV) canvas.setAttribute("data-ambient-debug", debugJSON(scatter));
         drawStatic();
       };
@@ -194,7 +232,7 @@ export function AmbientField() {
     resizeCanvas();
     const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
     const worldsIndex = sections.findIndex((s) => s.querySelector("[data-world]"));
-    let scatters = sections.map((_, i) => makeScatter(1000 + i * 97, vw, vh, count()));
+    let scatters = sections.map((_, i) => makeScatter(1000 + i * 97, vw, vh, count(), i % 2 === 0));
     // the worlds chapter runs at half alpha so it never competes with the
     // worlds' own temperatures (blobs, scanlines, blueprint)
     const target = sections.map((_, i) => (i === worldsIndex ? 0.5 : 1));
@@ -204,16 +242,19 @@ export function AmbientField() {
 
     const draw = () => {
       const sy = window.scrollY;
-      const period = vh + 2 * MARGIN;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, vw, vh);
       for (let c = 0; c < scatters.length; c++) {
         const a = state[c].alpha;
         if (a < 0.002) continue;
         for (const m of scatters[c]) {
-          let yD = (m.y - sy * m.speed) % period;
-          if (yD < 0) yD += period;
-          drawMark(m, yD - MARGIN, BASE_ALPHA * a, m.angle + sy * DRIFT);
+          const half = m.size / 2;
+          // gentle scroll drift, clamped inside the safe zone → never cropped
+          const yD = Math.max(
+            EDGE_CLEAR + half,
+            Math.min(vh - EDGE_CLEAR - half, m.y - sy * (m.speed - 1) * PARALLAX),
+          );
+          drawMark(m, yD, BASE_ALPHA * a, m.angle + sy * DRIFT);
         }
       }
       frames += 1;
@@ -292,7 +333,7 @@ export function AmbientField() {
 
     const ro = new ResizeObserver(() => {
       resizeCanvas();
-      scatters = sections.map((_, i) => makeScatter(1000 + i * 97, vw, vh, count()));
+      scatters = sections.map((_, i) => makeScatter(1000 + i * 97, vw, vh, count(), i % 2 === 0));
       if (import.meta.env.DEV && activeIdx >= 0) canvas.setAttribute("data-ambient-debug", debugJSON(scatters[activeIdx]));
       wake();
     });

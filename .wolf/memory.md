@@ -211,3 +211,26 @@
 | 11:09 | Edited scripts/verify6.mjs | expanded (+11 lines) | ~260 |
 | 11:13 | Edited CHANGELOG.md | inline fix | ~74 |
 | 11:45 | Ambient flow-field distribution: replaced uniform random with Poisson-disc placement (seeded dart-throwing, min 1.2×maxSize=144px, best-effort fallback no infinite loop) + smooth angle/size field (3 summed sines, seeded phases, low freq 0.0008-0.0022, ±35° around per-chapter base, +scrollY×0.00006 drift; size from same field). Dev-only data-ambient-debug for verify. Lowered field freq to fix worlds coherence 31.9°→17.8° | AmbientField.tsx, verify6.mjs, CHANGELOG.md | build clean; verify6 3/3 0 errors; minDist hero176/worlds144/process152/contact155 (all≥144), allClear true, maxNbrRot<20°, painted top8936/worlds7279/bottom6880; Lighthouse perf96/97 CLS0 | ~7000 |
+| 11:14 | Session end: 38 writes across 9 files (terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs) | 11 reads | ~15942 tok |
+| 11:21 | Edited src/components/AmbientField.tsx | CSS: anchor | ~245 |
+| 11:21 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~856 |
+| 11:22 | Edited src/components/AmbientField.tsx | CSS: anchor | ~71 |
+| 11:22 | Edited src/components/AmbientField.tsx | inline fix | ~17 |
+| 11:22 | Edited src/components/AmbientField.tsx | inline fix | ~17 |
+| 11:22 | Edited src/components/AmbientField.tsx | inline fix | ~28 |
+| 11:22 | Edited src/components/AmbientField.tsx | modified for() | ~212 |
+| 11:23 | Edited src/components/AmbientField.tsx | inline fix | ~29 |
+| 11:25 | Edited src/components/AmbientField.tsx | modified for() | ~138 |
+| 11:25 | Edited src/components/AmbientField.tsx | modified for() | ~126 |
+| 11:27 | Edited src/components/AmbientField.tsx | modified debugJSON() | ~71 |
+| 11:29 | Edited src/components/AmbientField.tsx | 12→13 lines | ~175 |
+
+## Session: 2026-07-22 11:33
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:34 | Edited scripts/verify6.mjs | added optional chaining | ~780 |
+| 11:34 | Edited scripts/verify6.mjs | 9→10 lines | ~173 |
+| 11:40 | Edited CHANGELOG.md | 1→4 lines | ~165 |
+| 11:40 | Edited CHANGELOG.md | 8→6 lines | ~209 |
+| 11:41 | ambient constellation: 1 anchor(150-190)+satellites(48-72), alt sides, +2px boundary PAD, verify+lighthouse | AmbientField.tsx, verify6.mjs, CHANGELOG.md | perf 98, CLS 0, all clear | ~14k |

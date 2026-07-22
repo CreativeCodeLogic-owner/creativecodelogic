@@ -1023,6 +1023,91 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-22T08:08:52.833Z"
+    },
+    {
+      "id": "bug-063",
+      "timestamp": "2026-07-22T08:21:52.734Z",
+      "error_message": "CSS fix: seed, y, x",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "seed: number, vw: number, vh: number, count: number): Mark[] { → number,; y: best.y, → number; x: best.x, → p.x, y: p.y, size, angle: field.base + fv * MAX_ANGLE, speed: 0.9 + rng() * 0.2, anchor: false",
+      "fix": "Changed seed: number, vw: number, vh: number, count: number): Mark[] { → number,; y: best.y, → number; x: best.x, → p.x, y: p.y, size, angle: field.base + fv * MAX_ANGLE, speed: 0.9 + rng() * 0.2, anchor: false",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:21:52.734Z"
+    },
+    {
+      "id": "bug-064",
+      "timestamp": "2026-07-22T08:25:44.025Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 7→9 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:25:44.025Z"
+    },
+    {
+      "id": "bug-065",
+      "timestamp": "2026-07-22T08:27:34.482Z",
+      "error_message": "CSS fix: x, y, size",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "x: Math.round(m.x), → +m.x.toFixed(1),; y: Math.round(m.y), → +m.y.toFixed(1),; size: Math.round(m.size), → +m.size.toFixed(1),",
+      "fix": "Changed x: Math.round(m.x), → +m.x.toFixed(1),; y: Math.round(m.y), → +m.y.toFixed(1),; size: Math.round(m.size), → +m.size.toFixed(1),",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:27:34.482Z"
+    },
+    {
+      "id": "bug-066",
+      "timestamp": "2026-07-22T08:34:21.113Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:34:21.113Z"
+    },
+    {
+      "id": "bug-067",
+      "timestamp": "2026-07-22T00:00:00.000Z",
+      "error_message": "edgeTextClear FALSE at 1280 and mobile: ambient marks flagged as crossing the text-band / edge boundary despite correct placement",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "Poisson bounds were computed as EXACTLY the boundary (EDGE_L-half, EDGE_CLEAR+half) so a mark could land with zero slack; the verify check x+size/2 <= bandL then failed by a floating-point epsilon (e.g. 1075.19999 vs 1075.2).",
+      "fix": "Added a 2px PAD to every placement boundary in boundsFor() and subtracted 2*PAD from marginMax, so marks always clear each boundary by >=2px — float-robust and visually fully clear.",
+      "tags": [
+        "ambient",
+        "floating-point",
+        "poisson",
+        "boundary",
+        "constellation"
+      ],
+      "related_bugs": [
+        "bug-019",
+        "bug-020"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T00:00:00.000Z"
     }
   ]
 }

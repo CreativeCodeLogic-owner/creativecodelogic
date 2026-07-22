@@ -11,6 +11,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Terms of Use and Privacy Policy pages (static `public/terms.html`, `public/privacy.html`), linked from the footer and added to the sitemap.
 
 ### Changed
+- Ambient field recomposed as a constellation — one large anchor mark (150–190px) plus small satellites (48–72px) per chapter, side emphasis alternating chapter to chapter so the crossfade swings the weight across the page; density trimmed (5 desktop / 3 mobile), every mark held ≥24px clear of the viewport edges (no cropping).
 - Progress line restyled — glued to the left edge, capped ends, a scroll-riding tip, and a taper from ~3px to 1px.
 - Process section: connector now draws across ~3x more scroll so each step registers; step 04 renamed "Mark" → "Ship".
 - Footer type scaled down (`text-sm` → `text-[10px]`).
