@@ -975,6 +975,54 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-22T07:44:47.330Z"
+    },
+    {
+      "id": "bug-060",
+      "timestamp": "2026-07-22T08:03:58.684Z",
+      "error_message": "Missing guard clause",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "No early return/throw for edge case: d >= POISSON_MIN",
+      "fix": "Added guard clause: if (d >= POISSON_MIN)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:03:58.684Z"
+    },
+    {
+      "id": "bug-061",
+      "timestamp": "2026-07-22T08:04:20.418Z",
+      "error_message": "CSS fix: m",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "m: Mark, yDraw: number, alpha: number) => { → Mark, yDraw: number, alpha: number, rot: number) => {",
+      "fix": "Changed m: Mark, yDraw: number, alpha: number) => { → Mark, yDraw: number, alpha: number, rot: number) => {",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-07-22T08:07:30.862Z"
+    },
+    {
+      "id": "bug-062",
+      "timestamp": "2026-07-22T08:08:52.833Z",
+      "error_message": "Missing guard clause",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "No early return/throw for edge case: o === m",
+      "fix": "Added guard clause: if (o === m)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T08:08:52.833Z"
     }
   ]
 }

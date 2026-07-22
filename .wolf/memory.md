@@ -198,3 +198,16 @@
 | 10:44 | Edited src/components/AmbientField.tsx | 2→2 lines | ~38 |
 | 10:49 | Edited src/components/AmbientField.tsx | inline fix | ~22 |
 | 11:10 | Tuned ambient field visibility: BASE_ALPHA 0.05→0.12 (worlds ×0.5→0.06), stroke 1/s→1.6/s, size 24-80→56-120 (anti-alias floor), MARGIN 90→130 (≥max size), size-aware edge bias (each mark's inner edge kept in outer band), EDGE_BAND 0.20→0.16 for text clearance. Geometry/transform unchanged | AmbientField.tsx | build clean; verify6 3/3 0 errors; painted top=8856/worlds=8455/bottom=8443; Lighthouse perf 96/96 CLS 0 (gate pass); eyeballed 1280/1440 marks recognizable + margin-clear | ~3500 |
+| 10:54 | Session end: 27 writes across 9 files (terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs) | 10 reads | ~12223 tok |
+| 11:03 | Edited src/components/AmbientField.tsx | added 3 condition(s) | ~1019 |
+| 11:04 | Edited src/components/AmbientField.tsx | CSS: rot | ~54 |
+| 11:04 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~178 |
+| 11:04 | Edited src/components/AmbientField.tsx | modified for() | ~60 |
+| 11:04 | Edited src/components/AmbientField.tsx | CSS: marks, a | ~192 |
+| 11:05 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~76 |
+| 11:05 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~97 |
+| 11:07 | Edited src/components/AmbientField.tsx | CSS: frequencies | ~99 |
+| 11:08 | Edited scripts/verify6.mjs | added 3 condition(s) | ~456 |
+| 11:09 | Edited scripts/verify6.mjs | expanded (+11 lines) | ~260 |
+| 11:13 | Edited CHANGELOG.md | inline fix | ~74 |
+| 11:45 | Ambient flow-field distribution: replaced uniform random with Poisson-disc placement (seeded dart-throwing, min 1.2×maxSize=144px, best-effort fallback no infinite loop) + smooth angle/size field (3 summed sines, seeded phases, low freq 0.0008-0.0022, ±35° around per-chapter base, +scrollY×0.00006 drift; size from same field). Dev-only data-ambient-debug for verify. Lowered field freq to fix worlds coherence 31.9°→17.8° | AmbientField.tsx, verify6.mjs, CHANGELOG.md | build clean; verify6 3/3 0 errors; minDist hero176/worlds144/process152/contact155 (all≥144), allClear true, maxNbrRot<20°, painted top8936/worlds7279/bottom6880; Lighthouse perf96/97 CLS0 | ~7000 |

@@ -7,7 +7,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
-- Ambient background field — a faint per-chapter triquetra texture behind the page, with a scroll crossfade and gentle parallax; idle when the page is still and deferred to idle time so performance stays flat.
+- Ambient background field — a faint per-chapter triquetra texture behind the page, with a scroll crossfade, gentle parallax, and a flow-field distribution (Poisson spacing, coherent rotation); idle when the page is still and deferred to idle time so performance stays flat.
 - Terms of Use and Privacy Policy pages (static `public/terms.html`, `public/privacy.html`), linked from the footer and added to the sitemap.
 
 ### Changed

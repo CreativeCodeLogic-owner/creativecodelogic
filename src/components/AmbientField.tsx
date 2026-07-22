@@ -12,8 +12,12 @@ const MAX_SIZE = 120;
 const MARGIN = 130; // vertical wrap margin (≥ MAX_SIZE for clean wrap)
 const EDGE_BAND = 0.16; // marks live in the outer 16% each side (text-clear)
 const FADE = 0.6; // crossfade seconds
+const MAX_ANGLE = 0.61; // ±35° the field swings around each chapter's base angle
+const DRIFT = 0.00006; // rad per scrolled px — the whole field slowly rotates
+const POISSON_MIN = 1.2 * MAX_SIZE; // min centre-to-centre spacing → no clumps
 
-type Mark = { x: number; y: number; size: number; rot: number; speed: number };
+// `angle` is the field-derived lean (rotation at draw time = angle + scroll drift)
+type Mark = { x: number; y: number; size: number; speed: number; angle: number };
 
 /** Deterministic PRNG so a chapter's scatter is identical across reloads. */
 function mulberry32(seed: number): () => number {
@@ -26,23 +30,83 @@ function mulberry32(seed: number): () => number {
   };
 }
 
-/** A seeded scatter biased into the left/right margins (away from the middle
- *  50% where the text column lives), so marks never sit behind body copy. */
+/** A smooth continuous field from summed sines with seeded phases (no noise
+ *  library). Nearby positions yield close values, so neighbouring marks lean
+ *  and size together — iron filings, not tumbling debris. Value in ~[-1, 1],
+ *  plus a per-chapter base angle. */
+function makeField(seed: number) {
+  const rng = mulberry32(seed);
+  // low spatial frequencies: the field varies gently (~half a cycle across the
+  // viewport) so neighbours ~POISSON_MIN apart still lean within ~20° of each other
+  const terms = Array.from({ length: 3 }, (_, k) => ({
+    fx: 0.0008 + rng() * 0.0014,
+    fy: 0.0008 + rng() * 0.0014,
+    phase: rng() * Math.PI * 2,
+    w: 1 / (k + 1),
+  }));
+  const wsum = terms.reduce((s, t) => s + t.w, 0);
+  const base = rng() * Math.PI * 2;
+  const at = (x: number, y: number) => {
+    let v = 0;
+    for (const t of terms) v += t.w * Math.sin(t.fx * x + t.fy * y + t.phase);
+    return v / wsum;
+  };
+  return { base, at };
+}
+
+/** A seeded scatter: Poisson-disc placement in the left/right margin bands (no
+ *  clumps, and every mark fully clear of the central text column), with each
+ *  mark's lean and size read from the smooth field. */
 function makeScatter(seed: number, vw: number, vh: number, count: number): Mark[] {
   const rng = mulberry32(seed);
+  const field = makeField(seed ^ 0x9e3779b9);
+  const half = MAX_SIZE / 2; // clearance from the band's inner edge (max mark)
+  const ATTEMPTS = 40;
   const marks: Mark[] = [];
   for (let i = 0; i < count; i++) {
-    const size = MIN_SIZE + rng() * (MAX_SIZE - MIN_SIZE);
-    const half = size / 2;
-    // keep each mark's inner EDGE within the outer band so the larger marks
-    // never reach across into the central text column
-    const left = rng() < 0.5;
-    const x = left
-      ? rng() * Math.max(8, EDGE_BAND * vw - half)
-      : (1 - EDGE_BAND) * vw + half + rng() * Math.max(8, EDGE_BAND * vw - half);
-    marks.push({ x, y: rng() * vh, size, rot: rng() * Math.PI * 2, speed: 0.9 + rng() * 0.2 });
+    let best: { x: number; y: number } | null = null;
+    let bestD = -1;
+    for (let a = 0; a < ATTEMPTS; a++) {
+      const left = rng() < 0.5;
+      const lo = left ? 8 : (1 - EDGE_BAND) * vw + half;
+      const hi = left ? EDGE_BAND * vw - half : vw - 8;
+      const x = lo + rng() * Math.max(1, hi - lo);
+      const y = rng() * vh;
+      let d = Infinity;
+      for (const m of marks) d = Math.min(d, Math.hypot(m.x - x, m.y - y));
+      if (d >= POISSON_MIN) {
+        best = { x, y };
+        break;
+      }
+      if (d > bestD) {
+        bestD = d; // best-effort candidate — never loops forever
+        best = { x, y };
+      }
+    }
+    if (!best) continue;
+    const fv = field.at(best.x, best.y); // [-1, 1]
+    marks.push({
+      x: best.x,
+      y: best.y,
+      size: MIN_SIZE + (fv * 0.5 + 0.5) * (MAX_SIZE - MIN_SIZE), // size from the field too
+      angle: field.base + fv * MAX_ANGLE,
+      speed: 0.9 + rng() * 0.2,
+    });
   }
   return marks;
+}
+
+/** Dev-only debug dump (positions/size/lean) so verify can assert spacing,
+ *  text-clearance, and rotation coherence. */
+function debugJSON(marks: Mark[]): string {
+  return JSON.stringify(
+    marks.map((m) => ({
+      x: Math.round(m.x),
+      y: Math.round(m.y),
+      size: Math.round(m.size),
+      a: +m.angle.toFixed(3),
+    })),
+  );
 }
 
 /**
@@ -86,10 +150,10 @@ export function AmbientField() {
       canvas.style.height = `${vh}px`;
     };
 
-    const drawMark = (m: Mark, yDraw: number, alpha: number) => {
+    const drawMark = (m: Mark, yDraw: number, alpha: number, rot: number) => {
       ctx.save();
       ctx.translate(m.x, yDraw);
-      ctx.rotate(m.rot);
+      ctx.rotate(rot);
       const s = m.size / VIEWBOX;
       ctx.scale(s, s);
       ctx.translate(-VIEWBOX / 2, -VIEWBOX / 2);
@@ -108,13 +172,14 @@ export function AmbientField() {
       const drawStatic = () => {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, vw, vh);
-        for (const m of scatter) drawMark(m, m.y, BASE_ALPHA);
+        for (const m of scatter) drawMark(m, m.y, BASE_ALPHA, m.angle); // field only, no drift
         frames += 1;
         canvas.setAttribute("data-ambient-frames", String(frames));
       };
       const build = () => {
         resizeCanvas();
         scatter = makeScatter(1337, vw, vh, count());
+        if (import.meta.env.DEV) canvas.setAttribute("data-ambient-debug", debugJSON(scatter));
         drawStatic();
       };
       build();
@@ -148,7 +213,7 @@ export function AmbientField() {
         for (const m of scatters[c]) {
           let yD = (m.y - sy * m.speed) % period;
           if (yD < 0) yD += period;
-          drawMark(m, yD - MARGIN, BASE_ALPHA * a);
+          drawMark(m, yD - MARGIN, BASE_ALPHA * a, m.angle + sy * DRIFT);
         }
       }
       frames += 1;
@@ -188,6 +253,7 @@ export function AmbientField() {
       if (idx === activeIdx) return;
       activeIdx = idx;
       canvas.setAttribute("data-ambient-chapter", String(idx));
+      if (import.meta.env.DEV) canvas.setAttribute("data-ambient-debug", debugJSON(scatters[idx]));
       state.forEach((st, i) => {
         gsap.to(st, {
           alpha: i === idx ? target[i] : 0,
@@ -227,6 +293,7 @@ export function AmbientField() {
     const ro = new ResizeObserver(() => {
       resizeCanvas();
       scatters = sections.map((_, i) => makeScatter(1000 + i * 97, vw, vh, count()));
+      if (import.meta.env.DEV && activeIdx >= 0) canvas.setAttribute("data-ambient-debug", debugJSON(scatters[activeIdx]));
       wake();
     });
     ro.observe(document.documentElement);

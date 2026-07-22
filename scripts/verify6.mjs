@@ -563,6 +563,43 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.evaluate(() => document.querySelector('[data-world="0"]').scrollIntoView({ block: "center" }));
   await sleep(1200);
   out.ambient.paintedAtWorlds = await painted();
+  // flow-field distribution (dev-only debug dump of the active chapter's marks):
+  // Poisson spacing, text-band clearance, and nearest-neighbour rotation coherence
+  out.ambient.flow = await page.evaluate(() => {
+    const marks = JSON.parse(document.querySelector("[data-ambient]").getAttribute("data-ambient-debug") || "[]");
+    const vw = window.innerWidth;
+    const MIN = 1.2 * 120;
+    const bandL = 0.16 * vw;
+    const bandR = 0.84 * vw;
+    let minD = Infinity;
+    for (let i = 0; i < marks.length; i++)
+      for (let j = i + 1; j < marks.length; j++)
+        minD = Math.min(minD, Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y));
+    const allClear = marks.every((m) => m.x + m.size / 2 <= bandL || m.x - m.size / 2 >= bandR);
+    let maxNbr = 0;
+    for (const m of marks) {
+      let nd = Infinity;
+      let na = null;
+      for (const o of marks) {
+        if (o === m) continue;
+        const d = Math.hypot(m.x - o.x, m.y - o.y);
+        if (d < nd) { nd = d; na = o; }
+      }
+      if (na) {
+        let diff = Math.abs(m.a - na.a);
+        diff = Math.min(diff, 2 * Math.PI - diff);
+        maxNbr = Math.max(maxNbr, diff);
+      }
+    }
+    return {
+      count: marks.length,
+      minDist: Math.round(minD),
+      spacingOk: marks.length < 2 || minD >= MIN - 1,
+      allClear,
+      maxNbrRotDeg: +((maxNbr * 180) / Math.PI).toFixed(1),
+      coherenceOk: (maxNbr * 180) / Math.PI < 20,
+    };
+  });
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await sleep(1200);
   out.ambient.paintedAtBottom = await painted();
@@ -599,6 +636,17 @@ async function scrollToEl(page, sel, offset = -60) {
       let n = 0;
       for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
       return n;
+    });
+    out.ambientStatic.flow = await page.evaluate(() => {
+      const marks = JSON.parse(document.querySelector("[data-ambient]").getAttribute("data-ambient-debug") || "[]");
+      const vw = window.innerWidth;
+      const MIN = 1.2 * 120;
+      let minD = Infinity;
+      for (let i = 0; i < marks.length; i++)
+        for (let j = i + 1; j < marks.length; j++)
+          minD = Math.min(minD, Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y));
+      const allClear = marks.every((m) => m.x + m.size / 2 <= 0.16 * vw || m.x - m.size / 2 >= 0.84 * vw);
+      return { count: marks.length, spacingOk: marks.length < 2 || minD >= MIN - 1, allClear };
     });
   }
   // progress line renders statically (full-height, both caps) under reduced motion
