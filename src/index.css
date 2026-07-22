@@ -42,7 +42,9 @@ html {
 }
 
 body {
-  background-color: var(--color-navy);
+  /* No background here: html already paints navy (it propagates to the page
+     canvas). A body background would be an opaque layer ABOVE negative-z-index
+     elements, hiding the ambient field behind it. */
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;

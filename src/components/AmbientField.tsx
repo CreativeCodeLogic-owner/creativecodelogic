@@ -129,9 +129,9 @@ export function AmbientField() {
     // the worlds chapter runs at half alpha so it never competes with the
     // worlds' own temperatures (blobs, scanlines, blueprint)
     const target = sections.map((_, i) => (i === worldsIndex ? 0.5 : 1));
-    const state = sections.map((_, i) => ({ alpha: i === 0 ? target[0] : 0 }));
-    let activeIdx = 0;
-    canvas.setAttribute("data-ambient-chapter", "0");
+    // start hidden; the chapter active at init fades in (see below)
+    const state = sections.map(() => ({ alpha: 0 }));
+    let activeIdx = -1;
 
     const draw = () => {
       const sy = window.scrollY;
@@ -206,7 +206,19 @@ export function AmbientField() {
       }),
     );
 
-    wake(); // initial paint
+    // paint the chapter that is active at init — a fade-in from 0, and it
+    // handles a mid-page hard refresh (e.g. loaded at #contact), not just the
+    // top of the page. activeIdx starts -1 so this always runs.
+    const chapterAtCenter = () => {
+      const center = window.scrollY + window.innerHeight / 2;
+      for (let i = 0; i < sections.length; i++) {
+        const r = sections[i].getBoundingClientRect();
+        const top = r.top + window.scrollY;
+        if (center >= top && center < top + r.height) return i;
+      }
+      return 0;
+    };
+    setChapter(chapterAtCenter());
 
     const ro = new ResizeObserver(() => {
       resizeCanvas();

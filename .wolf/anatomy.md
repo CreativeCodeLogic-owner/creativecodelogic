@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T06:51:17.466Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T07:30:16.681Z
 > Files: 63 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -69,17 +69,17 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~9118 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~9515 tok)
 
 ## src/
 
 - `App.tsx` — App (~337 tok)
-- `index.css` — Styles: 22 rules, 8 vars (~1248 tok)
+- `index.css` — Styles: 22 rules, 8 vars (~1297 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
 
-- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~2344 tok)
+- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~2503 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)

@@ -541,6 +541,32 @@ async function scrollToEl(page, sel, offset = -60) {
   const af2 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
   out.ambient.idleFramesFrozen = af1 === af2;
 
+  // PIXEL readback — a canvas can pass every DOM check while hidden behind an
+  // opaque layer, so assert actual painted pixels + the background stacking
+  const painted = () =>
+    page.evaluate(() => {
+      const c = document.querySelector("[data-ambient]");
+      const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+      let n = 0;
+      for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
+      return n;
+    });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await sleep(1200);
+  out.ambient.paintedAtTop = await painted();
+  out.ambient.bodyTransparent = await page.evaluate(
+    () => getComputedStyle(document.body).backgroundColor === "rgba(0, 0, 0, 0)",
+  );
+  out.ambient.htmlNavy = await page.evaluate(
+    () => getComputedStyle(document.documentElement).backgroundColor === "rgb(9, 18, 32)",
+  );
+  await page.evaluate(() => document.querySelector('[data-world="0"]').scrollIntoView({ block: "center" }));
+  await sleep(1200);
+  out.ambient.paintedAtWorlds = await painted();
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(1200);
+  out.ambient.paintedAtBottom = await painted();
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -567,6 +593,13 @@ async function scrollToEl(page, sel, offset = -60) {
     await sleep(2000);
     const rf2 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
     out.ambientStatic.framesFrozen = rf1 === rf2;
+    out.ambientStatic.painted = await page.evaluate(() => {
+      const c = document.querySelector("[data-ambient]");
+      const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+      let n = 0;
+      for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
+      return n;
+    });
   }
   // progress line renders statically (full-height, both caps) under reduced motion
   out.progressLineStatic = await page.evaluate(() => {

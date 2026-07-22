@@ -185,3 +185,10 @@
 | 09:46 | Edited src/components/AmbientField.tsx | modified requestIdleCallback() | ~99 |
 | 09:51 | Edited CHANGELOG.md | 2→3 lines | ~97 |
 | 10:15 | Ambient triquetra field (AmbientField.tsx, mounted in App behind main): 1 fixed canvas -z-10, stroke-only marks from TRIQUETRA_LOOPS, alpha 0.05 (worlds chapter ×0.5), density 10 desktop/6 mobile, margin-biased (outer 25%), seeded mulberry32 per chapter; ScrollTrigger onToggle crossfade (0.6s) + per-mark parallax; rAF idle when still (data-ambient-frames); reduced=1 static scatter. PERF GATE: first measure perf 92/CLS0/TBT~225 FAIL → deferred setup to requestIdleCallback + density 14→10/8→6 → perf 94/96/95 CLS0 TBT~170 PASS | AmbientField.tsx, App.tsx, verify6.mjs, CHANGELOG.md | build clean; verify6 3/3 0 errors; canvas pe-none/aria/z<0, 4 distinct chapters, idle frozen, reduced static frozen | ~9000 |
+| 09:52 | Session end: 18 writes across 8 files (terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs) | 4 reads | ~9634 tok |
+| 10:27 | Edited src/index.css | CSS: here | ~102 |
+| 10:27 | Edited src/components/AmbientField.tsx | 4→4 lines | ~63 |
+| 10:27 | Edited src/components/AmbientField.tsx | added 1 condition(s) | ~183 |
+| 10:30 | Edited scripts/verify6.mjs | added 1 condition(s) | ~407 |
+| 10:30 | Edited scripts/verify6.mjs | added 1 condition(s) | ~167 |
+| 10:45 | Fixed AmbientField never-visible: (B/root) index.css set bg on BOTH html+body → body's bg is an opaque layer above z-[-10] canvas → removed body background-color (html keeps navy); (A) init all chapter alphas 0 + activeIdx -1, fade in chapter-at-center after triggers → paints on load + mid-page refresh. verify6: pixel readback (getImageData alpha>0) at top/worlds/bottom + body transparent/html navy | index.css, AmbientField.tsx, verify6.mjs | build clean; verify6 3/3 0 errors; painted top=4269/worlds=3912/bottom=2975, reduced=3788; Lighthouse perf 96/95 CLS 0 (gate pass); bug-019/020 + 2 DNR | ~5000 |
