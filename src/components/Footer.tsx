@@ -6,6 +6,20 @@ export function Footer() {
           © 2026 Built with Creative Code Logic
           <span className="text-accent">*</span>. Designed to solve. Built to
           perform.
+          {" · "}
+          <a
+            href="/terms.html"
+            className="rounded-sm transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+          >
+            Terms
+          </a>
+          {" · "}
+          <a
+            href="/privacy.html"
+            className="rounded-sm transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+          >
+            Privacy
+          </a>
         </p>
       </div>
     </footer>

@@ -158,3 +158,16 @@
 | 23:30 | Edited scripts/verify6.mjs | expanded (+20 lines) | ~291 |
 | 23:36 | Edited CHANGELOG.md | 3→8 lines | ~92 |
 | 23:40 | Polish bundle: ProgressLine restyle (edge-glued left:0, top cap + scroll-riding tip dot, 3px→1px taper via scaleY/scaleX on one scrubbed timeline; reduced-motion static); EarnSignature Mark→Ship (+ body copy, seal condition), pin +=25%→+=80% (slower draw); Footer text-sm→text-[10px]. Updated CHANGELOG [Unreleased] | ProgressLine.tsx, EarnSignature.tsx, Footer.tsx, verify6.mjs, CHANGELOG.md | build clean; verify6 3/3 0 errors; scrollHeight 4669→5160; progressLine leftEdge 0/cap/tip/tipAtBottom; step04=Ship+seal; footer 10px; reduced static | ~4500 |
+| 23:37 | Session end: 117 writes across 29 files (.gitignore, CLAUDE.md, .gitattributes, WorldLogic.tsx, verify6.mjs) | 34 reads | ~88341 tok |
+
+## Session: 2026-07-22 09:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 09:22 | Created public/terms.html | — | ~1381 |
+| 09:23 | Created public/privacy.html | — | ~1366 |
+| 09:23 | Edited src/components/Footer.tsx | expanded (+14 lines) | ~206 |
+| 09:23 | Created public/sitemap.xml | — | ~86 |
+| 09:23 | Edited scripts/verify6.mjs | added optional chaining | ~387 |
+| 09:24 | Edited CHANGELOG.md | 4→7 lines | ~79 |
+| 09:30 | Legal pages: static public/terms.html + privacy.html (self-contained, brand CSS, @font-face → /fonts/*.woff2, Space Grotesk/Inter, prose column, true copy only — no placeholders/DPO/jurisdiction); Footer.tsx +Terms/Privacy links (text-[10px], focus-visible); sitemap.xml +2 URLs; CHANGELOG [Unreleased]; verify6 sec 10 (pages 200/h1/email/no-brackets) + footer legal links | terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs, CHANGELOG.md | build clean; dist has both pages; verify6 3/3 0 errors; footerLegal count=2 focusable; legal 200/h1/email/noPlaceholders | ~4000 |

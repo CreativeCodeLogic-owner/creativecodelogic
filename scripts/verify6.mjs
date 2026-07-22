@@ -482,6 +482,38 @@ async function scrollToEl(page, sel, offset = -60) {
   out.footerFontSize = await page.evaluate(
     () => getComputedStyle(document.querySelector("footer p")).fontSize,
   );
+  // exactly two legal links, correct hrefs, keyboard-focusable
+  out.footerLegal = await page.evaluate(() => {
+    const links = [...document.querySelectorAll("footer a")];
+    const terms = document.querySelector('footer a[href="/terms.html"]');
+    const privacy = document.querySelector('footer a[href="/privacy.html"]');
+    terms?.focus();
+    return {
+      count: links.length,
+      terms: terms?.textContent.trim() === "Terms",
+      privacy: privacy?.textContent.trim() === "Privacy",
+      focusable: document.activeElement === terms,
+    };
+  });
+
+  // --- 10. legal pages served with real content ------------------------------
+  out.legal = {};
+  for (const path of ["/terms.html", "/privacy.html"]) {
+    const lp = await browser.newPage();
+    const resp = await lp.goto(`http://localhost:5173${path}`, { waitUntil: "domcontentloaded", timeout: 60000 });
+    const info = await lp.evaluate(() => ({
+      h1: document.querySelector("h1")?.textContent ?? "",
+      email: document.body.innerText.includes("info@creativecodelogic.com"),
+      brackets: document.body.innerText.includes("["),
+    }));
+    out.legal[path] = {
+      status: resp.status(),
+      h1: info.h1.length > 0,
+      email: info.email,
+      noPlaceholders: !info.brackets,
+    };
+    await lp.close();
+  }
 
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
