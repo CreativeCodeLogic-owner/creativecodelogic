@@ -910,8 +910,17 @@
       "file": "src/index.css",
       "root_cause": "index.css set background-color on BOTH html and body. When html has its own background, body's background does NOT propagate to the root/page canvas — it paints as an opaque element layer, and in CSS painting order that layer sits ABOVE negative-z-index children. So the z-[-10] fixed ambient canvas was permanently hidden behind body's opaque navy.",
       "fix": "Removed background-color from body; html keeps navy (it propagates to the page canvas so the page is still navy everywhere). Audited body-background dependents — none (the hero rotating-line span uses its own bg-navy class). Canvas stays z-[-10].",
-      "tags": ["css", "stacking-context", "z-index", "canvas", "background", "painting-order"],
-      "related_bugs": ["bug-020"],
+      "tags": [
+        "css",
+        "stacking-context",
+        "z-index",
+        "canvas",
+        "background",
+        "painting-order"
+      ],
+      "related_bugs": [
+        "bug-020"
+      ],
       "occurrences": 1,
       "last_seen": "2026-07-22T10:40:00.000Z"
     },
@@ -922,10 +931,50 @@
       "file": "src/components/AmbientField.tsx",
       "root_cause": "The active chapter's alpha was set statically at init (state[0].alpha = target) and only chapter SWITCHES started a fade; the initial active chapter never got a fade-in that woke the draw loop, and a mid-page hard refresh had no active-chapter paint at all.",
       "fix": "Start all chapter alphas at 0 with activeIdx = -1, then after creating the ScrollTriggers determine the chapter at the viewport centre (getBoundingClientRect) and call setChapter(initial) — a real 0→target fade-in that wakes the loop and paints immediately, correct even when loaded mid-page (e.g. at #contact).",
-      "tags": ["canvas", "initial-render", "gsap", "scroll", "tsx"],
-      "related_bugs": ["bug-019"],
+      "tags": [
+        "canvas",
+        "initial-render",
+        "gsap",
+        "scroll",
+        "tsx"
+      ],
+      "related_bugs": [
+        "bug-019"
+      ],
       "occurrences": 1,
       "last_seen": "2026-07-22T10:41:00.000Z"
+    },
+    {
+      "id": "bug-058",
+      "timestamp": "2026-07-22T07:44:35.267Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→9 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T07:44:35.267Z"
+    },
+    {
+      "id": "bug-059",
+      "timestamp": "2026-07-22T07:44:47.329Z",
+      "error_message": "CSS fix: y",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "y: rng() * vh, → rng() * vh, size, rot: rng() * Math.PI * 2, speed: 0.9 + rng() * 0.2",
+      "fix": "Changed y: rng() * vh, → rng() * vh, size, rot: rng() * Math.PI * 2, speed: 0.9 + rng() * 0.2",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T07:44:47.330Z"
     }
   ]
 }

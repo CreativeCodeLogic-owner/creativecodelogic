@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T07:30:16.681Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T07:49:27.608Z
 > Files: 63 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -79,7 +79,7 @@
 
 ## src/components/
 
-- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~2503 tok)
+- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~2650 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)

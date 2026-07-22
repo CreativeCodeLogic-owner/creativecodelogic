@@ -192,3 +192,9 @@
 | 10:30 | Edited scripts/verify6.mjs | added 1 condition(s) | ~407 |
 | 10:30 | Edited scripts/verify6.mjs | added 1 condition(s) | ~167 |
 | 10:45 | Fixed AmbientField never-visible: (B/root) index.css set bg on BOTH html+body → body's bg is an opaque layer above z-[-10] canvas → removed body background-color (html keeps navy); (A) init all chapter alphas 0 + activeIdx -1, fade in chapter-at-center after triggers → paints on load + mid-page refresh. verify6: pixel readback (getImageData alpha>0) at top/worlds/bottom + body transparent/html navy | index.css, AmbientField.tsx, verify6.mjs | build clean; verify6 3/3 0 errors; painted top=4269/worlds=3912/bottom=2975, reduced=3788; Lighthouse perf 96/95 CLS 0 (gate pass); bug-019/020 + 2 DNR | ~5000 |
+| 10:35 | Session end: 23 writes across 9 files (terms.html, privacy.html, Footer.tsx, sitemap.xml, verify6.mjs) | 6 reads | ~11845 tok |
+| 10:44 | Edited src/components/AmbientField.tsx | 5→9 lines | ~143 |
+| 10:44 | Edited src/components/AmbientField.tsx | modified for() | ~175 |
+| 10:44 | Edited src/components/AmbientField.tsx | 2→2 lines | ~38 |
+| 10:49 | Edited src/components/AmbientField.tsx | inline fix | ~22 |
+| 11:10 | Tuned ambient field visibility: BASE_ALPHA 0.05→0.12 (worlds ×0.5→0.06), stroke 1/s→1.6/s, size 24-80→56-120 (anti-alias floor), MARGIN 90→130 (≥max size), size-aware edge bias (each mark's inner edge kept in outer band), EDGE_BAND 0.20→0.16 for text clearance. Geometry/transform unchanged | AmbientField.tsx | build clean; verify6 3/3 0 errors; painted top=8856/worlds=8455/bottom=8443; Lighthouse perf 96/96 CLS 0 (gate pass); eyeballed 1280/1440 marks recognizable + margin-clear | ~3500 |

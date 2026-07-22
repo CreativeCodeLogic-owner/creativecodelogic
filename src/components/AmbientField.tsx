@@ -5,8 +5,12 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const ACCENT = "87, 211, 254"; // #57d3fe
 const VIEWBOX = 512; // TRIQUETRA_VIEWBOX
-const BASE_ALPHA = 0.05; // per-mark stroke alpha (paper-faint)
-const MARGIN = 90; // vertical wrap margin (≥ max mark size)
+const BASE_ALPHA = 0.12; // per-mark stroke alpha (worlds chapter halves it → 0.06)
+const STROKE = 1.6; // on-screen stroke width (px)
+const MIN_SIZE = 56; // below ~48px the three loops alias into a blob
+const MAX_SIZE = 120;
+const MARGIN = 130; // vertical wrap margin (≥ MAX_SIZE for clean wrap)
+const EDGE_BAND = 0.16; // marks live in the outer 16% each side (text-clear)
 const FADE = 0.6; // crossfade seconds
 
 type Mark = { x: number; y: number; size: number; rot: number; speed: number };
@@ -28,15 +32,15 @@ function makeScatter(seed: number, vw: number, vh: number, count: number): Mark[
   const rng = mulberry32(seed);
   const marks: Mark[] = [];
   for (let i = 0; i < count; i++) {
+    const size = MIN_SIZE + rng() * (MAX_SIZE - MIN_SIZE);
+    const half = size / 2;
+    // keep each mark's inner EDGE within the outer band so the larger marks
+    // never reach across into the central text column
     const left = rng() < 0.5;
-    const x = left ? rng() * 0.25 * vw : (0.75 + rng() * 0.25) * vw;
-    marks.push({
-      x,
-      y: rng() * vh,
-      size: 24 + rng() * 56,
-      rot: rng() * Math.PI * 2,
-      speed: 0.9 + rng() * 0.2,
-    });
+    const x = left
+      ? rng() * Math.max(8, EDGE_BAND * vw - half)
+      : (1 - EDGE_BAND) * vw + half + rng() * Math.max(8, EDGE_BAND * vw - half);
+    marks.push({ x, y: rng() * vh, size, rot: rng() * Math.PI * 2, speed: 0.9 + rng() * 0.2 });
   }
   return marks;
 }
@@ -90,7 +94,7 @@ export function AmbientField() {
       ctx.scale(s, s);
       ctx.translate(-VIEWBOX / 2, -VIEWBOX / 2);
       ctx.strokeStyle = `rgba(${ACCENT},${alpha})`;
-      ctx.lineWidth = 1 / s; // ~1px on screen regardless of mark size
+      ctx.lineWidth = STROKE / s; // ~STROKE px on screen regardless of mark size
       for (const p of paths) ctx.stroke(p);
       ctx.restore();
     };
