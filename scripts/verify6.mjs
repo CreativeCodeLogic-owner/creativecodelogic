@@ -186,23 +186,35 @@ async function scrollToEl(page, sel, offset = -60) {
           s.left >= b.left - 1 &&
           s.bottom <= b.bottom + 1 &&
           s.right <= b.right + 1,
+        h: body.offsetHeight, // terminal box height while in the matrix phase
       };
     });
   }
   out.matrixInsideTerminal = matrixCheck?.ok ?? false;
+  out.terminalHeightMatrix = matrixCheck?.h ?? null;
   // poll for the loop restart (log visible again, stage hidden)
   out.terminalRestarted = false;
+  out.terminalHeightLog = null;
   for (let i = 0; i < 24 && !out.terminalRestarted; i++) {
     await sleep(500);
-    out.terminalRestarted = await page.evaluate(() => {
+    const r = await page.evaluate(() => {
       const first = document.querySelector("[data-log-line]");
       const stage = document.querySelector("[data-ascii-stage]");
-      return (
-        getComputedStyle(first).visibility === "visible" &&
-        getComputedStyle(stage).visibility === "hidden"
-      );
+      const body = document.querySelector("[data-terminal-body]");
+      return {
+        restarted:
+          getComputedStyle(first).visibility === "visible" &&
+          getComputedStyle(stage).visibility === "hidden",
+        h: body.offsetHeight,
+      };
     });
+    out.terminalRestarted = r.restarted;
+    if (r.restarted) out.terminalHeightLog = r.h; // box height back in the log phase
   }
+  // the box must never resize between phases (locked to the taller of the two)
+  out.terminalHeightConstant =
+    out.terminalHeightMatrix != null &&
+    out.terminalHeightMatrix === out.terminalHeightLog;
 
   // --- 3b. logic blueprint ----------------------------------------------------
   // assemble the mark: put the stage centre ~40% up the viewport (scrub → 1)

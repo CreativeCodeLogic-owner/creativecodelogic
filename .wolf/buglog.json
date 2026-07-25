@@ -1240,6 +1240,73 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-26T00:00:00.000Z"
+    },
+    {
+      "id": "bug-076",
+      "timestamp": "2026-07-25T21:35:53.694Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:35:53.694Z"
+    },
+    {
+      "id": "bug-077",
+      "timestamp": "2026-07-25T21:36:18.659Z",
+      "error_message": "Missing guard clause",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "No early return/throw for edge case: disposed",
+      "fix": "Added guard clause: if (disposed)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:36:18.659Z"
+    },
+    {
+      "id": "bug-078",
+      "timestamp": "2026-07-25T21:37:07.427Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:37:07.427Z"
+    },
+    {
+      "id": "bug-079",
+      "timestamp": "2026-07-26T00:00:00.000Z",
+      "error_message": "Terminal (02/Code) box height jumps on every log<->matrix phase cycle — distracting",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "animateToPhase ran a gsap height tween from the current box height to each phase target height every transition, so the box visibly resized each log<->matrix cycle.",
+      "fix": "Deleted the height tween. After document.fonts.ready, lockHeight() measures both phases once (log = full build log + metrics offsetHeight; matrix = rows*lineHeight + padding) and pins the body to the taller via style.height. animateToPhase now only flips the data-phase attribute; both phases center content via justify-content:center. Recomputed on resize (rAF-debounced) + ScrollTrigger.refresh().",
+      "tags": [
+        "terminal",
+        "worldcode",
+        "layout",
+        "gsap",
+        "height",
+        "fonts-ready"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-26T00:00:00.000Z"
     }
   ]
 }

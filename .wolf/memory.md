@@ -269,3 +269,8 @@
 | 00:27 | Edited src/components/HelloDrawer.tsx | 3→7 lines | ~121 |
 | 00:28 | Edited scripts/verify6.mjs | added 1 condition(s) | ~358 |
 | 00:33 | Task2: hello drawer narrow-mobile fix (min(420,100%) width, 100dvh+safe-area, overflow-x-hidden, compact captcha <360) | HelloDrawer.tsx, captcha.ts, verify6.mjs | fits 320/390, 0 errors | ~9k |
+| 00:35 | Edited src/components/worlds/WorldCode.tsx | added nullish coalescing | ~402 |
+| 00:36 | Edited src/components/worlds/WorldCode.tsx | added 2 condition(s) | ~233 |
+| 00:37 | Edited scripts/verify6.mjs | added 1 condition(s) | ~392 |
+| 00:39 | Edited src/components/worlds/WorldCode.tsx | 1→3 lines | ~32 |
+| 00:39 | Task3: terminal body locked to constant height (measure both phases after fonts.ready, pin taller, delete height tween) | WorldCode.tsx, verify6.mjs | log=matrix=327px, constant | ~8k |

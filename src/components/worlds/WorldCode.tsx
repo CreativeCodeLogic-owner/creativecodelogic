@@ -166,43 +166,37 @@ export function WorldCode() {
       setPhase("log");
     };
 
+    // The body is pinned to a constant height (see lockHeight) so switching
+    // phases must never resize the box — just flip the phase; both phases center
+    // their content vertically inside the locked box (see index.css).
     const animateToPhase = (
       phase: "log" | "matrix",
       onComplete?: () => void,
     ) => {
-      if (reduced) {
-        setPhase(phase);
-        onComplete?.();
-        return;
-      }
-      const startHeight = terminalBody.offsetHeight;
-      terminalBody.style.height = `${startHeight}px`;
-      void terminalBody.offsetHeight;
       setPhase(phase);
+      onComplete?.();
+    };
 
-      let targetHeight: number;
-      if (phase === "matrix") {
-        // size the box to the art's real rendered height + even body padding
-        const style = window.getComputedStyle(stage);
-        const fontSize = parseFloat(style.fontSize);
-        const lineHeight = parseFloat(style.lineHeight);
-        const lh = isNaN(lineHeight) ? fontSize * 1.15 : lineHeight;
-        const bodyPad =
-          parseFloat(window.getComputedStyle(terminalBody).paddingTop) * 2;
-        targetHeight = grid.length * lh + bodyPad;
-      } else {
-        targetHeight = terminalBody.scrollHeight;
-      }
-
-      gsap.to(terminalBody, {
-        height: targetHeight,
-        duration: 0.25,
-        ease: "power2.out",
-        onComplete: () => {
-          terminalBody.style.height = "auto";
-          onComplete?.();
-        },
-      });
+    // Measure both phases once (after fonts settle) and pin the terminal body to
+    // the TALLER of the two for the session. The log phase's height is the full
+    // build log + metrics; the matrix phase's is the art's real rendered rows.
+    // Recomputed only on resize.
+    const lockHeight = () => {
+      const wasPhase = (terminalBody.getAttribute("data-phase") ?? "log") as
+        | "log"
+        | "matrix";
+      terminalBody.style.height = "auto";
+      if (wasPhase !== "log") setPhase("log");
+      const logH = terminalBody.offsetHeight;
+      const style = window.getComputedStyle(stage);
+      const fontSize = parseFloat(style.fontSize);
+      const lineHeight = parseFloat(style.lineHeight);
+      const lh = isNaN(lineHeight) ? fontSize * 1.15 : lineHeight;
+      const bodyPad =
+        parseFloat(window.getComputedStyle(terminalBody).paddingTop) * 2;
+      const matrixH = grid.length * lh + bodyPad;
+      terminalBody.style.height = `${Math.ceil(Math.max(logH, matrixH))}px`;
+      if (wasPhase !== "log") setPhase(wasPhase);
     };
 
     // --- matrix assembly -----------------------------------------------------
@@ -371,7 +365,26 @@ export function WorldCode() {
       io.observe(panel);
     }
 
+    // Pin the height once glyph metrics settle; recompute only on resize.
+    let disposed = false;
+    let resizeRaf = 0;
+    const relock = () => {
+      if (disposed) return;
+      lockHeight();
+      ScrollTrigger.refresh();
+    };
+    const onResize = () => {
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(relock);
+    };
+    if (document.fonts?.ready) document.fonts.ready.then(relock);
+    else lockHeight();
+    window.addEventListener("resize", onResize);
+
     return () => {
+      disposed = true;
+      cancelAnimationFrame(resizeRaf);
+      window.removeEventListener("resize", onResize);
       stopAll();
       trigger?.kill();
       io?.disconnect();
