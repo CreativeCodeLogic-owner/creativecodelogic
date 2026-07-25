@@ -847,6 +847,33 @@ async function scrollToEl(page, sel, offset = -60) {
   });
   out.menu = menu;
 
+  // --- hello drawer must fit narrow viewports (real-device crop bug): at 320
+  //     and 390 the panel + Send button sit fully inside the viewport and no
+  //     horizontal scroll appears ------------------------------------------------
+  const drawerFits = async (w) => {
+    const b2 = await launch({ width: w, height: 780, isMobile: true, hasTouch: true });
+    const p2 = await b2.newPage();
+    await p2.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(1500);
+    await p2.evaluate(() => document.querySelector("[data-hello-open]").click());
+    await sleep(800);
+    const r = await p2.evaluate((vw) => {
+      const inside = (el) => {
+        if (!el) return false;
+        const b = el.getBoundingClientRect();
+        return b.left >= -0.5 && b.right <= vw + 0.5 && b.top >= -0.5 && b.bottom <= window.innerHeight + 0.5;
+      };
+      return {
+        panelInside: inside(document.querySelector('[role="dialog"]')),
+        sendInside: inside(document.querySelector("[data-hello-submit]")),
+        noHScroll: document.documentElement.scrollWidth <= vw,
+      };
+    }, w);
+    await b2.close();
+    return r;
+  };
+  out.helloDrawer = { w320: await drawerFits(320), w390: await drawerFits(390) };
+
   // reduced-motion: menu opens/closes instantly, no errors
   const rmPage = await browser.newPage();
   const rmErrors = watch(rmPage);

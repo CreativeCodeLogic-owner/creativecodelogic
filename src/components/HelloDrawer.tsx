@@ -68,7 +68,11 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
     // would otherwise throw "already rendered" and trip the error path below
     if (!CAPTCHA_SITEKEY || !box || renderedRef.current) return;
     renderedRef.current = true;
-    renderCheckbox(box, (token) => setCaptchaToken(token))
+    // The normal v2 checkbox is a fixed 304px — wider than a ~320px viewport's
+    // padded content box. Below ~360px render the 164px compact variant so it
+    // always fits inside the drawer.
+    const size = window.innerWidth < 360 ? "compact" : "normal";
+    renderCheckbox(box, (token) => setCaptchaToken(token), size)
       .then((c) => {
         captchaRef.current = c;
       })
@@ -158,7 +162,14 @@ export function HelloDrawer({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={HEADING_ID}
-        className="absolute top-0 right-0 flex h-full w-full max-w-full flex-col overflow-y-auto border-l border-ink/10 bg-navy px-6 py-8 md:max-w-[420px] md:px-8"
+        // width = min(420px, 100%); 100dvh (not vh) so the iOS toolbar never
+        // covers the bottom controls; safe-area padding clears the notch / home
+        // indicator; overflow-x-hidden guards against any stray horizontal spill.
+        style={{
+          paddingTop: "calc(2rem + env(safe-area-inset-top))",
+          paddingBottom: "calc(2rem + env(safe-area-inset-bottom))",
+        }}
+        className="absolute top-0 right-0 flex h-[100dvh] w-full max-w-[420px] flex-col overflow-x-hidden overflow-y-auto border-l border-ink/10 bg-navy px-6 md:px-8"
       >
         {/* top focus sentinel: shift-tab out of the top wraps to the bottom */}
         <div data-sentinel tabIndex={0} aria-hidden="true" onFocus={focusLast} />

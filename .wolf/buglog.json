@@ -1172,6 +1172,74 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-22T08:52:55.277Z"
+    },
+    {
+      "id": "bug-072",
+      "timestamp": "2026-07-25T21:27:16.549Z",
+      "error_message": "CSS fix: md",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "md: max-w-[420px] md:px-8\" → px-8\"",
+      "fix": "Changed md: max-w-[420px] md:px-8\" → px-8\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:27:16.549Z"
+    },
+    {
+      "id": "bug-073",
+      "timestamp": "2026-07-25T21:27:23.844Z",
+      "error_message": "Type error",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:27:23.844Z"
+    },
+    {
+      "id": "bug-074",
+      "timestamp": "2026-07-25T21:28:05.008Z",
+      "error_message": "Missing guard clause",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "No early return/throw for edge case: !el",
+      "fix": "Added guard clause: if (!el)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:28:05.008Z"
+    },
+    {
+      "id": "bug-075",
+      "timestamp": "2026-07-26T00:00:00.000Z",
+      "error_message": "Hello drawer cropped on narrow mobile (real device): \"Say hello\" truncated, Send button half-visible, reCAPTCHA clipped",
+      "file": "src/components/HelloDrawer.tsx",
+      "root_cause": "Three compounding causes: (1) panel height was h-full = 100vh, so on iOS the dynamic browser toolbar covered the bottom Send button; (2) the reCAPTCHA v2 normal checkbox is a fixed 304px, wider than a ~320px viewport padded content box (~270px) — it overflowed the panel and, being inside a position:fixed subtree, was clipped by the viewport edge (and pannable on iOS, pushing the heading off the left); (3) panel width was only capped at the md breakpoint (max-w-[420px] md:), uncapped on mobile.",
+      "fix": "Panel width = min(420px,100%) at all breakpoints (w-full max-w-[420px]); height h-[100dvh] with calc(2rem + env(safe-area-inset-top/bottom)) padding; overflow-x-hidden; render the 164px compact reCAPTCHA variant below 360px (renderCheckbox gained a size arg).",
+      "tags": [
+        "mobile",
+        "drawer",
+        "recaptcha",
+        "safe-area",
+        "dvh",
+        "overflow",
+        "viewport"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-26T00:00:00.000Z"
     }
   ]
 }

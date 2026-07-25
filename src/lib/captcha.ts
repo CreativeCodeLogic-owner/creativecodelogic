@@ -2,7 +2,7 @@ import { CAPTCHA_SITEKEY } from "@/lib/flags";
 
 type RenderParams = {
   sitekey: string;
-  size: "normal" | "invisible";
+  size: "normal" | "compact" | "invisible";
   theme?: "dark" | "light";
   callback?: (token: string) => void;
   "error-callback"?: () => void;
@@ -59,6 +59,7 @@ export type CheckboxCaptcha = {
 export async function renderCheckbox(
   container: HTMLElement,
   onToken: (token: string) => void,
+  size: "normal" | "compact" = "normal",
 ): Promise<CheckboxCaptcha> {
   await loadScript();
   const g = window.grecaptcha;
@@ -66,7 +67,7 @@ export async function renderCheckbox(
 
   const id = g.render(container, {
     sitekey: CAPTCHA_SITEKEY,
-    size: "normal",
+    size,
     theme: "dark",
     callback: (token: string) => onToken(token),
     "expired-callback": () => onToken(""),
