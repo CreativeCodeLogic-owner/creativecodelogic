@@ -526,6 +526,12 @@ async function scrollToEl(page, sel, offset = -60) {
       belowContent: cs ? parseInt(cs.zIndex, 10) < 0 : false,
     };
   });
+  // The field is behind VITE_AMBIENT (off by default). When the flag is off the
+  // canvas is never mounted — skip the whole section cleanly rather than erroring.
+  if (!out.ambient.canvas) {
+    out.ambient = { present: false, skipped: true, reason: "VITE_AMBIENT off — canvas not mounted" };
+    console.log("ambient: canvas absent (VITE_AMBIENT off) — skipping ambient checks");
+  } else {
   const chaps = new Set();
   for (const f of [0, 0.25, 0.5, 0.75, 1]) {
     await page.evaluate((frac) => window.scrollTo(0, document.documentElement.scrollHeight * frac), f);
@@ -630,6 +636,7 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await sleep(1200);
   out.ambient.paintedAtBottom = await painted();
+  }
 
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
@@ -652,7 +659,11 @@ async function scrollToEl(page, sel, offset = -60) {
     const c = document.querySelector("[data-ambient]");
     return { present: !!c, chapter: c?.getAttribute("data-ambient-chapter") };
   });
-  {
+  if (!out.ambientStatic.present) {
+    out.ambientStatic.skipped = true;
+    out.ambientStatic.reason = "VITE_AMBIENT off — canvas not mounted";
+    console.log("ambientStatic: canvas absent (VITE_AMBIENT off) — skipping");
+  } else {
     const rf1 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));
     await sleep(2000);
     const rf2 = await page.evaluate(() => +document.querySelector("[data-ambient]").getAttribute("data-ambient-frames"));

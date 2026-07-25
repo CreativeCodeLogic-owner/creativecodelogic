@@ -2,6 +2,13 @@
 export const SHOW_WORK = import.meta.env.VITE_SHOW_WORK === "true";
 
 /**
+ * Ambient background field. Off by default (solid navy background) — the
+ * component and its verify logic are preserved for possible revival. Set
+ * VITE_AMBIENT=true to mount it.
+ */
+export const SHOW_AMBIENT = import.meta.env.VITE_AMBIENT === "true";
+
+/**
  * Formspark form ids — one per form. Empty/undefined → that form still works
  * but its final submit composes a mailto: instead of POSTing (brief only;
  * the contact drawer has no email fallback).

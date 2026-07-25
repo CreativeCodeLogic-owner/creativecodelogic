@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { initSmoothScroll, ScrollTrigger } from "@/lib/scroll";
-import { SHOW_WORK } from "@/lib/flags";
+import { SHOW_WORK, SHOW_AMBIENT } from "@/lib/flags";
 import { Nav } from "@/components/Nav";
 import { AmbientField } from "@/components/AmbientField";
 import { ProgressLine } from "@/components/ProgressLine";
@@ -21,7 +21,7 @@ export function App() {
 
   return (
     <>
-      <AmbientField />
+      {SHOW_AMBIENT && <AmbientField />}
       <ProgressLine />
       <Nav />
       <main>
