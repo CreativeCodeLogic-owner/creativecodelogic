@@ -16,11 +16,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- self-hosted fonts: preload the hero's first-paint face (Space Grotesk,
-         the h1 renders 600 within the variable range) -->
+    <!-- self-hosted fonts: preload the hero's first-paint face (Aptos Bold —
+         the h1 is font-display + font-semibold (600), which resolves to the
+         Bold face; it's the LCP text) -->
     <link
       rel="preload"
-      href="/fonts/space-grotesk.woff2"
+      href="/fonts/woff2/Aptos-Bold.woff2"
       as="font"
       type="font/woff2"
       crossorigin

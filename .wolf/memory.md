@@ -274,3 +274,15 @@
 | 00:37 | Edited scripts/verify6.mjs | added 1 condition(s) | ~392 |
 | 00:39 | Edited src/components/worlds/WorldCode.tsx | 1→3 lines | ~32 |
 | 00:39 | Task3: terminal body locked to constant height (measure both phases after fonts.ready, pin taller, delete height tween) | WorldCode.tsx, verify6.mjs | log=matrix=327px, constant | ~8k |
+| 00:41 | Edited src/index.css | CSS: weights | ~354 |
+| 00:41 | Edited src/index.css | 3→3 lines | ~58 |
+| 00:41 | Edited index.html | 9→10 lines | ~90 |
+| 00:42 | Edited public/terms.html | 12→14 lines | ~127 |
+| 00:42 | Edited public/terms.html | "Space Grotesk" → "Aptos" | ~9 |
+| 00:42 | Edited public/terms.html | "Inter" → "Aptos" | ~18 |
+| 00:42 | Edited public/privacy.html | 12→14 lines | ~127 |
+| 00:42 | Edited public/privacy.html | "Space Grotesk" → "Aptos" | ~9 |
+| 00:42 | Edited public/privacy.html | "Inter" → "Aptos" | ~18 |
+| 00:43 | Edited scripts/verify6.mjs | added 1 condition(s) | ~108 |
+| 00:43 | Edited scripts/verify6.mjs | added optional chaining | ~261 |
+| 00:47 | Task4: Aptos primary typeface (body+display); JetBrains mono kept; old Inter/Space Grotesk removed; preload Aptos-Bold | index.css, index.html, terms/privacy.html, verify6.mjs, fonts/ | Perf 97 CLS 0, weights loaded, no old-font reqs | ~12k |

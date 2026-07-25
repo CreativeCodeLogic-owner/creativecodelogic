@@ -44,10 +44,13 @@ async function scrollToEl(page, sel, offset = -60) {
   const browser = await launch({ width: 1440, height: 900 });
   const page = await browser.newPage();
   const errors = watch(page);
-  // fonts are self-hosted — no third-party font requests allowed
+  // fonts are self-hosted — no third-party font requests allowed, and the old
+  // Inter / Space Grotesk faces must never be fetched after the Aptos switch
   let googleFontReq = false;
+  let oldFontReq = false;
   page.on("request", (r) => {
     if (/fonts\.(googleapis|gstatic)\.com/.test(r.url())) googleFontReq = true;
+    if (/(inter|space-grotesk)\.woff2?/i.test(r.url())) oldFontReq = true;
   });
   await page.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
   const out = {};
@@ -55,15 +58,26 @@ async function scrollToEl(page, sel, offset = -60) {
   // --- 0. self-hosted fonts --------------------------------------------------
   await sleep(1500);
   out.noGoogleFonts = !googleFontReq;
-  out.fonts = await page.evaluate(() => {
+  out.noOldFontReq = !oldFontReq; // no Inter / Space Grotesk fetches
+  out.fonts = await page.evaluate(async () => {
     const fam = (sel) => {
       const el = document.querySelector(sel);
       return el ? getComputedStyle(el).fontFamily : null;
     };
+    // wait out font-display swap so computed family reflects the loaded face
+    if (document.fonts?.ready) await document.fonts.ready;
+    const h1 = fam("#hero-heading");
+    const body = getComputedStyle(document.body).fontFamily;
     return {
-      h1: fam("#hero-heading"),
-      body: getComputedStyle(document.body).fontFamily,
+      h1,
+      body,
       terminal: fam("[data-terminal-body]"),
+      h1IsAptos: /aptos/i.test(h1 || ""),
+      bodyIsAptos: /aptos/i.test(body || ""),
+      // the weights the site actually uses must be genuinely loaded (no fake bold)
+      checkRegular: document.fonts.check('400 16px "Aptos"'),
+      checkSemibold: document.fonts.check('600 16px "Aptos"'),
+      checkBold: document.fonts.check('700 16px "Aptos"'),
     };
   });
 
