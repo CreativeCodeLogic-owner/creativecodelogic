@@ -4,6 +4,16 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims
 to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Aptos is now the site's primary typeface for both body and display text; the mono face (JetBrains Mono) is unchanged. Inter and Space Grotesk were removed.
+- The ambient background field is now behind a `VITE_AMBIENT` flag and off by default — the page ships a solid navy background. The component and its verification are preserved for possible revival.
+
+### Fixed
+- Say-hello drawer no longer crops on narrow mobile viewports: width is clamped to `min(420px, 100%)`, height uses `100dvh` with safe-area padding so the iOS toolbar never covers the Send button, and the reCAPTCHA renders in its compact size below ~360px so it always fits.
+- Code terminal (chapter 02) no longer changes height between its build-log and matrix phases — the box is measured once after fonts load and locked to the taller of the two.
+
 ## [4.0.0] - 2026-07-22
 
 First tracked release of v4 — the enhancement pass over the baseline snapshot,
