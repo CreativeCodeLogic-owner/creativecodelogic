@@ -1307,6 +1307,166 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-26T00:00:00.000Z"
+    },
+    {
+      "id": "bug-080",
+      "timestamp": "2026-07-25T21:41:38.881Z",
+      "error_message": "CSS fix: font-family, font-weight, src",
+      "file": "src/index.css",
+      "root_cause": "font-family: \"Space Grotesk\" → \"JetBrains Mono\"; font-weight: 500 700 → 400 500; src: url(\"/fonts/space-grotesk.woff2\") format(\"woff2\") → url(\"/fonts/jetbrains-mono.woff2\") format(\"woff2\")",
+      "fix": "Changed font-family: \"Space Grotesk\" → \"JetBrains Mono\"; font-weight: 500 700 → 400 500; src: url(\"/fonts/space-grotesk.woff2\") format(\"woff2\") → url(\"/fonts/jetbrains-mono.woff2\") format(\"woff2\")",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "css"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:41:38.881Z"
+    },
+    {
+      "id": "bug-081",
+      "timestamp": "2026-07-25T21:41:44.893Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/index.css",
+      "root_cause": "Had \"Space Grotesk\"",
+      "fix": "Changed to \"Aptos\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "css"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:41:44.893Z"
+    },
+    {
+      "id": "bug-082",
+      "timestamp": "2026-07-25T21:42:14.077Z",
+      "error_message": "Significant refactor of ",
+      "file": "public/terms.html",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 12→14 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:42:14.077Z"
+    },
+    {
+      "id": "bug-083",
+      "timestamp": "2026-07-25T21:42:18.682Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/terms.html",
+      "root_cause": "Had \"Space Grotesk\"",
+      "fix": "Changed to \"Aptos\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-25T21:42:23.315Z"
+    },
+    {
+      "id": "bug-084",
+      "timestamp": "2026-07-25T21:42:30.671Z",
+      "error_message": "Significant refactor of ",
+      "file": "public/privacy.html",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 12→14 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:42:30.671Z"
+    },
+    {
+      "id": "bug-085",
+      "timestamp": "2026-07-25T21:42:37.044Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/privacy.html",
+      "root_cause": "Had \"Space Grotesk\"",
+      "fix": "Changed to \"Aptos\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-25T21:42:41.882Z"
+    },
+    {
+      "id": "bug-086",
+      "timestamp": "2026-07-25T21:43:24.410Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-25T21:43:24.410Z"
+    },
+    {
+      "id": "bug-087",
+      "timestamp": "2026-07-26T04:50:16.447Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/terms.html",
+      "root_cause": "Had \"icon\"",
+      "fix": "Changed to \"canonical\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-26T04:50:16.447Z"
+    },
+    {
+      "id": "bug-088",
+      "timestamp": "2026-07-26T04:50:28.889Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/privacy.html",
+      "root_cause": "Had \"icon\"",
+      "fix": "Changed to \"canonical\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-26T04:50:28.889Z"
+    },
+    {
+      "id": "bug-089",
+      "timestamp": "2026-07-26T05:03:30.499Z",
+      "error_message": "CSS fix: https, text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "https: //beta-creativecodelogic.web.app/ --preset=desktop \\ → //creativecodelogic.web.app/ --preset=desktop \\; text: \"lighthouse performance 98\", kind: \"ok\" → \"lighthouse performance 97\", kind: \"ok\"",
+      "fix": "Changed https: //beta-creativecodelogic.web.app/ --preset=desktop \\ → //creativecodelogic.web.app/ --preset=desktop \\; text: \"lighthouse performance 98\", kind: \"ok\" → \"lighthouse performance 97\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-26T05:03:30.499Z"
     }
   ]
 }

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found — Creative Code Logic</title>
+    <meta name="description" content="This page doesn't exist. Everything we have lives on one page." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      @font-face {
+        font-family: "Aptos";
+        font-weight: 400 500;
+        font-display: swap;
+        src: url("/fonts/woff2/Aptos.woff2") format("woff2"),
+          url("/fonts/woff/Aptos.woff") format("woff");
+      }
+      @font-face {
+        font-family: "Aptos";
+        font-weight: 600 700;
+        font-display: swap;
+        src: url("/fonts/woff2/Aptos-Bold.woff2") format("woff2"),
+          url("/fonts/woff/Aptos-Bold.woff") format("woff");
+      }
+      :root {
+        --navy: #091220;
+        --ink: #f6f3ed;
+        --mist: #a9a6a7;
+        --accent: #57d3fe;
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--navy);
+        color: var(--ink);
+        font-family: "Aptos", ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.75;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(246, 243, 237, 0.08);
+      }
+      .wordmark {
+        font-family: "Aptos", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        font-size: 0.9rem;
+        color: var(--ink);
+      }
+      .back { color: var(--mist); font-size: 0.85rem; }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 3rem 1.5rem 5rem;
+      }
+      .mark { width: 56px; height: 56px; margin: 0 0 2rem; opacity: 0.95; }
+      h1 {
+        font-family: "Aptos", sans-serif;
+        font-weight: 600;
+        font-size: 2rem;
+        letter-spacing: -0.01em;
+        margin: 0 0 0.75rem;
+      }
+      p { color: var(--mist); max-width: 30rem; margin: 0; }
+      .pill {
+        display: inline-block;
+        margin-top: 2.25rem;
+        border: 1px solid rgba(87, 211, 254, 0.5);
+        border-radius: 9999px;
+        padding: 0.65rem 1.6rem;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      .pill:hover { background: var(--accent); color: var(--navy); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="wordmark">CCL</a>
+      <a href="/" class="back">&larr; Back to site</a>
+    </header>
+
+    <main>
+      <img src="/favicon.svg" alt="" class="mark" />
+      <h1>This page doesn&rsquo;t exist.</h1>
+      <p>
+        The address may have changed, or it never was. Everything we have lives
+        on one page.
+      </p>
+      <a href="/" class="pill">Back to the site</a>
+    </main>
+  </body>
+</html>

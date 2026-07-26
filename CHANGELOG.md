@@ -6,9 +6,14 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- Branded 404 page (`public/404.html`) — matches the legal-page styling (navy/Aptos, triquetra mark), carries `noindex`, and is served automatically by Firebase Hosting for any unmatched route.
+
 ### Changed
 - Aptos is now the site's primary typeface for both body and display text; the mono face (JetBrains Mono) is unchanged. Inter and Space Grotesk were removed.
 - The ambient background field is now behind a `VITE_AMBIENT` flag and off by default — the page ships a solid navy background. The component and its verification are preserved for possible revival.
+- Go-live cutover: the git remote and Firebase project both point at the live target (`creativecodelogic`); the beta repository and beta Firebase project were removed from all configuration.
+- Refreshed the social-share image (`og.jpg`) to the current v4 hero, and added canonical tags to the Terms and Privacy pages.
 
 ### Fixed
 - Say-hello drawer no longer crops on narrow mobile viewports: width is clamped to `min(420px, 100%)`, height uses `100dvh` with safe-area padding so the iOS toolbar never covers the Send button, and the reCAPTCHA renders in its compact size below ~360px so it always fits.
@@ -17,7 +22,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [4.0.0] - 2026-07-22
 
 First tracked release of v4 — the enhancement pass over the baseline snapshot,
-shipped to Firebase Hosting at <https://beta-creativecodelogic.web.app>.
+shipped to Firebase Hosting at <https://creativecodelogic.com>.
 
 ### Added
 - Ambient background field — a faint per-chapter triquetra texture behind the page, with a scroll crossfade, gentle parallax, and a flow-field distribution (Poisson spacing, coherent rotation); idle when the page is still and deferred to idle time so performance stays flat.

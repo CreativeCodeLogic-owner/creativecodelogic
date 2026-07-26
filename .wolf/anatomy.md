@@ -1,20 +1,20 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T08:55:22.120Z
-> Files: 65 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-26T05:03:55.902Z
+> Files: 66 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
-- `.firebaserc` (~18 tok)
+- `.firebaserc` (~16 tok)
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~1083 tok)
+- `CHANGELOG.md` — Changelog (~1424 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
-- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~709 tok)
+- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~726 tok)
 - `package.json` — Node.js package manifest (~181 tok)
-- `README.md` — Project documentation (~1308 tok)
+- `README.md` — Project documentation (~1327 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
 - `vite.config.ts` — Vite build configuration (~98 tok)
 - `www-v4.code-workspace` (~16 tok)
@@ -57,10 +57,11 @@
 
 ## public/
 
-- `privacy.html` — Privacy Policy — Creative Code Logic (~1447 tok)
+- `404.html` — Page not found — Creative Code Logic (~1021 tok)
+- `privacy.html` — Privacy Policy — Creative Code Logic (~1492 tok)
 - `robots.txt` (~19 tok)
 - `sitemap.xml` (~83 tok)
-- `terms.html` — Terms of Use — Creative Code Logic (~1461 tok)
+- `terms.html` — Terms of Use — Creative Code Logic (~1505 tok)
 
 ## scripts/
 
@@ -71,12 +72,12 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~10485 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~11362 tok)
 
 ## src/
 
-- `App.tsx` — App (~337 tok)
-- `index.css` — Styles: 22 rules, 8 vars (~1297 tok)
+- `App.tsx` — App (~346 tok)
+- `index.css` — Styles: 23 rules, 8 vars (~1448 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
@@ -86,7 +87,7 @@
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)
 - `Footer.tsx` — Footer (~259 tok)
-- `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3339 tok)
+- `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1768 tok)
 - `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1555 tok)
@@ -98,7 +99,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4657 tok)
+- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4917 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
 
@@ -113,8 +114,8 @@
 
 ## src/lib/
 
-- `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~670 tok)
-- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~234 tok)
+- `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~682 tok)
+- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~308 tok)
 - `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~483 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~330 tok)
 - `submit.ts` — Shared submission path. Honeypot short-circuits; an empty form id falls back (~326 tok)

@@ -110,14 +110,14 @@ it before changing code rather than duplicating the rules here.
 
 ## Current quality bar
 
-Lighthouse (desktop preset, production build served locally), measured
-**2026-07-21**:
+Lighthouse (desktop preset), measured **2026-07-26** against the live
+production URL (<https://creativecodelogic.web.app>):
 
 | Performance | Accessibility | Best Practices | SEO |
 | --- | --- | --- | --- |
-| 95 | 100 | 100 | 100 |
+| 97 | 100 | 100 | 100 |
 
-LCP 0.6s, CLS 0. These are localhost numbers, re-measured after each
-meaningful change and again against the production URL after deploy. The
-terminal in the Code chapter shows these same real values — it never claims
-anything unmeasured.
+LCP 0.6–0.8s, CLS 0 (Performance varies 94–97 across runs — a cold first
+request dips it). Re-measured after each meaningful change and against the
+production URL after deploy. The terminal in the Code chapter shows these
+same real values — it never claims anything unmeasured.
