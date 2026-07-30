@@ -329,3 +329,14 @@
 | 13:28 | Edited scripts/verify6.mjs | modified mark() | ~196 |
 | 13:29 | Edited CHANGELOG.md | 2→3 lines | ~95 |
 | 13:29 | TaskA: World Code matrix = authored ASCII mark (triquetraAscii.ts, 19x38, head=Z, JetBrains bold 700, extended @font-face 400 700); deleted braille rasterizer | WorldCode.tsx, triquetraAscii.ts, index.css, verify6.mjs | fits+height-constant all modes | ~12k |
+| 13:36 | Edited src/components/worlds/WorldLogic.tsx | added 1 import(s) | ~46 |
+| 13:37 | Edited src/components/worlds/WorldLogic.tsx | CSS: c, axes, micro | ~1536 |
+| 13:37 | Edited src/components/worlds/WorldLogic.tsx | inline fix | ~29 |
+| 13:37 | Edited src/components/worlds/WorldLogic.tsx | 13→14 lines | ~125 |
+| 13:37 | Edited src/components/worlds/WorldLogic.tsx | added 1 condition(s) | ~194 |
+| 13:38 | Edited src/components/worlds/WorldLogic.tsx | CSS: 9 | ~42 |
+| 13:38 | Edited src/index.css | CSS: paper | ~146 |
+| 13:39 | Edited scripts/verify6.mjs | modified geometry() | ~478 |
+| 13:42 | Edited scripts/verify6.mjs | inline fix | ~27 |
+| 13:46 | Edited CHANGELOG.md | 2→3 lines | ~197 |
+| 13:46 | TaskB: World Logic real construction geometry (triquetraBuild.ts 13 circles, build->mark offset -0.5,-0.5, residual 0.03); engineering grid+axes+ticks, C1-C3/R1-R3 legends, 460x428 replaces 1:1 | WorldLogic.tsx, triquetraBuild.ts, index.css, verify6.mjs | 13 circles aligned(res 0), Perf 100 CLS 0 | ~22k |

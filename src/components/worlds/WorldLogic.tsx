@@ -1,5 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { TRIQUETRA_LOOPS, TRIQUETRA_VIEWBOX, VB_W, VB_H } from "@/data/triquetra";
+import { TRIQUETRA_BUILD_CIRCLES, BUILD_CENTER } from "@/data/triquetraBuild";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -21,14 +22,16 @@ const loopStart = (i: number) => LOOP_START + i * LOOP_GAP;
 
 type Guide = { cx: number; cy: number; r: number };
 type Line = { x1: number; y1: number; x2: number; y2: number };
-type Label = { x: number; y: number; text: string; anchor?: "start" | "middle" | "end" };
+type Label = { x: number; y: number; text: string; anchor?: "start" | "middle" | "end"; micro?: boolean };
 
 /**
- * Sampled once at mount — pure geometry, no text or data:
- *  - guides: each loop's bounding circle (centroid + average radius)
- *  - center: composition centre from the loop centroids
- *  - bbox: the mark's extent, for the dimension lines
- *  - ticks / dimLines / leaders / arcPath / labels: drafting notation
+ * Built once at mount — pure geometry, no data:
+ *  - guides: the REAL construction circles from the designer's build sheet
+ *    (src/data/triquetraBuild.ts), already aligned to the mark's coordinates.
+ *  - center: the composition centre (the build sheet's centre circle).
+ *  - loop centroids (sampled) only pick which real circle each loop's R/C label
+ *    and lock-pulse attach to; the mark bbox drives the dimension lines.
+ *  - ticks / dimLines / leaders / arcPath / labels: drafting notation.
  */
 function buildGeometry() {
   const sampler = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -37,40 +40,56 @@ function buildGeometry() {
   let maxX = -Infinity;
   let maxY = -Infinity;
 
-  const guides = TRIQUETRA_LOOPS.map<Guide>((d) => {
+  // sample each loop for its centroid + accumulate the mark's real bbox
+  const loopCentroids = TRIQUETRA_LOOPS.map((d) => {
     sampler.setAttribute("d", d);
     const len = sampler.getTotalLength();
     const steps = Math.max(64, Math.round(len / 6));
     let sx = 0;
     let sy = 0;
-    const pts: { x: number; y: number }[] = [];
+    let n = 0;
     for (let i = 0; i <= steps; i++) {
       const p = sampler.getPointAtLength((i / steps) * len);
-      pts.push({ x: p.x, y: p.y });
       sx += p.x;
       sy += p.y;
+      n++;
       if (p.x < minX) minX = p.x;
       if (p.x > maxX) maxX = p.x;
       if (p.y < minY) minY = p.y;
       if (p.y > maxY) maxY = p.y;
     }
-    const cx = sx / pts.length;
-    const cy = sy / pts.length;
-    let r = 0;
-    for (const p of pts) r += Math.hypot(p.x - cx, p.y - cy);
-    return { cx, cy, r: r / pts.length };
+    return { x: sx / n, y: sy / n };
   });
 
-  const center = {
-    x: guides.reduce((a, g) => a + g.cx, 0) / guides.length,
-    y: guides.reduce((a, g) => a + g.cy, 0) / guides.length,
+  const guides: Guide[] = TRIQUETRA_BUILD_CIRCLES;
+  const center = { x: BUILD_CENTER.x, y: BUILD_CENTER.y };
+
+  // pick the real circle (of a given radius class) nearest each loop centroid —
+  // these carry the R-leaders, C-legends, and lock pulses
+  const nearestOfRadius = (c: { x: number; y: number }, r: number) => {
+    let best = -1;
+    let bd = Infinity;
+    guides.forEach((g, i) => {
+      if (Math.abs(g.r - r) > 1) return;
+      const d = Math.hypot(g.cx - c.x, g.cy - c.y);
+      if (d < bd) {
+        bd = d;
+        best = i;
+      }
+    });
+    return best;
   };
+  const lockCircleIdx = loopCentroids.map((c) => nearestOfRadius(c, 106.17)); // large
+  const mediumIdx = loopCentroids.map((c) => nearestOfRadius(c, 63.39)); // medium
+
+  // --- true axes: ticks every 48 units along both centre lines to the edges
   const ticks: Line[] = [];
-  for (const d of [60, 120, 180]) {
-    ticks.push({ x1: center.x - d, y1: center.y - 6, x2: center.x - d, y2: center.y + 6 });
-    ticks.push({ x1: center.x + d, y1: center.y - 6, x2: center.x + d, y2: center.y + 6 });
-    ticks.push({ x1: center.x - 6, y1: center.y - d, x2: center.x + 6, y2: center.y - d });
-    ticks.push({ x1: center.x - 6, y1: center.y + d, x2: center.x + 6, y2: center.y + d });
+  const STEP = 48;
+  for (let x = center.x % STEP; x <= VB_W; x += STEP) {
+    ticks.push({ x1: x, y1: center.y - 5, x2: x, y2: center.y + 5 });
+  }
+  for (let y = center.y % STEP; y <= VB_H; y += STEP) {
+    ticks.push({ x1: center.x - 5, y1: y, x2: center.x + 5, y2: y });
   }
 
   // --- dimension lines (drafting style: line + short perpendicular end ticks)
@@ -86,11 +105,12 @@ function buildGeometry() {
     { x1: vX - 5, y1: maxY, x2: vX + 5, y2: maxY },
   ];
 
-  // --- radius leaders: each guide centre → circumference, aimed radially
-  // outward from the composition centre so labels land clear of the mark
-  const leaderAngle = (g: Guide) => Math.atan2(g.cy - center.y, g.cx - center.x);
-  const leaders = guides.map<Line>((g) => {
-    const a = leaderAngle(g);
+  // --- radius leaders on the loop-primary large circles, radially outward from
+  // the composition centre so labels land clear of the mark
+  const angleOut = (g: Guide) => Math.atan2(g.cy - center.y, g.cx - center.x);
+  const leaders = lockCircleIdx.map<Line>((idx) => {
+    const g = guides[idx];
+    const a = angleOut(g);
     return { x1: g.cx, y1: g.cy, x2: g.cx + g.r * Math.cos(a), y2: g.cy + g.r * Math.sin(a) };
   });
 
@@ -101,22 +121,31 @@ function buildGeometry() {
   const arcPath = `M ${center.x + ar * Math.cos(a1)} ${center.y + ar * Math.sin(a1)} A ${ar} ${ar} 0 0 1 ${center.x + ar * Math.cos(a2)} ${center.y + ar * Math.sin(a2)}`;
   const am = (a1 + a2) / 2;
 
-  // --- labels (abstract drafting notation only)
+  // --- labels: real sheet dimensions (truthful, replaces "1:1"), the 120° note,
+  // R1–R3 radius leaders (large circles) and C1–C3 circle legends (medium circles)
   const labels: Label[] = [
-    // "1:1" on the horizontal dimension line only; the vertical keeps its ticks
-    { x: (minX + maxX) / 2, y: hY + 14, text: "1:1", anchor: "middle" },
-    // push the 120° label clear of the centroid cluster
+    { x: (minX + maxX) / 2, y: hY + 14, text: `${Math.floor(VB_W)} × ${Math.floor(VB_H)}`, anchor: "middle" },
     { x: center.x + (ar + 30) * Math.cos(am), y: center.y + (ar + 30) * Math.sin(am), text: "120°", anchor: "middle" },
   ];
-  // R labels ride outward along each leader's direction so they clear the stroke
-  const LABEL_GAP = 30;
-  guides.forEach((g, i) => {
-    const a = leaderAngle(g);
+  lockCircleIdx.forEach((idx, i) => {
+    const g = guides[idx];
+    const a = angleOut(g);
     labels.push({
-      x: g.cx + (g.r + LABEL_GAP) * Math.cos(a),
-      y: g.cy + (g.r + LABEL_GAP) * Math.sin(a),
+      x: g.cx + (g.r + 26) * Math.cos(a),
+      y: g.cy + (g.r + 26) * Math.sin(a),
       text: `R${i + 1}`,
       anchor: Math.cos(a) < -0.3 ? "end" : "start",
+    });
+  });
+  mediumIdx.forEach((idx, i) => {
+    const g = guides[idx];
+    const a = angleOut(g);
+    labels.push({
+      x: g.cx + (g.r + 12) * Math.cos(a),
+      y: g.cy + (g.r + 12) * Math.sin(a),
+      text: `C${i + 1}`,
+      anchor: Math.cos(a) < -0.3 ? "end" : "start",
+      micro: true,
     });
   });
 
@@ -129,7 +158,7 @@ function buildGeometry() {
     { x: VB_W - REG, y: VB_H - REG },
   ];
 
-  return { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks };
+  return { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks, lockCircleIdx };
 }
 
 /**
@@ -146,7 +175,7 @@ export function WorldLogic() {
   const panelRef = useRef<HTMLElement>(null);
   const assembled = useRef(false);
   const geo = useMemo(buildGeometry, []);
-  const { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks } = geo;
+  const { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks, lockCircleIdx } = geo;
 
   useLayoutEffect(() => {
     if (reduced) return;
@@ -216,17 +245,18 @@ export function WorldLogic() {
       // 1. blueprint grid + registration marks frame the sheet
       tl.to("[data-blueprint]", { opacity: 1, duration: 0.15, ease: "none" }, 0);
       tl.to("[data-regmark]", { opacity: 1, duration: 0.15, ease: "none", stagger: 0.02 }, 0);
-      // 2. construction guides draw in, staggered
+      // 2. construction guides draw in, staggered — more circles now (the real
+      //    build set), so a tighter step keeps it a layered draw, not a pile
       guideEls.forEach((el, i) => {
         tl.to(
           el,
           {
             strokeDashoffset: 0,
             strokeOpacity: GUIDE_DRAW_OPACITY,
-            duration: 0.25,
+            duration: 0.22,
             ease: "power1.out",
           },
-          0.1 + i * 0.04,
+          0.06 + i * 0.022,
         );
       });
       // 3. loops trace over the guides (linear, so the plotter tracks the tip),
@@ -234,7 +264,11 @@ export function WorldLogic() {
       loopEls.forEach((el, i) => {
         tl.to(el, { strokeDashoffset: 0, duration: LOOP_DUR, ease: "none" }, loopStart(i));
       });
-      guideCircles.forEach((c, i) => {
+      // each loop locks with a pulse on ITS primary construction circle (the real
+      // large circle nearest that loop), not an arbitrary index
+      lockCircleIdx.forEach((ci, i) => {
+        const c = guideCircles[ci];
+        if (!c) return;
         tl.to(
           c,
           {
@@ -473,7 +507,7 @@ export function WorldLogic() {
                 textAnchor={l.anchor ?? "start"}
                 dominantBaseline="middle"
                 className="font-mono"
-                fontSize={12}
+                fontSize={l.micro ? 9 : 12}
                 fill="#a9a6a7"
                 fillOpacity={0.5}
                 style={reduced ? undefined : { visibility: "hidden" }}

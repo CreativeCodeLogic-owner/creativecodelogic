@@ -253,19 +253,33 @@ async function scrollToEl(page, sel, offset = -60) {
   out.logic = await page.evaluate(() => {
     const panel = document.querySelector('[data-world="2"]');
     if (!panel) return null;
+    // real construction geometry (src/data/triquetraBuild.ts): 13 circles
+    const circles = [...panel.querySelectorAll("circle[data-guide]")];
+    // alignment spot-check: the centre circle (r≈37.18) must sit on the composition
+    // centre (230.73, 249.51) — proves the build-sheet→mark coordinate transform
+    const centre = circles
+      .map((c) => ({ cx: +c.getAttribute("cx"), cy: +c.getAttribute("cy"), r: +c.getAttribute("r") }))
+      .find((c) => Math.abs(c.r - 37.18) < 0.5);
+    const centreResidual = centre
+      ? Math.hypot(centre.cx - 230.73, centre.cy - 249.51)
+      : null;
+    const txt = panel.textContent || "";
     return {
       blueprint: panel.querySelectorAll("[data-blueprint]").length,
-      guides: panel.querySelectorAll("[data-guide]").length, // 3 circles + 2 centre lines
+      guides: panel.querySelectorAll("[data-guide]").length, // 13 circles + 2 centre lines
+      guideCircles: circles.length, // must equal the real build-circle count (13)
+      centreResidual: centreResidual == null ? null : +centreResidual.toFixed(3),
       loops: panel.querySelectorAll("[data-loop]").length,
       ticks: panel.querySelectorAll("[data-tick]").length,
       plotter: panel.querySelectorAll("[data-plotter]").length, // drafting-detail pass
       dims: panel.querySelectorAll("[data-dim]").length, // dimension/annotation layer
       regmarks: panel.querySelectorAll("[data-regmark]").length, // sheet corners
-      hasAngleLabel: /120°/.test(panel.textContent || ""),
+      hasAngleLabel: /120°/.test(txt),
+      hasSheetDims: /460\s*×\s*428/.test(txt), // real dims replaced the old "1:1"
+      noOneToOne: !/\b1:1\b/.test(txt),
+      hasCircleLegend: /C1/.test(txt) && /C2/.test(txt) && /C3/.test(txt), // C1–C3 circle legends
       fragments: panel.querySelectorAll("[data-fragment]").length, // old mechanic, must be 0
-      hasPersonalText: /ghassan|weekly report|revenue|uptime|save changes|earned/i.test(
-        panel.textContent || "",
-      ),
+      hasPersonalText: /ghassan|weekly report|revenue|uptime|save changes|earned/i.test(txt),
     };
   });
   out.logicLoopDrag = await page.evaluate(() => {

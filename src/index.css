@@ -102,11 +102,19 @@ html.lenis body {
   );
 }
 
+/* engineering paper: faint minor grid (48px) with stronger MAJOR lines every
+   4th cell (192px) layered on top */
 .blueprint {
   background-image:
-    linear-gradient(rgb(83 210 255 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(83 210 255 / 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgb(83 210 255 / 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(83 210 255 / 0.11) 1px, transparent 1px),
+    linear-gradient(rgb(83 210 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(83 210 255 / 0.05) 1px, transparent 1px);
+  background-size:
+    192px 192px,
+    192px 192px,
+    48px 48px,
+    48px 48px;
 }
 
 .blob {
