@@ -42,7 +42,7 @@
 
 @theme {
   --color-navy: #091220;
-  --color-accent: #57d3fe;
+  --color-accent: #53d2ff;
   --color-ink: #f6f3ed;
   --color-mist: #a9a6a7;
   --color-sand: #c8ad79;
@@ -67,7 +67,7 @@ body {
 }
 
 ::selection {
-  background-color: rgb(87 211 254 / 0.25);
+  background-color: rgb(83 210 255 / 0.25);
   color: var(--color-ink);
 }
 
@@ -95,8 +95,8 @@ html.lenis body {
 .scanlines {
   background-image: repeating-linear-gradient(
     to bottom,
-    rgb(87 211 254 / 0.02) 0,
-    rgb(87 211 254 / 0.02) 1px,
+    rgb(83 210 255 / 0.02) 0,
+    rgb(83 210 255 / 0.02) 1px,
     transparent 1px,
     transparent 4px
   );
@@ -104,8 +104,8 @@ html.lenis body {
 
 .blueprint {
   background-image:
-    linear-gradient(rgb(87 211 254 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(87 211 254 / 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(83 210 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(83 210 255 / 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -114,7 +114,7 @@ html.lenis body {
   border-radius: 9999px;
   background: radial-gradient(
     closest-side,
-    rgb(87 211 254 / 0.04),
+    rgb(83 210 255 / 0.04),
     transparent 70%
   );
 }
@@ -170,10 +170,10 @@ html.lenis body {
 @keyframes cta-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgb(87 211 254 / 0.3);
+    box-shadow: 0 0 0 0 rgb(83 210 255 / 0.3);
   }
   50% {
-    box-shadow: 0 0 32px 4px rgb(87 211 254 / 0.16);
+    box-shadow: 0 0 32px 4px rgb(83 210 255 / 0.16);
   }
 }
 

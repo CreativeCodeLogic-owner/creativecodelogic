@@ -145,8 +145,12 @@ async function scrollToEl(page, sel, offset = -60) {
     const gx = panelR.left + parseFloat(getComputedStyle(panel).getPropertyValue('--gx'));
     const gy = panelR.top + parseFloat(getComputedStyle(panel).getPropertyValue('--gy'));
     const gs = parseFloat(getComputedStyle(panel).getPropertyValue('--gs'));
-    const markW = (gs * 340) / 512;
-    const markH = (gs * 278) / 512;
+    // v2 mark: authored non-square viewBox 460.66×428.07 (fills it). WorldCreative
+    // scales by size / max(VB) and the mark spans the full viewBox, so on-screen
+    // extent is gs·(VB_W/VB_MAX) × gs·(VB_H/VB_MAX).
+    const VB_W = 460.66, VB_H = 428.07, VB_MAX = Math.max(VB_W, VB_H);
+    const markW = (gs * VB_W) / VB_MAX;
+    const markH = (gs * VB_H) / VB_MAX;
     const gridSide = gs * 0.8;
     const boxes = [
       { l: gx - markW / 2, r: gx + markW / 2, t: gy - markH / 2, b: gy + markH / 2 },
@@ -273,7 +277,7 @@ async function scrollToEl(page, sel, offset = -60) {
   await sleep(1500);
   out.dotsMid = await page.evaluate(() =>
     [...document.querySelectorAll("[data-step-dot]")].map(
-      (d) => getComputedStyle(d).backgroundColor === "rgb(87, 211, 254)",
+      (d) => getComputedStyle(d).backgroundColor === "rgb(83, 210, 255)",
     ),
   );
   // step 04 is now "Ship"
@@ -288,7 +292,7 @@ async function scrollToEl(page, sel, offset = -60) {
   await sleep(1500);
   out.dotsEnd = await page.evaluate(() =>
     [...document.querySelectorAll("[data-step-dot]")].map(
-      (d) => getComputedStyle(d).backgroundColor === "rgb(87, 211, 254)",
+      (d) => getComputedStyle(d).backgroundColor === "rgb(83, 210, 255)",
     ),
   );
   // the Ship step's seal stamps during the pin

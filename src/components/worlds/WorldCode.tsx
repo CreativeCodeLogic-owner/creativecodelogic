@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { TRIQUETRA_LOOPS } from "@/data/triquetra";
+import { TRIQUETRA_LOOPS, sampleMarkBBox } from "@/data/triquetra";
 import { gsap, ScrollTrigger } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -31,25 +31,25 @@ const METRICS = [
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
 
-// The mark's bounding box inside the 512×512 viewBox (from the trace).
-const MARK_BBOX = { x: 84, y: 107, w: 340, h: 278 };
 const ART_ROWS = 11;
 const BRAILLE_DOT = [1, 2, 4, 64, 8, 16, 32, 128]; // (x,y) -> bit, x-major
 
 /** Runtime braille renderer: rasterize the triquetra paths at cols×rows
- *  braille cells (2×4 dots each) straight from the SVG path data. */
+ *  braille cells (2×4 dots each) straight from the SVG path data. The mark's
+ *  real bounding box is sampled at runtime (authored v2 geometry), so cols and
+ *  the fit scale follow whatever shape the paths actually describe. */
 function generateBrailleMark(rows: number): { grid: string[]; cols: number } {
-  const cols = Math.round((rows * 2 * MARK_BBOX.w) / MARK_BBOX.h / 2) * 2; // square dots
+  const bbox = sampleMarkBBox();
+  const cols = Math.round((rows * 2 * bbox.w) / bbox.h / 2) * 2; // square dots
   const cv = document.createElement("canvas");
   cv.width = cols * 2;
   cv.height = rows * 4;
   const c = cv.getContext("2d", { willReadFrequently: true });
   if (!c) return { grid: [], cols };
-  const s =
-    Math.min((cols * 2) / MARK_BBOX.w, (rows * 4) / MARK_BBOX.h) * 0.94;
+  const s = Math.min((cols * 2) / bbox.w, (rows * 4) / bbox.h) * 0.94;
   c.translate(
-    (cols * 2 - MARK_BBOX.w * s) / 2 - MARK_BBOX.x * s,
-    (rows * 4 - MARK_BBOX.h * s) / 2 - MARK_BBOX.y * s,
+    (cols * 2 - bbox.w * s) / 2 - bbox.x * s,
+    (rows * 4 - bbox.h * s) / 2 - bbox.y * s,
   );
   c.scale(s, s);
   c.fillStyle = "#ffffff";

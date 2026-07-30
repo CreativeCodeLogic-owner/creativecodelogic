@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
-import { TRIQUETRA_LOOPS, TRIQUETRA_VIEWBOX } from "@/data/triquetra";
+import { TRIQUETRA_LOOPS, TRIQUETRA_VIEWBOX, VB_W, VB_H } from "@/data/triquetra";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -11,7 +11,6 @@ const LOOP_FILL_OPACITY = 0.12;
 const TICK_OPACITY = 0.3;
 const REG_OPACITY = 0.25;
 const DRAG_CLAMP = 40; // px, any direction
-const VIEW = 512; // TRIQUETRA_VIEWBOX is "0 0 512 512"
 const PLOTTER_COLOR = "#D2F2FF"; // same bright tint as the comet head
 
 // trace-phase schedule (timeline units): loop i draws over [start, start+dur]
@@ -125,9 +124,9 @@ function buildGeometry() {
   const REG = 16;
   const regmarks = [
     { x: REG, y: REG },
-    { x: VIEW - REG, y: REG },
-    { x: REG, y: VIEW - REG },
-    { x: VIEW - REG, y: VIEW - REG },
+    { x: VB_W - REG, y: REG },
+    { x: REG, y: VB_H - REG },
+    { x: VB_W - REG, y: VB_H - REG },
   ];
 
   return { guides, center, ticks, dimLines, leaders, arcPath, labels, regmarks };
@@ -359,12 +358,12 @@ export function WorldLogic() {
                 cy={m.y}
                 r={5}
                 fill="none"
-                stroke="#57D3FE"
+                stroke="#53D2FF"
                 strokeWidth={1.2}
                 strokeOpacity={REG_OPACITY}
               />
-              <line x1={m.x - 9} y1={m.y} x2={m.x + 9} y2={m.y} stroke="#57D3FE" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
-              <line x1={m.x} y1={m.y - 9} x2={m.x} y2={m.y + 9} stroke="#57D3FE" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
+              <line x1={m.x - 9} y1={m.y} x2={m.x + 9} y2={m.y} stroke="#53D2FF" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
+              <line x1={m.x} y1={m.y - 9} x2={m.x} y2={m.y + 9} stroke="#53D2FF" strokeWidth={1.2} strokeOpacity={REG_OPACITY} />
             </g>
           ))}
 
@@ -378,7 +377,7 @@ export function WorldLogic() {
                 cy={g.cy}
                 r={g.r}
                 fill="none"
-                stroke="#57D3FE"
+                stroke="#53D2FF"
                 strokeWidth={1.2}
                 strokeDasharray="5 5"
                 strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
@@ -388,9 +387,9 @@ export function WorldLogic() {
               data-guide
               x1={0}
               y1={center.y}
-              x2={VIEW}
+              x2={VB_W}
               y2={center.y}
-              stroke="#57D3FE"
+              stroke="#53D2FF"
               strokeWidth={1.2}
               strokeDasharray="5 5"
               strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
@@ -400,8 +399,8 @@ export function WorldLogic() {
               x1={center.x}
               y1={0}
               x2={center.x}
-              y2={VIEW}
-              stroke="#57D3FE"
+              y2={VB_H}
+              stroke="#53D2FF"
               strokeWidth={1.2}
               strokeDasharray="5 5"
               strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
@@ -418,7 +417,7 @@ export function WorldLogic() {
                 y1={t.y1}
                 x2={t.x2}
                 y2={t.y2}
-                stroke="#57D3FE"
+                stroke="#53D2FF"
                 strokeWidth={1}
                 strokeOpacity={0.9}
                 opacity={reduced ? TICK_OPACITY : 0}
@@ -436,7 +435,7 @@ export function WorldLogic() {
                 y1={l.y1}
                 x2={l.x2}
                 y2={l.y2}
-                stroke="#57D3FE"
+                stroke="#53D2FF"
                 strokeWidth={1}
                 strokeOpacity={0.32}
                 style={reduced ? undefined : { visibility: "hidden" }}
@@ -450,7 +449,7 @@ export function WorldLogic() {
                 y1={l.y1}
                 x2={l.x2}
                 y2={l.y2}
-                stroke="#57D3FE"
+                stroke="#53D2FF"
                 strokeWidth={1}
                 strokeOpacity={0.3}
                 style={reduced ? undefined : { visibility: "hidden" }}
@@ -460,7 +459,7 @@ export function WorldLogic() {
               data-dim
               d={arcPath}
               fill="none"
-              stroke="#57D3FE"
+              stroke="#53D2FF"
               strokeWidth={1}
               strokeOpacity={0.3}
               style={reduced ? undefined : { visibility: "hidden" }}
@@ -490,9 +489,9 @@ export function WorldLogic() {
               key={`l${i}`}
               data-loop
               d={d}
-              fill="#57D3FE"
+              fill="#53D2FF"
               fillOpacity={reduced ? LOOP_FILL_OPACITY : 0}
-              stroke="#57D3FE"
+              stroke="#53D2FF"
               strokeWidth={2}
               strokeLinejoin="round"
             />

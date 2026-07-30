@@ -1,12 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { TRIQUETRA_LOOPS } from "@/data/triquetra";
+import { TRIQUETRA_LOOPS, VB_CX, VB_CY, VB_MAX } from "@/data/triquetra";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 type Pt = { x: number; y: number };
 
 const PALETTE = [
-  { name: "cyan", value: "#57D3FE" },
+  { name: "cyan", value: "#53D2FF" },
   { name: "off-white", value: "#F6F3ED" },
   { name: "sand gold", value: "#C8AD79" },
   { name: "cool gray", value: "#A9A6A7" },
@@ -185,9 +185,11 @@ export function WorldCreative() {
         );
       }
 
-      const s = size / 512;
-      homeX = loopsSrc.map((pts) => new Float32Array(pts.map((p) => cx! + (p.x - 256) * s)));
-      homeY = loopsSrc.map((pts) => new Float32Array(pts.map((p) => cy! + (p.y - 256) * s)));
+      // aspect-correct: scale by the larger viewBox dimension, centre on the
+      // real viewBox centre (the v2 mark is non-square, so x and y centres differ)
+      const s = size / VB_MAX;
+      homeX = loopsSrc.map((pts) => new Float32Array(pts.map((p) => cx! + (p.x - VB_CX) * s)));
+      homeY = loopsSrc.map((pts) => new Float32Array(pts.map((p) => cy! + (p.y - VB_CY) * s)));
 
       // per-dot home positions (aligned with dotIdx)
       dotHomeX = dotIdx.map((idxs, li) => new Float32Array(idxs.map((di) => homeX[li][di])));

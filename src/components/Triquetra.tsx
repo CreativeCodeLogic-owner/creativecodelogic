@@ -15,7 +15,7 @@ type TriquetraProps = {
 
 const TONE_COLOR: Record<NonNullable<TriquetraProps["tone"]>, string> = {
   ink: "#F6F3ED",
-  accent: "#57D3FE",
+  accent: "#53D2FF",
 };
 
 /** The CCL mark as inline SVG — three loops traced from the brand asset. */
@@ -40,7 +40,7 @@ export function Triquetra({
             key={i}
             ref={loopRefs ? (el) => loopRefs(el, i) : undefined}
             d={d}
-            fill={active ? "#57D3FE" : TONE_COLOR[tone]}
+            fill={active ? "#53D2FF" : TONE_COLOR[tone]}
             opacity={neutral || active ? 1 : 0.2}
             style={{
               transition:
@@ -48,7 +48,7 @@ export function Triquetra({
               transformBox: "fill-box",
               transformOrigin: "center",
               filter: active
-                ? "drop-shadow(0 0 18px rgba(87, 211, 254, 0.45))"
+                ? "drop-shadow(0 0 18px rgba(83, 210, 255, 0.45))"
                 : "none",
             }}
           />

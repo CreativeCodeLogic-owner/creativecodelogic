@@ -92,7 +92,7 @@ export function EarnSignature() {
         .forEach((dot, i, all) => {
           drawTl.to(
             dot,
-            { backgroundColor: "#57D3FE", duration: 0.1, ease: "none" },
+            { backgroundColor: "#53D2FF", duration: 0.1, ease: "none" },
             i / (all.length - 1),
           );
         });

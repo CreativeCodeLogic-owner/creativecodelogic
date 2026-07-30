@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-26T05:03:55.902Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T08:29:23.220Z
 > Files: 66 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -9,7 +9,7 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~1424 tok)
+- `CHANGELOG.md` — Changelog (~1603 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic — Built with creativity, code, and logic (~726 tok)
@@ -72,7 +72,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~11362 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~11442 tok)
 
 ## src/
 
@@ -82,7 +82,7 @@
 
 ## src/components/
 
-- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4030 tok)
+- `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)
@@ -99,13 +99,13 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4917 tok)
-- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5628 tok)
-- `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5462 tok)
+- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4929 tok)
+- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5682 tok)
+- `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5449 tok)
 
 ## src/data/
 
-- `triquetra.ts` — Triquetra loop paths traced from .brief/branding/Triquetra_Fill.png (~1056 tok)
+- `triquetra.ts` — CCL triquetra mark — authored vector (v2), redesigned 2026-07-30. (~1183 tok)
 
 ## src/hooks/
 

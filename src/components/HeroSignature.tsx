@@ -161,9 +161,9 @@ export function HeroSignature() {
                 pathRefs.current[i] = el;
               }}
               d={d}
-              fill="#57D3FE"
+              fill="#53D2FF"
               fillOpacity={reduced ? 1 : 0}
-              stroke={reduced ? "none" : "#57D3FE"}
+              stroke={reduced ? "none" : "#53D2FF"}
               strokeWidth={reduced ? 0 : 3}
               strokeLinejoin="round"
             />

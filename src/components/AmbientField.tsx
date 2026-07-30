@@ -1,10 +1,9 @@
 import { useLayoutEffect, useRef } from "react";
-import { TRIQUETRA_LOOPS } from "@/data/triquetra";
+import { TRIQUETRA_LOOPS, VB_CX, VB_CY, VB_MAX } from "@/data/triquetra";
 import { gsap, ScrollTrigger } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-const ACCENT = "87, 211, 254"; // #57d3fe
-const VIEWBOX = 512; // TRIQUETRA_VIEWBOX
+const ACCENT = "83, 210, 255"; // #53d2ff
 const BASE_ALPHA = 0.12; // per-mark stroke alpha (worlds chapter halves it → 0.06)
 const STROKE = 1.6; // on-screen stroke width (px)
 const EDGE_BAND = 0.16; // marks live in the outer 16% each side (text-clear)
@@ -192,9 +191,9 @@ export function AmbientField() {
       ctx.save();
       ctx.translate(m.x, yDraw);
       ctx.rotate(rot);
-      const s = m.size / VIEWBOX;
+      const s = m.size / VB_MAX;
       ctx.scale(s, s);
-      ctx.translate(-VIEWBOX / 2, -VIEWBOX / 2);
+      ctx.translate(-VB_CX, -VB_CY);
       ctx.strokeStyle = `rgba(${ACCENT},${alpha})`;
       ctx.lineWidth = STROKE / s; // ~STROKE px on screen regardless of mark size
       for (const p of paths) ctx.stroke(p);

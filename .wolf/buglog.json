@@ -1467,6 +1467,86 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-26T05:03:30.499Z"
+    },
+    {
+      "id": "bug-090",
+      "timestamp": "2026-07-30T08:15:06.546Z",
+      "error_message": "Type error",
+      "file": "src/components/worlds/WorldCreative.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T08:15:06.547Z"
+    },
+    {
+      "id": "bug-091",
+      "timestamp": "2026-07-30T08:15:24.366Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/AmbientField.tsx",
+      "root_cause": "Had \"87, 211, 254\"",
+      "fix": "Changed to \"83, 210, 255\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T08:15:24.366Z"
+    },
+    {
+      "id": "bug-092",
+      "timestamp": "2026-07-30T08:16:22.498Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/worlds/WorldLogic.tsx",
+      "root_cause": "Had \"0 0 512 512\"",
+      "fix": "Changed to \"#D2F2FF\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T08:16:22.498Z"
+    },
+    {
+      "id": "bug-093",
+      "timestamp": "2026-07-30T08:16:28.318Z",
+      "error_message": "CSS fix: x",
+      "file": "src/components/worlds/WorldLogic.tsx",
+      "root_cause": "x: VIEW - REG, y: VIEW - REG → VB_W - REG, y: VB_H - REG",
+      "fix": "Changed x: VIEW - REG, y: VIEW - REG → VB_W - REG, y: VB_H - REG",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T08:16:28.318Z"
+    },
+    {
+      "id": "bug-094",
+      "timestamp": "2026-07-30T08:19:43.401Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 3→7 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T08:19:43.401Z"
     }
   ]
 }

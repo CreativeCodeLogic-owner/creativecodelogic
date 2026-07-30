@@ -60,7 +60,7 @@ export function ProgressLine() {
       <span
         ref={tipRef}
         data-progress-tip
-        className="absolute top-0 left-0 h-[5px] w-[5px] rounded-full bg-accent shadow-[0_0_6px_rgba(87,211,254,0.7)]"
+        className="absolute top-0 left-0 h-[5px] w-[5px] rounded-full bg-accent shadow-[0_0_6px_rgba(83,210,255,0.7)]"
         style={reduced ? { transform: "translateY(calc(100vh - 5px))" } : undefined}
       />
     </div>
