@@ -340,3 +340,9 @@
 | 13:42 | Edited scripts/verify6.mjs | inline fix | ~27 |
 | 13:46 | Edited CHANGELOG.md | 2→3 lines | ~197 |
 | 13:46 | TaskB: World Logic real construction geometry (triquetraBuild.ts 13 circles, build->mark offset -0.5,-0.5, residual 0.03); engineering grid+axes+ticks, C1-C3/R1-R3 legends, 460x428 replaces 1:1 | WorldLogic.tsx, triquetraBuild.ts, index.css, verify6.mjs | 13 circles aligned(res 0), Perf 100 CLS 0 | ~22k |
+| 13:49 | Session end: 33 writes across 8 files (triquetra.ts, WorldCreative.tsx, AmbientField.tsx, WorldCode.tsx, WorldLogic.tsx) | 20 reads | ~43026 tok |
+| 14:19 | Edited index.html | 2→3 lines | ~65 |
+| 14:19 | Edited public/terms.html | 2→3 lines | ~65 |
+| 14:20 | Edited public/privacy.html | 2→3 lines | ~65 |
+| 14:20 | Edited public/404.html | 2→3 lines | ~65 |
+| 14:21 | Favicon set for mark v2: Ghassan regenerated ico/svg/16/32/96/apple + site.webmanifest + web-app-manifest pngs; android-chrome removed; og card refreshed; 96x96 link wired into 4 heads | index.html, public/*.html, public/favicon* | ship brand-v2 stack | ~6k |

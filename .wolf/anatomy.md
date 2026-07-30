@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T10:46:16.564Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T11:20:32.808Z
 > Files: 66 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -12,7 +12,7 @@
 - `CHANGELOG.md` — Changelog (~1784 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
-- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~726 tok)
+- `index.html` — Creative Code Logic — Built with creativity, code, and logic (~747 tok)
 - `package.json` — Node.js package manifest (~181 tok)
 - `README.md` — Project documentation (~1327 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
@@ -57,11 +57,11 @@
 
 ## public/
 
-- `404.html` — Page not found — Creative Code Logic (~1021 tok)
-- `privacy.html` — Privacy Policy — Creative Code Logic (~1492 tok)
+- `404.html` — Page not found — Creative Code Logic (~1043 tok)
+- `privacy.html` — Privacy Policy — Creative Code Logic (~1514 tok)
 - `robots.txt` (~19 tok)
 - `sitemap.xml` (~83 tok)
-- `terms.html` — Terms of Use — Creative Code Logic (~1505 tok)
+- `terms.html` — Terms of Use — Creative Code Logic (~1527 tok)
 
 ## scripts/
 

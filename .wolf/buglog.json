@@ -1675,6 +1675,70 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-30T10:39:31.773Z"
+    },
+    {
+      "id": "bug-103",
+      "timestamp": "2026-07-30T11:19:41.535Z",
+      "error_message": "Incorrect value in code",
+      "file": "index.html",
+      "root_cause": "Had \"16x16\"",
+      "fix": "Changed to \"96x96\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T11:19:41.535Z"
+    },
+    {
+      "id": "bug-104",
+      "timestamp": "2026-07-30T11:19:50.430Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/terms.html",
+      "root_cause": "Had \"16x16\"",
+      "fix": "Changed to \"96x96\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T11:19:50.430Z"
+    },
+    {
+      "id": "bug-105",
+      "timestamp": "2026-07-30T11:20:16.645Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/privacy.html",
+      "root_cause": "Had \"16x16\"",
+      "fix": "Changed to \"96x96\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T11:20:16.645Z"
+    },
+    {
+      "id": "bug-106",
+      "timestamp": "2026-07-30T11:20:32.831Z",
+      "error_message": "Incorrect value in code",
+      "file": "public/404.html",
+      "root_cause": "Had \"16x16\"",
+      "fix": "Changed to \"96x96\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-30T11:20:32.831Z"
     }
   ]
 }
