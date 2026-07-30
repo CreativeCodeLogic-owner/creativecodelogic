@@ -35,7 +35,7 @@
 @font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
-  font-weight: 400 500;
+  font-weight: 400 700; /* variable file spans 400–800; range extended for the ASCII mark's bold weight */
   font-display: swap;
   src: url("/fonts/jetbrains-mono.woff2") format("woff2");
 }

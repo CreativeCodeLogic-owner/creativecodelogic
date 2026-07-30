@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T08:29:23.220Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T10:29:35.977Z
 > Files: 66 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -9,7 +9,7 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~1603 tok)
+- `CHANGELOG.md` — Changelog (~1674 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic — Built with creativity, code, and logic (~726 tok)
@@ -72,12 +72,12 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~11442 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~11524 tok)
 
 ## src/
 
 - `App.tsx` — App (~346 tok)
-- `index.css` — Styles: 23 rules, 8 vars (~1448 tok)
+- `index.css` — Styles: 23 rules, 8 vars (~1472 tok)
 - `main.tsx` (~68 tok)
 
 ## src/components/
@@ -99,7 +99,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — Runtime braille renderer: rasterize the triquetra paths at cols×rows (~4929 tok)
+- `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4461 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5682 tok)
 - `WorldLogic.tsx` — Sampled once at mount — pure geometry, no text or data: (~5449 tok)
 

@@ -319,3 +319,13 @@
 | 11:19 | Edited scripts/verify6.mjs | 3→7 lines | ~120 |
 | 11:29 | Edited CHANGELOG.md | 2→4 lines | ~237 |
 | 11:29 | Brand v2: authored triquetra (viewBox 460.66x428.07), loop order preserved via centroids, de-hardcoded 512/256 (VB exports + sampleMarkBBox), accent #57d3fe->#53d2ff, favicon.svg + og.jpg rebuilt | triquetra.ts + 9 components + index.css + 3 html + verify6 | verify 3/3 green 0 errors, Lighthouse 99/CLS0, glow map top/LR/LL correct | ~30k |
+| 11:31 | Session end: 15 writes across 7 files (triquetra.ts, WorldCreative.tsx, AmbientField.tsx, WorldCode.tsx, WorldLogic.tsx) | 16 reads | ~38480 tok |
+| 13:24 | Edited src/index.css | 7→7 lines | ~74 |
+| 13:25 | Edited src/components/worlds/WorldCode.tsx | "@/data/triquetra" → "@/data/triquetraAscii" | ~23 |
+| 13:25 | Edited src/components/worlds/WorldCode.tsx | removed 45 lines | ~6 |
+| 13:25 | Edited src/components/worlds/WorldCode.tsx | generateBrailleMark() → mark() | ~42 |
+| 13:26 | Edited src/components/worlds/WorldCode.tsx | inline fix | ~22 |
+| 13:26 | Edited src/components/worlds/WorldCode.tsx | "hidden font-mono text-[18" → "hidden font-mono font-bol" | ~35 |
+| 13:28 | Edited scripts/verify6.mjs | modified mark() | ~196 |
+| 13:29 | Edited CHANGELOG.md | 2→3 lines | ~95 |
+| 13:29 | TaskA: World Code matrix = authored ASCII mark (triquetraAscii.ts, 19x38, head=Z, JetBrains bold 700, extended @font-face 400 700); deleted braille rasterizer | WorldCode.tsx, triquetraAscii.ts, index.css, verify6.mjs | fits+height-constant all modes | ~12k |

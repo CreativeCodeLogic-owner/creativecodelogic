@@ -180,9 +180,16 @@ async function scrollToEl(page, sel, offset = -60) {
     const t = document.querySelector("[data-ascii-stage]")?.textContent ?? "";
     return t.split("\n").filter((r) => r.trim().length > 0).length;
   });
-  out.matrixHasBraille = await page.evaluate(() => {
+  // the assembled stage must be the authored ASCII mark (src/data/triquetraAscii.ts):
+  // 19 rows, and a distinctive fragment of the art present verbatim
+  out.matrixIsAsciiMark = await page.evaluate(() => {
     const t = document.querySelector("[data-ascii-stage]")?.textContent ?? "";
-    return [...t].some((c) => c.charCodeAt(0) >= 0x2800 && c.charCodeAt(0) <= 0x28ff);
+    const lines = t.split("\n");
+    return {
+      rows: lines.filter((r) => r.length > 0).length,
+      maxCols: Math.max(0, ...lines.map((l) => l.length)),
+      hasSignatureLine: t.includes(",mkkkO.") && t.includes("13QRQHw"),
+    };
   });
   await page.screenshot({ path: `${OUT}/full-matrix.png` });
   // wait for matrix phase, then check the art is fully inside the terminal box

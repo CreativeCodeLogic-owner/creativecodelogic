@@ -10,6 +10,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Branded 404 page (`public/404.html`) — matches the legal-page styling (navy/Aptos, triquetra mark), carries `noindex`, and is served automatically by Firebase Hosting for any unmatched route.
 
 ### Changed
+- World Code (chapter 02) matrix now assembles a hand-authored ASCII rendering of the mark (embedded in `src/data/triquetraAscii.ts`) instead of the runtime braille rasterizer — rendered in bold JetBrains Mono, accent, centered. The old `generateBrailleMark` rasterizer was removed.
 - Redesigned triquetra mark — replaced the PNG-traced paths with a new authored vector (v2, 3 paths, non-square `460.66×428.07` viewBox) everywhere it appears: hero draw, worlds loop-glow, code-terminal braille, logic blueprint, ambient field, nav logo, and `favicon.svg`. Loop order preserves the index→meaning mapping (top→Creative, lower-right→Code, lower-left→Logic). Every hard-coded `512`/`256`/trace-bbox geometry assumption now derives from the viewBox (parsed `VB_W`/`VB_H`/`VB_CX`/`VB_CY`/`VB_MAX` and a runtime `sampleMarkBBox()`), so the mark is no longer assumed square.
 - New brand accent `#53d2ff` replaces `#57d3fe` across the theme token, components, canvas/SVG fills, legal pages, and the 404 page.
 - Aptos is now the site's primary typeface for both body and display text; the mono face (JetBrains Mono) is unchanged. Inter and Space Grotesk were removed.
