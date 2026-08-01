@@ -437,3 +437,6 @@
 | 14:03 | Edited scripts/verify6.mjs | modified for() | ~487 |
 | 14:07 | Edited CHANGELOG.md | 2→3 lines | ~127 |
 | 14:07 | Hero subline syncs with final headline: data-hero-sub, opacity-only fade in +0.2s after final / out +0.15s at replay, hidden through rotating lines; reduced static | HeroSignature.tsx, verify6.mjs | yDrift 0, subInWithFinal/subOutWithMuted true, ctaDrift 0 | ~7k |
+| 14:07 | Session end: 74 writes across 23 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 37 reads | ~49972 tok |
+| 19:34 | Edited src/components/HeroSignature.tsx | modified if() | ~230 |
+| 19:38 | Hero tweak: line3->final transition now sequential out-then-in (matches muted transitions, power2.in/out) + subline delay +0.2->+0.4 | HeroSignature.tsx | yDrift 0, sub sync green | ~3k |

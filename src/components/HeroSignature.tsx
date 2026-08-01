@@ -99,24 +99,22 @@ export function HeroSignature() {
             { autoAlpha: 1, duration: 0.5, ease: "power2.out" },
           );
           if (last) {
-            // resolve: one simultaneous opacity crossfade, muted line 3 → final
+            // resolve: same shape as the muted→muted transitions — line 3 fades
+            // out, then the final fades in sequentially (out power2.in, in
+            // power2.out), not a simultaneous crossfade
             c.to(
               lineEl,
-              { autoAlpha: 0, duration: 0.5, ease: "power2.inOut" },
+              { autoAlpha: 0, duration: 0.5, ease: "power2.in" },
               "+=1.2",
             )
-              .to(
-                finalEl,
-                { autoAlpha: 1, duration: 0.5, ease: "power2.inOut" },
-                "<",
-              )
+              .to(finalEl, { autoAlpha: 1, duration: 0.5, ease: "power2.out" })
               .to(paths, { opacity: 1, duration: 0.5 }, "<");
-            // subline fades in just behind the final (+0.2s after it begins)
+            // subline fades in a touch further behind the final (+0.4s)
             if (subEl) {
               c.to(
                 subEl,
                 { opacity: 1, duration: 0.5, ease: "power2.out" },
-                "<+0.2",
+                "<+0.4",
               );
             }
           } else {
