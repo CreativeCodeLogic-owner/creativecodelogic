@@ -470,3 +470,6 @@
 | 20:21 | Edited src/components/NavFrieze.tsx | 6→8 lines | ~71 |
 | 20:29 | Edited CHANGELOG.md | 1→6 lines | ~122 |
 | 20:29 | Frieze perf: rasterize 8 SVG variants -> WebP 220px q85 (rasterize-frieze.mjs), set 163->56KB, heavy -85%; NavFrieze loads webp + decoding=async fetchpriority=low; preview Perf 96 (was 93) | NavFrieze.tsx, rasterize-frieze.mjs, *.webp, CHANGELOG | frieze green, 0 errors | ~9k |
+| 20:32 | Edited src/components/worlds/WorldCode.tsx | modified Results() | ~260 |
+| 20:32 | Edited README.md | 9→9 lines | ~126 |
+| 20:33 | Frieze perf numbers-sync: live warm 93-97 (median 94, was 93), LCP 0.7, TBT down; terminal+README->94, rebuilt+redeployed | WorldCode.tsx, README.md | live 94/100/100/100 | ~3k |

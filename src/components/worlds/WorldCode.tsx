@@ -13,21 +13,21 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 //     lighthouse https://creativecodelogic.web.app/ --preset=desktop \
 //     --output=json --chrome-flags="--headless=new"
 // Results (fonts self-hosted): vite 8.1.5 · 59 modules · tsc --noEmit clean
-//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 93
-//   (90–94 across warm runs; cold requests dip lower), LCP 0.7–0.9s
-//   (accessibility 100, best-practices 100, SEO 100).
+//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 94
+//   (93–97 across warm runs after the frieze went WebP; cold requests dip lower),
+//   LCP 0.7s (accessibility 100, best-practices 100, SEO 100).
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
   { text: "59 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 93", kind: "ok" },
+  { text: "lighthouse performance 94", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 93, decimals: 0, suffix: "" },
-  { label: "LCP", target: 0.8, decimals: 1, suffix: "s" },
+  { label: "Lighthouse", target: 94, decimals: 0, suffix: "" },
+  { label: "LCP", target: 0.7, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
 
