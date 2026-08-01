@@ -81,6 +81,60 @@ async function scrollToEl(page, sel, offset = -60) {
     };
   });
 
+  // --- 0b. header frieze: 3–6 decorative variant marks, behind clickable content
+  const friezePos = () =>
+    page.evaluate(() =>
+      [...document.querySelectorAll("[data-frieze] img")].map((im) => {
+        const r = im.getBoundingClientRect();
+        return { x: Math.round(r.x), w: Math.round(r.width) };
+      }),
+    );
+  out.frieze = await page.evaluate(() => {
+    const header = document.querySelector("header");
+    const hb = header.getBoundingClientRect();
+    const imgs = [...document.querySelectorAll("[data-frieze] img")];
+    const linkRects = [...document.querySelectorAll("[data-nav-content] a, [data-nav-content] button")].map(
+      (l) => l.getBoundingClientRect(),
+    );
+    const intersects = (r, t) => !(r.right < t.left || r.left > t.right || r.bottom < t.top || r.top > t.bottom);
+    const marks = imgs.map((im) => {
+      const r = im.getBoundingClientRect();
+      const cs = getComputedStyle(im);
+      return {
+        inBandX: r.left >= hb.left - 1 && r.right <= hb.right + 1,
+        ariaHidden: im.getAttribute("aria-hidden") === "true",
+        noPointer: cs.pointerEvents === "none",
+        opacity: +parseFloat(cs.opacity).toFixed(3),
+        overText: linkRects.some((t) => intersects(r, t)),
+      };
+    });
+    // every interactive nav element resolves to itself at its centre (a frieze
+    // img never captures the click)
+    const linkClickable = [
+      ...document.querySelectorAll("[data-nav-content] a, [data-nav-content] button"),
+    ]
+      .filter((l) => {
+        const r = l.getBoundingClientRect();
+        return r.width > 0 && r.height > 0; // skip hidden (e.g. the desktop hamburger)
+      })
+      .every((l) => {
+        const r = l.getBoundingClientRect();
+        const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return el === l || l.contains(el);
+      });
+    return {
+      count: imgs.length,
+      countOk: imgs.length >= 3 && imgs.length <= 6,
+      allInBandX: marks.every((m) => m.inBandX),
+      allAriaHidden: marks.every((m) => m.ariaHidden),
+      allNoPointer: marks.every((m) => m.noPointer),
+      maxOpacity: Math.max(...marks.map((m) => m.opacity)),
+      overTextMaxOpacity: Math.max(0, ...marks.filter((m) => m.overText).map((m) => m.opacity)),
+      linkClickable,
+    };
+  });
+  const friezePos1 = await friezePos();
+
   // --- 1. hero y-stability over two loops -----------------------------------
   await sleep(12500);
   const ys = [];
@@ -522,18 +576,11 @@ async function scrollToEl(page, sel, offset = -60) {
     () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
   );
 
-  // --- 8b. nav mark-only logo (present + navigates to top); floating back-to-top
-  //     coexists and appears once scrolled ---------------------------------------
-  out.navLogoPresent = await page.evaluate(
-    () => !!document.querySelector('header a[aria-label="Creative Code Logic, back to top"]'),
+  // --- 8b. floating back-to-top appears once scrolled (coexists with the frieze;
+  //     the standalone logo link is gone) ----------------------------------------
+  out.navNoLogoLink = await page.evaluate(
+    () => !document.querySelector('header a[aria-label="Creative Code Logic, back to top"]'),
   );
-  // clicking the logo (while scrolled down) returns to the top (#signature)
-  await page.click('header a[aria-label="Creative Code Logic, back to top"]');
-  await sleep(1600);
-  out.navLogoToTop = await page.evaluate(() => window.scrollY < 80);
-  // back to the bottom so the back-to-top affordance is in its scrolled state
-  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await sleep(600);
   const backToTop = async () => {
     const b = await page.$('[aria-label="Back to top"]');
     if (!b) return { present: false };
@@ -742,6 +789,12 @@ async function scrollToEl(page, sel, offset = -60) {
   await sleep(1200);
   out.ambient.paintedAtBottom = await painted();
   }
+
+  // frieze re-randomises per load: reload and confirm the arrangement differs
+  await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
+  await sleep(1500);
+  const friezePos2 = await friezePos();
+  out.friezeReloadDiffers = JSON.stringify(friezePos1) !== JSON.stringify(friezePos2);
 
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));

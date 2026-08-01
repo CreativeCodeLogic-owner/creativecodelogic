@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-01T09:23:12.362Z
-> Files: 67 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-01T10:02:32.122Z
+> Files: 68 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -9,7 +9,7 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~2388 tok)
+- `CHANGELOG.md` — Changelog (~2470 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~761 tok)
@@ -72,7 +72,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~12776 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~13367 tok)
 
 ## src/
 
@@ -92,7 +92,8 @@
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1797 tok)
 - `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1555 tok)
-- `Nav.tsx` — MENU_ID (~1290 tok)
+- `Nav.tsx` — MENU_ID (~1224 tok)
+- `NavFrieze.tsx` — Slot-based scatter: pick `count` of SLOTS slots, jitter each mark within its (~1150 tok)
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)
 - `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~892 tok)

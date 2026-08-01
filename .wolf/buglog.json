@@ -2091,6 +2091,70 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T09:23:12.388Z"
+    },
+    {
+      "id": "bug-129",
+      "timestamp": "2026-08-01T09:51:11.457Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "10 lines replaced/restructured",
+      "fix": "Rewrote 19→13 lines (10 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:51:11.457Z"
+    },
+    {
+      "id": "bug-130",
+      "timestamp": "2026-08-01T09:51:27.928Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "Had \"@/components/Triquetra\"",
+      "fix": "Changed to \"@/components/NavFrieze\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:51:27.928Z"
+    },
+    {
+      "id": "bug-131",
+      "timestamp": "2026-08-01T09:52:11.841Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "11 lines replaced/restructured",
+      "fix": "Rewrote 13→6 lines (11 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:52:11.841Z"
+    },
+    {
+      "id": "bug-132",
+      "timestamp": "2026-08-01T10:02:32.153Z",
+      "error_message": "Incorrect value in code",
+      "file": "CHANGELOG.md",
+      "root_cause": "Had \"CCL\"",
+      "fix": "Changed to `NavFrieze`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T10:02:32.153Z"
     }
   ]
 }
