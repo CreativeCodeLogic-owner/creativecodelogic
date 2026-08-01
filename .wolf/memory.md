@@ -440,3 +440,9 @@
 | 14:07 | Session end: 74 writes across 23 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 37 reads | ~49972 tok |
 | 19:34 | Edited src/components/HeroSignature.tsx | modified if() | ~230 |
 | 19:38 | Hero tweak: line3->final transition now sequential out-then-in (matches muted transitions, power2.in/out) + subline delay +0.2->+0.4 | HeroSignature.tsx | yDrift 0, sub sync green | ~3k |
+| 19:38 | Session end: 75 writes across 23 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 37 reads | ~50202 tok |
+| 19:47 | Created src/data/friezeCompositions.ts | — | ~1276 |
+| 19:48 | Edited scripts/verify6.mjs | 2→2 lines | ~20 |
+| 19:48 | Edited scripts/verify6.mjs | 2→3 lines | ~63 |
+| 19:54 | Edited CHANGELOG.md | inline fix | ~31 |
+| 19:54 | Frieze opacity -50%: discrete set {0.06,0.10,0.16}->{0.03,0.05,0.08} in friezeCompositions.ts; verify OPA set + textBand<=0.05 | friezeCompositions.ts, verify6.mjs | matchesAuthored true, overText 0.08, 0 errors | ~4k |

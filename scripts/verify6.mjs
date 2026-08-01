@@ -94,7 +94,7 @@ async function scrollToEl(page, sel, offset = -60) {
     });
   out.frieze = await page.evaluate(() => {
     const ROT = [-24, -12, 0, 12, 24];
-    const OPA = [0.06, 0.1, 0.16];
+    const OPA = [0.03, 0.05, 0.08];
     const cont = document.querySelector("[data-frieze]");
     const comps = window.__FRIEZE_COMPS; // authored source, exposed in dev
     const setName = cont.getAttribute("data-frieze-set");
@@ -158,8 +158,9 @@ async function scrollToEl(page, sel, offset = -60) {
       anchorNotFill: !!anchor && !anchor.variant.startsWith("03"),
       rotationsDiscrete: rendered.every((r) => ROT.includes(r.rotation)),
       opacitiesDiscrete: rendered.every((r) => OPA.includes(r.opacity)),
-      // authored rule: positions in the nav-text band (x 30–75%) use ≤0.10
-      textBandOk: rendered.filter((r) => r.x >= 30 && r.x <= 75).every((r) => r.opacity <= 0.1),
+      // authored rule: positions in the nav-text band (x 30–75%) use the two
+      // lower opacity steps (≤0.05 after the 50% reduction)
+      textBandOk: rendered.filter((r) => r.x >= 30 && r.x <= 75).every((r) => r.opacity <= 0.05),
       // informational: the heaviest mark actually overlapping a real link/CTA rect
       overTextMaxOpacity: Math.max(0, ...overTextOpacities),
       minGap: Number.isFinite(minGap) ? +minGap.toFixed(1) : null,
