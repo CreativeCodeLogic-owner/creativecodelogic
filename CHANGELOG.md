@@ -11,7 +11,8 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Branded 404 page (`public/404.html`) — matches the legal-page styling (navy/Aptos, triquetra mark), carries `noindex`, and is served automatically by Firebase Hosting for any unmatched route.
 
 ### Changed
-- Header simplified: the triquetra + "CCL" wordmark link was removed; the bar now carries just the nav links plus the "Start a project" CTA (hamburger + CTA, right-aligned, on mobile).
+- Header carries the triquetra mark again (mark only, no "CCL" wordmark) — inline `<Triquetra>` v2 geometry linking to the top, ≥44px touch target; the bar is mark-left · links · CTA-right on desktop, mark-left / CTA + hamburger-right on mobile. The floating back-to-top coexists with it.
+- Progress line: bolder taper (6px at the top down to 1px, matching cap) and raised above the header (z-55, still below the z-60 modals) so it draws over the nav's blurred bar at the left edge.
 - Further scale tuning: the 03/Logic construction drawing scales to 0.68 (sheet furniture stays full-size), and the pinned worlds triquetra is ~20% smaller on desktop and hidden on mobile (the grid column collapses with no ghost gap).
 - Invitation heading now splits to two lines and carries the accent-asterisk lockup ("Creative Code Logic\*?"), mirroring the hero.
 - Typography: em dashes removed from all shipped copy — separators (title/og/twitter tags, the terminal header) became middots (·); in-sentence dashes became en dashes (–).

@@ -2011,6 +2011,86 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T08:55:32.558Z"
+    },
+    {
+      "id": "bug-124",
+      "timestamp": "2026-08-01T09:14:40.091Z",
+      "error_message": "Type error",
+      "file": "src/components/ProgressLine.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:14:40.091Z"
+    },
+    {
+      "id": "bug-125",
+      "timestamp": "2026-08-01T09:14:59.323Z",
+      "error_message": "CSS fix: transform",
+      "file": "src/components/ProgressLine.tsx",
+      "root_cause": "transform: \"scaleY(1) scaleX(0.3333)\" → \"scaleY(1) scaleX(0.1667)\"",
+      "fix": "Changed transform: \"scaleY(1) scaleX(0.3333)\" → \"scaleY(1) scaleX(0.1667)\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:14:59.323Z"
+    },
+    {
+      "id": "bug-126",
+      "timestamp": "2026-08-01T09:15:19.015Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "Had \"@/components/MobileMenu\"",
+      "fix": "Changed to \"@/components/Triquetra\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:15:19.015Z"
+    },
+    {
+      "id": "bug-127",
+      "timestamp": "2026-08-01T09:16:04.804Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 7→13 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:16:04.804Z"
+    },
+    {
+      "id": "bug-128",
+      "timestamp": "2026-08-01T09:23:12.388Z",
+      "error_message": "Incorrect value in code",
+      "file": "CHANGELOG.md",
+      "root_cause": "Had \"Start a project\"",
+      "fix": "Changed to `<Triquetra>`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T09:23:12.388Z"
     }
   ]
 }

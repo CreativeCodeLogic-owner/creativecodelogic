@@ -522,12 +522,18 @@ async function scrollToEl(page, sel, offset = -60) {
     () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
   );
 
-  // --- 8b. nav has no logo link; floating back-to-top appears once scrolled ----
-  out.navNoLogo = await page.evaluate(() => {
-    // the old logo was an <a href="#signature"> in the header with "CCL"
-    const links = [...document.querySelectorAll("header a")];
-    return !links.some((a) => /\bCCL\b/.test(a.textContent || ""));
-  });
+  // --- 8b. nav mark-only logo (present + navigates to top); floating back-to-top
+  //     coexists and appears once scrolled ---------------------------------------
+  out.navLogoPresent = await page.evaluate(
+    () => !!document.querySelector('header a[aria-label="Creative Code Logic, back to top"]'),
+  );
+  // clicking the logo (while scrolled down) returns to the top (#signature)
+  await page.click('header a[aria-label="Creative Code Logic, back to top"]');
+  await sleep(1600);
+  out.navLogoToTop = await page.evaluate(() => window.scrollY < 80);
+  // back to the bottom so the back-to-top affordance is in its scrolled state
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(600);
   const backToTop = async () => {
     const b = await page.$('[aria-label="Back to top"]');
     if (!b) return { present: false };

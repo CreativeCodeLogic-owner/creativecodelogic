@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { Triquetra } from "@/components/Triquetra";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ScrollTrigger, scrollToId } from "@/lib/scroll";
 import { SHOW_WORK } from "@/lib/flags";
@@ -50,8 +51,18 @@ export function Nav() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-6xl items-center justify-end px-6 py-4 md:justify-between md:px-10"
+        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-10"
       >
+        {/* mark-only logo — inline v2 geometry (no wordmark), links to top */}
+        <a
+          href="#signature"
+          onClick={go("#signature")}
+          aria-label="Creative Code Logic, back to top"
+          className="-m-2 rounded-md p-2 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+        >
+          <Triquetra className="h-8 w-8" />
+        </a>
+
         <ul className="hidden items-center gap-8 md:flex">
           {LINKS.map((link) => (
             <li key={link.hash}>

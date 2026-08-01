@@ -401,3 +401,11 @@
 | 12:01 | Edited index.html | 2→2 lines | ~41 |
 | 12:01 | Edited CHANGELOG.md | expanded (+7 lines) | ~489 |
 | 12:02 | Polish: Logic 0.68, nav logo removed + BackToTop.tsx (hides when brief open), worlds triquetra hidden mobile/90px desktop, invitation 2-line +accent*, em-dashes->·/–, brand-mention asterisks, favicon reconcile | Nav/App/BackToTop/Invitation/SignatureMeaning/WorldLogic/BriefForm/EarnSignature/SignatureLives/WorldCode, legal html, scroll.ts, verify6 | build clean 49mod, verify 3/3 green, dist em-dash-free | ~28k |
+| 12:03 | Session end: 46 writes across 20 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 22 reads | ~36967 tok |
+| 12:14 | Edited src/components/ProgressLine.tsx | 9→10 lines | ~149 |
+| 12:14 | Edited src/components/ProgressLine.tsx | 16→16 lines | ~177 |
+| 12:15 | Edited src/components/Nav.tsx | added 1 import(s) | ~42 |
+| 12:15 | Edited src/components/Nav.tsx | CSS: focus-visible, focus-visible, focus-visible | ~170 |
+| 12:16 | Edited scripts/verify6.mjs | expanded (+6 lines) | ~208 |
+| 12:23 | Edited CHANGELOG.md | 2→3 lines | ~132 |
+| 12:23 | Polish: progress line 6px->1px taper + z-55 above nav; triquetra mark restored in nav (mark-only, links to top, coexists with back-to-top) | ProgressLine.tsx, Nav.tsx, verify6.mjs | line over nav (z55>50), navLogoToTop true, verify 3/3 green | ~7k |
