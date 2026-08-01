@@ -47,6 +47,15 @@ export function scrollToId(hash: string): void {
   }
 }
 
+/** Smooth-scroll to the top of the page. Instant without Lenis (reduced motion). */
+export function scrollToTop(): void {
+  if (lenis) {
+    lenis.scrollTo(0, { duration: 1.2 });
+  } else {
+    window.scrollTo({ top: 0 });
+  }
+}
+
 /** Lock page scroll (Lenis + native) while a modal/drawer is open. */
 export function stopScroll(): void {
   lenis?.stop();

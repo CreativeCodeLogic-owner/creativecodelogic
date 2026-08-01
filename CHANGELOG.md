@@ -7,9 +7,16 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- Floating "back to top" control (`BackToTop.tsx`) — a circular pill fixed bottom-right (safe-area aware, smaller on phones) that fades in once past the first viewport, smooth-scrolls to the top (instant under reduced motion), and hides while the inline brief is open so it never overlaps the Send button; sits below the drawer/menu in the stacking order.
 - Branded 404 page (`public/404.html`) — matches the legal-page styling (navy/Aptos, triquetra mark), carries `noindex`, and is served automatically by Firebase Hosting for any unmatched route.
 
 ### Changed
+- Header simplified: the triquetra + "CCL" wordmark link was removed; the bar now carries just the nav links plus the "Start a project" CTA (hamburger + CTA, right-aligned, on mobile).
+- Further scale tuning: the 03/Logic construction drawing scales to 0.68 (sheet furniture stays full-size), and the pinned worlds triquetra is ~20% smaller on desktop and hidden on mobile (the grid column collapses with no ghost gap).
+- Invitation heading now splits to two lines and carries the accent-asterisk lockup ("Creative Code Logic\*?"), mirroring the hero.
+- Typography: em dashes removed from all shipped copy — separators (title/og/twitter tags, the terminal header) became middots (·); in-sentence dashes became en dashes (–).
+- Every visible "Creative Code Logic" mention now carries the accent asterisk (hero, footer, invitation, the Work-chapter mention, and the legal pages' body + footer lines); excludes titles/meta/JSON-LD, aria-labels, and the email-subject string.
+- Reconciled the regenerated favicon set: `site.webmanifest` references only existing icons (Android Chrome 192/512) and is linked from `index.html`; heads keep svg + ico + 16/32/96 + apple-touch.
 - Mark-scale polish: the hero triquetra and the 01/Creative canvas mark are ~20% smaller, and the 03/Logic construction drawing (mark + real circles + annotations) scales to 0.8 about the composition centre while the sheet furniture (grid, axes, ticks, registration marks) stays full-size — the drawing shrinks, the sheet doesn't.
 - "How we build": the Ship step's ✦-in-circle seal is now a plain accent asterisk (`*`, font-display) that stamps in at the same timeline beat; its body copy ends "…it earns the mark\*" with the accent asterisk replacing the period, mirroring the hero lockup.
 - World Code (chapter 02) matrix now assembles a hand-authored ASCII rendering of the mark (embedded in `src/data/triquetraAscii.ts`) instead of the runtime braille rasterizer — rendered in bold JetBrains Mono, accent, centered. The old `generateBrailleMark` rasterizer was removed.

@@ -68,12 +68,14 @@ export function SignatureMeaning() {
       </div>
 
       <div className="mt-8 grid gap-12 md:mt-8 md:grid-cols-[120px_minmax(0,1fr)] md:gap-16">
-        <div>
+        {/* pinned mark — desktop only; on mobile the grid collapses to one column
+            with no ghost gap, so the worlds get the full width */}
+        <div className="hidden md:block">
           <div className="md:sticky md:top-40">
             <Triquetra
               activeLoop={activeLoop}
               tone="ink"
-              className="h-auto w-20 md:w-28"
+              className="h-auto w-20 md:w-[90px]"
             />
           </div>
         </div>

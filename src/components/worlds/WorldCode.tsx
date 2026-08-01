@@ -20,8 +20,8 @@ const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
   { text: "46 modules transformed", kind: "ok" },
-  { text: "type-check clean — 0 errors", kind: "ok" },
-  { text: "verification 3/3 viewports — 0 console errors", kind: "ok" },
+  { text: "type-check clean – 0 errors", kind: "ok" },
+  { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
   { text: "lighthouse performance 97", kind: "ok" },
 ];
 
@@ -383,7 +383,7 @@ export function WorldCode() {
 
         <div className="rounded-xl border border-ink/10 bg-[#060d18] font-mono text-[13px] leading-6 lg:order-1">
           <div className="border-b border-ink/10 px-5 py-3 text-xs text-mist/80">
-            ccl — production build
+            ccl · production build
           </div>
           <div
             data-terminal-body

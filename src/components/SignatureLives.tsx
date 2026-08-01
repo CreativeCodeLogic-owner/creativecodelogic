@@ -196,9 +196,9 @@ export function SignatureLives() {
                     Live product →
                   </a>
                   <p className="text-xs text-mist">
-                    Built with Creative Code Logic{" "}
-                    <span aria-hidden="true" className="text-accent">
-                      ✦
+                    Built with Creative Code Logic
+                    <span aria-hidden="true" className="align-super text-[0.7em] text-accent">
+                      *
                     </span>
                   </p>
                 </div>
@@ -214,8 +214,8 @@ export function SignatureLives() {
       >
         <p className="font-medium text-ink">This website is project 001.</p>
         <p className="mt-2">
-          Everything we ask you to trust — the design, the engineering, the
-          thinking — you&rsquo;re using it right now.{" "}
+          Everything we ask you to trust – the design, the engineering, the
+          thinking – you&rsquo;re using it right now.{" "}
           <a
             href="#"
             className="text-accent transition-colors duration-300 hover:text-ink"

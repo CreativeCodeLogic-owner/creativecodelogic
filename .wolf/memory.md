@@ -363,3 +363,41 @@
 | 11:18 | Edited src/components/worlds/WorldLogic.tsx | modified furniture() | ~1431 |
 | 11:23 | Edited CHANGELOG.md | 2→4 lines | ~182 |
 | 11:23 | Polish: hero mark -20% (w-[min(50vw,232px)]/md 29vw,288px), Creative size 0.82->0.66 / 0.55->0.44, Logic drawing group scale(0.8) about center (furniture full-size), Ship seal ✦->accent asterisk + body mark* | HeroSignature, WorldCreative, WorldLogic, EarnSignature, seal.ts | y-drift 0, palette hugs, seal stamps, 0 errors | ~10k |
+| 11:24 | Session end: 10 writes across 6 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 9 reads | ~23818 tok |
+| 11:37 | Edited index.html | 1→2 lines | ~32 |
+| 11:37 | Edited src/components/worlds/WorldLogic.tsx | 3→3 lines | ~53 |
+| 11:38 | Edited src/components/SignatureMeaning.tsx | 9→11 lines | ~121 |
+| 11:38 | Edited src/components/Invitation.tsx | 6→9 lines | ~115 |
+| 11:41 | Edited src/components/BriefForm.tsx | "Project brief — Creative " → "Project brief · Creative " | ~16 |
+| 11:41 | Edited src/components/BriefForm.tsx | inline fix | ~23 |
+| 11:41 | Edited src/components/EarnSignature.tsx | "Utility first — not noise" → "Utility first – not noise" | ~21 |
+| 11:41 | Edited src/components/worlds/WorldCode.tsx | 2→2 lines | ~37 |
+| 11:42 | Edited src/components/worlds/WorldCode.tsx | inline fix | ~10 |
+| 11:42 | Edited src/components/worlds/WorldLogic.tsx | inline fix | ~14 |
+| 11:42 | Edited src/components/SignatureLives.tsx | 4→4 lines | ~57 |
+| 11:42 | Edited src/components/SignatureLives.tsx | 2→2 lines | ~39 |
+| 11:42 | Edited index.html | inline fix | ~16 |
+| 11:43 | Edited public/404.html | inline fix | ~15 |
+| 11:43 | Edited public/privacy.html | inline fix | ~15 |
+| 11:43 | Edited public/privacy.html | inline fix | ~26 |
+| 11:43 | Edited public/terms.html | inline fix | ~15 |
+| 11:43 | Edited public/terms.html | 2→3 lines | ~55 |
+| 11:43 | Edited public/terms.html | 1→2 lines | ~35 |
+| 11:43 | Edited public/terms.html | inline fix | ~23 |
+| 11:44 | Edited public/terms.html | inline fix | ~26 |
+| 11:44 | Edited src/components/Nav.tsx | reduced (-12 lines) | ~61 |
+| 11:44 | Edited src/components/Nav.tsx | 2→1 lines | ~16 |
+| 11:44 | Edited src/lib/scroll.ts | added 1 condition(s) | ~86 |
+| 11:44 | Created src/components/BackToTop.tsx | — | ~542 |
+| 11:44 | Edited src/App.tsx | added 1 import(s) | ~43 |
+| 11:45 | Edited src/App.tsx | 4→5 lines | ~18 |
+| 11:45 | Edited scripts/verify6.mjs | added 2 condition(s) | ~493 |
+| 11:46 | Edited scripts/verify6.mjs | modified getComputedStyle() | ~125 |
+| 11:46 | Edited scripts/verify6.mjs | added 1 condition(s) | ~336 |
+| 11:54 | Edited src/components/BackToTop.tsx | 9→7 lines | ~238 |
+| 11:55 | Edited src/components/BackToTop.tsx | CSS: childList, subtree | ~349 |
+| 11:55 | Edited src/components/BackToTop.tsx | 2→2 lines | ~21 |
+| 11:56 | Edited scripts/verify6.mjs | modified getComputedStyle() | ~141 |
+| 12:01 | Edited index.html | 2→2 lines | ~41 |
+| 12:01 | Edited CHANGELOG.md | expanded (+7 lines) | ~489 |
+| 12:02 | Polish: Logic 0.68, nav logo removed + BackToTop.tsx (hides when brief open), worlds triquetra hidden mobile/90px desktop, invitation 2-line +accent*, em-dashes->·/–, brand-mention asterisks, favicon reconcile | Nav/App/BackToTop/Invitation/SignatureMeaning/WorldLogic/BriefForm/EarnSignature/SignatureLives/WorldCode, legal html, scroll.ts, verify6 | build clean 49mod, verify 3/3 green, dist em-dash-free | ~28k |

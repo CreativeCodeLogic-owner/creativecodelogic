@@ -6,7 +6,7 @@ import { submitForm } from "@/lib/submit";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const MAILTO = "hello@creativecodelogic.com";
-const SUBJECT = "Project brief — Creative Code Logic";
+const SUBJECT = "Project brief · Creative Code Logic";
 const KINDS = ["Website", "Web app", "Mobile app", "Something else"];
 const TIMINGS = ["As soon as possible", "In the next few months", "Just exploring"];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +35,7 @@ export const EMPTY_BRIEF: BriefData = {
 
 function mailtoHref(a: BriefData): string {
   const body = [
-    `What are you making: ${a.kind}${a.kindOther ? ` — ${a.kindOther}` : ""}`,
+    `What are you making: ${a.kind}${a.kindOther ? ` – ${a.kindOther}` : ""}`,
     `What it should solve: ${a.problem}`,
     `Timeline: ${a.timing}`,
     `Reply to: ${a.email}`,

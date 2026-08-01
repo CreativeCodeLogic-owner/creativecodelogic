@@ -114,11 +114,14 @@ export function Invitation() {
         data-invite-stagger
         className="mt-6 font-display text-4xl font-semibold tracking-tight text-ink md:text-6xl"
       >
-        Ready to build with Creative Code Logic?
+        Ready to build with
+        <br />
+        Creative Code Logic
+        <span className="align-super text-[0.5em] text-accent">*</span>?
       </h2>
       <p data-invite-stagger className="mt-8 max-w-xl leading-relaxed text-mist">
         Tell us what you&rsquo;re trying to make. Three questions, two minutes
-        — and we&rsquo;ll come back with thinking, not a sales call.
+        &ndash; and we&rsquo;ll come back with thinking, not a sales call.
       </p>
 
       {/* swap area — reserved height keeps the footer still across all states */}

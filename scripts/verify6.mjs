@@ -346,6 +346,12 @@ async function scrollToEl(page, sel, offset = -60) {
   await page.click("[data-brief-open]");
   await sleep(600);
   brief.formShown = await page.evaluate(() => !!document.querySelector("[data-brief-form]"));
+  // back-to-top hides while the inline brief is open (they'd share the corner)
+  brief.backToTopHiddenWhileOpen = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]');
+    const cs = b ? getComputedStyle(b) : null;
+    return !!cs && (parseFloat(cs.opacity) === 0 || cs.pointerEvents === "none");
+  });
   brief.heightStableOnOpen = (await docH()) === shClosed; // scrollHeight unchanged (±0)
   brief.footerStableOnOpen = (await footTop()) === footClosed; // footer does not shift
   brief.focusStep1 = await page.evaluate(() => document.activeElement?.hasAttribute("data-chip") === true);
@@ -515,6 +521,48 @@ async function scrollToEl(page, sel, offset = -60) {
   out.navScrolledAtBottom = await page.evaluate(
     () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
   );
+
+  // --- 8b. nav has no logo link; floating back-to-top appears once scrolled ----
+  out.navNoLogo = await page.evaluate(() => {
+    // the old logo was an <a href="#signature"> in the header with "CCL"
+    const links = [...document.querySelectorAll("header a")];
+    return !links.some((a) => /\bCCL\b/.test(a.textContent || ""));
+  });
+  const backToTop = async () => {
+    const b = await page.$('[aria-label="Back to top"]');
+    if (!b) return { present: false };
+    return page.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return {
+        present: true,
+        opacity: parseFloat(cs.opacity),
+        clickable: cs.pointerEvents !== "none",
+        inViewport: r.right <= window.innerWidth + 1 && r.bottom <= window.innerHeight + 1,
+      };
+    }, b);
+  };
+  // still at page bottom → visible + clickable
+  out.backToTopWhenScrolled = await backToTop();
+  out.backToTopFocusable = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]');
+    if (!(b instanceof HTMLElement)) return false;
+    b.focus();
+    return document.activeElement === b;
+  });
+  // click it → returns to (near) the top
+  await page.click('[aria-label="Back to top"]');
+  await sleep(1600);
+  out.backToTopReturnsTop = await page.evaluate(() => window.scrollY < 5);
+  // at the top it must be hidden (faded out, non-interactive)
+  out.backToTopHiddenAtTop = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]');
+    const cs = b ? getComputedStyle(b) : null;
+    return !!cs && (parseFloat(cs.opacity) === 0 || cs.pointerEvents === "none");
+  });
+  // restore bottom position for the progress-line / footer checks below
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(600);
 
   // --- 9. progress line (edge-glued, capped, tip rides to bottom) + footer ----
   out.progressLine = await page.evaluate(() => {
@@ -924,6 +972,30 @@ async function scrollToEl(page, sel, offset = -60) {
     return r;
   };
   out.helloDrawer = { w320: await drawerFits(320), w390: await drawerFits(390) };
+
+  // --- back-to-top on mobile: hidden at top, visible + fully in-viewport after
+  //     scrolling ~1 viewport (must not overflow the 390px edge) ----------------
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await sleep(400);
+  out.backToTopMobileHiddenTop = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]');
+    const cs = b ? getComputedStyle(b) : null;
+    return !!cs && (parseFloat(cs.opacity) === 0 || cs.pointerEvents === "none");
+  });
+  await page.evaluate(() => window.scrollTo(0, window.innerHeight * 2));
+  await sleep(600);
+  out.backToTopMobile = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]');
+    if (!(b instanceof HTMLElement)) return { present: false };
+    const cs = getComputedStyle(b);
+    const r = b.getBoundingClientRect();
+    return {
+      present: true,
+      visible: parseFloat(cs.opacity) > 0.9 && cs.pointerEvents !== "none",
+      inViewport: r.left >= 0 && r.right <= window.innerWidth + 1 && r.bottom <= window.innerHeight + 1,
+      size: Math.round(r.width),
+    };
+  });
 
   // reduced-motion: menu opens/closes instantly, no errors
   const rmPage = await browser.newPage();

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { initSmoothScroll, ScrollTrigger } from "@/lib/scroll";
 import { SHOW_WORK, SHOW_AMBIENT } from "@/lib/flags";
 import { Nav } from "@/components/Nav";
+import { BackToTop } from "@/components/BackToTop";
 import { AmbientField } from "@/components/AmbientField";
 import { ProgressLine } from "@/components/ProgressLine";
 import { HeroSignature } from "@/components/HeroSignature";
@@ -32,6 +33,7 @@ export function App() {
         <Invitation />
       </main>
       <Footer />
+      <BackToTop />
     </>
   );
 }

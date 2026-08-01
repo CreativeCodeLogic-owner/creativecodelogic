@@ -6,7 +6,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 const STANDARDS = [
   {
     lead: "It solves the real problem.",
-    body: "Utility first — not noise, not features for their own sake.",
+    body: "Utility first – not noise, not features for their own sake.",
   },
   {
     lead: "Every detail has a reason.",

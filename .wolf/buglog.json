@@ -1787,6 +1787,230 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T08:15:42.062Z"
+    },
+    {
+      "id": "bug-110",
+      "timestamp": "2026-08-01T08:38:17.834Z",
+      "error_message": "CSS fix: md",
+      "file": "src/components/SignatureMeaning.tsx",
+      "root_cause": "md: w-28\" → w-[90px]\"",
+      "fix": "Changed md: w-28\" → w-[90px]\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:38:17.834Z"
+    },
+    {
+      "id": "bug-111",
+      "timestamp": "2026-08-01T08:38:36.051Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/Invitation.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 6→9 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:38:36.051Z"
+    },
+    {
+      "id": "bug-112",
+      "timestamp": "2026-08-01T08:41:31.717Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/BriefForm.tsx",
+      "root_cause": "Had \"Project brief — Creative Code Logic\"",
+      "fix": "Changed to \"Project brief · Creative Code Logic\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:41:31.717Z"
+    },
+    {
+      "id": "bug-113",
+      "timestamp": "2026-08-01T08:41:45.919Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/EarnSignature.tsx",
+      "root_cause": "Had \"Utility first — not noise, not features for their",
+      "fix": "Changed to \"Utility first – not noise, not features for their",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:41:45.919Z"
+    },
+    {
+      "id": "bug-114",
+      "timestamp": "2026-08-01T08:41:53.072Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "Had \"type-check clean — 0 errors\"",
+      "fix": "Changed to \"type-check clean – 0 errors\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:41:53.072Z"
+    },
+    {
+      "id": "bug-115",
+      "timestamp": "2026-08-01T08:43:22.591Z",
+      "error_message": "Wrong reference: footer should be span",
+      "file": "public/privacy.html",
+      "root_cause": "Used \"footer\" instead of \"span\"",
+      "fix": "Changed footer → span",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:43:22.591Z"
+    },
+    {
+      "id": "bug-116",
+      "timestamp": "2026-08-01T08:43:55.561Z",
+      "error_message": "Wrong reference: mdash should be ndash",
+      "file": "public/terms.html",
+      "root_cause": "Used \"mdash\" instead of \"ndash\"",
+      "fix": "Changed mdash → ndash",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-08-01T08:44:03.198Z"
+    },
+    {
+      "id": "bug-117",
+      "timestamp": "2026-08-01T08:44:16.596Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "11 lines replaced/restructured",
+      "fix": "Rewrote 17→5 lines (11 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:44:16.596Z"
+    },
+    {
+      "id": "bug-118",
+      "timestamp": "2026-08-01T08:44:22.868Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/Nav.tsx",
+      "root_cause": "Had \"@/components/Triquetra\"",
+      "fix": "Changed to \"@/components/MobileMenu\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:44:22.868Z"
+    },
+    {
+      "id": "bug-119",
+      "timestamp": "2026-08-01T08:44:32.273Z",
+      "error_message": "Type error",
+      "file": "src/lib/scroll.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:44:32.273Z"
+    },
+    {
+      "id": "bug-120",
+      "timestamp": "2026-08-01T08:44:56.456Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/App.tsx",
+      "root_cause": "Had \"@/components/AmbientField\"",
+      "fix": "Changed to \"@/components/BackToTop\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:44:56.456Z"
+    },
+    {
+      "id": "bug-121",
+      "timestamp": "2026-08-01T08:45:51.896Z",
+      "error_message": "Missing guard clause",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "No early return/throw for edge case: !b",
+      "fix": "Added guard clause: if (!b)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:45:51.896Z"
+    },
+    {
+      "id": "bug-122",
+      "timestamp": "2026-08-01T08:54:01.782Z",
+      "error_message": "CSS fix: hover",
+      "file": "src/components/BackToTop.tsx",
+      "root_cause": "hover: bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none ${ → bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:h-12 sm:w-12 sm:text-lg sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-[calc(1.5rem+env(safe-area-inset-right))] ${",
+      "fix": "Changed hover: bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none ${ → bg-accent hover:text-navy focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:h-12 sm:w-12 sm:text-lg sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-[calc(1.5rem+env(safe-area-inset-right))] ${",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:54:01.782Z"
+    },
+    {
+      "id": "bug-123",
+      "timestamp": "2026-08-01T08:55:32.558Z",
+      "error_message": "Wrong reference: visible should be show",
+      "file": "src/components/BackToTop.tsx",
+      "root_cause": "Used \"visible\" instead of \"show\"",
+      "fix": "Changed visible → show",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:55:32.558Z"
     }
   ]
 }

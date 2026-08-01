@@ -13,9 +13,9 @@ const TICK_OPACITY = 0.3;
 const REG_OPACITY = 0.25;
 const DRAG_CLAMP = 40; // px, any direction
 const PLOTTER_COLOR = "#D2F2FF"; // same bright tint as the comet head
-// the drawing (mark + real circles + annotations) sits at 0.8 on the full-size
+// the drawing (mark + real circles + annotations) sits at 0.68 on the full-size
 // sheet; one transform about the composition centre keeps the geometry aligned
-const DRAW_SCALE = 0.8;
+const DRAW_SCALE = 0.68;
 
 // trace-phase schedule (timeline units): loop i draws over [start, start+dur]
 const LOOP_START = 0.42;
@@ -368,7 +368,7 @@ export function WorldLogic() {
         </p>
         <p className="mt-4 leading-relaxed text-mist">
           Structure, usability, and practical thinking. We build what solves
-          the problem — not what pads the demo.
+          the problem – not what pads the demo.
         </p>
       </div>
 
