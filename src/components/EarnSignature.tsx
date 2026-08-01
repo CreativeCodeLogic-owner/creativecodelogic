@@ -29,7 +29,7 @@ const STEPS = [
     name: "Build",
     body: "Designed, engineered, and tested to the standard above.",
   },
-  { name: "Ship", body: "It goes live only when it earns the mark." },
+  { name: "Ship", body: "It goes live only when it earns the mark" },
 ];
 
 /**
@@ -192,18 +192,15 @@ export function EarnSignature() {
                     <span
                       data-seal
                       aria-hidden="true"
-                      className="relative flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 text-sm text-accent"
+                      className="self-start font-display text-2xl leading-none text-accent"
                     >
-                      <span
-                        data-seal-ring
-                        className="absolute inset-0 rounded-full border border-accent/60 opacity-0"
-                      />
-                      ✦
+                      *
                     </span>
                   )}
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-mist">
                   {step.body}
+                  {step.name === "Ship" && <span className="text-accent">*</span>}
                 </p>
               </div>
             </li>

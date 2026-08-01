@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-30T11:20:32.808Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-01T08:23:23.970Z
 > Files: 66 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -9,7 +9,7 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~1784 tok)
+- `CHANGELOG.md` — Changelog (~1932 tok)
 - `CLAUDE.md` — OpenWolf (~462 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic — Built with creativity, code, and logic (~747 tok)
@@ -85,7 +85,7 @@
 - `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
-- `EarnSignature.tsx` — Chapter 4 — How we build. (~2076 tok)
+- `EarnSignature.tsx` — Chapter 4 — How we build. (~2030 tok)
 - `Footer.tsx` — Footer (~259 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2214 tok)
@@ -101,7 +101,7 @@
 
 - `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4461 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5682 tok)
-- `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~5828 tok)
+- `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~6067 tok)
 
 ## src/data/
 
@@ -117,5 +117,5 @@
 - `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~682 tok)
 - `flags.ts` — Feature flags from the environment (see .env / .env.example). (~308 tok)
 - `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~483 tok)
-- `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~330 tok)
+- `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~344 tok)
 - `submit.ts` — Shared submission path. Honeypot short-circuits; an empty form id falls back (~326 tok)

@@ -13,6 +13,9 @@ const TICK_OPACITY = 0.3;
 const REG_OPACITY = 0.25;
 const DRAG_CLAMP = 40; // px, any direction
 const PLOTTER_COLOR = "#D2F2FF"; // same bright tint as the comet head
+// the drawing (mark + real circles + annotations) sits at 0.8 on the full-size
+// sheet; one transform about the composition centre keeps the geometry aligned
+const DRAW_SCALE = 0.8;
 
 // trace-phase schedule (timeline units): loop i draws over [start, start+dur]
 const LOOP_START = 0.42;
@@ -401,22 +404,8 @@ export function WorldLogic() {
             </g>
           ))}
 
-          {/* construction guides: loop circles + centre crosshair */}
+          {/* sheet furniture (full-size): centre axes crosshair through the sheet */}
           <g>
-            {guides.map((g, i) => (
-              <circle
-                key={`c${i}`}
-                data-guide
-                cx={g.cx}
-                cy={g.cy}
-                r={g.r}
-                fill="none"
-                stroke="#53D2FF"
-                strokeWidth={1.2}
-                strokeDasharray="5 5"
-                strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
-              />
-            ))}
             <line
               data-guide
               x1={0}
@@ -441,7 +430,7 @@ export function WorldLogic() {
             />
           </g>
 
-          {/* tick marks along the centre lines */}
+          {/* tick marks along the centre lines — furniture, full-size */}
           <g>
             {ticks.map((t, i) => (
               <line
@@ -459,84 +448,107 @@ export function WorldLogic() {
             ))}
           </g>
 
-          {/* dimension / annotation layer — resolves late in the scrub */}
-          <g>
-            {dimLines.map((l, i) => (
-              <line
-                key={`d${i}`}
-                data-dim
-                x1={l.x1}
-                y1={l.y1}
-                x2={l.x2}
-                y2={l.y2}
+          {/* THE DRAWING — real construction circles + mark + annotations, scaled
+              to 0.8 about the composition centre (one transform preserves the
+              build-sheet geometry alignment exactly). Sheet furniture stays full-size. */}
+          <g
+            transform={`translate(${center.x} ${center.y}) scale(${DRAW_SCALE}) translate(${-center.x} ${-center.y})`}
+          >
+            {/* real construction circles */}
+            {guides.map((g, i) => (
+              <circle
+                key={`c${i}`}
+                data-guide
+                cx={g.cx}
+                cy={g.cy}
+                r={g.r}
+                fill="none"
                 stroke="#53D2FF"
-                strokeWidth={1}
-                strokeOpacity={0.32}
-                style={reduced ? undefined : { visibility: "hidden" }}
+                strokeWidth={1.2}
+                strokeDasharray="5 5"
+                strokeOpacity={reduced ? GUIDE_RESOLVED_OPACITY : 0}
               />
             ))}
-            {leaders.map((l, i) => (
-              <line
-                key={`ld${i}`}
+
+            {/* dimension / annotation layer — resolves late in the scrub */}
+            <g>
+              {dimLines.map((l, i) => (
+                <line
+                  key={`d${i}`}
+                  data-dim
+                  x1={l.x1}
+                  y1={l.y1}
+                  x2={l.x2}
+                  y2={l.y2}
+                  stroke="#53D2FF"
+                  strokeWidth={1}
+                  strokeOpacity={0.32}
+                  style={reduced ? undefined : { visibility: "hidden" }}
+                />
+              ))}
+              {leaders.map((l, i) => (
+                <line
+                  key={`ld${i}`}
+                  data-dim
+                  x1={l.x1}
+                  y1={l.y1}
+                  x2={l.x2}
+                  y2={l.y2}
+                  stroke="#53D2FF"
+                  strokeWidth={1}
+                  strokeOpacity={0.3}
+                  style={reduced ? undefined : { visibility: "hidden" }}
+                />
+              ))}
+              <path
                 data-dim
-                x1={l.x1}
-                y1={l.y1}
-                x2={l.x2}
-                y2={l.y2}
+                d={arcPath}
+                fill="none"
                 stroke="#53D2FF"
                 strokeWidth={1}
                 strokeOpacity={0.3}
                 style={reduced ? undefined : { visibility: "hidden" }}
               />
-            ))}
-            <path
-              data-dim
-              d={arcPath}
-              fill="none"
-              stroke="#53D2FF"
-              strokeWidth={1}
-              strokeOpacity={0.3}
-              style={reduced ? undefined : { visibility: "hidden" }}
-            />
-            {labels.map((l, i) => (
-              <text
-                key={`lb${i}`}
-                data-dim
-                x={l.x}
-                y={l.y}
-                textAnchor={l.anchor ?? "start"}
-                dominantBaseline="middle"
-                className="font-mono"
-                fontSize={l.micro ? 9 : 12}
-                fill="#a9a6a7"
-                fillOpacity={0.5}
-                style={reduced ? undefined : { visibility: "hidden" }}
-              >
-                {l.text}
-              </text>
-            ))}
-          </g>
+              {labels.map((l, i) => (
+                <text
+                  key={`lb${i}`}
+                  data-dim
+                  x={l.x}
+                  y={l.y}
+                  textAnchor={l.anchor ?? "start"}
+                  dominantBaseline="middle"
+                  className="font-mono"
+                  fontSize={l.micro ? 9 : 12}
+                  fill="#a9a6a7"
+                  fillOpacity={0.5}
+                  style={reduced ? undefined : { visibility: "hidden" }}
+                >
+                  {l.text}
+                </text>
+              ))}
+            </g>
 
-          {/* the mark: three loops trace over the guides, then fill low */}
-          {TRIQUETRA_LOOPS.map((d, i) => (
-            <path
-              key={`l${i}`}
-              data-loop
-              d={d}
-              fill="#53D2FF"
-              fillOpacity={reduced ? LOOP_FILL_OPACITY : 0}
-              stroke="#53D2FF"
-              strokeWidth={2}
-              strokeLinejoin="round"
-            />
-          ))}
+            {/* the mark: three loops trace over the guides, then fill low */}
+            {TRIQUETRA_LOOPS.map((d, i) => (
+              <path
+                key={`l${i}`}
+                data-loop
+                d={d}
+                fill="#53D2FF"
+                fillOpacity={reduced ? LOOP_FILL_OPACITY : 0}
+                stroke="#53D2FF"
+                strokeWidth={2}
+                strokeLinejoin="round"
+              />
+            ))}
 
-          {/* plotter head — rides the drawing tip; never shown under reduced motion */}
-          <g data-plotter style={{ opacity: 0 }}>
-            <circle cx={0} cy={0} r={6} fill={PLOTTER_COLOR} fillOpacity={0.22} />
-            <line x1={-7} y1={0} x2={7} y2={0} stroke={PLOTTER_COLOR} strokeWidth={1} />
-            <line x1={0} y1={-7} x2={0} y2={7} stroke={PLOTTER_COLOR} strokeWidth={1} />
-            <circle cx={0} cy={0} r={1.6} fill={PLOTTER_COLOR} />
+            {/* plotter head — rides the drawing tip; never shown under reduced motion */}
+            <g data-plotter style={{ opacity: 0 }}>
+              <circle cx={0} cy={0} r={6} fill={PLOTTER_COLOR} fillOpacity={0.22} />
+              <line x1={-7} y1={0} x2={7} y2={0} stroke={PLOTTER_COLOR} strokeWidth={1} />
+              <line x1={0} y1={-7} x2={0} y2={7} stroke={PLOTTER_COLOR} strokeWidth={1} />
+              <circle cx={0} cy={0} r={1.6} fill={PLOTTER_COLOR} />
+            </g>
           </g>
         </svg>
       </div>

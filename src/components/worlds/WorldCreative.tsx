@@ -163,7 +163,7 @@ export function WorldCreative() {
       if (w >= 768) {
         // Desktop: copy takes the left 40%, game lives in the right 60% column
         const right = w * 0.6;
-        size = Math.min(right, h) * 0.82;
+        size = Math.min(right, h) * 0.66;
         cx = w * 0.7;
         // vertically centre the mark + palette group
         cy = h * 0.5 - (PALETTE_GAP + PALETTE_H) / 2;
@@ -174,7 +174,7 @@ export function WorldCreative() {
         const headingBottom = headingRect
           ? headingRect.bottom - rect.top
           : h * 0.25;
-        size = Math.min(w, 560) * 0.55;
+        size = Math.min(w, 560) * 0.44;
         cx = w * 0.5;
         cy = headingBottom + 32 + size / 2;
         const paletteBottom = cy + size / 2 + PALETTE_GAP + PALETTE_H;

@@ -1739,6 +1739,54 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-30T11:20:32.831Z"
+    },
+    {
+      "id": "bug-107",
+      "timestamp": "2026-08-01T08:15:04.363Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/EarnSignature.tsx",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 13→9 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:15:04.363Z"
+    },
+    {
+      "id": "bug-108",
+      "timestamp": "2026-08-01T08:15:15.323Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/EarnSignature.tsx",
+      "root_cause": "Had \"It goes live only when it earns the mark.\"",
+      "fix": "Changed to \"It goes live only when it earns the mark\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:15:15.323Z"
+    },
+    {
+      "id": "bug-109",
+      "timestamp": "2026-08-01T08:15:42.062Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/HeroSignature.tsx",
+      "root_cause": "Had \"w-[min(62vw,290px)] md:w-[min(36vw,360px)]\"",
+      "fix": "Changed to \"w-[min(50vw,232px)] md:w-[min(29vw,288px)]\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T08:15:42.062Z"
     }
   ]
 }

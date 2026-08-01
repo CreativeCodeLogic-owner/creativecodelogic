@@ -2,9 +2,10 @@ import { gsap, ScrollTrigger } from "@/lib/scroll";
 
 /**
  * The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an
- * overshoot ease, plus a one-time cyan ring flash expanding from the seal.
- * Expects the seal to contain a `[data-seal-ring]` child (the flash
- * element). Call inside a gsap.context; skip under prefers-reduced-motion.
+ * overshoot ease. If the seal contains a `[data-seal-ring]` child, a one-time
+ * cyan ring flash expands from it; the ring is OPTIONAL — a bare seal (e.g. the
+ * process "Ship" asterisk) still stamps in. Call inside a gsap.context; skip
+ * under prefers-reduced-motion.
  */
 export function sealStampTl(seal: Element): gsap.core.Timeline {
   const ring = seal.querySelector("[data-seal-ring]");

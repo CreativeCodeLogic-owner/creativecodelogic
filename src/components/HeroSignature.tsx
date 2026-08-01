@@ -146,7 +146,7 @@ export function HeroSignature() {
     >
       <div
         ref={markRef}
-        className="w-[min(62vw,290px)] md:w-[min(36vw,360px)]"
+        className="w-[min(50vw,232px)] md:w-[min(29vw,288px)]"
       >
         <svg
           viewBox={TRIQUETRA_VIEWBOX}

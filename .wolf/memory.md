@@ -346,3 +346,20 @@
 | 14:20 | Edited public/privacy.html | 2→3 lines | ~65 |
 | 14:20 | Edited public/404.html | 2→3 lines | ~65 |
 | 14:21 | Favicon set for mark v2: Ghassan regenerated ico/svg/16/32/96/apple + site.webmanifest + web-app-manifest pngs; android-chrome removed; og card refreshed; 96x96 link wired into 4 heads | index.html, public/*.html, public/favicon* | ship brand-v2 stack | ~6k |
+| 14:28 | Session end: 37 writes across 12 files (triquetra.ts, WorldCreative.tsx, AmbientField.tsx, WorldCode.tsx, WorldLogic.tsx) | 20 reads | ~43306 tok |
+
+## Session: 2026-08-01 10:58
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:15 | Edited src/components/EarnSignature.tsx | 13→9 lines | ~95 |
+| 11:15 | Edited src/components/EarnSignature.tsx | inline fix | ~20 |
+| 11:15 | Edited src/components/EarnSignature.tsx | 3→4 lines | ~59 |
+| 11:15 | Edited src/lib/seal.ts | child() → seal() | ~102 |
+| 11:15 | Edited src/components/HeroSignature.tsx | "w-[min(62vw,290px)] md:w-" → "w-[min(50vw,232px)] md:w-" | ~18 |
+| 11:15 | Edited src/components/worlds/WorldCreative.tsx | 0.82 → 0.66 | ~12 |
+| 11:15 | Edited src/components/worlds/WorldCreative.tsx | inline fix | ~12 |
+| 11:17 | Edited src/components/worlds/WorldLogic.tsx | 1→4 lines | ~73 |
+| 11:18 | Edited src/components/worlds/WorldLogic.tsx | modified furniture() | ~1431 |
+| 11:23 | Edited CHANGELOG.md | 2→4 lines | ~182 |
+| 11:23 | Polish: hero mark -20% (w-[min(50vw,232px)]/md 29vw,288px), Creative size 0.82->0.66 / 0.55->0.44, Logic drawing group scale(0.8) about center (furniture full-size), Ship seal ✦->accent asterisk + body mark* | HeroSignature, WorldCreative, WorldLogic, EarnSignature, seal.ts | y-drift 0, palette hugs, seal stamps, 0 errors | ~10k |
