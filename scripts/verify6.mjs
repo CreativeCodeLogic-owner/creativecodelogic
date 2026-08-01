@@ -81,35 +81,61 @@ async function scrollToEl(page, sel, offset = -60) {
     };
   });
 
-  // --- 0b. header frieze: 3–6 decorative variant marks, behind clickable content
-  const friezePos = () =>
-    page.evaluate(() =>
-      [...document.querySelectorAll("[data-frieze] img")].map((im) => {
-        const r = im.getBoundingClientRect();
-        return { x: Math.round(r.x), w: Math.round(r.width) };
-      }),
-    );
+  // --- 0b. header frieze: renders ONE authored composition (curated data), with
+  //     variants dealt (no repeats, anchor never the plain fill) ----------------
+  // signature = arrangement identity (set:index:variant names) — proves reloads differ
+  const friezeSig = () =>
+    page.evaluate(() => {
+      const c = document.querySelector("[data-frieze]");
+      const vars = [...document.querySelectorAll("[data-frieze] img")].map((im) =>
+        im.getAttribute("data-variant"),
+      );
+      return `${c?.getAttribute("data-frieze-set")}:${c?.getAttribute("data-frieze-index")}:${vars.join(",")}`;
+    });
   out.frieze = await page.evaluate(() => {
-    const header = document.querySelector("header");
-    const hb = header.getBoundingClientRect();
+    const ROT = [-24, -12, 0, 12, 24];
+    const OPA = [0.06, 0.1, 0.16];
+    const cont = document.querySelector("[data-frieze]");
+    const comps = window.__FRIEZE_COMPS; // authored source, exposed in dev
+    const setName = cont.getAttribute("data-frieze-set");
+    const index = +cont.getAttribute("data-frieze-index");
+    const authored = comps?.[setName]?.[index];
     const imgs = [...document.querySelectorAll("[data-frieze] img")];
+    const rendered = imgs.map((im) => ({
+      x: parseFloat(im.style.left),
+      size: parseFloat(im.style.width),
+      rotation: parseFloat((im.style.transform.match(/rotate\(([-\d.]+)deg\)/) || [])[1]),
+      opacity: parseFloat(im.style.opacity),
+      role: im.getAttribute("data-role"),
+      variant: im.getAttribute("data-variant"),
+    }));
+    // exact match of positions/sizes/rotations/opacities/roles against the data
+    const matchesAuthored =
+      Array.isArray(authored) &&
+      authored.length === rendered.length &&
+      authored.every(
+        (p, i) =>
+          p.x === rendered[i].x &&
+          p.size === rendered[i].size &&
+          p.rotation === rendered[i].rotation &&
+          p.opacity === rendered[i].opacity &&
+          p.role === rendered[i].role,
+      );
+    const inAuthoredSet = (comps?.[setName] || []).some(
+      (c) => JSON.stringify(c) === JSON.stringify(authored),
+    );
+    const variants = rendered.map((r) => r.variant);
+    const anchor = rendered.find((r) => r.role === "anchor");
     const linkRects = [...document.querySelectorAll("[data-nav-content] a, [data-nav-content] button")].map(
       (l) => l.getBoundingClientRect(),
     );
     const intersects = (r, t) => !(r.right < t.left || r.left > t.right || r.bottom < t.top || r.top > t.bottom);
-    const marks = imgs.map((im) => {
-      const r = im.getBoundingClientRect();
-      const cs = getComputedStyle(im);
-      return {
-        inBandX: r.left >= hb.left - 1 && r.right <= hb.right + 1,
-        ariaHidden: im.getAttribute("aria-hidden") === "true",
-        noPointer: cs.pointerEvents === "none",
-        opacity: +parseFloat(cs.opacity).toFixed(3),
-        overText: linkRects.some((t) => intersects(r, t)),
-      };
-    });
-    // every interactive nav element resolves to itself at its centre (a frieze
-    // img never captures the click)
+    const overTextOpacities = imgs
+      .filter((im) => linkRects.some((t) => intersects(im.getBoundingClientRect(), t)))
+      .map((im) => parseFloat(im.style.opacity));
+    const xs = rendered.map((r) => r.x).sort((a, b) => a - b);
+    let minGap = Infinity;
+    for (let i = 1; i < xs.length; i++) minGap = Math.min(minGap, xs[i] - xs[i - 1]);
     const linkClickable = [
       ...document.querySelectorAll("[data-nav-content] a, [data-nav-content] button"),
     ]
@@ -124,16 +150,26 @@ async function scrollToEl(page, sel, offset = -60) {
       });
     return {
       count: imgs.length,
-      countOk: imgs.length >= 3 && imgs.length <= 6,
-      allInBandX: marks.every((m) => m.inBandX),
-      allAriaHidden: marks.every((m) => m.ariaHidden),
-      allNoPointer: marks.every((m) => m.noPointer),
-      maxOpacity: Math.max(...marks.map((m) => m.opacity)),
-      overTextMaxOpacity: Math.max(0, ...marks.filter((m) => m.overText).map((m) => m.opacity)),
+      set: setName,
+      matchesAuthored,
+      inAuthoredSet,
+      exactlyOneAnchor: rendered.filter((r) => r.role === "anchor").length === 1,
+      noVariantRepeats: new Set(variants).size === variants.length,
+      anchorNotFill: !!anchor && !anchor.variant.startsWith("03"),
+      rotationsDiscrete: rendered.every((r) => ROT.includes(r.rotation)),
+      opacitiesDiscrete: rendered.every((r) => OPA.includes(r.opacity)),
+      // authored rule: positions in the nav-text band (x 30–75%) use ≤0.10
+      textBandOk: rendered.filter((r) => r.x >= 30 && r.x <= 75).every((r) => r.opacity <= 0.1),
+      // informational: the heaviest mark actually overlapping a real link/CTA rect
+      overTextMaxOpacity: Math.max(0, ...overTextOpacities),
+      minGap: Number.isFinite(minGap) ? +minGap.toFixed(1) : null,
+      spacingOk: !Number.isFinite(minGap) || minGap >= 12,
+      allAriaHidden: imgs.every((im) => im.getAttribute("aria-hidden") === "true"),
+      allNoPointer: imgs.every((im) => getComputedStyle(im).pointerEvents === "none"),
       linkClickable,
     };
   });
-  const friezePos1 = await friezePos();
+  const friezeSig1 = await friezeSig();
 
   // --- 1. hero y-stability over two loops -----------------------------------
   await sleep(12500);
@@ -790,11 +826,16 @@ async function scrollToEl(page, sel, offset = -60) {
   out.ambient.paintedAtBottom = await painted();
   }
 
-  // frieze re-randomises per load: reload and confirm the arrangement differs
-  await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
-  await sleep(1500);
-  const friezePos2 = await friezePos();
-  out.friezeReloadDiffers = JSON.stringify(friezePos1) !== JSON.stringify(friezePos2);
+  // frieze re-randomises per load: across 3 loads the arrangement (composition id
+  // and/or dealt variants) must differ at least once
+  const sigs = [friezeSig1];
+  for (let i = 0; i < 2; i++) {
+    await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(1500);
+    sigs.push(await friezeSig());
+  }
+  out.friezeSignatures = sigs;
+  out.friezeReloadDiffers = new Set(sigs).size > 1;
 
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));

@@ -2155,6 +2155,70 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T10:02:32.153Z"
+    },
+    {
+      "id": "bug-133",
+      "timestamp": "2026-08-01T10:36:52.835Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/components/NavFrieze.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T10:36:52.835Z"
+    },
+    {
+      "id": "bug-134",
+      "timestamp": "2026-08-01T10:37:35.137Z",
+      "error_message": "Null/undefined access in ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T10:37:35.137Z"
+    },
+    {
+      "id": "bug-135",
+      "timestamp": "2026-08-01T10:37:49.296Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 5→10 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T10:37:49.296Z"
+    },
+    {
+      "id": "bug-136",
+      "timestamp": "2026-08-01T10:52:01.536Z",
+      "error_message": "Incorrect value in code",
+      "file": "CHANGELOG.md",
+      "root_cause": "Had `src/assets/triquetra-variants/`",
+      "fix": "Changed to `src/data/friezeCompositions.ts`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T10:52:01.536Z"
     }
   ]
 }
