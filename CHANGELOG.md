@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims
 to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Header frieze variants ship as pre-rasterized **WebP** (220px, quality 85; built from the `.svg` sources by `scripts/rasterize-frieze.mjs`) instead of the source SVGs — the two heavy variants dropped ~85% (dots-lines 59→7 KB, ascii 71→12 KB) and the complex-SVG render cost is gone. The frieze `<img>`s decode `async` at `fetchpriority="low"`. Reclaims the Lighthouse points the SVG frieze had cost.
+
 ## [4.1.0] - 2026-08-01
 
 ### Added

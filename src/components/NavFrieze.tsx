@@ -5,9 +5,10 @@ import {
   type FriezeComposition,
 } from "@/data/friezeCompositions";
 
-// All styled triquetra variants, bundled + hashed by the build (guaranteed to
-// exist; no runtime path guessing). query:"?url" → each import is the asset URL.
-const MODULES = import.meta.glob("../assets/triquetra-variants/*.svg", {
+// All styled triquetra variants as pre-rasterized WebP (built by
+// scripts/rasterize-frieze.mjs from the .svg sources — cheaper to decode than
+// the complex source SVGs). Bundled + hashed; query:"?url" → the asset URL.
+const MODULES = import.meta.glob("../assets/triquetra-variants/*.webp", {
   eager: true,
   query: "?url",
   import: "default",
@@ -79,6 +80,8 @@ export function NavFrieze() {
           src={m.url}
           alt=""
           aria-hidden="true"
+          decoding="async"
+          fetchPriority="low"
           data-role={m.role}
           data-variant={m.variant}
           className="pointer-events-none absolute top-1/2"
