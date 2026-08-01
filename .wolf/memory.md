@@ -446,3 +446,15 @@
 | 19:48 | Edited scripts/verify6.mjs | 2→3 lines | ~63 |
 | 19:54 | Edited CHANGELOG.md | inline fix | ~31 |
 | 19:54 | Frieze opacity -50%: discrete set {0.06,0.10,0.16}->{0.03,0.05,0.08} in friezeCompositions.ts; verify OPA set + textBand<=0.05 | friezeCompositions.ts, verify6.mjs | matchesAuthored true, overText 0.08, 0 errors | ~4k |
+| 19:54 | Session end: 79 writes across 23 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 38 reads | ~51602 tok |
+| 20:01 | Edited README.md | 2→2 lines | ~37 |
+| 20:01 | Edited README.md | 2→3 lines | ~77 |
+| 20:01 | Edited README.md | expanded (+9 lines) | ~513 |
+| 20:02 | Edited docs/architecture.md | expanded (+7 lines) | ~187 |
+| 20:02 | Edited docs/architecture.md | 9→14 lines | ~281 |
+| 20:02 | Edited docs/architecture.md | expanded (+30 lines) | ~453 |
+| 20:02 | Edited docs/architecture.md | 3→3 lines | ~51 |
+| 20:03 | Edited docs/deployment.md | expanded (+25 lines) | ~360 |
+| 20:03 | Edited docs/deployment.md | 3→6 lines | ~108 |
+| 20:03 | Edited CLAUDE.md | inline fix | ~69 |
+| 20:04 | Docs refresh 4.1.0: README env(+VITE_AMBIENT)/stack(Aptos)/structure, architecture(mark pipeline v2, ASCII/blueprint/frieze, chrome), deployment(Firebase creativecodelogic/custom domain/recaptcha hosts), CLAUDE font tokens | README.md, docs/architecture.md, docs/deployment.md, CLAUDE.md | verified vs code | ~10k |

@@ -12,8 +12,8 @@ mark.
 - **Vite 8**, **bun** as the package manager and runtime
 - **Tailwind CSS v4** — CSS-first, design tokens in `@theme` in `src/index.css`
 - **GSAP 3** + **ScrollTrigger** for animation, **Lenis** for smooth scroll
-- Self-hosted variable fonts (Inter, JetBrains Mono, Space Grotesk) — no
-  third-party font runtime dependency
+- Self-hosted **Aptos** (variable) for body + display and **JetBrains Mono**
+  for the terminal — no third-party font runtime dependency
 
 ## Getting started
 
@@ -31,6 +31,7 @@ names only — real values never live in the repo.
 | Variable | Purpose |
 | --- | --- |
 | `VITE_SHOW_WORK` | Toggles the Work chapter (`SignatureLives`). `true` shows it. |
+| `VITE_AMBIENT` | Mounts the ambient background field (`AmbientField`). `true` shows it; off by default (solid navy). |
 | `VITE_FORMSPARK_FORM_ID_BRIEF` | Formspark form id for the inline brief flow. |
 | `VITE_FORMSPARK_FORM_ID_CONTACT` | Formspark form id for the say-hello drawer. |
 | `VITE_CAPTCHA_SITEKEY` | reCAPTCHA v2 (checkbox) site key for the contact drawer. |
@@ -85,6 +86,9 @@ src/
     BriefForm.tsx              inline three-question brief
     HelloDrawer.tsx            slide-in say-hello drawer
     MobileMenu.tsx             full-screen mobile navigation
+    AmbientField.tsx           faint per-chapter background field (behind VITE_AMBIENT)
+    NavFrieze.tsx              header's scattered-triquetra frieze (curated compositions)
+    BackToTop.tsx              floating scroll-to-top pill
     Nav.tsx  Footer.tsx  ProgressLine.tsx  Triquetra.tsx   chrome + the mark
   lib/
     scroll.ts                  the single GSAP/ScrollTrigger + Lenis wiring point
@@ -96,8 +100,14 @@ src/
     useMagnetic.ts             magnetic hover
     usePrefersReducedMotion.ts reactive reduced-motion flag
   data/
-    triquetra.ts               the three loop paths (traced from the brand asset)
-public/                        fonts/, og.jpg, favicon.svg, robots.txt, sitemap.xml
+    triquetra.ts               authored v2 mark — 3 loop paths + derived VB_* geometry
+    triquetraAscii.ts          authored ASCII mark for the Code terminal matrix
+    triquetraBuild.ts          real construction circles for the Logic blueprint
+    friezeCompositions.ts      curated header-frieze layouts (designer-tunable)
+  assets/
+    triquetra-variants/        8 styled mark SVGs dealt into the header frieze
+public/                        fonts/, og.jpg, favicon set, robots.txt, sitemap.xml,
+                               site.webmanifest, and static 404.html / terms.html / privacy.html
 scripts/                       verify*.mjs, asset generators
 docs/                          architecture.md, deployment.md, superpowers/ (archive)
 ```

@@ -24,7 +24,7 @@ AGENTS.md is deprecated — never follow it.
 - Hot paths (pointermove / per-frame) mutate the DOM directly; React state only for discrete UI state.
 - Call ScrollTrigger.refresh() after layout-affecting changes.
 - TS strict with noUnusedLocals/noUnusedParameters — build fails on unused vars.
-- Styling = Tailwind utilities with theme tokens (text-ink, text-mist, bg-navy, text-accent, text-sand, font-display, font-mono); bespoke shared effects live in src/index.css.
+- Styling = Tailwind utilities with theme tokens (text-ink, text-mist, bg-navy, text-accent, text-sand, font-display, font-body, font-mono); bespoke shared effects live in src/index.css. Fonts: Aptos (display + body), JetBrains Mono (mono) — all self-hosted.
 - Copy voice: measured, intelligent, direct, humble-confident. No exclamation marks. Source of truth: copy/.
 - Never touch .secrets/ or .env.
 - Every feature/fix commit updates CHANGELOG.md under [Unreleased].

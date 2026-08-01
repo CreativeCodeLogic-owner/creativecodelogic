@@ -8,8 +8,33 @@ bun run build        # tsc --noEmit + vite build → dist/
 bun run preview      # serve dist/ on :4173 to sanity-check the production build
 ```
 
-Deploy the contents of `dist/` as static files. `public/` (fonts, `og.jpg`,
-`favicon.svg`, `robots.txt`, `sitemap.xml`) is copied to the root of `dist/`.
+Deploy the contents of `dist/` as static files. `public/` (fonts, `og.jpg`, the
+favicon set, `site.webmanifest`, `robots.txt`, `sitemap.xml`, and the static
+`404.html` / `terms.html` / `privacy.html`) is copied to the root of `dist/`.
+
+## Hosting (Firebase)
+
+- **Project:** `creativecodelogic` (set in `.firebaserc`).
+- **Live URL:** <https://creativecodelogic.web.app> (mirror:
+  `creativecodelogic.firebaseapp.com`). The intended production domain is
+  `https://creativecodelogic.com` (custom-domain step below).
+- **Git remote:** `git@github.com:CreativeCodeLogic-owner/creativecodelogic.git`
+  (SSH; tokens never go in the remote/config).
+- **Config:** `firebase.json` — `hosting.public: dist`, `cleanUrls: true` (so
+  `/terms` and `/privacy` serve extensionless; `.html` 301-redirects), long-cache
+  immutable headers on `/fonts` and `/assets`, day-cache on root images. Firebase
+  serves `dist/404.html` for unmatched routes automatically.
+
+```bash
+firebase deploy --only hosting        # uses .firebaserc default project
+```
+
+### Custom domain
+
+Connect `creativecodelogic.com` in the Firebase console (Hosting → Add custom
+domain), then follow the DNS records it issues. Until it's live, the site is
+reachable at the `.web.app` URL. Keep the canonical-origin choice (below) and the
+reCAPTCHA domain list in sync with whichever host is live.
 
 ## Environment variables
 
@@ -45,9 +70,12 @@ Two forms back the site; configure each:
 
 ## reCAPTCHA admin console
 
-List the production domains for the site key — `creativecodelogic.com` (and
-`www` if used) plus `localhost` for local testing. A domain mismatch renders an
-error widget and the Send button stays disabled.
+List every live host for the site key — the Firebase hosts
+`creativecodelogic.web.app` and `creativecodelogic.firebaseapp.com`, the custom
+domain `creativecodelogic.com` (and `www` if used) once connected, plus
+`localhost` for local testing. A domain mismatch renders an error widget and the
+Send button stays disabled, so add the `.web.app` host now (it's the live URL
+until the custom domain resolves).
 
 ## Canonical origin: www vs non-www
 
