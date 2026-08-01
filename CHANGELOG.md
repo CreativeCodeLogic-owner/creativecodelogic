@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims
 to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.1.0] - 2026-08-01
 
 ### Added
 - Floating "back to top" control (`BackToTop.tsx`) — a circular pill fixed bottom-right (safe-area aware, smaller on phones) that fades in once past the first viewport, smooth-scrolls to the top (instant under reduced motion), and hides while the inline brief is open so it never overlaps the Send button; sits below the drawer/menu in the stacking order.
