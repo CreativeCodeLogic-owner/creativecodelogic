@@ -7,26 +7,26 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 
 // Every line here is REAL and measured — the brand's pitch is "judge it now",
 // so the terminal must not claim anything untrue.
-// Measured 2026-07-26 against the LIVE production deployment:
+// Measured 2026-08-01 against the LIVE production deployment (v4.1.0):
 //   bun run build && firebase deploy --only hosting
 //   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
 //     lighthouse https://creativecodelogic.web.app/ --preset=desktop \
 //     --output=json --chrome-flags="--headless=new"
-// Results (fonts self-hosted): vite 8.1.5 · 46 modules · tsc --noEmit clean
-//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 97
-//   (94–97 across runs; a cold first request dips it), LCP 0.6–0.8s
+// Results (fonts self-hosted): vite 8.1.5 · 59 modules · tsc --noEmit clean
+//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 93
+//   (90–94 across warm runs; cold requests dip lower), LCP 0.7–0.9s
 //   (accessibility 100, best-practices 100, SEO 100).
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
-  { text: "46 modules transformed", kind: "ok" },
+  { text: "59 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 97", kind: "ok" },
+  { text: "lighthouse performance 93", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 97, decimals: 0, suffix: "" },
+  { label: "Lighthouse", target: 93, decimals: 0, suffix: "" },
   { label: "LCP", target: 0.8, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];

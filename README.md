@@ -120,14 +120,15 @@ it before changing code rather than duplicating the rules here.
 
 ## Current quality bar
 
-Lighthouse (desktop preset), measured **2026-07-26** against the live
-production URL (<https://creativecodelogic.web.app>):
+Lighthouse (desktop preset), measured **2026-08-01** against the live
+production URL (<https://creativecodelogic.web.app>) for v4.1.0:
 
 | Performance | Accessibility | Best Practices | SEO |
 | --- | --- | --- | --- |
-| 97 | 100 | 100 | 100 |
+| 93 | 100 | 100 | 100 |
 
-LCP 0.6–0.8s, CLS 0 (Performance varies 94–97 across runs — a cold first
-request dips it). Re-measured after each meaningful change and against the
-production URL after deploy. The terminal in the Code chapter shows these
-same real values — it never claims anything unmeasured.
+LCP 0.7–0.9s, CLS 0 (Performance varies 90–94 across warm runs — a cold first
+request dips lower; the header frieze's SVGs cost a little over v4.0). Re-measured
+after each meaningful change and against the production URL after deploy. The
+terminal in the Code chapter shows these same real values — it never claims
+anything unmeasured.

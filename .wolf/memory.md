@@ -458,3 +458,8 @@
 | 20:03 | Edited docs/deployment.md | 3→6 lines | ~108 |
 | 20:03 | Edited CLAUDE.md | inline fix | ~69 |
 | 20:04 | Docs refresh 4.1.0: README env(+VITE_AMBIENT)/stack(Aptos)/structure, architecture(mark pipeline v2, ASCII/blueprint/frieze, chrome), deployment(Firebase creativecodelogic/custom domain/recaptcha hosts), CLAUDE font tokens | README.md, docs/architecture.md, docs/deployment.md, CLAUDE.md | verified vs code | ~10k |
+| 20:05 | Edited CHANGELOG.md | 4→4 lines | ~18 |
+| 20:05 | Edited package.json | 0.1 → 4.1 | ~6 |
+| 20:12 | Edited src/components/worlds/WorldCode.tsx | modified deployment() | ~346 |
+| 20:12 | Edited README.md | 11→12 lines | ~155 |
+| 20:13 | 4.1.0 live metrics sync: Lighthouse 97->93 (warm 90-94, frieze SVG cost), LCP 0.7-0.9, 59 modules; terminal + README updated, rebuilt+redeployed | WorldCode.tsx, README.md | live 93/100/100/100 | ~5k |
