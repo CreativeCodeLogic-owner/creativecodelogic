@@ -36,7 +36,11 @@ export function HeroSignature() {
       });
       const lineEl = rootRef.current?.querySelector("[data-hero-line]");
       const finalEl = rootRef.current?.querySelector("[data-hero-final]");
+      const subEl = rootRef.current?.querySelector("[data-hero-sub]");
       if (finalEl) gsap.set(finalEl, { autoAlpha: 0 });
+      // subline breathes with the final headline — opacity only (stays in flow,
+      // so the CTAs below never shift). Hidden through the rotating lines.
+      if (subEl) gsap.set(subEl, { opacity: 0 });
 
       const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
       tl.to(paths[0], { strokeDashoffset: 0, duration: 1.2, delay: 0.3 })
@@ -76,6 +80,14 @@ export function HeroSignature() {
               { autoAlpha: 0, duration: 0.4, ease: "power2.in" },
               "<",
             );
+            // subline fades out just behind the final (+0.15s), stays hidden
+            if (subEl) {
+              c.to(
+                subEl,
+                { opacity: 0, duration: 0.4, ease: "power2.in" },
+                "<+0.15",
+              );
+            }
           }
           c.to(
             paths,
@@ -99,6 +111,14 @@ export function HeroSignature() {
                 "<",
               )
               .to(paths, { opacity: 1, duration: 0.5 }, "<");
+            // subline fades in just behind the final (+0.2s after it begins)
+            if (subEl) {
+              c.to(
+                subEl,
+                { opacity: 1, duration: 0.5, ease: "power2.out" },
+                "<+0.2",
+              );
+            }
           } else {
             c.to(
               lineEl,
@@ -201,7 +221,7 @@ export function HeroSignature() {
       </h1>
 
       <p
-        data-hero-stagger
+        data-hero-sub
         className="mt-6 max-w-xl text-base leading-relaxed text-mist md:text-lg"
       >
         *Designed to solve. Built to perform.

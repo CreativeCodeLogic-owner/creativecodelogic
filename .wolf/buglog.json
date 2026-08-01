@@ -2219,6 +2219,38 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T10:52:01.536Z"
+    },
+    {
+      "id": "bug-137",
+      "timestamp": "2026-08-01T11:00:59.409Z",
+      "error_message": "CSS fix: opacity",
+      "file": "src/components/HeroSignature.tsx",
+      "root_cause": "opacity: 1, duration: 0.5 → 1, duration: 0.5, ease: \"power2.out\"",
+      "fix": "Changed opacity: 1, duration: 0.5 → 1, duration: 0.5, ease: \"power2.out\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T11:00:59.409Z"
+    },
+    {
+      "id": "bug-138",
+      "timestamp": "2026-08-01T11:03:11.562Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 19→37 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T11:03:11.562Z"
     }
   ]
 }

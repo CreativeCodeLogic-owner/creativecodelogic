@@ -171,24 +171,42 @@ async function scrollToEl(page, sel, offset = -60) {
   });
   const friezeSig1 = await friezeSig();
 
-  // --- 1. hero y-stability over two loops -----------------------------------
+  // --- 1. hero y-stability + subline breathes with the final headline --------
   await sleep(12500);
-  const ys = [];
+  const samples = [];
   for (let i = 0; i < 90; i++) {
-    ys.push(
+    samples.push(
       await page.evaluate(() => {
+        const op = (el) => (el ? parseFloat(getComputedStyle(el).opacity) : -1);
         const f = document.querySelector("[data-hero-final]");
         const l = document.querySelector("[data-hero-line]");
-        return [f?.getBoundingClientRect().y ?? -1, l?.getBoundingClientRect().y ?? -1];
+        const s = document.querySelector("[data-hero-sub]");
+        const cta = document.querySelector("[data-hero-stagger]");
+        return {
+          fY: f?.getBoundingClientRect().y ?? -1,
+          lY: l?.getBoundingClientRect().y ?? -1,
+          finalOp: op(f),
+          lineOp: op(l),
+          subOp: op(s),
+          ctaTop: cta ? Math.round(cta.getBoundingClientRect().top) : -1,
+        };
       }),
     );
     await sleep(240);
   }
-  const yVals = ys.flat();
+  const yVals = samples.flatMap((s) => [s.fY, s.lY]);
   out.heroYDrift = (Math.max(...yVals) - Math.min(...yVals)).toFixed(2);
+  // subline lives/dies with the final headline: ~1 while the final shows, ~0
+  // while a muted rotating line shows (existence over a full loop)
+  out.subInWithFinal = samples.some((s) => s.finalOp > 0.9 && s.subOp > 0.9);
+  out.subOutWithMuted = samples.some((s) => s.lineOp > 0.9 && s.subOp < 0.1);
+  out.subMaxWhenMuted = +Math.max(0, ...samples.filter((s) => s.lineOp > 0.9).map((s) => s.subOp)).toFixed(2);
+  // CTAs never move — the subline animates opacity only and stays in flow
+  const ctaTops = samples.map((s) => s.ctaTop).filter((t) => t > 0);
+  out.ctaDrift = ctaTops.length ? Math.max(...ctaTops) - Math.min(...ctaTops) : null;
   out.heroCopy = await page.evaluate(() => ({
     h1: document.querySelector("[data-hero-final]")?.textContent,
-    sub: document.querySelector("[data-hero-stagger]")?.textContent?.trim(),
+    sub: document.querySelector("[data-hero-sub]")?.textContent?.trim(),
   }));
 
   // --- 2. creative comet ----------------------------------------------------

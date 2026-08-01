@@ -429,3 +429,11 @@
 | 13:45 | Edited scripts/verify6.mjs | 3→6 lines | ~124 |
 | 13:52 | Edited CHANGELOG.md | inline fix | ~213 |
 | 13:52 | Frieze v2: curated compositions (friezeCompositions.ts 5 desktop/3 mobile, 1 anchor+3-4 sat, discrete rot/opacity, >=12% spacing); NavFrieze picks 1 comp + deals variants (no repeat, anchor!=fill); verify matches authored data via window.__FRIEZE_COMPS | friezeCompositions.ts, NavFrieze.tsx, verify6.mjs | matchesAuthored, 3 reloads differ, 0 errors | ~16k |
+| 13:52 | Session end: 68 writes across 23 files (EarnSignature.tsx, seal.ts, HeroSignature.tsx, WorldCreative.tsx, WorldLogic.tsx) | 35 reads | ~46036 tok |
+| 14:00 | Edited src/components/HeroSignature.tsx | 6→6 lines | ~51 |
+| 14:00 | Edited src/components/HeroSignature.tsx | CSS: opacity | ~138 |
+| 14:00 | Edited src/components/HeroSignature.tsx | CSS: opacity | ~150 |
+| 14:00 | Edited src/components/HeroSignature.tsx | added 1 condition(s) | ~144 |
+| 14:03 | Edited scripts/verify6.mjs | modified for() | ~487 |
+| 14:07 | Edited CHANGELOG.md | 2→3 lines | ~127 |
+| 14:07 | Hero subline syncs with final headline: data-hero-sub, opacity-only fade in +0.2s after final / out +0.15s at replay, hidden through rotating lines; reduced static | HeroSignature.tsx, verify6.mjs | yDrift 0, subInWithFinal/subOutWithMuted true, ctaDrift 0 | ~7k |
