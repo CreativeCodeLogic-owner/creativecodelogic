@@ -6,6 +6,8 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [4.2.0] - 2026-08-04
+
 ### Added
 - Consent-first Google Analytics 4 via **Consent Mode v2**. The standard gtag snippet is hardcoded in `index.html` (measurement id interpolated by Vite from `VITE_GA_MEASUREMENT_ID`, so the repo stays value-free; the snippet self-guards and emits nothing when the id is absent — the dev default). `analytics_storage` (and the ad-storage signals) default to **denied**, so although `gtag.js` loads with the page it sets **no analytics cookies and records no visit** (`config` runs `send_page_view:false`, so not even a cookieless ping fires) until the visitor accepts. A small, non-modal bottom banner (`ConsentBanner`, brand-styled, `role="region"`, keyboard-reachable, page usable behind it) offers Accept / Decline / Privacy on first visit. Accept flips consent to granted and records the page view; Decline (or ignore) keeps it denied — no cookies, no `/g/collect`. The choice is stored locally and re-asked after 12 months. Returning accepters are granted inline before `config` (correct consent state before the tag processes), and the app records their page view on mount, so they're counted on **every** visit without seeing the banner — recorded exactly once per page load (guarded against StrictMode's double effect invoke). A "Privacy choices" link in the footer withdraws consent, clears any `_ga*` cookies, and re-summons the banner. `lib/consent.ts` holds the storage + the `gtag('consent', …)` grant/deny/clear helpers. The privacy policy's "Cookies and analytics" section states the nuance exactly: the tag library loads with the page, but cookies are set and the visit measured only after you accept.
 
