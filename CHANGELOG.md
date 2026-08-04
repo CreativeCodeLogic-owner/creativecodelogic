@@ -6,6 +6,9 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- Consent-first Google Analytics 4. GA loads (and any cookie is set) **only after explicit consent** — a small, non-modal bottom banner (`ConsentBanner`, brand-styled, `role="region"`, keyboard-reachable, page usable behind it) offers Accept / Decline / Privacy on first visit when `VITE_GA_MEASUREMENT_ID` is set. Decline or ignore = zero Google requests, no cookies. The choice is stored locally and re-asked after 12 months; a "Privacy choices" link in the footer withdraws consent and re-summons the banner. `lib/consent.ts` holds the storage + `gtag.js` loader; empty id = no banner, no analytics (dev default). The privacy policy's "Cookies and analytics" section was updated to match, delivering on its earlier "we'll update the policy first and ask consent" promise.
+
 ### Changed
 - Header frieze variants ship as pre-rasterized **WebP** (220px, quality 85; built from the `.svg` sources by `scripts/rasterize-frieze.mjs`) instead of the source SVGs — the two heavy variants dropped ~85% (dots-lines 59→7 KB, ascii 71→12 KB) and the complex-SVG render cost is gone. The frieze `<img>`s decode `async` at `fetchpriority="low"`. Reclaims the Lighthouse points the SVG frieze had cost.
 

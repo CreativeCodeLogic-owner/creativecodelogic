@@ -24,3 +24,10 @@ export const FORMSPARK_FORM_ID_CONTACT =
  */
 export const CAPTCHA_SITEKEY =
   (import.meta.env.VITE_CAPTCHA_SITEKEY as string | undefined) ?? "";
+
+/**
+ * Google Analytics 4 measurement id (`G-XXXXXXXX`). Empty → no consent banner
+ * and no analytics at all (dev default). GA loads only after explicit consent.
+ */
+export const GA_MEASUREMENT_ID =
+  (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) ?? "";

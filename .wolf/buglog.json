@@ -2251,6 +2251,198 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-01T11:03:11.562Z"
+    },
+    {
+      "id": "bug-139",
+      "timestamp": "2026-08-01T16:34:48.044Z",
+      "error_message": "Type error",
+      "file": "src/components/HeroSignature.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T16:34:48.044Z"
+    },
+    {
+      "id": "bug-140",
+      "timestamp": "2026-08-01T17:01:28.157Z",
+      "error_message": "Incorrect value in code",
+      "file": "README.md",
+      "root_cause": "Had `VITE_FORMSPARK_FORM_ID_BRIEF`",
+      "fix": "Changed to `VITE_AMBIENT`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:01:28.157Z"
+    },
+    {
+      "id": "bug-141",
+      "timestamp": "2026-08-01T17:01:49.160Z",
+      "error_message": "Significant refactor of ",
+      "file": "README.md",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 21→30 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:01:49.160Z"
+    },
+    {
+      "id": "bug-142",
+      "timestamp": "2026-08-01T17:02:26.560Z",
+      "error_message": "Significant refactor of ",
+      "file": "docs/architecture.md",
+      "root_cause": "7 lines replaced/restructured",
+      "fix": "Rewrote 9→14 lines (7 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:02:26.560Z"
+    },
+    {
+      "id": "bug-143",
+      "timestamp": "2026-08-01T17:02:59.135Z",
+      "error_message": "Incorrect value in code",
+      "file": "docs/architecture.md",
+      "root_cause": "Had `FORMSPARK_FORM_ID_BRIEF`",
+      "fix": "Changed to `SHOW_AMBIENT`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:02:59.135Z"
+    },
+    {
+      "id": "bug-144",
+      "timestamp": "2026-08-01T17:03:28.242Z",
+      "error_message": "Significant refactor of ",
+      "file": "docs/deployment.md",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 3→6 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:03:28.242Z"
+    },
+    {
+      "id": "bug-145",
+      "timestamp": "2026-08-01T17:05:11.689Z",
+      "error_message": "Incorrect value in code",
+      "file": "package.json",
+      "root_cause": "Had \"0.1.0\"",
+      "fix": "Changed to \"4.1.0\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:05:11.689Z"
+    },
+    {
+      "id": "bug-146",
+      "timestamp": "2026-08-01T17:12:17.786Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"lighthouse performance 97\", kind: \"ok\" → \"lighthouse performance 93\", kind: \"ok\"",
+      "fix": "Changed text: \"lighthouse performance 97\", kind: \"ok\" → \"lighthouse performance 93\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:12:17.786Z"
+    },
+    {
+      "id": "bug-147",
+      "timestamp": "2026-08-01T17:21:13.377Z",
+      "error_message": "Type error",
+      "file": "src/components/NavFrieze.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:21:13.377Z"
+    },
+    {
+      "id": "bug-148",
+      "timestamp": "2026-08-01T17:32:33.656Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"lighthouse performance 93\", kind: \"ok\" → \"lighthouse performance 94\", kind: \"ok\"",
+      "fix": "Changed text: \"lighthouse performance 93\", kind: \"ok\" → \"lighthouse performance 94\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-01T17:32:33.656Z"
+    },
+    {
+      "id": "bug-149",
+      "timestamp": "2026-08-04T14:25:44.936Z",
+      "error_message": "Significant refactor of ",
+      "file": "public/privacy.html",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 6→20 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T14:25:44.936Z"
+    },
+    {
+      "id": "bug-150",
+      "timestamp": "2026-08-04T14:32:23.279Z",
+      "error_message": "Missing error handling in unknown",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block | Also: // --- consent-first analytics: no Google requests before op; // Fresh page (NOT seeded), watch for any GA request. With a",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-08-04T14:33:58.444Z"
     }
   ]
 }

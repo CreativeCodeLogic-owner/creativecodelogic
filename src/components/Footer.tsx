@@ -1,3 +1,6 @@
+import { GA_MEASUREMENT_ID } from "@/lib/flags";
+import { clearConsent } from "@/lib/consent";
+
 export function Footer() {
   return (
     <footer className="border-t border-ink/8">
@@ -20,6 +23,21 @@ export function Footer() {
           >
             Privacy
           </a>
+          {/* withdrawal: clears the stored choice and re-summons the consent
+              banner — GDPR wants withdrawal as easy as consent */}
+          {GA_MEASUREMENT_ID && (
+            <>
+              {" · "}
+              <button
+                type="button"
+                data-privacy-choices
+                onClick={() => clearConsent()}
+                className="rounded-sm transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+              >
+                Privacy choices
+              </button>
+            </>
+          )}
         </p>
       </div>
     </footer>

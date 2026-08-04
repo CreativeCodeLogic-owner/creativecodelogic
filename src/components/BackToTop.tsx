@@ -27,12 +27,15 @@ export function BackToTop() {
     return () => trigger.kill();
   }, []);
 
-  // The inline brief is NOT a modal (no covering backdrop), and its Send button
-  // shares this bottom-right corner on narrow phones — hide the pill whenever the
-  // brief is open so the two never overlap. Drawer/menu are z-60 modals that
-  // cover this z-40 pill anyway, so they need no special-casing.
+  // The inline brief and the consent banner both sit at the bottom (the brief's
+  // Send button shares this corner on narrow phones) and are NOT modals — hide
+  // the pill whenever either is up so nothing overlaps. Drawer/menu are z-60
+  // modals that cover this z-40 pill anyway, so they need no special-casing.
   useEffect(() => {
-    const check = () => setBriefOpen(!!document.querySelector("[data-brief-form]"));
+    const check = () =>
+      setBriefOpen(
+        !!document.querySelector("[data-brief-form], [data-consent-banner]"),
+      );
     check();
     const mo = new MutationObserver(check);
     mo.observe(document.body, { childList: true, subtree: true });

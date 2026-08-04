@@ -8,6 +8,22 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fs = await import("node:fs");
 fs.mkdirSync(OUT, { recursive: true });
 
+// Seed a stored consent choice before any page script runs, so the consent
+// banner never appears during the other assertions (it only shows with a GA id
+// configured AND no stored choice — a no-op when no id is set). Apply to every
+// page before its first navigation.
+const seedConsent = (page) =>
+  page.evaluateOnNewDocument(() => {
+    try {
+      localStorage.setItem(
+        "ccl-consent",
+        JSON.stringify({ choice: "decline", ts: Date.now(), v: 1 }),
+      );
+    } catch {
+      /* storage unavailable */
+    }
+  });
+
 async function launch(viewport) {
   return puppeteer.launch({
     executablePath: CHROME,
@@ -43,6 +59,7 @@ async function scrollToEl(page, sel, offset = -60) {
 {
   const browser = await launch({ width: 1440, height: 900 });
   const page = await browser.newPage();
+  await seedConsent(page);
   const errors = watch(page);
   // fonts are self-hosted — no third-party font requests allowed, and the old
   // Inter / Space Grotesk faces must never be fetched after the Aptos switch
@@ -707,6 +724,7 @@ async function scrollToEl(page, sel, offset = -60) {
   out.legal = {};
   for (const path of ["/terms.html", "/privacy.html"]) {
     const lp = await browser.newPage();
+    await seedConsent(lp);
     const resp = await lp.goto(`http://localhost:5173${path}`, { waitUntil: "domcontentloaded", timeout: 60000 });
     const info = await lp.evaluate(() => ({
       h1: document.querySelector("h1")?.textContent ?? "",
@@ -856,6 +874,62 @@ async function scrollToEl(page, sel, offset = -60) {
   out.friezeSignatures = sigs;
   out.friezeReloadDiffers = new Set(sigs).size > 1;
 
+  // --- consent-first analytics: no Google requests before opt-in --------------
+  // Fresh page (NOT seeded), watch for any GA request. With a GA id configured
+  // the banner shows and we exercise Accept/Decline; with no id it never shows
+  // and there must still be zero GA traffic (the dev default). Network asserts
+  // skip gracefully when no id is set.
+  {
+    const cp = await browser.newPage();
+    const ga = [];
+    cp.on("request", (r) => {
+      if (/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/.test(r.url())) ga.push(r.url());
+    });
+    await cp.evaluateOnNewDocument(() => {
+      try {
+        localStorage.clear();
+      } catch {
+        /* ignore */
+      }
+    });
+    await cp.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(2000);
+    const consent = {};
+    consent.bannerShows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
+    consent.gaBeforeChoice = ga.length;
+    consent.noGaWithoutConsent = ga.length === 0; // the core contract, id or not
+    if (consent.bannerShows) {
+      // GA id configured — the banner is a region, not a modal, and the page is
+      // usable behind it
+      consent.role = await cp.evaluate(
+        () => document.querySelector("[data-consent-banner]")?.getAttribute("role"),
+      );
+      consent.pageUsableBehind = await cp.evaluate(() => {
+        const a = document.querySelector("[data-nav-content] a");
+        const r = a.getBoundingClientRect();
+        const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return el === a || a.contains(el);
+      });
+      // Decline → banner gone, still no GA
+      await cp.click("[data-consent-decline]");
+      await sleep(500);
+      consent.declineHides = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
+      consent.gaAfterDecline = ga.length;
+      // footer "Privacy choices" re-summons the banner
+      await cp.evaluate(() => document.querySelector("[data-privacy-choices]")?.scrollIntoView({ block: "center" }));
+      await sleep(300);
+      await cp.click("[data-privacy-choices]");
+      await sleep(400);
+      consent.withdrawReshows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
+      // Accept → gtag request observed
+      await cp.click("[data-consent-accept]");
+      await sleep(2500);
+      consent.acceptLoadsGa = ga.length > 0;
+    }
+    out.consent = consent;
+    await cp.close();
+  }
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -866,6 +940,7 @@ async function scrollToEl(page, sel, offset = -60) {
 {
   const browser = await launch({ width: 1440, height: 900 });
   const page = await browser.newPage();
+  await seedConsent(page);
   await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
   const errors = watch(page);
   await page.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
@@ -981,6 +1056,7 @@ async function scrollToEl(page, sel, offset = -60) {
 {
   const browser = await launch({ width: 390, height: 844, isMobile: true, hasTouch: true });
   const page = await browser.newPage();
+  await seedConsent(page);
   const errors = watch(page);
   await page.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
   await sleep(13000);
@@ -1071,6 +1147,7 @@ async function scrollToEl(page, sel, offset = -60) {
   const drawerFits = async (w) => {
     const b2 = await launch({ width: w, height: 780, isMobile: true, hasTouch: true });
     const p2 = await b2.newPage();
+    await seedConsent(p2);
     await p2.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
     await sleep(1500);
     await p2.evaluate(() => document.querySelector("[data-hello-open]").click());
@@ -1118,6 +1195,7 @@ async function scrollToEl(page, sel, offset = -60) {
 
   // reduced-motion: menu opens/closes instantly, no errors
   const rmPage = await browser.newPage();
+  await seedConsent(rmPage);
   const rmErrors = watch(rmPage);
   await rmPage.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
   await rmPage.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
