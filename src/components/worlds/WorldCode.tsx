@@ -7,27 +7,28 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 
 // Every line here is REAL and measured — the brand's pitch is "judge it now",
 // so the terminal must not claim anything untrue.
-// Measured 2026-08-01 against the LIVE production deployment (v4.1.0):
+// Measured 2026-08-04 against the LIVE production deployment (v4.2.0):
 //   bun run build && firebase deploy --only hosting
 //   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
 //     lighthouse https://creativecodelogic.web.app/ --preset=desktop \
 //     --output=json --chrome-flags="--headless=new"
-// Results (fonts self-hosted): vite 8.1.5 · 59 modules · tsc --noEmit clean
-//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 94
-//   (93–97 across warm runs after the frieze went WebP; cold requests dip lower),
-//   LCP 0.7s (accessibility 100, best-practices 100, SEO 100).
+// Results (fonts self-hosted): vite 8.1.5 · 61 modules · tsc --noEmit clean
+//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 91
+//   (90–92 across warm runs; the GA4 gtag now runs in the lab and costs ~220ms
+//   TBT, down from 94 pre-GA; cold requests dip lower), LCP 1.0s (accessibility
+//   100, best-practices 100, SEO 100).
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
-  { text: "59 modules transformed", kind: "ok" },
+  { text: "61 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 94", kind: "ok" },
+  { text: "lighthouse performance 91", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 94, decimals: 0, suffix: "" },
-  { label: "LCP", target: 0.7, decimals: 1, suffix: "s" },
+  { label: "Lighthouse", target: 91, decimals: 0, suffix: "" },
+  { label: "LCP", target: 1.0, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
 

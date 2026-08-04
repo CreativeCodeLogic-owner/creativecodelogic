@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-04T15:54:28.254Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-04T16:13:07.542Z
 > Files: 73 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -9,12 +9,12 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~3140 tok)
+- `CHANGELOG.md` — Changelog (~3147 tok)
 - `CLAUDE.md` — OpenWolf (~519 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)
 - `package.json` — Node.js package manifest (~181 tok)
-- `README.md` — Project documentation (~1556 tok)
+- `README.md` — Project documentation (~1567 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
 - `vite.config.ts` — Vite build configuration (~98 tok)
 - `www-v4.code-workspace` (~16 tok)
@@ -107,7 +107,7 @@
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4470 tok)
+- `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4486 tok)
 - `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5682 tok)
 - `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~6068 tok)
 

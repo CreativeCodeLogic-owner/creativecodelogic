@@ -120,15 +120,15 @@ it before changing code rather than duplicating the rules here.
 
 ## Current quality bar
 
-Lighthouse (desktop preset), measured **2026-08-01** against the live
-production URL (<https://creativecodelogic.web.app>) for v4.1.0:
+Lighthouse (desktop preset), measured **2026-08-04** against the live
+production URL (<https://creativecodelogic.web.app>) for v4.2.0:
 
 | Performance | Accessibility | Best Practices | SEO |
 | --- | --- | --- | --- |
-| 94 | 100 | 100 | 100 |
+| 91 | 100 | 100 | 100 |
 
-LCP 0.7s, CLS 0 (Performance varies 93–97 across warm runs — a cold first request
-dips lower). Rasterizing the header frieze to WebP recovered the points the SVG
-frieze had cost. Re-measured after each meaningful change and against the
-production URL after deploy. The terminal in the Code chapter shows these same
-real values — it never claims anything unmeasured.
+LCP 1.0s, CLS 0 (Performance varies 90–92 across warm runs — a cold first request
+dips lower). Shipping GA4 (Consent Mode v2) puts the gtag library in the lab run,
+which costs ~220ms TBT and ~3 points versus the pre-GA 94. Re-measured after each
+meaningful change and against the production URL after deploy. The terminal in the
+Code chapter shows these same real values — it never claims anything unmeasured.

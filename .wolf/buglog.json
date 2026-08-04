@@ -2695,7 +2695,14 @@
       "file": "src/components/ConsentBanner.tsx",
       "root_cause": "config runs send_page_view:false and recordPageView() was called only in the Accept click handler. The intent was to move page_view ownership to the app layer, but on its own the app counted each visitor exactly once (at click) and never on subsequent loads.",
       "fix": "Mount path now calls recordPageView() when a stored, unexpired Accept is found (after grantAnalytics()). Removed the inline `if (accepted) gtag('event','page_view')` from index.html so returning visitors aren't double-counted. Added a module-scope once-guard inside recordPageView() so it fires exactly once per page load even under StrictMode's double effect invoke (dev) or a re-accept within the same load.",
-      "tags": ["analytics", "ga4", "consent-mode", "page_view", "strictmode", "returning-visitor"],
+      "tags": [
+        "analytics",
+        "ga4",
+        "consent-mode",
+        "page_view",
+        "strictmode",
+        "returning-visitor"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T17:00:00.000Z"
@@ -2707,10 +2714,51 @@
       "file": "scripts/verify6.mjs",
       "root_cause": "GA4 batches and DELAYS hits: the reload's page_view landed ~3-5s later, inside the decline window, while an enhanced-measurement 'scroll' hit showed up during the reload window. Per-window exact-count assertions on /g/collect are inherently flaky because a hit can't be attributed to a UI action within a fixed ~1.5s window.",
       "fix": "Count page_views CUMULATIVELY by filtering en=page_view (ignoring scroll/engagement noise) and poll (waitForPageViews) for the expected total: 1 after accept, 2 after reload, still 2 after decline. Robust to GA4's async transport timing.",
-      "tags": ["verify", "ga4", "flaky-test", "timing", "puppeteer", "batching"],
-      "related_bugs": ["bug-returning-visitor-pageview"],
+      "tags": [
+        "verify",
+        "ga4",
+        "flaky-test",
+        "timing",
+        "puppeteer",
+        "batching"
+      ],
+      "related_bugs": [
+        "bug-returning-visitor-pageview"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-04T17:10:00.000Z"
+    },
+    {
+      "id": "bug-168",
+      "timestamp": "2026-08-04T16:06:11.505Z",
+      "error_message": "Incorrect value in code",
+      "file": "package.json",
+      "root_cause": "Had \"4.1.0\"",
+      "fix": "Changed to \"4.2.0\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:06:11.505Z"
+    },
+    {
+      "id": "bug-169",
+      "timestamp": "2026-08-04T16:12:56.048Z",
+      "error_message": "CSS fix: text",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "text: \"lighthouse performance 94\", kind: \"ok\" → \"lighthouse performance 91\", kind: \"ok\"",
+      "fix": "Changed text: \"lighthouse performance 94\", kind: \"ok\" → \"lighthouse performance 91\", kind: \"ok\"",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:12:56.048Z"
     }
   ]
 }
