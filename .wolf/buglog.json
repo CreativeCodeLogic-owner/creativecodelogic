@@ -2443,6 +2443,158 @@
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-08-04T14:33:58.444Z"
+    },
+    {
+      "id": "bug-151",
+      "timestamp": "2026-08-04T15:04:31.405Z",
+      "error_message": "Missing error handling in gtag",
+      "file": "index.html",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:04:31.405Z"
+    },
+    {
+      "id": "bug-152",
+      "timestamp": "2026-08-04T15:04:51.398Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/lib/consent.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:04:51.398Z"
+    },
+    {
+      "id": "bug-153",
+      "timestamp": "2026-08-04T15:05:27.587Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (2 removed) | Also: * trap, the page stays fully usable behind it. Acc; * ignoring it) means zero Google requests. It yiel",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-08-04T15:05:51.366Z"
+    },
+    {
+      "id": "bug-154",
+      "timestamp": "2026-08-04T15:06:04.354Z",
+      "error_message": "Significant refactor of ",
+      "file": "public/privacy.html",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 6→7 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:06:04.354Z"
+    },
+    {
+      "id": "bug-155",
+      "timestamp": "2026-08-04T15:09:03.739Z",
+      "error_message": "Significant refactor of ",
+      "file": "index.html",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 9→13 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:09:03.739Z"
+    },
+    {
+      "id": "bug-156",
+      "timestamp": "2026-08-04T15:14:28.071Z",
+      "error_message": "Function not marked async",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Function uses await but wasn't declared async",
+      "fix": "Added async modifier",
+      "tags": [
+        "auto-detected",
+        "async-fix",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:14:28.071Z"
+    },
+    {
+      "id": "bug-157",
+      "timestamp": "2026-08-04T15:24:49.437Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "Had \"rounded-sm text-accent underline-offset-2 hover:u",
+      "fix": "Changed to \"rounded-sm text-accent underline underline-offset",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:24:49.437Z"
+    },
+    {
+      "id": "bug-158",
+      "timestamp": "2026-08-04T15:30:54.530Z",
+      "error_message": "Incorrect value in code",
+      "file": "CHANGELOG.md",
+      "root_cause": "Had `ConsentBanner`",
+      "fix": "Changed to `index.html`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:30:54.530Z"
+    },
+    {
+      "id": "bug-a11y-consent-link",
+      "timestamp": "2026-08-04T16:00:00.000Z",
+      "error_message": "Lighthouse a11y dropped 100 -> 96: link-in-text-block (Links rely on color to be distinguishable)",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "The banner's inline 'Privacy' link used `text-accent hover:underline` — at rest it was distinguished from surrounding body text by color alone, which fails WCAG 1.4.1 and Lighthouse's link-in-text-block audit.",
+      "fix": "Gave the link a persistent underline (`underline underline-offset-2`, dropped `hover:underline`). Re-ran Lighthouse: accessibility back to 100.",
+      "tags": ["a11y", "lighthouse", "wcag", "consent", "link-in-text-block"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:00:00.000Z"
+    },
+    {
+      "id": "bug-verify6-consent-mode-assert",
+      "timestamp": "2026-08-04T16:05:00.000Z",
+      "error_message": "verify6 consent assertion `noGaWithoutConsent: ga.length === 0` is wrong under Consent Mode v2",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "The old runtime-injection model loaded gtag.js only after Accept, so 'zero google requests before consent' was a valid check. Under Consent Mode v2 gtag.js loads with the page (consent gates measurement, not the library), so that assertion would always fail.",
+      "fix": "Rewrote the consent section to track `/g/collect` requests and `_ga*` cookies specifically (in an isolated browser context): pre-consent 0 collects + 0 cookies; Accept -> collect observed + cookies set; withdraw -> cookies cleared + banner re-shows; Decline -> 0 collect/0 cookies. Also added googletagmanager/google-analytics to the console-error ignore filter.",
+      "tags": ["verify", "consent-mode", "gtag", "puppeteer", "test-assertion"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:05:00.000Z"
     }
   ]
 }

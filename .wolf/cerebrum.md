@@ -14,6 +14,9 @@
 - AGENTS.md is deprecated as of 2026-07-21 — CLAUDE.md is the sole convention source.
 - VITE_SHOW_WORK env flag toggles the Work chapter (SignatureLives) via src/lib/flags.ts.
 - src/data/triquetra.ts is generated from .brief/branding/Triquetra_Fill.png by scripts/extract_triquetra.py — regenerate only if the brand mark changes.
+- GA4 uses **Consent Mode v2** (hardcoded gtag snippet in index.html, id via `%VITE_GA_MEASUREMENT_ID%`). gtag.js loads with the page but `analytics_storage` defaults to denied; `config` runs `send_page_view:false` so NO cookieless ping fires pre-consent. Accept -> `gtag('consent','update',{analytics_storage:'granted'})` + explicit `gtag('event','page_view')`. consent.ts only holds storage + grant/deny/clearGaCookies helpers (no loader). Correct pre-consent test = 0 `/g/collect` + 0 `_ga*` cookies, NOT "0 google requests" (the library always loads).
+- README + WorldCode.tsx Lighthouse numbers are scoped to the LIVE production URL for a released version; do NOT overwrite them with local `bun run preview` numbers (localhost has no CDN/HTTP2 — LCP reads ~0.9-1.0s local vs 0.7s live, perf ~2pt lower). Re-measure live only after a deploy. Adding gtag costs ~220ms TBT in the lab (~1-2 perf pts).
+- Any inline link sitting in a block of body text needs a persistent (non-hover) underline or it fails Lighthouse `link-in-text-block` (WCAG 1.4.1 color-only). Bit the ConsentBanner Privacy link.
 - verify scripts hard-code the local Chrome path (C:/Program Files/Google/Chrome/Application/chrome.exe).
 
 ## Do-Not-Repeat

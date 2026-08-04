@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { GA_MEASUREMENT_ID } from "@/lib/flags";
 import {
   CONSENT_RESET_EVENT,
-  disableAnalytics,
+  denyAnalytics,
   getConsent,
-  loadAnalytics,
+  grantAnalytics,
+  recordPageView,
   setConsent,
 } from "@/lib/consent";
 
@@ -12,9 +13,11 @@ import {
  * Consent-first analytics notice. Shown on first visit only when a GA id is
  * configured and no choice is stored (re-asked after 12 months, or when the
  * footer's "Privacy choices" clears it). NOT a modal — no backdrop, no focus
- * trap, the page stays fully usable behind it. Accept loads GA; Decline (or
- * ignoring it) means zero Google requests. It yields to the inline brief so it
- * never stacks over the Send row, and `BackToTop` hides while it's up.
+ * trap, the page stays fully usable behind it. gtag.js loads with the page
+ * under Consent Mode v2 (analytics_storage denied), but Accept is what flips it
+ * to granted — no analytics cookies and no measurement fire until then. It
+ * yields to the inline brief so it never stacks over the Send row, and
+ * `BackToTop` hides while it's up.
  */
 export function ConsentBanner() {
   const id = GA_MEASUREMENT_ID;
@@ -24,8 +27,10 @@ export function ConsentBanner() {
   useEffect(() => {
     if (!id) return; // no id → no banner, no analytics
     const stored = getConsent();
-    if (stored === "accept") loadAnalytics(id);
-    else if (stored === "decline") disableAnalytics(id);
+    // index.html already applied a stored accept before config; re-assert here
+    // so the state is authoritative regardless of load order
+    if (stored === "accept") grantAnalytics();
+    else if (stored === "decline") denyAnalytics();
     else setVisible(true);
     const reshow = () => setVisible(true);
     window.addEventListener(CONSENT_RESET_EVENT, reshow);
@@ -45,12 +50,13 @@ export function ConsentBanner() {
 
   const accept = () => {
     setConsent("accept");
-    loadAnalytics(id);
+    grantAnalytics();
+    recordPageView(); // count this visit now that consent is given
     setVisible(false);
   };
   const decline = () => {
     setConsent("decline");
-    disableAnalytics(id);
+    denyAnalytics();
     setVisible(false);
   };
 
@@ -68,7 +74,7 @@ export function ConsentBanner() {
           cookies, and nothing loads until you agree.{" "}
           <a
             href="/privacy"
-            className="rounded-sm text-accent underline-offset-2 hover:underline focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+            className="rounded-sm text-accent underline underline-offset-2 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
           >
             Privacy
           </a>

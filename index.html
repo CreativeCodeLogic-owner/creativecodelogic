@@ -9,6 +9,46 @@
       content="CCL builds websites, webapps, and apps with unique creativity, lightweight code, and solid logic. See the work, meet the standard, start your brief."
     />
     <meta name="theme-color" content="#091220" />
+
+    <!-- Google Analytics 4 with Consent Mode v2. analytics_storage is DENIED by
+         default; the consent banner flips it to granted on Accept (returning
+         accepters are granted here, before config, so they're counted). Only
+         runs when a G- measurement id is configured (id interpolated by Vite;
+         the repo stays value-free). No id = nothing loads. -->
+    <script>
+      (function () {
+        var GA_ID = "%VITE_GA_MEASUREMENT_ID%";
+        if (GA_ID.indexOf("G-") !== 0) return;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+        });
+        var accepted = false;
+        try {
+          var c = JSON.parse(localStorage.getItem("ccl-consent") || "null");
+          accepted = !!c && c.v === 1 && c.choice === "accept" && Date.now() - c.ts < 31536000000;
+        } catch (e) {}
+        if (accepted) gtag("consent", "update", { analytics_storage: "granted" });
+        gtag("js", new Date());
+        // no automatic page_view — that would send a cookieless ping while denied;
+        // the page view is recorded only once consent is granted (here for a
+        // returning accepter, or on Accept for a first-time visitor)
+        gtag("config", GA_ID, { send_page_view: false });
+        if (accepted) gtag("event", "page_view");
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+        document.head.appendChild(s);
+      })();
+    </script>
+
     <link rel="canonical" href="https://creativecodelogic.com/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />

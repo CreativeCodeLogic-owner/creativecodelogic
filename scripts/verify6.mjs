@@ -34,8 +34,11 @@ async function launch(viewport) {
 }
 function watch(page) {
   const errors = [];
-  // ignore third-party reCAPTCHA noise — we only assert on our own code
-  const ignore = (t) => /recaptcha|grecaptcha|gstatic|google\.com\/recaptcha/i.test(t || "");
+  // ignore third-party reCAPTCHA + GA noise — we only assert on our own code
+  const ignore = (t) =>
+    /recaptcha|grecaptcha|gstatic|google\.com\/recaptcha|googletagmanager|google-analytics|analytics\.google/i.test(
+      t || "",
+    );
   page.on("console", (m) => {
     if (m.type() === "error" && !ignore(m.text())) errors.push(`console.error: ${m.text()}`);
   });
@@ -874,60 +877,60 @@ async function scrollToEl(page, sel, offset = -60) {
   out.friezeSignatures = sigs;
   out.friezeReloadDiffers = new Set(sigs).size > 1;
 
-  // --- consent-first analytics: no Google requests before opt-in --------------
-  // Fresh page (NOT seeded), watch for any GA request. With a GA id configured
-  // the banner shows and we exercise Accept/Decline; with no id it never shows
-  // and there must still be zero GA traffic (the dev default). Network asserts
-  // skip gracefully when no id is set.
+  // --- consent-first analytics (Consent Mode v2) ------------------------------
+  // Fresh page (NOT seeded), in an isolated context so cookies/storage are clean
+  // and survive reloads. gtag.js MAY load, but NO /g/collect and NO _ga cookies
+  // may appear before Accept. After Accept a /g/collect fires and cookies are
+  // set; Decline/withdraw leave none. Network asserts skip when no id is set
+  // (the banner never shows).
   {
-    const cp = await browser.newPage();
-    const ga = [];
+    const cctx = await browser.createBrowserContext();
+    const cp = await cctx.newPage();
+    const collects = [];
     cp.on("request", (r) => {
-      if (/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/.test(r.url())) ga.push(r.url());
+      if (/google-analytics\.com\/(g\/)?collect|\/g\/collect/.test(r.url())) collects.push(r.url());
     });
-    await cp.evaluateOnNewDocument(() => {
-      try {
-        localStorage.clear();
-      } catch {
-        /* ignore */
-      }
-    });
-    await cp.goto("http://localhost:5173/", { waitUntil: "domcontentloaded", timeout: 60000 });
-    await sleep(2000);
+    const gaCookies = async () => (await cp.cookies()).filter((c) => /^_ga/.test(c.name)).length;
+    await cp.goto("http://localhost:5173/", { waitUntil: "networkidle2", timeout: 60000 });
+    await sleep(2500);
     const consent = {};
     consent.bannerShows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
-    consent.gaBeforeChoice = ga.length;
-    consent.noGaWithoutConsent = ga.length === 0; // the core contract, id or not
+    consent.collectsBeforeChoice = collects.length;
+    consent.cookiesBeforeChoice = await gaCookies();
+    // core contract, id or not: no measurement + no analytics cookies pre-consent
+    consent.noMeasureBeforeChoice = consent.collectsBeforeChoice === 0 && consent.cookiesBeforeChoice === 0;
     if (consent.bannerShows) {
-      // GA id configured — the banner is a region, not a modal, and the page is
-      // usable behind it
-      consent.role = await cp.evaluate(
-        () => document.querySelector("[data-consent-banner]")?.getAttribute("role"),
-      );
+      consent.role = await cp.evaluate(() => document.querySelector("[data-consent-banner]")?.getAttribute("role"));
       consent.pageUsableBehind = await cp.evaluate(() => {
         const a = document.querySelector("[data-nav-content] a");
         const r = a.getBoundingClientRect();
         const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
         return el === a || a.contains(el);
       });
-      // Decline → banner gone, still no GA
-      await cp.click("[data-consent-decline]");
-      await sleep(500);
-      consent.declineHides = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
-      consent.gaAfterDecline = ga.length;
-      // footer "Privacy choices" re-summons the banner
-      await cp.evaluate(() => document.querySelector("[data-privacy-choices]")?.scrollIntoView({ block: "center" }));
-      await sleep(300);
-      await cp.click("[data-privacy-choices]");
-      await sleep(400);
-      consent.withdrawReshows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
-      // Accept → gtag request observed
+      // Accept → a page view is recorded (/g/collect) and _ga cookies are set
+      collects.length = 0;
       await cp.click("[data-consent-accept]");
       await sleep(2500);
-      consent.acceptLoadsGa = ga.length > 0;
+      consent.acceptRecordsView = collects.length > 0;
+      consent.acceptSetsCookies = (await gaCookies()) > 0;
+      consent.acceptHidesBanner = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
+      // footer "Privacy choices" re-summons the banner AND clears _ga cookies
+      await cp.evaluate(() => document.querySelector("[data-privacy-choices]")?.scrollIntoView({ block: "center" }));
+      await sleep(200);
+      await cp.click("[data-privacy-choices]");
+      await sleep(800);
+      consent.withdrawReshows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
+      consent.withdrawClearsCookies = (await gaCookies()) === 0;
+      // Decline (banner is back) → no new /g/collect, no cookies, banner gone
+      collects.length = 0;
+      await cp.click("[data-consent-decline]");
+      await sleep(1500);
+      consent.declineNoCollect = collects.length === 0;
+      consent.declineNoCookies = (await gaCookies()) === 0;
+      consent.declineHidesBanner = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
     }
     out.consent = consent;
-    await cp.close();
+    await cctx.close();
   }
 
   console.log("\n=== FULL ===");

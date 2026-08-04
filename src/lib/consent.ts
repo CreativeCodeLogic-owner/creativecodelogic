@@ -36,13 +36,16 @@ export function setConsent(choice: ConsentChoice): void {
   }
 }
 
-/** Clear the stored choice and notify the banner to re-appear (withdrawal). */
+/** Clear the stored choice, return consent to denied, drop GA cookies, and
+ *  notify the banner to re-appear (withdrawal). */
 export function clearConsent(): void {
   try {
     localStorage.removeItem(KEY);
   } catch {
     /* ignore */
   }
+  denyAnalytics();
+  clearGaCookies();
   window.dispatchEvent(new Event(CONSENT_RESET_EVENT));
 }
 
@@ -50,32 +53,40 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
-    [key: `ga-disable-${string}`]: boolean | undefined;
   }
 }
 
-let loaded = false;
-
-/** Inject gtag.js once and configure the id (default page_view — one page, no
- *  SPA routing to track). No-op without an id. */
-export function loadAnalytics(id: string): void {
-  if (loaded || !id) return;
-  loaded = true;
-  window[`ga-disable-${id}`] = false;
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  const gtag = (...args: unknown[]) => {
-    window.dataLayer!.push(args);
-  };
-  gtag("js", new Date());
-  gtag("config", id, { send_page_view: true });
-  window.gtag = gtag;
+/**
+ * Consent Mode v2: gtag.js and the consent 'default' (denied) are set up inline
+ * in index.html on page load. These just flip analytics_storage — GA never
+ * measures or sets cookies until granted.
+ */
+export function grantAnalytics(): void {
+  window.gtag?.("consent", "update", { analytics_storage: "granted" });
 }
 
-/** Belt-and-suspenders: stop GA from collecting if it was loaded this session. */
-export function disableAnalytics(id: string): void {
-  if (id) window[`ga-disable-${id}`] = true;
+/** Record this visit's page view (config runs with send_page_view:false, so the
+ *  view is only counted once consent is granted). */
+export function recordPageView(): void {
+  window.gtag?.("event", "page_view");
+}
+
+export function denyAnalytics(): void {
+  window.gtag?.("consent", "update", { analytics_storage: "denied" });
+}
+
+/** Remove GA's own cookies (`_ga`, `_ga_*`) — used on withdrawal. Best-effort
+ *  across the host and its registrable domain. */
+export function clearGaCookies(): void {
+  const host = location.hostname;
+  const parts = host.split(".");
+  const domains = new Set([host, "." + host, "." + parts.slice(-2).join(".")]);
+  for (const cookie of document.cookie.split(";")) {
+    const name = cookie.split("=")[0].trim();
+    if (!/^_ga/.test(name)) continue;
+    document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    for (const d of domains) {
+      document.cookie = `${name}=; path=/; domain=${d}; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    }
+  }
 }
