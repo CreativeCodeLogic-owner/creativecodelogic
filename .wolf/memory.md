@@ -536,3 +536,4 @@
 | 19:06 | Edited package.json | 4.1 → 4.2 | ~6 |
 | 19:12 | Edited src/components/worlds/WorldCode.tsx | modified deployment() | ~368 |
 | 19:13 | Edited README.md | 12→12 lines | ~174 |
+| 18:20 | Shipped GA4 consent stack as 4.2.0 (changelog cut, version bump, tag, push, deploy, live LH sync) | CHANGELOG.md, package.json, WorldCode.tsx, README.md | released + deployed live; annotated-tag gotcha hit & logged; live LH perf 91 (was 94 pre-GA), LCP 1.0s, TBT ~220ms, a11y/bp/seo 100 | ~12k |
