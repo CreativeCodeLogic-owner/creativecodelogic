@@ -2579,7 +2579,13 @@
       "file": "src/components/ConsentBanner.tsx",
       "root_cause": "The banner's inline 'Privacy' link used `text-accent hover:underline` — at rest it was distinguished from surrounding body text by color alone, which fails WCAG 1.4.1 and Lighthouse's link-in-text-block audit.",
       "fix": "Gave the link a persistent underline (`underline underline-offset-2`, dropped `hover:underline`). Re-ran Lighthouse: accessibility back to 100.",
-      "tags": ["a11y", "lighthouse", "wcag", "consent", "link-in-text-block"],
+      "tags": [
+        "a11y",
+        "lighthouse",
+        "wcag",
+        "consent",
+        "link-in-text-block"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:00:00.000Z"
@@ -2591,10 +2597,120 @@
       "file": "scripts/verify6.mjs",
       "root_cause": "The old runtime-injection model loaded gtag.js only after Accept, so 'zero google requests before consent' was a valid check. Under Consent Mode v2 gtag.js loads with the page (consent gates measurement, not the library), so that assertion would always fail.",
       "fix": "Rewrote the consent section to track `/g/collect` requests and `_ga*` cookies specifically (in an isolated browser context): pre-consent 0 collects + 0 cookies; Accept -> collect observed + cookies set; withdraw -> cookies cleared + banner re-shows; Decline -> 0 collect/0 cookies. Also added googletagmanager/google-analytics to the console-error ignore filter.",
-      "tags": ["verify", "consent-mode", "gtag", "puppeteer", "test-assertion"],
+      "tags": [
+        "verify",
+        "consent-mode",
+        "gtag",
+        "puppeteer",
+        "test-assertion"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:05:00.000Z"
+    },
+    {
+      "id": "bug-161",
+      "timestamp": "2026-08-04T15:42:00.570Z",
+      "error_message": "Missing guard clause",
+      "file": "src/lib/consent.ts",
+      "root_cause": "No early return/throw for edge case: pageViewRecorded",
+      "fix": "Added guard clause: if (pageViewRecorded)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:42:00.570Z"
+    },
+    {
+      "id": "bug-162",
+      "timestamp": "2026-08-04T15:42:08.089Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 6→10 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:42:08.089Z"
+    },
+    {
+      "id": "bug-163",
+      "timestamp": "2026-08-04T15:42:16.316Z",
+      "error_message": "Significant refactor of ",
+      "file": "index.html",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:42:16.316Z"
+    },
+    {
+      "id": "bug-164",
+      "timestamp": "2026-08-04T15:42:37.271Z",
+      "error_message": "Significant refactor of ",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 8→18 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:42:37.271Z"
+    },
+    {
+      "id": "bug-165",
+      "timestamp": "2026-08-04T15:54:28.278Z",
+      "error_message": "Incorrect value in code",
+      "file": "CHANGELOG.md",
+      "root_cause": "Had 're counted without seeing the banner). A \"",
+      "fix": "Changed to 're counted on **every** visit without seeing the ",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T15:54:28.278Z"
+    },
+    {
+      "id": "bug-returning-visitor-pageview",
+      "timestamp": "2026-08-04T17:00:00.000Z",
+      "error_message": "Returning visitors with a stored Accept never send a page_view (GA counts them only once, on the first-accept click)",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "config runs send_page_view:false and recordPageView() was called only in the Accept click handler. The intent was to move page_view ownership to the app layer, but on its own the app counted each visitor exactly once (at click) and never on subsequent loads.",
+      "fix": "Mount path now calls recordPageView() when a stored, unexpired Accept is found (after grantAnalytics()). Removed the inline `if (accepted) gtag('event','page_view')` from index.html so returning visitors aren't double-counted. Added a module-scope once-guard inside recordPageView() so it fires exactly once per page load even under StrictMode's double effect invoke (dev) or a re-accept within the same load.",
+      "tags": ["analytics", "ga4", "consent-mode", "page_view", "strictmode", "returning-visitor"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T17:00:00.000Z"
+    },
+    {
+      "id": "bug-verify6-ga-batch-timing",
+      "timestamp": "2026-08-04T17:10:00.000Z",
+      "error_message": "verify6 declineNoCollect:false — a /g/collect fired in the decline window after adding the reload test",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "GA4 batches and DELAYS hits: the reload's page_view landed ~3-5s later, inside the decline window, while an enhanced-measurement 'scroll' hit showed up during the reload window. Per-window exact-count assertions on /g/collect are inherently flaky because a hit can't be attributed to a UI action within a fixed ~1.5s window.",
+      "fix": "Count page_views CUMULATIVELY by filtering en=page_view (ignoring scroll/engagement noise) and poll (waitForPageViews) for the expected total: 1 after accept, 2 after reload, still 2 after decline. Robust to GA4's async transport timing.",
+      "tags": ["verify", "ga4", "flaky-test", "timing", "puppeteer", "batching"],
+      "related_bugs": ["bug-returning-visitor-pageview"],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T17:10:00.000Z"
     }
   ]
 }

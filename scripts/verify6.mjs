@@ -891,6 +891,19 @@ async function scrollToEl(page, sel, offset = -60) {
       if (/google-analytics\.com\/(g\/)?collect|\/g\/collect/.test(r.url())) collects.push(r.url());
     });
     const gaCookies = async () => (await cp.cookies()).filter((c) => /^_ga/.test(c.name)).length;
+    // GA4 batches/delays hits, so a page_view can land seconds after the action
+    // that caused it. Count page_views CUMULATIVELY (filter by en=page_view,
+    // ignoring scroll/engagement noise) and poll for the expected total, rather
+    // than attributing a hit to a fixed time window.
+    const pageViews = () => collects.filter((u) => /[?&]en=page_view(&|$)/.test(u)).length;
+    const waitForPageViews = async (n, timeout = 9000) => {
+      const end = Date.now() + timeout;
+      while (Date.now() < end) {
+        if (pageViews() >= n) break;
+        await sleep(250);
+      }
+      return pageViews();
+    };
     await cp.goto("http://localhost:5173/", { waitUntil: "networkidle2", timeout: 60000 });
     await sleep(2500);
     const consent = {};
@@ -907,13 +920,21 @@ async function scrollToEl(page, sel, offset = -60) {
         const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
         return el === a || a.contains(el);
       });
-      // Accept → a page view is recorded (/g/collect) and _ga cookies are set
-      collects.length = 0;
+      // Accept → exactly one page_view recorded, _ga cookies set, banner hides
       await cp.click("[data-consent-accept]");
-      await sleep(2500);
-      consent.acceptRecordsView = collects.length > 0;
+      await waitForPageViews(1);
+      consent.acceptPageViews = pageViews(); // expect 1 (no double-fire on first accept)
+      consent.acceptRecordsOneView = consent.acceptPageViews === 1;
       consent.acceptSetsCookies = (await gaCookies()) > 0;
       consent.acceptHidesBanner = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
+      // Reload with the stored Accept (returning visitor) → exactly ONE MORE
+      // page_view (2 total). This is the bug fix: before, returning visitors sent
+      // none. Once-guarded, so StrictMode's double effect invoke doesn't double it.
+      await cp.reload({ waitUntil: "networkidle2", timeout: 60000 });
+      await waitForPageViews(2);
+      consent.reloadPageViews = pageViews(); // expect 2 total
+      consent.reloadRecordsOneMoreView = consent.reloadPageViews === 2;
+      consent.reloadNoBanner = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
       // footer "Privacy choices" re-summons the banner AND clears _ga cookies
       await cp.evaluate(() => document.querySelector("[data-privacy-choices]")?.scrollIntoView({ block: "center" }));
       await sleep(200);
@@ -921,11 +942,11 @@ async function scrollToEl(page, sel, offset = -60) {
       await sleep(800);
       consent.withdrawReshows = await cp.evaluate(() => !!document.querySelector("[data-consent-banner]"));
       consent.withdrawClearsCookies = (await gaCookies()) === 0;
-      // Decline (banner is back) → no new /g/collect, no cookies, banner gone
-      collects.length = 0;
+      // Decline (banner is back) → denied: no NEW page_view (still 2 total) and no
+      // cookies. Settle first so a late-arriving earlier hit isn't miscounted.
       await cp.click("[data-consent-decline]");
-      await sleep(1500);
-      consent.declineNoCollect = collects.length === 0;
+      await sleep(2500);
+      consent.declineNoNewPageView = pageViews() === 2;
       consent.declineNoCookies = (await gaCookies()) === 0;
       consent.declineHidesBanner = await cp.evaluate(() => !document.querySelector("[data-consent-banner]"));
     }

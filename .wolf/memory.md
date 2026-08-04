@@ -519,3 +519,14 @@
 | 18:24 | Edited src/components/ConsentBanner.tsx | "rounded-sm text-accent un" → "rounded-sm text-accent un" | ~43 |
 | 18:30 | Edited CHANGELOG.md | 2→2 lines | ~380 |
 | 16:05 | GA rework to Consent Mode v2 (hardcoded snippet + send_page_view:false) | index.html, consent.ts, ConsentBanner.tsx, privacy.html, verify6.mjs, CHANGELOG.md | verify6 3/3 clean, all consent asserts true; a11y regression on banner Privacy link fixed (underline); local preview LH perf 91-92/a11y 100/LCP ~0.9s/TBT ~220ms | ~9k |
+| 18:33 | Session end: 3 writes across 3 files (verify6.mjs, ConsentBanner.tsx, CHANGELOG.md) | 1 reads | ~4989 tok |
+| 18:42 | Edited src/lib/consent.ts | view() → twice() | ~224 |
+| 18:42 | Edited src/components/ConsentBanner.tsx | modified if() | ~145 |
+| 18:42 | Edited index.html | 5→7 lines | ~150 |
+| 18:42 | Edited index.html | granted() → page_view() | ~127 |
+| 18:42 | Edited scripts/verify6.mjs | expanded (+10 lines) | ~303 |
+| 18:46 | Created C:/Users/GHASSA~1.ABB/AppData/Local/Temp/claude/V--ACTIVE-JOBS-CCL-20260319-ccl-CCL-Corporate-www-v4/da4caafb-5690-4a2c-8b59-2f79a228aaf2/scratchpad/probe-decline.mjs | — | ~402 |
+| 18:48 | Edited scripts/verify6.mjs | added 1 condition(s) | ~236 |
+| 18:48 | Edited scripts/verify6.mjs | 30→28 lines | ~506 |
+| 18:54 | Edited CHANGELOG.md | inline fix | ~161 |
+| 17:10 | fix: page_view for returning consented visitors (mount records once-per-load; removed inline page_view; StrictMode guard) | ConsentBanner.tsx, consent.ts, index.html, verify6.mjs, CHANGELOG.md | verify6 3/3 clean, acceptPageViews=1/reloadPageViews=2/declineNoNewPageView=true; GA4 batch-timing flakiness fixed via cumulative en=page_view polling | ~11k |

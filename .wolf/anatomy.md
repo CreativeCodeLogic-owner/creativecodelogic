@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-04T15:30:54.500Z
-> Files: 72 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-04T15:54:28.254Z
+> Files: 73 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -9,10 +9,10 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~3090 tok)
+- `CHANGELOG.md` — Changelog (~3140 tok)
 - `CLAUDE.md` — OpenWolf (~519 tok)
 - `firebase.json` (~225 tok)
-- `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1232 tok)
+- `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)
 - `package.json` — Node.js package manifest (~181 tok)
 - `README.md` — Project documentation (~1556 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
@@ -36,6 +36,10 @@
 - `firebase.md` — Declares firebaseConfig (~260 tok)
 - `formspark.md` (~21 tok)
 - `github.md` (~36 tok)
+
+## C:/Users/GHASSA~1.ABB/AppData/Local/Temp/claude/V--ACTIVE-JOBS-CCL-20260319-ccl-CCL-Corporate-www-v4/da4caafb-5690-4a2c-8b59-2f79a228aaf2/scratchpad/
+
+- `probe-decline.mjs` — API routes: GET (1 endpoints) (~402 tok)
 
 ## copy/
 
@@ -73,7 +77,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~15292 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~15654 tok)
 
 ## src/
 
@@ -87,7 +91,7 @@
 - `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~820 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
-- `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1123 tok)
+- `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1182 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2030 tok)
 - `Footer.tsx` — Footer (~458 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
@@ -120,7 +124,7 @@
 ## src/lib/
 
 - `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~682 tok)
-- `consent.ts` — Consent-first analytics. GA never loads and no cookie is set until the visitor (~907 tok)
+- `consent.ts` — Consent-first analytics. GA never loads and no cookie is set until the visitor (~1069 tok)
 - `flags.ts` — Feature flags from the environment (see .env / .env.example). (~386 tok)
 - `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~549 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~344 tok)

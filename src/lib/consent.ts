@@ -65,9 +65,19 @@ export function grantAnalytics(): void {
   window.gtag?.("consent", "update", { analytics_storage: "granted" });
 }
 
-/** Record this visit's page view (config runs with send_page_view:false, so the
- *  view is only counted once consent is granted). */
+/** True once a page_view has been sent for this page load. Module scope, so it
+ *  survives React re-renders/StrictMode remounts but resets on a full reload —
+ *  exactly the "one page_view per page load" semantic we want. */
+let pageViewRecorded = false;
+
+/** Record this visit's page view — exactly once per page load. config runs with
+ *  send_page_view:false, so nothing is counted until we fire this: on mount for a
+ *  returning accepter, or on Accept for a first-time visitor. The once-guard keeps
+ *  it to a single page_view even if called twice (StrictMode's double effect invoke
+ *  in dev, or a re-accept within the same load). */
 export function recordPageView(): void {
+  if (pageViewRecorded) return;
+  pageViewRecorded = true;
   window.gtag?.("event", "page_view");
 }
 

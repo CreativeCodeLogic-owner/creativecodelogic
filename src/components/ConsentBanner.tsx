@@ -27,10 +27,14 @@ export function ConsentBanner() {
   useEffect(() => {
     if (!id) return; // no id → no banner, no analytics
     const stored = getConsent();
-    // index.html already applied a stored accept before config; re-assert here
-    // so the state is authoritative regardless of load order
-    if (stored === "accept") grantAnalytics();
-    else if (stored === "decline") denyAnalytics();
+    // index.html grants a stored accept early (correct consent state before
+    // config); re-assert here so the state is authoritative regardless of load
+    // order, and record THIS visit — the app owns the page_view, so returning
+    // accepters are counted on every load (recordPageView is once-per-load).
+    if (stored === "accept") {
+      grantAnalytics();
+      recordPageView();
+    } else if (stored === "decline") denyAnalytics();
     else setVisible(true);
     const reshow = () => setVisible(true);
     window.addEventListener(CONSENT_RESET_EVENT, reshow);
