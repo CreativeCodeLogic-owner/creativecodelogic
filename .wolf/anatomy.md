@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-04T16:13:07.542Z
-> Files: 73 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-24T17:15:44.358Z
+> Files: 75 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -69,6 +69,8 @@
 
 ## scripts/
 
+- `_shot-naked.mjs` — Declares CHROME (~379 tok)
+- `_shot-wordmark.mjs` — Declares CHROME (~423 tok)
 - `extract_triquetra.py` — Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade). (~2211 tok)
 - `make_product_placeholders.py` — Generate placeholder case-card images (public/products/*.png). (~1722 tok)
 - `rasterize-frieze.mjs` — Build-time asset step (not shipped, no runtime dep): rasterize each triquetra (~513 tok)
@@ -77,11 +79,11 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~15654 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~15998 tok)
 
 ## src/
 
-- `App.tsx` — App (~391 tok)
+- `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~420 tok)
 - `index.css` — Styles: 23 rules, 8 vars (~1560 tok)
 - `main.tsx` (~68 tok)
 
@@ -97,8 +99,8 @@
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2461 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1797 tok)
-- `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1555 tok)
-- `Nav.tsx` — MENU_ID (~1224 tok)
+- `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1732 tok)
+- `Nav.tsx` — import { NavFrieze } from "@/components/NavFrieze"; // benched per team feedback 2026-08 (~1430 tok)
 - `NavFrieze.tsx` — Deal distinct variants onto a composition's positions (no repeats within a (~1038 tok)
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)

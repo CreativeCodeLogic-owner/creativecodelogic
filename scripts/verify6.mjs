@@ -112,7 +112,10 @@ async function scrollToEl(page, sel, offset = -60) {
       );
       return `${c?.getAttribute("data-frieze-set")}:${c?.getAttribute("data-frieze-index")}:${vars.join(",")}`;
     });
-  out.frieze = await page.evaluate(() => {
+  const friezePresent = await page.evaluate(() => !!document.querySelector("[data-frieze]"));
+  out.frieze = !friezePresent
+    ? { present: false, skipped: true, reason: "NavFrieze benched (team feedback 2026-08) — not mounted" }
+    : await page.evaluate(() => {
     const ROT = [-24, -12, 0, 12, 24];
     const OPA = [0.03, 0.05, 0.08];
     const cont = document.querySelector("[data-frieze]");
@@ -190,7 +193,8 @@ async function scrollToEl(page, sel, offset = -60) {
       linkClickable,
     };
   });
-  const friezeSig1 = await friezeSig();
+  if (!friezePresent) console.log("frieze: [data-frieze] absent (NavFrieze benched) — skipping frieze checks");
+  const friezeSig1 = friezePresent ? await friezeSig() : null;
 
   // --- 1. hero y-stability + subline breathes with the final headline --------
   await sleep(12500);
@@ -697,6 +701,7 @@ async function scrollToEl(page, sel, offset = -60) {
     const c = document.querySelector("[data-progress]");
     const tip = document.querySelector("[data-progress-tip]");
     return {
+      present: !!c,
       leftEdge: c ? Math.round(c.getBoundingClientRect().left) : null,
       cap: !!document.querySelector("[data-progress-cap]"),
       tip: !!tip,
@@ -706,6 +711,10 @@ async function scrollToEl(page, sel, offset = -60) {
         : false,
     };
   });
+  if (!out.progressLine.present) {
+    out.progressLine = { present: false, skipped: true, reason: "ProgressLine benched (team feedback 2026-08) — not mounted" };
+    console.log("progress line: [data-progress] absent (ProgressLine benched) — skipping progress-line checks");
+  }
   out.footerFontSize = await page.evaluate(
     () => getComputedStyle(document.querySelector("footer p")).fontSize,
   );
@@ -867,15 +876,21 @@ async function scrollToEl(page, sel, offset = -60) {
   }
 
   // frieze re-randomises per load: across 3 loads the arrangement (composition id
-  // and/or dealt variants) must differ at least once
-  const sigs = [friezeSig1];
-  for (let i = 0; i < 2; i++) {
-    await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
-    await sleep(1500);
-    sigs.push(await friezeSig());
+  // and/or dealt variants) must differ at least once. Skipped when benched.
+  if (!friezePresent) {
+    out.friezeSignatures = { skipped: true, reason: "NavFrieze benched (team feedback 2026-08) — not mounted" };
+    out.friezeReloadDiffers = "skipped (frieze benched)";
+    console.log("frieze reload: NavFrieze benched — skipping re-randomise check");
+  } else {
+    const sigs = [friezeSig1];
+    for (let i = 0; i < 2; i++) {
+      await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
+      await sleep(1500);
+      sigs.push(await friezeSig());
+    }
+    out.friezeSignatures = sigs;
+    out.friezeReloadDiffers = new Set(sigs).size > 1;
   }
-  out.friezeSignatures = sigs;
-  out.friezeReloadDiffers = new Set(sigs).size > 1;
 
   // --- consent-first analytics (Consent Mode v2) ------------------------------
   // Fresh page (NOT seeded), in an isolated context so cookies/storage are clean
@@ -1005,18 +1020,19 @@ async function scrollToEl(page, sel, offset = -60) {
       return { count: marks.length, anchorOk: anchors.length === 1, edgeClearOk, allClear };
     });
   }
-  // progress line renders statically (full-height, both caps) under reduced motion
+  // progress line renders statically (full-height, both caps) under reduced motion.
+  // Skipped cleanly when benched (not mounted).
   out.progressLineStatic = await page.evaluate(() => {
     const line = document.querySelector("[data-progress-line]");
+    if (!line) return null;
     const cap = document.querySelector("[data-progress-cap]");
     const tip = document.querySelector("[data-progress-tip]");
-    return (
-      !!line &&
-      !!cap &&
-      !!tip &&
-      line.getBoundingClientRect().height > window.innerHeight * 0.9
-    );
+    return !!cap && !!tip && line.getBoundingClientRect().height > window.innerHeight * 0.9;
   });
+  if (out.progressLineStatic === null) {
+    out.progressLineStatic = { skipped: true, reason: "ProgressLine benched (team feedback 2026-08) — not mounted" };
+    console.log("progressLineStatic: [data-progress-line] absent (ProgressLine benched) — skipping");
+  }
   // Ship step renders statically with its seal shown (no stamp animation)
   await scrollToEl(page, "#process");
   await sleep(400);

@@ -127,18 +127,28 @@ export function MobileMenu({ id, links, onClose, onNavigate }: Props) {
           aria-label="Mobile"
           className="flex flex-1 flex-col items-start justify-center gap-6 pb-16"
         >
-          {links.map((link, i) => (
-            <a
-              key={link.hash}
-              ref={i === 0 ? firstLinkRef : undefined}
-              data-menu-item
-              href={link.hash}
-              onClick={navigate(link.hash)}
-              className="font-display text-3xl font-semibold text-ink transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none md:text-4xl"
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link, i) => {
+            // the "#signature" link is the CCL wordmark — ink + tracked, set
+            // apart from the mist links (same size)
+            const isWordmark = link.hash === "#signature";
+            return (
+              <a
+                key={link.hash}
+                ref={i === 0 ? firstLinkRef : undefined}
+                data-menu-item
+                href={link.hash}
+                onClick={navigate(link.hash)}
+                aria-label={isWordmark ? "CCL, Creative Code Logic, back to top" : undefined}
+                className={
+                  isWordmark
+                    ? "font-display text-3xl font-semibold tracking-[0.22em] text-ink transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none md:text-4xl"
+                    : "font-display text-3xl font-semibold text-mist transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none md:text-4xl"
+                }
+              >
+                {link.label}
+              </a>
+            );
+          })}
           <a
             data-menu-item
             data-menu-cta

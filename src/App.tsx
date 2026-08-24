@@ -5,7 +5,7 @@ import { Nav } from "@/components/Nav";
 import { BackToTop } from "@/components/BackToTop";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { AmbientField } from "@/components/AmbientField";
-import { ProgressLine } from "@/components/ProgressLine";
+// import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08
 import { HeroSignature } from "@/components/HeroSignature";
 import { SignatureMeaning } from "@/components/SignatureMeaning";
 import { SignatureLives } from "@/components/SignatureLives";
@@ -24,7 +24,7 @@ export function App() {
   return (
     <>
       {SHOW_AMBIENT && <AmbientField />}
-      <ProgressLine />
+      {/* ProgressLine benched per team feedback 2026-08; revive by re-mounting. */}
       <Nav />
       <main>
         <HeroSignature />

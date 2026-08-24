@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { NavFrieze } from "@/components/NavFrieze";
+// import { NavFrieze } from "@/components/NavFrieze"; // benched per team feedback 2026-08
 import { MobileMenu } from "@/components/MobileMenu";
 import { ScrollTrigger, scrollToId } from "@/lib/scroll";
 import { SHOW_WORK } from "@/lib/flags";
@@ -9,11 +9,15 @@ import { useMagnetic } from "@/hooks/useMagnetic";
 const MENU_ID = "mobile-menu";
 
 const LINKS = [
-  { label: "The Mark", hash: "#signature" },
+  { label: "CCL", hash: "#signature" },
   { label: "Work", hash: "#work" },
   { label: "Process", hash: "#process" },
   { label: "Contact", hash: "#contact" },
 ].filter((link) => SHOW_WORK || link.hash !== "#work");
+
+// the "#signature" link doubles as the wordmark — it carries the old logo
+// treatment (font-display, tracked, ink) to set it apart from the mist links
+const WORDMARK_HASH = "#signature";
 
 export function Nav() {
   const barRef = useRef<HTMLElement>(null);
@@ -49,8 +53,7 @@ export function Nav() {
       ref={barRef}
       className="fixed inset-x-0 top-0 z-50 overflow-hidden transition-colors duration-300"
     >
-      {/* decorative scattered-triquetra frieze, behind the nav content */}
-      <NavFrieze />
+      {/* NavFrieze benched per team feedback 2026-08; revive by re-mounting. */}
 
       <nav
         aria-label="Primary"
@@ -58,17 +61,25 @@ export function Nav() {
         className="relative z-10 mx-auto flex max-w-6xl items-center justify-end px-6 py-4 md:justify-between md:px-10"
       >
         <ul className="hidden items-center gap-8 md:flex">
-          {LINKS.map((link) => (
-            <li key={link.hash}>
-              <a
-                href={link.hash}
-                onClick={go(link.hash)}
-                className="rounded-md text-sm text-mist transition-colors duration-300 hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {LINKS.map((link) => {
+            const isWordmark = link.hash === WORDMARK_HASH;
+            return (
+              <li key={link.hash}>
+                <a
+                  href={link.hash}
+                  onClick={go(link.hash)}
+                  aria-label={isWordmark ? "CCL, Creative Code Logic, back to top" : undefined}
+                  className={
+                    isWordmark
+                      ? "rounded-md font-display text-sm font-semibold tracking-[0.22em] text-ink transition-colors duration-300 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                      : "rounded-md text-sm text-mist transition-colors duration-300 hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                  }
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-1">
