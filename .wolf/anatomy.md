@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-24T17:15:44.358Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-24T17:27:09.890Z
 > Files: 75 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -9,7 +9,7 @@
 - `.gitattributes` (~4 tok)
 - `.gitignore` — Git ignore rules (~99 tok)
 - `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~3147 tok)
+- `CHANGELOG.md` — Changelog (~3369 tok)
 - `CLAUDE.md` — OpenWolf (~519 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)

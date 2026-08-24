@@ -567,3 +567,6 @@
 | 20:15 | Edited scripts/_shot-wordmark.mjs | 3→2 lines | ~18 |
 | 20:30 | Nav label "The Mark" -> "CCL" wordmark (working-tree only, joins benched-chrome batch, NOT committed) | Nav.tsx, MobileMenu.tsx | #signature link styled as wordmark (font-display/semibold/tracking-0.22em/ink, hover accent) desktop + mobile (ink vs mist others), aria-label "CCL, Creative Code Logic, back to top"; no verify6 assertion keyed on old label (no-op); build clean, verify6 3/3 green | ~7k |
 | 20:17 | Session end: 15 writes across 6 files (App.tsx, Nav.tsx, verify6.mjs, _shot-naked.mjs, MobileMenu.tsx) | 12 reads | ~21804 tok |
+| 20:27 | Edited CHANGELOG.md | expanded (+7 lines) | ~249 |
+| 20:27 | Edited package.json | inline fix | ~6 |
+| 21:00 | Shipped chrome-simplification batch as 4.2.1 (commit, changelog, annotated tag, push, deploy) | CHANGELOG.md, package.json | live 200, frieze WebPs gone from live HTML+JS (confirmed); post-deploy Lighthouse UNRELIABLE (persistent ~2.8s TLS handshake on network path, TTFB ~3.5s) -> did NOT sync numbers, left 4.2.0 reliable readings, re-measure owed | ~9k |

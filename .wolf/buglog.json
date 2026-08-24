@@ -2839,6 +2839,22 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-24T17:11:51.041Z"
+    },
+    {
+      "id": "bug-175",
+      "timestamp": "2026-08-24T17:27:09.928Z",
+      "error_message": "Incorrect value in code",
+      "file": "package.json",
+      "root_cause": "Had \"4.2.0\"",
+      "fix": "Changed to \"4.2.1\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-24T17:27:09.928Z"
     }
   ]
 }
