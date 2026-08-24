@@ -6,6 +6,13 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [4.2.1] - 2026-08-24
+
+### Changed
+- Progress line benched per team feedback — `<ProgressLine />` is unmounted in `App.tsx` (component file kept; revive by re-mounting). The left-edge scroll rule no longer ships.
+- Header frieze benched per team feedback — `<NavFrieze />` is unmounted in `Nav.tsx` (component file and `friezeCompositions.ts` kept; revive by re-mounting). The scattered-triquetra frieze behind the nav no longer ships, and its WebP variants are no longer requested.
+- Nav label "The Mark" → **CCL** wordmark. The `#signature` link now carries the old logo treatment (`font-display`, semibold, `tracking-[0.22em]`, ink, hover accent) to set it apart from the mist links, in both the desktop nav and the mobile menu; aria-label "CCL, Creative Code Logic, back to top". `verify6` frieze/progress-line assertions were converted to skip cleanly when those systems are absent.
+
 ## [4.2.0] - 2026-08-04
 
 ### Added
