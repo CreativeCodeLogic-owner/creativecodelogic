@@ -7,20 +7,21 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 
 // Every line here is REAL and measured — the brand's pitch is "judge it now",
 // so the terminal must not claim anything untrue.
-// Measured 2026-08-04 against the LIVE production deployment (v4.2.0):
-//   bun run build && firebase deploy --only hosting
+// Build lines re-measured 2026-09-25 from a production build (`bun run build`):
+//   vite 8.1.5 · 50 modules · tsc --noEmit clean · verify6 3/3 viewports
+//   0 console errors (VERIFY6: PASS).
+// Lighthouse / LCP are still the 4.2.0 LIVE measurement (2026-08-04), pending
+// the 4.2.1+ live sync — do not replace them with local preview numbers:
 //   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
 //     lighthouse https://creativecodelogic.web.app/ --preset=desktop \
 //     --output=json --chrome-flags="--headless=new"
-// Results (fonts self-hosted): vite 8.1.5 · 61 modules · tsc --noEmit clean
-//   · verify6 3/3 viewports 0 console errors · Lighthouse desktop performance 91
-//   (90–92 across warm runs; the GA4 gtag now runs in the lab and costs ~220ms
-//   TBT, down from 94 pre-GA; cold requests dip lower), LCP 1.0s (accessibility
-//   100, best-practices 100, SEO 100).
+//   Lighthouse desktop performance 91 (90–92 across warm runs; the GA4 gtag
+//   runs in the lab and costs ~220ms TBT, down from 94 pre-GA; cold requests
+//   dip lower), LCP 1.0s (accessibility 100, best-practices 100, SEO 100).
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
-  { text: "61 modules transformed", kind: "ok" },
+  { text: "50 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
   { text: "lighthouse performance 91", kind: "ok" },

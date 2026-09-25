@@ -9,6 +9,16 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Email signature assets under `public/email/` (served at `/email/`): per-mailbox avatars and noindex signature pages, not linked from the site and disallowed in robots.txt.
 
+### Changed
+- Production builds fail fast when a required form, captcha or analytics id is missing (`vite.config.ts` names the missing variables, never their values).
+- `verify6` now reports `VERIFY6: PASS` or `VERIFY6: FAIL` against an explicit expectation map, sets a non-zero exit code on any failure or console error, fixes its stale footer test (`/terms`, `/privacy`), and accepts a `CHROME_PATH` override.
+
+### Fixed
+- Consent banner copy now matches Consent Mode v2 and the privacy policy: the tag library loads with the page, but nothing is set or recorded until the visitor agrees.
+- The contact drawer shows its error state instead of silently dropping a message when its form id is not configured.
+- The palette no longer overlaps the body copy on narrow phones (the mobile layout measured the heading mid-reveal, 36px off its resting position).
+- The terminal module count matches the build (50).
+
 ## [4.2.1] - 2026-08-24
 
 ### Changed

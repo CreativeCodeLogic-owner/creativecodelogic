@@ -168,11 +168,14 @@ export function WorldCreative() {
         // vertically centre the mark + palette group
         cy = h * 0.5 - (PALETTE_GAP + PALETTE_H) / 2;
       } else {
-        // Mobile: mark sits between the heading block and the body block
+        // Mobile: mark sits between the heading block and the body block.
+        // Measure the heading's LAYOUT box (offsetTop/offsetHeight), not its
+        // bounding rect: on mount the heading is mid-reveal (gsap.from y:36),
+        // and a transformed rect would place the body copy — which follows the
+        // untransformed flow — 36px too high, under the palette.
         const heading = panel.querySelector<HTMLElement>("[data-world-copy]");
-        const headingRect = heading?.getBoundingClientRect();
-        const headingBottom = headingRect
-          ? headingRect.bottom - rect.top
+        const headingBottom = heading
+          ? heading.offsetTop + heading.offsetHeight
           : h * 0.25;
         size = Math.min(w, 560) * 0.44;
         cx = w * 0.5;

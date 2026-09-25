@@ -18,7 +18,7 @@ const TONE_COLOR: Record<NonNullable<TriquetraProps["tone"]>, string> = {
   accent: "#53D2FF",
 };
 
-/** The CCL mark as inline SVG — three loops traced from the brand asset. */
+/** The CCL mark as inline SVG — the three loops of the authored vector (v2). */
 export function Triquetra({
   className,
   activeLoop = null,

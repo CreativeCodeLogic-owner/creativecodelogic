@@ -2855,6 +2855,191 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-24T17:27:09.928Z"
+    },
+    {
+      "id": "bug-176",
+      "timestamp": "2026-09-25T06:42:44.883Z",
+      "error_message": "CSS fix: Mobile",
+      "file": "src/components/worlds/WorldCreative.tsx",
+      "root_cause": "Mobile: mark sits between the heading block and the body block → mark sits between the heading block and the body block.",
+      "fix": "Changed Mobile: mark sits between the heading block and the body block → mark sits between the heading block and the body block.",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:42:44.883Z"
+    },
+    {
+      "id": "bug-177",
+      "timestamp": "2026-09-25T06:43:30.266Z",
+      "error_message": "Significant refactor of consent.ts",
+      "file": "src/lib/consent.ts",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:43:30.266Z"
+    },
+    {
+      "id": "bug-178",
+      "timestamp": "2026-09-25T06:43:46.153Z",
+      "error_message": "Missing guard clause",
+      "file": "src/lib/submit.ts",
+      "root_cause": "No early return/throw for edge case: !formId",
+      "fix": "Added guard clause: if (!formId)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:43:46.153Z"
+    },
+    {
+      "id": "bug-179",
+      "timestamp": "2026-09-25T06:45:34.783Z",
+      "error_message": "Incorrect value in code",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Had \"/privacy.html\"",
+      "fix": "Changed to \"/privacy\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:45:34.783Z"
+    },
+    {
+      "id": "bug-180",
+      "timestamp": "2026-09-25T06:45:37.373Z",
+      "error_message": "Null/undefined access in verify6.mjs",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:45:37.373Z"
+    },
+    {
+      "id": "bug-181",
+      "timestamp": "2026-09-25T06:45:54.299Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/components/worlds/WorldCode.tsx",
+      "root_cause": "Had \"61 modules transformed\"",
+      "fix": "Changed to \"50 modules transformed\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:45:54.299Z"
+    },
+    {
+      "id": "bug-182",
+      "timestamp": "2026-09-25T06:52:28.659Z",
+      "error_message": "Significant refactor of verify6.mjs",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:52:28.659Z"
+    },
+    {
+      "id": "bug-consent-banner-copy-false",
+      "timestamp": "2026-09-25T06:59:01.099Z",
+      "error_message": "Consent banner said 'nothing loads until you agree' — false under Consent Mode v2 (gtag.js loads with the page); contradicted privacy.html",
+      "file": "src/components/ConsentBanner.tsx",
+      "root_cause": "Copy (and consent.ts/flags.ts comments) predated the switch from runtime-injected GA to the hardcoded Consent Mode v2 snippet in index.html",
+      "fix": "Banner: 'nothing is set or recorded until you agree'. consent.ts header + flags.ts GA/captcha comments rewritten to describe Consent Mode v2 and the visible v2 checkbox; Triquetra.tsx 'traced' → authored vector (v2)",
+      "tags": [
+        "consent",
+        "ga4",
+        "copy",
+        "privacy",
+        "consent-mode"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:59:01.099Z"
+    },
+    {
+      "id": "bug-contact-silent-drop",
+      "timestamp": "2026-09-25T06:59:01.099Z",
+      "error_message": "Contact drawer reported success and silently dropped the message when VITE_FORMSPARK_FORM_ID_CONTACT was empty",
+      "file": "src/lib/submit.ts",
+      "root_cause": "submitForm returned 'success' for an empty form id even with no mailto fallback (contact drawer has no email in its UI)",
+      "fix": "Empty id + no mailtoHref → 'error' (drawer shows its Try again state); brief mailto fallback unchanged. vite.config.ts now throws on production builds missing VITE_FORMSPARK_FORM_ID_BRIEF/_CONTACT, VITE_CAPTCHA_SITEKEY or VITE_GA_MEASUREMENT_ID (names only)",
+      "tags": [
+        "forms",
+        "formspark",
+        "env",
+        "build-guard",
+        "silent-failure"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:59:01.099Z"
+    },
+    {
+      "id": "bug-palette-overlap-390",
+      "timestamp": "2026-09-25T06:59:01.099Z",
+      "error_message": "verify6 MOBILE paletteNoBodyOverlap:false — the palette's 40px swatch hit area overlapped the body copy by 4px at every phone width",
+      "file": "src/components/worlds/WorldCreative.tsx",
+      "root_cause": "Mobile layout() measured the heading with getBoundingClientRect() at mount, while gsap.from('[data-world-copy]', {y:36}) had it translated 36px down. Mark/palette were placed from the transformed bottom, but --mobile-body-mt positions the in-flow body relative to the UNtransformed heading → intended 32px gap became 32-36 = -4px. Not caused by d1f9c60 (size change only; the gap is size-independent). Reduced motion was unaffected (no transform)",
+      "fix": "headingBottom = heading.offsetTop + heading.offsetHeight (layout box, transform-independent). Mobile branch only; desktop untouched. Gap now 32px at 360/390/414; mark + palette sit 36px higher (matching the reduced-motion layout)",
+      "tags": [
+        "layout",
+        "mobile",
+        "gsap",
+        "transform",
+        "getBoundingClientRect",
+        "canvas"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:59:01.099Z"
+    },
+    {
+      "id": "bug-verify6-cannot-fail",
+      "timestamp": "2026-09-25T06:59:01.099Z",
+      "error_message": "verify6 always exited 0 and printed JSON only, so false assertions went unnoticed (stale footerLegal test, palette overlap)",
+      "file": "scripts/verify6.mjs",
+      "root_cause": "No aggregate gate; footerLegal still queried /terms.html and /privacy.html after the footer moved to extensionless /terms and /privacy (4.0.0)",
+      "fix": "Added explicit EXPECTED map + SUMMARY block (VERIFY6: PASS/FAIL, per-failure pass/key/actual/expected, skips listed), process.exitCode=1 on any failure or console error; footer selectors fixed; CHROME_PATH override. Gate immediately surfaced an intermittent third-party console error (Google's report-only CSP 'Framing https://www.google.com/ violates … frame-ancestors' from the reCAPTCHA frame), added narrowly to the noise filter",
+      "tags": [
+        "verify",
+        "puppeteer",
+        "test-gate",
+        "flaky-test",
+        "recaptcha"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-25T06:59:01.099Z"
     }
   ]
 }

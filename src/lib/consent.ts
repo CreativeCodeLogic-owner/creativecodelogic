@@ -1,7 +1,9 @@
 /**
- * Consent-first analytics. GA never loads and no cookie is set until the visitor
- * explicitly accepts. The choice is stored locally and re-asked after ~12 months.
- * Declining (or having no choice) means zero Google requests.
+ * Consent-first analytics under Consent Mode v2. The gtag.js library loads with
+ * the page (index.html), but analytics_storage defaults to denied: no analytics
+ * cookies are set and no page_view / collect hit is sent until the visitor
+ * explicitly accepts. The choice is stored locally and re-asked after ~12
+ * months. Declining (or having no choice) keeps it denied.
  */
 const KEY = "ccl-consent";
 const VERSION = 1;

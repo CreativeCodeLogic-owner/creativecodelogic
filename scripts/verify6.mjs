@@ -2,8 +2,10 @@
 // terminal, process dot fills, footer line, height budget, reduced + mobile.
 import puppeteer from "puppeteer-core";
 
-const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const OUT = "scripts/shots/v6";
+// each pass stores { out, errors } here; the gate at the end reads it
+const RESULTS = {};
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fs = await import("node:fs");
 fs.mkdirSync(OUT, { recursive: true });
@@ -34,11 +36,13 @@ async function launch(viewport) {
 }
 function watch(page) {
   const errors = [];
-  // ignore third-party reCAPTCHA + GA noise — we only assert on our own code
+  // ignore third-party reCAPTCHA + GA noise — we only assert on our own code.
+  // The last pattern is Google's own report-only CSP, logged (intermittently)
+  // when the reCAPTCHA checkbox frames www.google.com; it blocks nothing.
   const ignore = (t) =>
     /recaptcha|grecaptcha|gstatic|google\.com\/recaptcha|googletagmanager|google-analytics|analytics\.google/i.test(
       t || "",
-    );
+    ) || /Framing 'https:\/\/www\.google\.com\/' violates .*report-only/i.test(t || "");
   page.on("console", (m) => {
     if (m.type() === "error" && !ignore(m.text())) errors.push(`console.error: ${m.text()}`);
   });
@@ -721,8 +725,8 @@ async function scrollToEl(page, sel, offset = -60) {
   // exactly two legal links, correct hrefs, keyboard-focusable
   out.footerLegal = await page.evaluate(() => {
     const links = [...document.querySelectorAll("footer a")];
-    const terms = document.querySelector('footer a[href="/terms.html"]');
-    const privacy = document.querySelector('footer a[href="/privacy.html"]');
+    const terms = document.querySelector('footer a[href="/terms"]');
+    const privacy = document.querySelector('footer a[href="/privacy"]');
     terms?.focus();
     return {
       count: links.length,
@@ -972,6 +976,7 @@ async function scrollToEl(page, sel, offset = -60) {
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
+  RESULTS.full = { out, errors };
   await browser.close();
 }
 
@@ -1089,6 +1094,7 @@ async function scrollToEl(page, sel, offset = -60) {
   console.log("\n=== REDUCED ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
+  RESULTS.reduced = { out, errors };
   await browser.close();
 }
 
@@ -1252,5 +1258,145 @@ async function scrollToEl(page, sel, offset = -60) {
   console.log("\n=== MOBILE ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
+  RESULTS.mobile = { out, errors };
   await browser.close();
+}
+
+// ---------- aggregate gate --------------------------------------------------
+// Every boolean assertion is compared against this explicit map. Checks that
+// SHOULD be false are listed as false. A boolean with no expectation, or an
+// expected key that is missing / non-boolean, fails — so new or renamed checks
+// must be added here. Objects with `skipped: true` and "skipped …" strings are
+// benched/unconfigured systems: listed, not failed.
+const t = true;
+const f = false;
+const EXPECTED = {
+  full: {
+    noGoogleFonts: t, noOldFontReq: t,
+    "fonts.h1IsAptos": t, "fonts.bodyIsAptos": t,
+    "fonts.checkRegular": t, "fonts.checkSemibold": t, "fonts.checkBold": t,
+    subInWithFinal: t, subOutWithMuted: t,
+    paletteLabels: t, hamburgerHiddenDesktop: t, creativeNoOverlap: t, paletteInViewport: t,
+    "matrixIsAsciiMark.hasSignatureLine": t, matrixInsideTerminal: t,
+    terminalRestarted: t, terminalHeightConstant: t,
+    "logic.hasAngleLabel": t, "logic.hasSheetDims": t, "logic.noOneToOne": t,
+    "logic.hasCircleLegend": t, "logic.hasPersonalText": f,
+    logicLoopDrag: t,
+    // mid-scroll: the first two process dots are filled, the last two not yet
+    "dotsMid.0": t, "dotsMid.1": t, "dotsMid.2": f, "dotsMid.3": f,
+    "dotsEnd.0": t, "dotsEnd.1": t, "dotsEnd.2": t, "dotsEnd.3": t,
+    sealStamped: t, footerLine: t,
+    "briefClose.ctaVisibleAfterClose": t, "briefClose.focusOnCta": t,
+    "briefClose.footerUnchanged": t, "briefClose.reopenSameStep": t,
+    "briefClose.emailIntact": t, "briefClose.timingChipIntact": t,
+    "briefClose.problemIntact": t, "briefClose.chipIntact": t,
+    "briefClose.escInsideCloses": t, "briefClose.escOutsideNoClose": t,
+    "brief.recaptchaBeforeOpen": f, "brief.formShown": t,
+    "brief.backToTopHiddenWhileOpen": t, "brief.heightStableOnOpen": t,
+    "brief.footerStableOnOpen": t, "brief.focusStep1": t, "brief.chipPressed": t,
+    "brief.focusStep2": t, "brief.nextDisabledShort": t, "brief.nextEnabledValid": t,
+    "brief.focusStep3": t, "brief.submitDisabledInvalid": t,
+    "brief.submitEnabledValid": t, "brief.noRecaptchaAfterBriefWalk": t,
+    "hello.dialogRole": t, "hello.focusEmail": t, "hello.noMailto": t,
+    "hello.noAtInText": t, "hello.captchaConfigured": t,
+    "hello.recaptchaScriptLoaded": t, "hello.checkboxIframe": t,
+    "hello.sendGatedByCaptcha": t, "hello.tabStaysInside": t,
+    "hello.shiftTabStaysInside": t, "hello.closedByEsc": t,
+    "hello.focusBackOnTrigger": t, "hello.closedByBackdrop": t,
+    "hello.navScrolledSurvivesCycle": t,
+    navScrolledAtBottom: t, navNoLogoLink: t,
+    "backToTopWhenScrolled.present": t, "backToTopWhenScrolled.clickable": t,
+    "backToTopWhenScrolled.inViewport": t,
+    backToTopFocusable: t, backToTopReturnsTop: t, backToTopHiddenAtTop: t,
+    "footerLegal.terms": t, "footerLegal.privacy": t, "footerLegal.focusable": t,
+    "legal./terms.html.h1": t, "legal./terms.html.email": t,
+    "legal./terms.html.noPlaceholders": t,
+    "legal./privacy.html.h1": t, "legal./privacy.html.email": t,
+    "legal./privacy.html.noPlaceholders": t,
+    "consent.bannerShows": t, "consent.noMeasureBeforeChoice": t,
+    "consent.pageUsableBehind": t, "consent.acceptRecordsOneView": t,
+    "consent.acceptSetsCookies": t, "consent.acceptHidesBanner": t,
+    "consent.reloadRecordsOneMoreView": t, "consent.reloadNoBanner": t,
+    "consent.withdrawReshows": t, "consent.withdrawClearsCookies": t,
+    "consent.declineNoNewPageView": t, "consent.declineNoCookies": t,
+    "consent.declineHidesBanner": t,
+  },
+  reduced: {
+    rotatingLine: f, // reduced motion renders the final headline, no rotation
+    shipStepReduced: t, terminalStatic: t, noInteractive: t,
+    pinSpacer: f, // no ScrollTrigger pinning under reduced motion
+    rmBriefOpens: t, rmBriefCloses: t, rmBriefReopensWithState: t,
+    navScrolledAtBottom: t,
+  },
+  mobile: {
+    paletteInViewportMobile: t, paletteNoBodyOverlap: t,
+    "menu.hamburgerVisible": t, "menu.dialogRole": t, "menu.focusInside": t,
+    "menu.scrollLocked": t, "menu.tabStaysInside": t, "menu.closedByEsc": t,
+    "menu.focusBackOnHamburger": t, "menu.scrollUnlocked": t,
+    "menu.closedByNav": t, "menu.scrolledToProcess": t,
+    "menu.rmOpens": t, "menu.rmCloses": t,
+    "helloDrawer.w320.panelInside": t, "helloDrawer.w320.sendInside": t,
+    "helloDrawer.w320.noHScroll": t,
+    "helloDrawer.w390.panelInside": t, "helloDrawer.w390.sendInside": t,
+    "helloDrawer.w390.noHScroll": t,
+    backToTopMobileHiddenTop: t,
+    "backToTopMobile.present": t, "backToTopMobile.visible": t,
+    "backToTopMobile.inViewport": t,
+  },
+};
+
+{
+  const failures = [];
+  const skips = [];
+  for (const pass of ["full", "reduced", "mobile"]) {
+    const res = RESULTS[pass];
+    if (!res) {
+      failures.push({ pass, key: "(pass)", actual: "did not run", expected: "ran" });
+      continue;
+    }
+    // flatten to dotted keys; collect booleans, note skipped subtrees
+    const bools = {};
+    const all = {};
+    const skippedPrefixes = [];
+    const walk = (v, key) => {
+      if (typeof v === "string" && /^skipped\b/i.test(v)) {
+        skips.push(`${pass}.${key}: ${v}`);
+        skippedPrefixes.push(key);
+      } else if (v && typeof v === "object") {
+        if (v.skipped === true) {
+          skips.push(`${pass}.${key}: ${v.reason ?? "skipped"}`);
+          skippedPrefixes.push(key);
+          return;
+        }
+        for (const [k, child] of Object.entries(v)) walk(child, key ? `${key}.${k}` : k);
+      } else {
+        all[key] = v;
+        if (typeof v === "boolean") bools[key] = v;
+      }
+    };
+    walk(res.out, "");
+    const exp = EXPECTED[pass];
+    const underSkip = (k) => skippedPrefixes.some((p) => k === p || k.startsWith(`${p}.`));
+    for (const [key, expected] of Object.entries(exp)) {
+      if (underSkip(key)) continue;
+      const actual = key in all ? all[key] : "(missing)";
+      if (actual !== expected) failures.push({ pass, key, actual, expected });
+    }
+    for (const [key, actual] of Object.entries(bools)) {
+      if (!(key in exp)) failures.push({ pass, key, actual, expected: "(no expectation)" });
+    }
+    if (res.errors.length) {
+      failures.push({ pass, key: "console errors", actual: res.errors.length, expected: 0 });
+    }
+  }
+
+  console.log("\n=== SUMMARY ===");
+  const checked = Object.values(EXPECTED).reduce((n, e) => n + Object.keys(e).length, 0);
+  console.log(`expectations: ${checked} · skips: ${skips.length} · failures: ${failures.length}`);
+  for (const s of skips) console.log(`SKIP ${s}`);
+  for (const x of failures) {
+    console.log(`FAIL pass=${x.pass} key=${x.key} actual=${JSON.stringify(x.actual)} expected=${JSON.stringify(x.expected)}`);
+  }
+  console.log(failures.length ? "VERIFY6: FAIL" : "VERIFY6: PASS");
+  if (failures.length) process.exitCode = 1;
 }

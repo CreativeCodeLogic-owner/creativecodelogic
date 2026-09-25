@@ -75,7 +75,7 @@ export function ConsentBanner() {
       <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-xl border border-ink/10 bg-navy/95 p-4 text-sm leading-relaxed text-mist shadow-[0_8px_30px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-prose">
           We&rsquo;d like to measure visits with Google Analytics. No marketing
-          cookies, and nothing loads until you agree.{" "}
+          cookies, and nothing is set or recorded until you agree.{" "}
           <a
             href="/privacy"
             className="rounded-sm text-accent underline underline-offset-2 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
