@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-25T09:19:46.276Z",
+    "lastScanned": "2026-09-25T09:22:27.355Z",
     "fileCount": 80,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "7110a1823b35af0d641a9200d6e612a97b117335ecda5bf7b8859e5cc6b586ec",
-    "storeUpdatedAt": "2026-09-25T09:19:46.301Z",
-    "rootHash": "1944220153241148"
+    "renderedHash": "48ce45412cb6862d81000a541766234f3eefcdc9ae31ac0210e1668bbd6164c6",
+    "storeUpdatedAt": "2026-09-25T09:22:27.373Z",
+    "rootHash": "2f09f2daebe074b1"
   },
   "files": {
     ".firebaserc": {
@@ -39,11 +39,11 @@
     },
     "CHANGELOG.md": {
       "description": "Changelog",
-      "tokens": 3832,
-      "hash": "ecde02499b697f3a",
-      "size": 15433,
-      "mtimeMs": 1790327986117.0193,
-      "updatedAt": "2026-09-25T09:19:46.276Z",
+      "tokens": 3878,
+      "hash": "a2abdf0bab7ee33a",
+      "size": 15617,
+      "mtimeMs": 1790328147203.2754,
+      "updatedAt": "2026-09-25T09:22:27.354Z",
       "source": "hook"
     },
     "CLAUDE.md": {
@@ -569,25 +569,25 @@
     },
     "scripts/verify6.mjs": {
       "description": "v6 verification: hero y-stability across 2 loops, comet ambient, matrix",
-      "tokens": 17932,
-      "hash": "92361a3a14af9c60",
-      "size": 67355,
-      "mtimeMs": 1790319471766.1091,
-      "updatedAt": "2026-09-25T07:59:09.616Z",
-      "source": "scan",
+      "tokens": 18351,
+      "hash": "827cbd9f2f6dc028",
+      "size": 68925,
+      "mtimeMs": 1790328134675.13,
+      "updatedAt": "2026-09-25T09:22:14.848Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "sleep",
           "kind": "fn",
           "startLine": 9,
-          "endLine": 9,
-          "tokens": 18
+          "endLine": 16,
+          "tokens": 118
         },
         {
           "name": "seedConsent",
           "kind": "fn",
           "startLine": 17,
-          "endLine": 27,
+          "endLine": 28,
           "tokens": 76
         },
         {
@@ -601,35 +601,40 @@
           "name": "watch",
           "kind": "fn",
           "startLine": 37,
-          "endLine": 53,
-          "tokens": 222
+          "endLine": 56,
+          "tokens": 280
+        },
+        {
+          "name": "deepLinks",
+          "kind": "fn",
+          "startLine": 57,
+          "endLine": 88,
+          "tokens": 291
         },
         {
           "name": "scrollToEl",
           "kind": "fn",
-          "startLine": 54,
-          "endLine": 63,
-          "tokens": 82
+          "startLine": 89,
+          "endLine": 1445,
+          "tokens": 18716
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nconst seedConsent = (page) =>\nasync function launch(viewport) {\nfunction watch(page) {\nasync function scrollToEl(page, sel, offset = -60) {"
+      ]
     },
     "src/App.tsx": {
       "description": "import { ProgressLine } from \"@/components/ProgressLine\"; // benched per team feedback 2026-08",
-      "tokens": 646,
-      "hash": "5f24a32c2f2ed845",
-      "size": 2260,
-      "mtimeMs": 1790327112012.3262,
-      "updatedAt": "2026-09-25T09:05:12.184Z",
+      "tokens": 500,
+      "hash": "83deefe77fbf3e54",
+      "size": 1751,
+      "mtimeMs": 1790328036459.1777,
+      "updatedAt": "2026-09-25T09:20:36.635Z",
       "source": "hook",
       "symbols": [
         {
           "name": "App",
           "kind": "fn",
-          "startLine": 25,
-          "endLine": 61,
-          "tokens": 294
+          "startLine": 16,
+          "endLine": 49,
+          "tokens": 262
         }
       ]
     },
@@ -1498,57 +1503,63 @@
     },
     "src/lib/scroll.ts": {
       "description": "Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and",
-      "tokens": 549,
-      "hash": "89d7a259b36e3d2f",
-      "size": 1920,
-      "mtimeMs": 1785573871957.7732,
-      "updatedAt": "2026-09-25T07:59:09.636Z",
-      "source": "scan",
+      "tokens": 898,
+      "hash": "e7a8a4004a5d8bea",
+      "size": 3140,
+      "mtimeMs": 1790328035448.7202,
+      "updatedAt": "2026-09-25T09:20:35.633Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "prefersReducedMotion",
           "kind": "fn",
           "startLine": 7,
-          "endLine": 9,
-          "tokens": 36
+          "endLine": 16,
+          "tokens": 90
         },
         {
           "name": "initSmoothScroll",
           "kind": "fn",
           "startLine": 17,
-          "endLine": 37,
-          "tokens": 152
+          "endLine": 40,
+          "tokens": 197
         },
         {
           "name": "scrollToId",
           "kind": "fn",
-          "startLine": 40,
-          "endLine": 48,
-          "tokens": 76
+          "startLine": 41,
+          "endLine": 63,
+          "tokens": 259
+        },
+        {
+          "name": "scrollToInitialHash",
+          "kind": "fn",
+          "startLine": 64,
+          "endLine": 78,
+          "tokens": 168
         },
         {
           "name": "scrollToTop",
           "kind": "fn",
-          "startLine": 51,
-          "endLine": 57,
-          "tokens": 42
+          "startLine": 79,
+          "endLine": 87,
+          "tokens": 62
         },
         {
           "name": "stopScroll",
           "kind": "fn",
-          "startLine": 60,
-          "endLine": 63,
-          "tokens": 32
+          "startLine": 88,
+          "endLine": 93,
+          "tokens": 41
         },
         {
           "name": "startScroll",
           "kind": "fn",
-          "startLine": 66,
-          "endLine": 69,
-          "tokens": 30
+          "startLine": 94,
+          "endLine": 100,
+          "tokens": 40
         }
-      ],
-      "symbolSource": "ts"
+      ]
     },
     "src/lib/seal.ts": {
       "description": "The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an",

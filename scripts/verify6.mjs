@@ -51,6 +51,41 @@ function watch(page) {
   });
   return errors;
 }
+// Deep links on first load: /#contact and /#process must land with the section
+// top at the nav line (64px) ±80; an unknown hash and #work (while the Work
+// chapter is hidden) must not scroll at all.
+async function deepLinks(browser, reduced, errors) {
+  const res = {};
+  const cases = [
+    ["contact", "#contact", true],
+    ["process", "#process", true],
+    ["unknownIgnored", "#nope", false],
+    ["workIgnored", "#work", false],
+  ];
+  for (const [key, hash, shouldLand] of cases) {
+    const p = await browser.newPage();
+    await seedConsent(p);
+    if (reduced) await p.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
+    errors.push(...watch(p));
+    await p.goto(`http://localhost:5173/${hash}`, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await sleep(3500);
+    res[key] = await p.evaluate(
+      (h, land) => {
+        const el = document.querySelector(h);
+        if (!land) {
+          if (h === "#work" && el) return "skipped (Work chapter shown)";
+          return window.scrollY < 5;
+        }
+        return !!el && Math.abs(el.getBoundingClientRect().top - 64) <= 80;
+      },
+      hash,
+      shouldLand,
+    );
+    await p.close();
+  }
+  return res;
+}
+
 async function scrollToEl(page, sel, offset = -60) {
   await page.evaluate(
     (s, o) => {
@@ -973,6 +1008,8 @@ async function scrollToEl(page, sel, offset = -60) {
     await cctx.close();
   }
 
+  out.deepLinks = await deepLinks(browser, false, errors);
+
   console.log("\n=== FULL ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -1091,6 +1128,7 @@ async function scrollToEl(page, sel, offset = -60) {
     () => document.querySelector("header")?.classList.contains("nav-scrolled") === true,
   );
   await page.screenshot({ path: `${OUT}/rm-terminal.png` });
+  out.deepLinks = await deepLinks(browser, true, errors);
   console.log("\n=== REDUCED ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -1320,6 +1358,8 @@ const EXPECTED = {
     "consent.withdrawReshows": t, "consent.withdrawClearsCookies": t,
     "consent.declineNoNewPageView": t, "consent.declineNoCookies": t,
     "consent.declineHidesBanner": t,
+    "deepLinks.contact": t, "deepLinks.process": t,
+    "deepLinks.unknownIgnored": t, "deepLinks.workIgnored": t,
   },
   reduced: {
     rotatingLine: f, // reduced motion renders the final headline, no rotation
@@ -1327,6 +1367,8 @@ const EXPECTED = {
     pinSpacer: f, // no ScrollTrigger pinning under reduced motion
     rmBriefOpens: t, rmBriefCloses: t, rmBriefReopensWithState: t,
     navScrolledAtBottom: t,
+    "deepLinks.contact": t, "deepLinks.process": t,
+    "deepLinks.unknownIgnored": t, "deepLinks.workIgnored": t,
   },
   mobile: {
     paletteInViewportMobile: t, paletteNoBodyOverlap: t,

@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T09:19:46.276Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T09:22:27.355Z
 > Files: 80 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -8,7 +8,7 @@
 - `.firebaserc` (~16 tok)
 - `.gitattributes` — Git attributes (~4 tok)
 - `.gitignore` — Git ignore rules (~107 tok)
-- `CHANGELOG.md` — Changelog (~3832 tok)
+- `CHANGELOG.md` — Changelog (~3878 tok)
 - `CLAUDE.md` — OpenWolf (~603 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1543 tok)
@@ -62,11 +62,11 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~17932 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~18351 tok)
 
 ## src/
 
-- `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~646 tok)
+- `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~500 tok)
 - `index.css` — Styles: 25 rules, 8 vars (~1614 tok)
 - `main.tsx` (~68 tok)
 
@@ -124,6 +124,6 @@
 - `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~682 tok)
 - `consent.ts` — Consent-first analytics under Consent Mode v2. The gtag.js library loads with (~1110 tok)
 - `flags.ts` — Feature flags from the environment (see .env / .env.example). (~433 tok)
-- `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~549 tok)
+- `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~898 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~344 tok)
 - `submit.ts` — Shared submission path. Honeypot short-circuits; an empty form id falls back (~358 tok)

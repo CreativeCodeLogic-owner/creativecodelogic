@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { initSmoothScroll, ScrollTrigger } from "@/lib/scroll";
+import { initSmoothScroll, ScrollTrigger, scrollToInitialHash } from "@/lib/scroll";
 import { SHOW_WORK, SHOW_AMBIENT } from "@/lib/flags";
 import { Nav } from "@/components/Nav";
 import { BackToTop } from "@/components/BackToTop";
@@ -16,9 +16,16 @@ import { Footer } from "@/components/Footer";
 export function App() {
   useEffect(() => {
     const cleanup = initSmoothScroll();
-    // the Work chapter is conditionally rendered — measure after it settles
-    requestAnimationFrame(() => ScrollTrigger.refresh());
-    return cleanup;
+    // the Work chapter is conditionally rendered — measure after it settles,
+    // then honour a deep link (#work only when the Work chapter is shown)
+    const raf = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      scrollToInitialHash(SHOW_WORK ? ["#work", "#process", "#contact"] : ["#process", "#contact"]);
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      cleanup();
+    };
   }, []);
 
   return (

@@ -36,15 +36,43 @@ export function initSmoothScroll(): () => void {
   };
 }
 
-/** Smooth-scroll to a section. Falls back to native scroll without Lenis. */
-export function scrollToId(hash: string): void {
+/** Smooth-scroll to a section. Falls back to native scroll without Lenis.
+ *  `immediate` jumps with no animation, clearing the 64px nav (initial load). */
+export function scrollToId(hash: string, { immediate = false } = {}): void {
   const el = document.querySelector(hash);
   if (!(el instanceof HTMLElement)) return;
+  if (immediate) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 64;
+    if (lenis) lenis.scrollTo(top, { immediate: true, force: true });
+    else window.scrollTo({ top, behavior: "instant" });
+    return;
+  }
   if (lenis) {
     lenis.scrollTo(el, { offset: -64, duration: 1.4 });
   } else {
     el.scrollIntoView({ block: "start" });
   }
+}
+
+/**
+ * Honour a deep link on first load. The app renders client-side, after the
+ * browser's own fragment scroll has already given up, so jump once the first
+ * ScrollTrigger.refresh() has laid out pins, and again after webfonts settle
+ * (they shift layout) unless the visitor has scrolled in between. Only the
+ * given section hashes are honoured; anything else is ignored.
+ */
+export function scrollToInitialHash(allowed: readonly string[]): void {
+  const hash = window.location.hash;
+  if (!hash || !allowed.includes(hash) || !document.querySelector(hash)) return;
+  scrollToId(hash, { immediate: true });
+  const landed = window.scrollY;
+  document.fonts?.ready.then(() =>
+    requestAnimationFrame(() => {
+      if (Math.abs(window.scrollY - landed) > 2) return; // visitor moved on
+      ScrollTrigger.refresh();
+      scrollToId(hash, { immediate: true });
+    }),
+  );
 }
 
 /** Smooth-scroll to the top of the page. Instant without Lenis (reduced motion). */
