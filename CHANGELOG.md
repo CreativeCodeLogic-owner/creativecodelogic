@@ -6,6 +6,9 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- Email signature assets under `public/email/` (served at `/email/`): per-mailbox avatars and noindex signature pages, not linked from the site and disallowed in robots.txt.
+
 ## [4.2.1] - 2026-08-24
 
 ### Changed
