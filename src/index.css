@@ -1,4 +1,8 @@
-@import "tailwindcss";
+/* Scan only real sources for utility classes: docs, .wolf/ and other markdown
+   must not add (or drop) classes in the shipped CSS. */
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../index.html";
 
 /* Self-hosted Aptos (woff2 with woff fallback) — the site's primary typeface
    for both body and display. Uploaded weights: Light 300, Regular 400, Bold

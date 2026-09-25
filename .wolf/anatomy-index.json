@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-25T08:03:46.553Z",
-    "fileCount": 79,
+    "lastScanned": "2026-09-25T09:19:46.276Z",
+    "fileCount": 80,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "32f24ca3c86b9d3a9c55c9bcd8cd4fb0c1d1679ff83cdf1d3b2a7c4790c17f9e",
-    "storeUpdatedAt": "2026-09-25T08:03:46.570Z",
-    "rootHash": "2cdad7bb70dad9ad"
+    "renderedHash": "7110a1823b35af0d641a9200d6e612a97b117335ecda5bf7b8859e5cc6b586ec",
+    "storeUpdatedAt": "2026-09-25T09:19:46.301Z",
+    "rootHash": "1944220153241148"
   },
   "files": {
     ".firebaserc": {
@@ -39,11 +39,11 @@
     },
     "CHANGELOG.md": {
       "description": "Changelog",
-      "tokens": 3711,
-      "hash": "e0e832c454e38f56",
-      "size": 14949,
-      "mtimeMs": 1790323426395.09,
-      "updatedAt": "2026-09-25T08:03:46.552Z",
+      "tokens": 3832,
+      "hash": "ecde02499b697f3a",
+      "size": 15433,
+      "mtimeMs": 1790327986117.0193,
+      "updatedAt": "2026-09-25T09:19:46.276Z",
       "source": "hook"
     },
     "CLAUDE.md": {
@@ -120,12 +120,12 @@
     },
     "index.html": {
       "description": "Creative Code Logic · Built with creativity, code, and logic",
-      "tokens": 1272,
-      "hash": "5624cc2f58b622aa",
-      "size": 4776,
-      "mtimeMs": 1785858142698.0479,
-      "updatedAt": "2026-09-25T07:59:09.599Z",
-      "source": "scan"
+      "tokens": 1543,
+      "hash": "6c21bdd978f288c5",
+      "size": 5790,
+      "mtimeMs": 1790326371754.461,
+      "updatedAt": "2026-09-25T08:52:51.936Z",
+      "source": "hook"
     },
     "package.json": {
       "description": "Node.js package manifest",
@@ -192,12 +192,12 @@
     },
     "public/privacy.html": {
       "description": "Privacy Policy · Creative Code Logic",
-      "tokens": 1743,
-      "hash": "944cfa1b05227280",
-      "size": 6536,
-      "mtimeMs": 1785855964176.9773,
-      "updatedAt": "2026-09-25T07:59:09.604Z",
-      "source": "scan"
+      "tokens": 1754,
+      "hash": "a8541c9b7e84ce35",
+      "size": 6575,
+      "mtimeMs": 1790327965962.1646,
+      "updatedAt": "2026-09-25T09:19:26.133Z",
+      "source": "hook"
     },
     "public/robots.txt": {
       "description": "",
@@ -617,12 +617,21 @@
     },
     "src/App.tsx": {
       "description": "import { ProgressLine } from \"@/components/ProgressLine\"; // benched per team feedback 2026-08",
-      "tokens": 420,
-      "hash": "1ad147954be0c2a9",
-      "size": 1470,
-      "mtimeMs": 1787590682663.021,
-      "updatedAt": "2026-09-25T07:59:09.616Z",
-      "source": "scan"
+      "tokens": 646,
+      "hash": "5f24a32c2f2ed845",
+      "size": 2260,
+      "mtimeMs": 1790327112012.3262,
+      "updatedAt": "2026-09-25T09:05:12.184Z",
+      "source": "hook",
+      "symbols": [
+        {
+          "name": "App",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 61,
+          "tokens": 294
+        }
+      ]
     },
     "src/assets/triquetra-variants/01_triquetra_build.webp": {
       "description": "",
@@ -1093,22 +1102,21 @@
     },
     "src/components/SignatureMeaning.tsx": {
       "description": "Chapter 2 — What goes into the build.",
-      "tokens": 892,
-      "hash": "d2b35dadc093e650",
-      "size": 3125,
-      "mtimeMs": 1785573497595.3335,
-      "updatedAt": "2026-09-25T07:59:09.630Z",
-      "source": "scan",
+      "tokens": 1207,
+      "hash": "3b62502348291a5f",
+      "size": 4228,
+      "mtimeMs": 1790327175556.2954,
+      "updatedAt": "2026-09-25T09:06:15.755Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "SignatureMeaning",
           "kind": "fn",
-          "startLine": 15,
-          "endLine": 91,
-          "tokens": 693
+          "startLine": 23,
+          "endLine": 118,
+          "tokens": 915
         }
-      ],
-      "symbolSource": "ts"
+      ]
     },
     "src/components/Triquetra.tsx": {
       "description": "Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left",
@@ -1349,13 +1357,13 @@
       "source": "scan"
     },
     "src/index.css": {
-      "description": "Styles: 23 rules, 8 vars",
-      "tokens": 1560,
-      "hash": "b34dbc0d83b4c6b0",
-      "size": 5469,
-      "mtimeMs": 1785407906462.2334,
-      "updatedAt": "2026-09-25T07:59:09.635Z",
-      "source": "scan"
+      "description": "Styles: 25 rules, 8 vars",
+      "tokens": 1614,
+      "hash": "d0ea50f28be1af36",
+      "size": 5661,
+      "mtimeMs": 1790326154620.4832,
+      "updatedAt": "2026-09-25T08:49:14.810Z",
+      "source": "hook"
     },
     "src/lib/captcha.ts": {
       "description": "Lazy-load the reCAPTCHA script exactly once (explicit render mode).",
@@ -1586,6 +1594,15 @@
       "mtimeMs": 1790318636196.5432,
       "updatedAt": "2026-09-25T07:59:09.637Z",
       "source": "scan"
+    },
+    "src/components/ChunkMounted.tsx": {
+      "description": "Rendered as the last child inside a lazy chapter's Suspense boundary: it",
+      "tokens": 180,
+      "hash": "d784a2e66041b3be",
+      "size": 629,
+      "mtimeMs": 1790327067147.0876,
+      "updatedAt": "2026-09-25T09:04:27.319Z",
+      "source": "hook"
     }
   }
 }

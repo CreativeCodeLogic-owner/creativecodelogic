@@ -43,10 +43,22 @@
         // be a cookieless ping while denied). The app fires gtag('event','page_view')
         // once per load — on mount for a returning accepter, on Accept otherwise.
         gtag("config", GA_ID, { send_page_view: false });
-        var s = document.createElement("script");
-        s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
-        document.head.appendChild(s);
+        // Everything above is queued in dataLayer now, so consent defaults and
+        // any early grant/page_view are processed first whenever the library
+        // arrives. The library itself is deferred until after the load event
+        // (on idle, 3s cap) so it never competes with the app bundle or fonts.
+        var loadGtag = function () {
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+          document.head.appendChild(s);
+        };
+        var whenIdle = function () {
+          if ("requestIdleCallback" in window) requestIdleCallback(loadGtag, { timeout: 3000 });
+          else setTimeout(loadGtag, 1);
+        };
+        if (document.readyState === "complete") whenIdle();
+        else window.addEventListener("load", whenIdle, { once: true });
       })();
     </script>
 
@@ -59,12 +71,21 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- self-hosted fonts: preload the hero's first-paint face (Aptos Bold:
-         the h1 is font-display + font-semibold (600), which resolves to the
-         Bold face; it's the LCP text) -->
+    <!-- self-hosted fonts: preload exactly the faces the first viewport uses.
+         Aptos Bold: the h1 is font-display + font-semibold (600), which
+         resolves to the Bold face. Aptos Regular: nav links, hero subline,
+         CTAs and the consent banner text (400/500; the mobile LCP element on a
+         first visit). JetBrains Mono is below the fold only: not preloaded. -->
     <link
       rel="preload"
       href="/fonts/woff2/Aptos-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/woff2/Aptos.woff2"
       as="font"
       type="font/woff2"
       crossorigin

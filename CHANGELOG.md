@@ -6,6 +6,12 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- Tailwind scans only `src/` and `index.html` for utility classes, so docs and `.wolf/` notes no longer change the shipped CSS.
+- The Aptos faces the first viewport uses (Regular and Bold) are preloaded.
+- Google's tag library loads after the page has loaded instead of with it; consent behaviour is unchanged (defaults and queued events still run first).
+- Privacy policy wording updated to match: the tag library loads shortly after the page does, whatever you choose.
+
 ### Fixed
 - Terminal metric label reads Lighthouse again; the build log line keeps the desktop qualifier.
 

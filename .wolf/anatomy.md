@@ -1,17 +1,17 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T08:03:46.553Z
-> Files: 79 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T09:19:46.276Z
+> Files: 80 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.firebaserc` (~16 tok)
 - `.gitattributes` — Git attributes (~4 tok)
 - `.gitignore` — Git ignore rules (~107 tok)
-- `CHANGELOG.md` — Changelog (~3711 tok)
+- `CHANGELOG.md` — Changelog (~3832 tok)
 - `CLAUDE.md` — OpenWolf (~603 tok)
 - `firebase.json` (~225 tok)
-- `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)
+- `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1543 tok)
 - `package.json` — Node.js package manifest (~181 tok)
 - `README.md` — Project documentation (~2089 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
@@ -38,7 +38,7 @@
 ## public/
 
 - `404.html` — Page not found · Creative Code Logic (~1043 tok)
-- `privacy.html` — Privacy Policy · Creative Code Logic (~1743 tok)
+- `privacy.html` — Privacy Policy · Creative Code Logic (~1754 tok)
 - `robots.txt` (~24 tok)
 - `site.webmanifest` (~108 tok)
 - `sitemap.xml` (~89 tok)
@@ -66,8 +66,8 @@
 
 ## src/
 
-- `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~420 tok)
-- `index.css` — Styles: 23 rules, 8 vars (~1560 tok)
+- `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~646 tok)
+- `index.css` — Styles: 25 rules, 8 vars (~1614 tok)
 - `main.tsx` (~68 tok)
 
 ## src/assets/triquetra-variants/
@@ -86,6 +86,7 @@
 - `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
 - `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~820 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
+- `ChunkMounted.tsx` — Rendered as the last child inside a lazy chapter's Suspense boundary: it (~180 tok)
 - `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1186 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2030 tok)
 - `Footer.tsx` — Footer (~458 tok)
@@ -97,7 +98,7 @@
 - `NavFrieze.tsx` — Deal distinct variants onto a composition's positions (no repeats within a (~1038 tok)
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)
-- `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~892 tok)
+- `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~1207 tok)
 - `Triquetra.tsx` — Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left (~502 tok)
 
 ## src/components/worlds/
