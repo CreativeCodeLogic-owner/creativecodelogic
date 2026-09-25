@@ -5,26 +5,35 @@ A map of how the site fits together. For the coding conventions themselves, see
 
 ## Chapters and components
 
-The site is one page, composed in `src/App.tsx` as five chapters in order. Each
-resolves back into the triquetra mark.
+The site is one page, composed in `src/App.tsx`: four chapters by default, plus
+a Work chapter behind `VITE_SHOW_WORK`. Each resolves back into the triquetra
+mark.
 
 | Chapter | Component | Section id | What it is |
 | --- | --- | --- | --- |
-| 1 — The Mark | `HeroSignature` | `#signature` | The triquetra draws itself loop by loop, then the headline rotates through the three ingredients. |
-| 2 — What goes into the build | `SignatureMeaning` | — | Hosts the three worlds (below). |
-| 3 — Built and live (Work) | `SignatureLives` | `#work` | Case cards. Rendered only when `SHOW_WORK` is set. |
-| 4 — How we build (Process) | `EarnSignature` | `#process` | The build standard, step dots filling, the seal stamp. |
-| 5 — The Invitation | `Invitation` | `#contact` | The closer: opens the brief flow and the hello drawer. |
+| The Mark (hero) | `HeroSignature` | `#signature` | The triquetra draws itself loop by loop, then the headline rotates through the three ingredients. |
+| What goes into the build | `SignatureMeaning` | none | Hosts the three worlds (below). |
+| Built and live (Work) | `SignatureLives` | `#work` | Case cards (still placeholders). Rendered only when `SHOW_WORK` is set. |
+| How we build (Process) | `EarnSignature` | `#process` | The build standard, step dots filling, the seal stamp. |
+| The Invitation | `Invitation` | `#contact` | The closer: opens the brief flow and the hello drawer. |
 
-Chrome: `Nav`, `Footer`, `ProgressLine`, `BackToTop`, and `Triquetra` (the mark
-as inline SVG, reused in the hero and worlds). The nav carries **no wordmark
-logo** — instead `NavFrieze` scatters faint triquetra variants across the bar
-(see below). `ProgressLine` is the scroll-drawn edge rule, raised **above** the
-nav (`z-55`, below the `z-60` modals) so it reads over the header; it tapers
-from a bold 6px top to 1px. `BackToTop` is a floating scroll-to-top pill that
-fades in past the first viewport and hides while the inline brief is open.
-`AmbientField` (a faint per-chapter background field) is parked behind the
-`VITE_AMBIENT` flag — off by default (the page ships a solid navy background).
+Chrome: `Nav`, `Footer`, `BackToTop`, `ConsentBanner`, and `Triquetra` (the
+mark as inline SVG, reused in the hero and worlds). The nav's `#signature` link
+is the **CCL wordmark** (`font-display`, semibold, tracked, ink, hover accent;
+aria-label "CCL, Creative Code Logic, back to top"), in both the desktop nav
+and the mobile menu. `BackToTop` is a floating scroll-to-top pill that fades in
+past the first viewport and hides while the inline brief is open. The footer
+carries Terms, Privacy and, when a GA id is set, "Privacy choices" (see
+Consent and analytics).
+
+**Benched** (kept in the tree, not shipped):
+
+- `ProgressLine`, the scroll-drawn left-edge rule (z-55, tapering 6px to 1px).
+  Unmounted in `App.tsx`; revive by uncommenting its import and mounting it.
+- `NavFrieze`, the header frieze (below). Unmounted in `Nav.tsx`; revive by
+  uncommenting its import and mounting it inside the `<header>`.
+- `AmbientField`, a faint per-chapter background field. Behind the
+  `VITE_AMBIENT` flag, off by default (the page ships a solid navy background).
 
 ### The three worlds
 
@@ -68,17 +77,21 @@ Derived renderings of the same mark live alongside it: `triquetraAscii.ts`
 (the ASCII matrix), `triquetraBuild.ts` (the real construction circles), and
 `favicon.svg` / the favicon set.
 
-## Header frieze
+## Header frieze (benched)
 
-`NavFrieze` replaces a single logo with a faint scatter of styled triquetra
-variants. `data/friezeCompositions.ts` is the **designer-tunable** surface: 5
+Benched since 4.2.1: `NavFrieze` is not mounted, so none of this ships. It is
+kept for revival. `NavFrieze` scatters faint styled triquetra variants behind
+the nav bar. `data/friezeCompositions.ts` is the **designer-tunable** surface: 5
 desktop + 3 mobile curated compositions, each one anchor + 3–4 satellites with
 discrete positions/sizes/rotations and faint opacities (`0.03`/`0.05`/`0.08`).
-Per load one composition is chosen at random and the 8 variant SVGs
-(`assets/triquetra-variants/`, bundled via `import.meta.glob`) are shuffled and
-dealt onto its positions — no repeats within a composition, and the plain fill
-never lands on the anchor. Purely decorative: `aria-hidden`, `pointer-events:
-none`, below the nav content, clipped by the header's `overflow-hidden`.
+Per load one composition is chosen at random and the 8 variants are shuffled
+and dealt onto its positions: no repeats within a composition, and the plain
+fill never lands on the anchor. The variants load as **WebP** (220px, quality
+85), pre-rasterized from the `.svg` sources in `assets/triquetra-variants/` by
+`scripts/rasterize-frieze.mjs` and bundled via `import.meta.glob("*.webp")`,
+decoded `async` at `fetchpriority="low"`. Purely decorative: `aria-hidden`,
+`pointer-events: none`, below the nav content, clipped by the header's
+`overflow-hidden`.
 
 ## Animation system
 
@@ -112,20 +125,60 @@ Both forms share one submission path and post to Formspark.
 BriefForm   ─┐
              ├─►  lib/submit.ts  ──►  POST https://submit-form.com/<form id>
 HelloDrawer ─┘         │
-                       └─ honeypot short-circuit · empty id → mailto (brief only)
-                          · attaches g-recaptcha-response when a token is present
+                       └─ honeypot short-circuit · empty id → mailto (brief)
+                          or "error" (contact) · attaches g-recaptcha-response
+                          when a token is present
 ```
 
-- **`lib/submit.ts`** takes `(formId, payload, mailtoHref | null, token)`. The
-  honeypot (`_gotcha`) silently succeeds; an empty form id falls back to a
-  `mailto:` when one is provided (brief) or a quiet no-op success (contact — no
-  email in that UI); otherwise it POSTs JSON.
+- **`lib/submit.ts`** takes `(formId, payload, mailtoHref | null, token)` and
+  returns `"success"` or `"error"`:
+  - the honeypot (`_gotcha`) silently returns `"success"` (bots are swallowed);
+  - an empty form id with a `mailto:` (the brief) opens the mail client and
+    returns `"success"`;
+  - an empty form id without one (the contact drawer, which shows no email)
+    returns `"error"`, so the drawer shows "Something broke on the way. Give it
+    another try." with a Try again button, and never drops a message silently;
+  - otherwise it POSTs JSON; a network failure or non-2xx response returns
+    `"error"` (the brief's error state offers a `mailto:` link, the drawer its
+    retry).
+
+  Production builds cannot reach the empty-id paths: `vite.config.ts` refuses
+  to build without both form ids (see Deployment).
 - **`lib/captcha.ts`** lazy-loads reCAPTCHA `api.js` (explicit render) exactly
   once, on first open of a form that needs it, and renders a **visible v2
   checkbox** (contact drawer only — the brief has no captcha). The widget's
   callback pushes the token into React state, which gates the Send button.
 - **`lib/flags.ts`** reads the env flags: `SHOW_WORK`, `SHOW_AMBIENT`,
-  `FORMSPARK_FORM_ID_BRIEF`, `FORMSPARK_FORM_ID_CONTACT`, `CAPTCHA_SITEKEY`.
-  Empty/false values degrade gracefully.
+  `FORMSPARK_FORM_ID_BRIEF`, `FORMSPARK_FORM_ID_CONTACT`, `CAPTCHA_SITEKEY`,
+  `GA_MEASUREMENT_ID`. In dev, empty/false values degrade as described above.
 - **State.** `BriefForm`'s answers are lifted into `Invitation` so they survive
   a close/reopen; only a successful submission resets them.
+
+## Consent and analytics
+
+GA4 runs under **Consent Mode v2**. The tag library loads with the page, but
+nothing is set or recorded until the visitor accepts.
+
+1. **`index.html`** holds an inline snippet that runs only when
+   `%VITE_GA_MEASUREMENT_ID%` starts with `G-`. It sets `analytics_storage`,
+   `ad_storage`, `ad_user_data` and `ad_personalization` to **denied** by
+   default, grants `analytics_storage` early for a stored, unexpired accept
+   (so gtag.js starts in the right state), runs `config` with
+   `send_page_view: false`, and loads `gtag.js`. It never sends a page_view.
+2. **`ConsentBanner`** (non-modal, `role="region"`, hidden while the inline
+   brief is open) shows only with a GA id and no stored choice. On mount, a
+   stored accept re-grants and records the page view; a stored decline
+   re-denies. Accept stores the choice, grants and records the page view;
+   Decline stores the choice and denies.
+3. **`lib/consent.ts`** stores the choice in `localStorage` (`ccl-consent`,
+   versioned, re-asked after 12 months) and holds the gtag helpers.
+   `recordPageView()` has a module-scope once-guard, so a page load sends at
+   most one page_view (StrictMode's double effects included).
+4. **Withdrawal.** The footer's "Privacy choices" button (rendered only with a
+   GA id) calls `clearConsent()`: it removes the stored choice, denies
+   `analytics_storage`, deletes `_ga*` cookies on the host and parent domain,
+   and dispatches `ccl:consent-reset` so the banner re-appears.
+
+verify6's consent checks assert 0 `/g/collect` hits and 0 `_ga*` cookies
+before a choice, one page_view after Accept, one more after a reload, and none
+after Decline or withdrawal.

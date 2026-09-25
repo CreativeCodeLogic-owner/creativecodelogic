@@ -570,3 +570,53 @@
 | 20:27 | Edited CHANGELOG.md | expanded (+7 lines) | ~249 |
 | 20:27 | Edited package.json | inline fix | ~6 |
 | 21:00 | Shipped chrome-simplification batch as 4.2.1 (commit, changelog, annotated tag, push, deploy) | CHANGELOG.md, package.json | live 200, frieze WebPs gone from live HTML+JS (confirmed); post-deploy Lighthouse UNRELIABLE (persistent ~2.8s TLS handshake on network path, TTFB ~3.5s) -> did NOT sync numbers, left 4.2.0 reliable readings, re-measure owed | ~9k |
+| 20:44 | Session end: 17 writes across 8 files (App.tsx, Nav.tsx, verify6.mjs, _shot-naked.mjs, MobileMenu.tsx) | 12 reads | ~22076 tok |
+
+## Session: 2026-09-25 09:05
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 09:18 | Edited CHANGELOG.md | inline fix | ~47 |
+| 09:18 | Edited public/robots.txt | 2→3 lines | ~8 |
+| 09:42 | Edited src/components/worlds/WorldCreative.tsx | CSS: rect, y, offsetHeight | ~163 |
+| 09:43 | Edited src/components/ConsentBanner.tsx | 2→2 lines | ~44 |
+| 09:43 | Edited src/lib/consent.ts | 5→7 lines | ~109 |
+| 09:43 | Edited src/lib/flags.ts | 4→4 lines | ~45 |
+| 09:43 | Edited src/lib/flags.ts | 3→4 lines | ~70 |
+| 09:43 | Edited src/components/Triquetra.tsx | inline fix | ~23 |
+| 09:43 | Edited src/lib/submit.ts | 6→7 lines | ~107 |
+| 09:43 | Edited src/lib/submit.ts | modified if() | ~52 |
+| 09:43 | Edited src/lib/flags.ts | POSTing() → drawer() | ~74 |
+| 09:43 | Created vite.config.ts | — | ~343 |
+| 09:45 | Edited scripts/verify6.mjs | 2→4 lines | ~59 |
+| 09:45 | Edited scripts/verify6.mjs | 2→2 lines | ~38 |
+| 09:45 | Edited scripts/verify6.mjs | 3→4 lines | ~52 |
+| 09:45 | Edited scripts/verify6.mjs | 3→4 lines | ~54 |
+| 09:45 | Edited scripts/verify6.mjs | added nullish coalescing | ~1875 |
+| 09:45 | Edited src/components/worlds/WorldCode.tsx | CSS: VERIFY6, numbers | ~222 |
+| 09:45 | Edited src/components/worlds/WorldCode.tsx | "61 modules transformed" → "50 modules transformed" | ~14 |
+| 09:46 | Edited CHANGELOG.md | expanded (+10 lines) | ~290 |
+| 09:52 | Edited scripts/verify6.mjs | 5→7 lines | ~128 |
+| 10:36 | Edited src/components/worlds/WorldCode.tsx | measurement() → Insights() | ~222 |
+| 10:36 | Edited src/components/worlds/WorldCode.tsx | 5→5 lines | ~39 |
+| 10:36 | Edited README.md | 12→11 lines | ~236 |
+| 10:36 | Edited package.json | inline fix | ~6 |
+| 10:36 | Edited CHANGELOG.md | 4→6 lines | ~21 |
+| 10:36 | Edited CHANGELOG.md | 2→3 lines | ~47 |
+
+## Session: 2026-09-25 10:57
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:58 | Edited .gitignore | 3→6 lines | ~18 |
+| 10:59 | Edited CLAUDE.md | 1→3 lines | ~46 |
+| 10:59 | Edited CLAUDE.md | 1→2 lines | ~95 |
+| 11:00 | Edited README.md | expanded (+6 lines) | ~344 |
+| 11:00 | Edited README.md | 3→6 lines | ~117 |
+| 11:00 | Edited README.md | expanded (+17 lines) | ~943 |
+| 11:00 | Edited README.md | 4→4 lines | ~83 |
+| 11:00 | Edited docs/architecture.md | expanded (+9 lines) | ~504 |
+| 11:01 | Edited docs/architecture.md | 11→15 lines | ~261 |
+| 11:01 | Edited docs/architecture.md | expanded (+11 lines) | ~277 |
+| 11:01 | Edited docs/architecture.md | expanded (+29 lines) | ~547 |
+| 11:01 | Created docs/deployment.md | — | ~1807 |

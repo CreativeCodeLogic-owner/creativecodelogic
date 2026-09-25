@@ -1,0 +1,1600 @@
+{
+  "version": 1,
+  "meta": {
+    "lastScanned": "2026-09-25T08:01:58.906Z",
+    "fileCount": 79,
+    "hits": 0,
+    "misses": 0,
+    "renderedHash": "dd7ec56bad814d37236704ab19014d10cac60ec32dededf42244faae81dea283",
+    "storeUpdatedAt": "2026-09-25T08:01:58.921Z",
+    "rootHash": "5ec0d21cdef9f451"
+  },
+  "files": {
+    ".firebaserc": {
+      "description": "",
+      "tokens": 16,
+      "hash": "e7cfd47b5e7127fd",
+      "size": 59,
+      "mtimeMs": 1785041928979.6448,
+      "updatedAt": "2026-09-25T07:59:09.593Z",
+      "source": "scan"
+    },
+    ".gitattributes": {
+      "description": "Git attributes",
+      "tokens": 4,
+      "hash": "e753774a5c6c845d",
+      "size": 12,
+      "mtimeMs": 1784632127098.3057,
+      "updatedAt": "2026-09-25T07:59:09.593Z",
+      "source": "scan"
+    },
+    ".gitignore": {
+      "description": "Git ignore rules",
+      "tokens": 107,
+      "hash": "c87941834c0d6998",
+      "size": 399,
+      "mtimeMs": 1790323131567.255,
+      "updatedAt": "2026-09-25T07:59:09.594Z",
+      "source": "scan"
+    },
+    "CHANGELOG.md": {
+      "description": "Changelog",
+      "tokens": 3684,
+      "hash": "329561188f2f49de",
+      "size": 14842,
+      "mtimeMs": 1790321793778.699,
+      "updatedAt": "2026-09-25T07:59:09.594Z",
+      "source": "scan"
+    },
+    "CLAUDE.md": {
+      "description": "OpenWolf",
+      "tokens": 603,
+      "hash": "42953a6cc027b688",
+      "size": 2423,
+      "mtimeMs": 1790323192970.3154,
+      "updatedAt": "2026-09-25T07:59:53.174Z",
+      "source": "hook"
+    },
+    "copy/homepage-narrative-v1.md": {
+      "description": "CCL Website — Homepage Narrative v1",
+      "tokens": 1612,
+      "hash": "87e031df3ebaf19d",
+      "size": 6536,
+      "mtimeMs": 1784280467116.02,
+      "updatedAt": "2026-09-25T07:59:09.595Z",
+      "source": "scan"
+    },
+    "copy/homepage-narrative-v2.md": {
+      "description": "CCL Website — Homepage Narrative v2",
+      "tokens": 1294,
+      "hash": "80ef1e4ab66d7f9e",
+      "size": 5260,
+      "mtimeMs": 1784356959194.2864,
+      "updatedAt": "2026-09-25T07:59:09.596Z",
+      "source": "scan"
+    },
+    "docs/architecture.md": {
+      "description": "Architecture",
+      "tokens": 2654,
+      "hash": "0c3530c95c2eec27",
+      "size": 10671,
+      "mtimeMs": 1790323285074.662,
+      "updatedAt": "2026-09-25T08:01:25.951Z",
+      "source": "hook"
+    },
+    "docs/deployment.md": {
+      "description": "Deployment",
+      "tokens": 1694,
+      "hash": "5eacd0914a3f6865",
+      "size": 6781,
+      "mtimeMs": 1790323318725.7324,
+      "updatedAt": "2026-09-25T08:01:58.905Z",
+      "source": "hook"
+    },
+    "docs/superpowers/plans/2026-07-18-polish-pass-plan.md": {
+      "description": "Team + Reviewer Polish Pass — Implementation Plan",
+      "tokens": 2237,
+      "hash": "e675e67204051aaa",
+      "size": 8974,
+      "mtimeMs": 1784397009456.408,
+      "updatedAt": "2026-09-25T07:59:09.597Z",
+      "source": "scan"
+    },
+    "docs/superpowers/specs/2026-07-18-polish-pass-design.md": {
+      "description": "Team + Reviewer Polish Pass — Design Spec",
+      "tokens": 913,
+      "hash": "8b9e10c86f325321",
+      "size": 3691,
+      "mtimeMs": 1784396932100.329,
+      "updatedAt": "2026-09-25T07:59:09.598Z",
+      "source": "scan"
+    },
+    "firebase.json": {
+      "description": "",
+      "tokens": 225,
+      "hash": "65c214972ea67aeb",
+      "size": 785,
+      "mtimeMs": 1784710147050.627,
+      "updatedAt": "2026-09-25T07:59:09.598Z",
+      "source": "scan"
+    },
+    "index.html": {
+      "description": "Creative Code Logic · Built with creativity, code, and logic",
+      "tokens": 1272,
+      "hash": "5624cc2f58b622aa",
+      "size": 4776,
+      "mtimeMs": 1785858142698.0479,
+      "updatedAt": "2026-09-25T07:59:09.599Z",
+      "source": "scan"
+    },
+    "package.json": {
+      "description": "Node.js package manifest",
+      "tokens": 181,
+      "hash": "7b4c90fc186f8da3",
+      "size": 633,
+      "mtimeMs": 1790321787717.043,
+      "updatedAt": "2026-09-25T07:59:09.599Z",
+      "source": "scan"
+    },
+    "public/404.html": {
+      "description": "Page not found · Creative Code Logic",
+      "tokens": 1043,
+      "hash": "0cfe071db887a7cd",
+      "size": 3909,
+      "mtimeMs": 1785573785068.0867,
+      "updatedAt": "2026-09-25T07:59:09.600Z",
+      "source": "scan"
+    },
+    "public/email/admin.html": {
+      "description": "CCL Admin | CCL signature",
+      "tokens": 878,
+      "hash": "dcaa6729d0d88f1d",
+      "size": 3289,
+      "mtimeMs": 1790314494131.6887,
+      "updatedAt": "2026-09-25T07:59:09.601Z",
+      "source": "scan"
+    },
+    "public/email/devteam.html": {
+      "description": "CCL Dev Team | CCL signature",
+      "tokens": 881,
+      "hash": "b5fd44b55e98b288",
+      "size": 3302,
+      "mtimeMs": 1790314498049.6052,
+      "updatedAt": "2026-09-25T07:59:09.601Z",
+      "source": "scan"
+    },
+    "public/email/ghassan.html": {
+      "description": "Ghassan Abboud | CCL signature",
+      "tokens": 913,
+      "hash": "35e91f25152aba54",
+      "size": 3422,
+      "mtimeMs": 1790314498431.361,
+      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "source": "scan"
+    },
+    "public/email/nadim.html": {
+      "description": "Nadim | CCL signature",
+      "tokens": 907,
+      "hash": "6c0616ff1714909d",
+      "size": 3399,
+      "mtimeMs": 1790314498847.735,
+      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "source": "scan"
+    },
+    "public/email/oussama.html": {
+      "description": "Oussama | CCL signature",
+      "tokens": 907,
+      "hash": "04703cf0e090c508",
+      "size": 3399,
+      "mtimeMs": 1790314499386.7388,
+      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "source": "scan"
+    },
+    "public/privacy.html": {
+      "description": "Privacy Policy · Creative Code Logic",
+      "tokens": 1743,
+      "hash": "944cfa1b05227280",
+      "size": 6536,
+      "mtimeMs": 1785855964176.9773,
+      "updatedAt": "2026-09-25T07:59:09.604Z",
+      "source": "scan"
+    },
+    "public/robots.txt": {
+      "description": "",
+      "tokens": 24,
+      "hash": "023bbcbde47e40ae",
+      "size": 93,
+      "mtimeMs": 1790317125832.648,
+      "updatedAt": "2026-09-25T07:59:09.604Z",
+      "source": "scan"
+    },
+    "public/site.webmanifest": {
+      "description": "",
+      "tokens": 108,
+      "hash": "2fd9b659c000d9cf",
+      "size": 402,
+      "mtimeMs": 1785570973458.5388,
+      "updatedAt": "2026-09-25T07:59:09.605Z",
+      "source": "scan"
+    },
+    "public/sitemap.xml": {
+      "description": "",
+      "tokens": 89,
+      "hash": "10a07b1039cd21ee",
+      "size": 311,
+      "mtimeMs": 1784710114765.396,
+      "updatedAt": "2026-09-25T07:59:09.605Z",
+      "source": "scan"
+    },
+    "public/terms.html": {
+      "description": "Terms of Use · Creative Code Logic",
+      "tokens": 1565,
+      "hash": "b791e7fa4f9013d9",
+      "size": 5869,
+      "mtimeMs": 1785573842902.6846,
+      "updatedAt": "2026-09-25T07:59:09.605Z",
+      "source": "scan"
+    },
+    "README.md": {
+      "description": "Project documentation",
+      "tokens": 2089,
+      "hash": "84bedb3e189813cd",
+      "size": 8373,
+      "mtimeMs": 1790323240132.803,
+      "updatedAt": "2026-09-25T08:00:40.296Z",
+      "source": "hook"
+    },
+    "scripts/extract_triquetra.py": {
+      "description": "Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade).",
+      "tokens": 2211,
+      "hash": "77c6e71ac9155984",
+      "size": 7738,
+      "mtimeMs": 1784302375670.7703,
+      "updatedAt": "2026-09-25T07:59:09.608Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "trace_boundary",
+          "kind": "fn",
+          "startLine": 60,
+          "endLine": 108,
+          "tokens": 504
+        },
+        {
+          "name": "rdp",
+          "kind": "fn",
+          "startLine": 111,
+          "endLine": 133,
+          "tokens": 212
+        },
+        {
+          "name": "rdp_closed",
+          "kind": "fn",
+          "startLine": 135,
+          "endLine": 143,
+          "tokens": 114
+        },
+        {
+          "name": "smooth_path",
+          "kind": "fn",
+          "startLine": 146,
+          "endLine": 163,
+          "tokens": 196
+        },
+        {
+          "name": "centroid",
+          "kind": "fn",
+          "startLine": 173,
+          "endLine": 176,
+          "tokens": 41
+        },
+        {
+          "name": "angle_of",
+          "kind": "fn",
+          "startLine": 178,
+          "endLine": 180,
+          "tokens": 29
+        },
+        {
+          "name": "ang_dist",
+          "kind": "fn",
+          "startLine": 184,
+          "endLine": 186,
+          "tokens": 29
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "def trace_boundary(comp_set):\ndef rdp(points, eps):\ndef rdp_closed(points, eps):\ndef smooth_path(points):\ndef centroid(comp_set):\ndef angle_of(comp_set):\ndef ang_dist(a, target):"
+    },
+    "scripts/make_product_placeholders.py": {
+      "description": "Generate placeholder case-card images (public/products/*.png).",
+      "tokens": 1722,
+      "hash": "feb1956b23349cd1",
+      "size": 6025,
+      "mtimeMs": 1784307489634.476,
+      "updatedAt": "2026-09-25T07:59:09.609Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "trace_boundary",
+          "kind": "fn",
+          "startLine": 51,
+          "endLine": 79,
+          "tokens": 320
+        },
+        {
+          "name": "rdp",
+          "kind": "fn",
+          "startLine": 81,
+          "endLine": 99,
+          "tokens": 186
+        },
+        {
+          "name": "rdp_closed",
+          "kind": "fn",
+          "startLine": 101,
+          "endLine": 104,
+          "tokens": 59
+        },
+        {
+          "name": "centroid",
+          "kind": "fn",
+          "startLine": 106,
+          "endLine": 107,
+          "tokens": 31
+        },
+        {
+          "name": "angle_of",
+          "kind": "fn",
+          "startLine": 109,
+          "endLine": 111,
+          "tokens": 26
+        },
+        {
+          "name": "ang_dist",
+          "kind": "fn",
+          "startLine": 114,
+          "endLine": 116,
+          "tokens": 25
+        },
+        {
+          "name": "base_gradient",
+          "kind": "fn",
+          "startLine": 124,
+          "endLine": 143,
+          "tokens": 240
+        },
+        {
+          "name": "draw_loop",
+          "kind": "fn",
+          "startLine": 145,
+          "endLine": 156,
+          "tokens": 208
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "scripts/rasterize-frieze.mjs": {
+      "description": "Build-time asset step (not shipped, no runtime dep): rasterize each triquetra",
+      "tokens": 513,
+      "hash": "5d94c1bce5970e3f",
+      "size": 1924,
+      "mtimeMs": 1785604835050.0845,
+      "updatedAt": "2026-09-25T07:59:09.610Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "svgs",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 15,
+          "tokens": 22
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "scripts/verify.mjs": {
+      "description": "Visual/runtime verification for the CCL site against the dev server.",
+      "tokens": 860,
+      "hash": "1ef64462e5dafbde",
+      "size": 3225,
+      "mtimeMs": 1784304722384.1338,
+      "updatedAt": "2026-09-25T07:59:09.611Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 12,
+          "endLine": 12,
+          "tokens": 18
+        },
+        {
+          "name": "run",
+          "kind": "fn",
+          "startLine": 14,
+          "endLine": 89,
+          "tokens": 684
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "scripts/verify2.mjs": {
+      "description": "v2 verification: three worlds + P2 fixes, full / reduced / mobile passes.",
+      "tokens": 1210,
+      "hash": "bf757fb8461a6d93",
+      "size": 4540,
+      "mtimeMs": 1784308102050.2925,
+      "updatedAt": "2026-09-25T07:59:09.611Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 7,
+          "endLine": 7,
+          "tokens": 18
+        },
+        {
+          "name": "scrollToEl",
+          "kind": "fn",
+          "startLine": 9,
+          "endLine": 23,
+          "tokens": 99
+        },
+        {
+          "name": "run",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 109,
+          "tokens": 887
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "scripts/verify3.mjs": {
+      "description": "v3 verification: hero rotation, world triquetra embeddings, v2 copy.",
+      "tokens": 1095,
+      "hash": "8867ec894d66ba06",
+      "size": 4105,
+      "mtimeMs": 1784359146477.4565,
+      "updatedAt": "2026-09-25T07:59:09.612Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 7,
+          "endLine": 7,
+          "tokens": 18
+        },
+        {
+          "name": "scrollToEl",
+          "kind": "fn",
+          "startLine": 9,
+          "endLine": 22,
+          "tokens": 93
+        },
+        {
+          "name": "run",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 93,
+          "tokens": 772
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "scripts/verify4.mjs": {
+      "description": "v4 verification: hero loop, creative game, ascii playground, logic drag,",
+      "tokens": 2575,
+      "hash": "8669f2791d28b847",
+      "size": 9653,
+      "mtimeMs": 1784364132675.0242,
+      "updatedAt": "2026-09-25T07:59:09.612Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 7,
+          "endLine": 7,
+          "tokens": 18
+        },
+        {
+          "name": "newPage",
+          "kind": "fn",
+          "startLine": 11,
+          "endLine": 24,
+          "tokens": 132
+        },
+        {
+          "name": "scrollToEl",
+          "kind": "fn",
+          "startLine": 26,
+          "endLine": 39,
+          "tokens": 92
+        },
+        {
+          "name": "launch",
+          "kind": "fn",
+          "startLine": 41,
+          "endLine": 48,
+          "tokens": 62
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nasync function newPage(browser, reduced, viewport) {\nasync function scrollToEl(page, sel, offset = -60) {\nasync function launch(viewport) {"
+    },
+    "scripts/verify5.mjs": {
+      "description": "v5 verification: hero state model (2 loops), creative persistence+reset+",
+      "tokens": 2685,
+      "hash": "b7d666dafcda44b2",
+      "size": 10068,
+      "mtimeMs": 1784369415540.8306,
+      "updatedAt": "2026-09-25T07:59:09.613Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 8,
+          "endLine": 8,
+          "tokens": 18
+        },
+        {
+          "name": "launch",
+          "kind": "fn",
+          "startLine": 12,
+          "endLine": 20,
+          "tokens": 72
+        },
+        {
+          "name": "watch",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 29,
+          "tokens": 70
+        },
+        {
+          "name": "scrollToEl",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 40,
+          "tokens": 82
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nasync function launch(viewport) {\nfunction watch(page) {\nasync function scrollToEl(page, sel, offset = -60) {"
+    },
+    "scripts/verify6.mjs": {
+      "description": "v6 verification: hero y-stability across 2 loops, comet ambient, matrix",
+      "tokens": 17932,
+      "hash": "92361a3a14af9c60",
+      "size": 67355,
+      "mtimeMs": 1790319471766.1091,
+      "updatedAt": "2026-09-25T07:59:09.616Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sleep",
+          "kind": "fn",
+          "startLine": 9,
+          "endLine": 9,
+          "tokens": 18
+        },
+        {
+          "name": "seedConsent",
+          "kind": "fn",
+          "startLine": 17,
+          "endLine": 27,
+          "tokens": 76
+        },
+        {
+          "name": "launch",
+          "kind": "fn",
+          "startLine": 29,
+          "endLine": 36,
+          "tokens": 62
+        },
+        {
+          "name": "watch",
+          "kind": "fn",
+          "startLine": 37,
+          "endLine": 53,
+          "tokens": 222
+        },
+        {
+          "name": "scrollToEl",
+          "kind": "fn",
+          "startLine": 54,
+          "endLine": 63,
+          "tokens": 82
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nconst seedConsent = (page) =>\nasync function launch(viewport) {\nfunction watch(page) {\nasync function scrollToEl(page, sel, offset = -60) {"
+    },
+    "src/App.tsx": {
+      "description": "import { ProgressLine } from \"@/components/ProgressLine\"; // benched per team feedback 2026-08",
+      "tokens": 420,
+      "hash": "1ad147954be0c2a9",
+      "size": 1470,
+      "mtimeMs": 1787590682663.021,
+      "updatedAt": "2026-09-25T07:59:09.616Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/01_triquetra_build.webp": {
+      "description": "",
+      "tokens": 2845,
+      "hash": "cbfb54f65c562b1d",
+      "size": 11208,
+      "mtimeMs": 1785604847268.7405,
+      "updatedAt": "2026-09-25T07:59:09.617Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/02_triquetra_outline.webp": {
+      "description": "",
+      "tokens": 2037,
+      "hash": "d11997f7cf1f6d90",
+      "size": 7986,
+      "mtimeMs": 1785604847350.6038,
+      "updatedAt": "2026-09-25T07:59:09.618Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/03_triquetra_fill.webp": {
+      "description": "",
+      "tokens": 1426,
+      "hash": "c03d792588667141",
+      "size": 5622,
+      "mtimeMs": 1785604847430.8518,
+      "updatedAt": "2026-09-25T07:59:09.618Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/04_triquetra_8bit_fill.webp": {
+      "description": "",
+      "tokens": 878,
+      "hash": "cba63d33fabf71fe",
+      "size": 3442,
+      "mtimeMs": 1785604847496.927,
+      "updatedAt": "2026-09-25T07:59:09.619Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/05_triquetra_8bit_outline.webp": {
+      "description": "",
+      "tokens": 1243,
+      "hash": "5c9e772a35c6332b",
+      "size": 4918,
+      "mtimeMs": 1785604847562.7766,
+      "updatedAt": "2026-09-25T07:59:09.619Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/06_triquetra_dots_lines.webp": {
+      "description": "",
+      "tokens": 1815,
+      "hash": "1697748d96bf86db",
+      "size": 7124,
+      "mtimeMs": 1785604847631.9224,
+      "updatedAt": "2026-09-25T07:59:09.620Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/07_triquetra_dots.webp": {
+      "description": "",
+      "tokens": 1208,
+      "hash": "87a013a379e3f934",
+      "size": 4740,
+      "mtimeMs": 1785604847699.5403,
+      "updatedAt": "2026-09-25T07:59:09.621Z",
+      "source": "scan"
+    },
+    "src/assets/triquetra-variants/08_triquetra_ascii.webp": {
+      "description": "",
+      "tokens": 3053,
+      "hash": "b93622ec19169c89",
+      "size": 12082,
+      "mtimeMs": 1785604847747.069,
+      "updatedAt": "2026-09-25T07:59:09.621Z",
+      "source": "scan"
+    },
+    "src/components/AmbientField.tsx": {
+      "description": "Deterministic PRNG so a chapter's scatter is identical across reloads.",
+      "tokens": 4020,
+      "hash": "3122c01b5b67b171",
+      "size": 14101,
+      "mtimeMs": 1785399329174.4639,
+      "updatedAt": "2026-09-25T07:59:09.623Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Mark",
+          "kind": "section",
+          "startLine": 22,
+          "endLine": 22,
+          "tokens": 28
+        },
+        {
+          "name": "mulberry32",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 33,
+          "tokens": 78
+        },
+        {
+          "name": "makeField",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 57,
+          "tokens": 196
+        },
+        {
+          "name": "makeScatter",
+          "kind": "fn",
+          "startLine": 64,
+          "endLine": 133,
+          "tokens": 830
+        },
+        {
+          "name": "debugJSON",
+          "kind": "fn",
+          "startLine": 137,
+          "endLine": 147,
+          "tokens": 71
+        },
+        {
+          "name": "AmbientField",
+          "kind": "fn",
+          "startLine": 156,
+          "endLine": 370,
+          "tokens": 2116
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type Mark = { x: number; y: number; size: number; speed: number; angle: number; anchor: boolean };\nfunction mulberry32(seed: number): () => number {\nfunction makeField(seed: number) {\nfunction makeScatter(\nfunction debugJSON(marks: Mark[]): string {\nexport function AmbientField() {"
+    },
+    "src/components/BackToTop.tsx": {
+      "description": "A floating \"back to top\" pill, fixed bottom-right (below the drawer/menu at",
+      "tokens": 820,
+      "hash": "4cc03b68c8752e6b",
+      "size": 2873,
+      "mtimeMs": 1785853521125.5542,
+      "updatedAt": "2026-09-25T07:59:09.623Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "BackToTop",
+          "kind": "fn",
+          "startLine": 13,
+          "endLine": 62,
+          "tokens": 639
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/BriefForm.tsx": {
+      "description": "The brief's data — lifted to the caller so it survives close/reopen.",
+      "tokens": 3847,
+      "hash": "4ab12fe24f234674",
+      "size": 13488,
+      "mtimeMs": 1785573699329.8965,
+      "updatedAt": "2026-09-25T07:59:09.625Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Status",
+          "kind": "section",
+          "startLine": 14,
+          "endLine": 14,
+          "tokens": 16
+        },
+        {
+          "name": "Step",
+          "kind": "section",
+          "startLine": 15,
+          "endLine": 15,
+          "tokens": 7
+        },
+        {
+          "name": "BriefData",
+          "kind": "section",
+          "startLine": 18,
+          "endLine": 25,
+          "tokens": 38
+        },
+        {
+          "name": "mailtoHref",
+          "kind": "fn",
+          "startLine": 36,
+          "endLine": 44,
+          "tokens": 102
+        },
+        {
+          "name": "chipClass",
+          "kind": "fn",
+          "startLine": 46,
+          "endLine": 51,
+          "tokens": 99
+        },
+        {
+          "name": "Props",
+          "kind": "section",
+          "startLine": 56,
+          "endLine": 61,
+          "tokens": 61
+        },
+        {
+          "name": "BriefForm",
+          "kind": "fn",
+          "startLine": 70,
+          "endLine": 357,
+          "tokens": 3104
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type Status = \"form\" | \"sending\" | \"success\" | \"error\";\ntype Step = 1 | 2 | 3;\nexport type BriefData = {\nfunction mailtoHref(a: BriefData): string {\nconst chipClass = (selected: boolean) =>\ntype Props = {\nexport function BriefForm({ data, onData, onClose }: Props) {"
+    },
+    "src/components/ConsentBanner.tsx": {
+      "description": "Consent-first analytics notice. Shown on first visit only when a GA id is",
+      "tokens": 1186,
+      "hash": "0f905e5659bc3983",
+      "size": 4159,
+      "mtimeMs": 1790318609512.6345,
+      "updatedAt": "2026-09-25T07:59:09.626Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ConsentBanner",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 107,
+          "tokens": 953
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/EarnSignature.tsx": {
+      "description": "Chapter 4 — How we build.",
+      "tokens": 2030,
+      "hash": "44945d147cfd8268",
+      "size": 7111,
+      "mtimeMs": 1785573705695.9443,
+      "updatedAt": "2026-09-25T07:59:09.626Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "EarnSignature",
+          "kind": "fn",
+          "startLine": 40,
+          "endLine": 212,
+          "tokens": 1674
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "export function EarnSignature() {"
+    },
+    "src/components/Footer.tsx": {
+      "description": "Footer",
+      "tokens": 458,
+      "hash": "5a3d113ae9333a22",
+      "size": 1606,
+      "mtimeMs": 1785853479195.7173,
+      "updatedAt": "2026-09-25T07:59:09.627Z",
+      "source": "scan"
+    },
+    "src/components/HelloDrawer.tsx": {
+      "description": "A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form",
+      "tokens": 3531,
+      "hash": "f34855b207c9f555",
+      "size": 12372,
+      "mtimeMs": 1785014843628.191,
+      "updatedAt": "2026-09-25T07:59:09.627Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "HelloDrawer",
+          "kind": "fn",
+          "startLine": 21,
+          "endLine": 301,
+          "tokens": 3214
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "export function HelloDrawer({ onClose }: { onClose: () => void }) {"
+    },
+    "src/components/HeroSignature.tsx": {
+      "description": "Chapter 1 — The Mark.",
+      "tokens": 2461,
+      "hash": "8b300692cb891337",
+      "size": 8631,
+      "mtimeMs": 1785602087747.967,
+      "updatedAt": "2026-09-25T07:59:09.628Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "HeroSignature",
+          "kind": "fn",
+          "startLine": 20,
+          "endLine": 249,
+          "tokens": 2245
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "export function HeroSignature() {"
+    },
+    "src/components/Invitation.tsx": {
+      "description": "Chapter 5 — The Invitation.",
+      "tokens": 1797,
+      "hash": "d6db3dbff0f03a04",
+      "size": 6295,
+      "mtimeMs": 1785573515834.8252,
+      "updatedAt": "2026-09-25T07:59:09.628Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Invitation",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 182,
+          "tokens": 1602
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/MobileMenu.tsx": {
+      "description": "Close with focus returned to the hamburger.",
+      "tokens": 1732,
+      "hash": "2b92d49c00d46591",
+      "size": 6065,
+      "mtimeMs": 1787591510801.466,
+      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Link",
+          "kind": "section",
+          "startLine": 6,
+          "endLine": 6,
+          "tokens": 13
+        },
+        {
+          "name": "Props",
+          "kind": "section",
+          "startLine": 8,
+          "endLine": 15,
+          "tokens": 70
+        },
+        {
+          "name": "MobileMenu",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 167,
+          "tokens": 1473
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/Nav.tsx": {
+      "description": "import { NavFrieze } from \"@/components/NavFrieze\"; // benched per team feedback 2026-08",
+      "tokens": 1430,
+      "hash": "ed96510682c805e4",
+      "size": 5010,
+      "mtimeMs": 1787591490495.1257,
+      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Nav",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 129,
+          "tokens": 1186
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/NavFrieze.tsx": {
+      "description": "Deal distinct variants onto a composition's positions (no repeats within a",
+      "tokens": 1038,
+      "hash": "e2083cf7bf8c9080",
+      "size": 3638,
+      "mtimeMs": 1785604888590.8955,
+      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "VARIANTS",
+          "kind": "fn",
+          "startLine": 16,
+          "endLine": 19,
+          "tokens": 37
+        },
+        {
+          "name": "FILL_URL",
+          "kind": "fn",
+          "startLine": 21,
+          "endLine": 21,
+          "tokens": 20
+        },
+        {
+          "name": "shuffle",
+          "kind": "fn",
+          "startLine": 23,
+          "endLine": 30,
+          "tokens": 58
+        },
+        {
+          "name": "Placed",
+          "kind": "section",
+          "startLine": 32,
+          "endLine": 32,
+          "tokens": 22
+        },
+        {
+          "name": "dealVariants",
+          "kind": "fn",
+          "startLine": 36,
+          "endLine": 44,
+          "tokens": 142
+        },
+        {
+          "name": "NavFrieze",
+          "kind": "fn",
+          "startLine": 54,
+          "endLine": 99,
+          "tokens": 417
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/ProgressLine.tsx": {
+      "description": "The journey line — a cyan rule glued to the left edge, drawn by scroll. A",
+      "tokens": 762,
+      "hash": "1d2308f7d69974db",
+      "size": 2675,
+      "mtimeMs": 1785575699089.5923,
+      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ProgressLine",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 69,
+          "tokens": 566
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/SignatureLives.tsx": {
+      "description": "Chapter 3 — Built and live.",
+      "tokens": 2227,
+      "hash": "0610f82723076192",
+      "size": 7810,
+      "mtimeMs": 1785573764998.8958,
+      "updatedAt": "2026-09-25T07:59:09.630Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CaseStudy",
+          "kind": "section",
+          "startLine": 6,
+          "endLine": 13,
+          "tokens": 36
+        },
+        {
+          "name": "SignatureLives",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 229,
+          "tokens": 1837
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type CaseStudy = {\nexport function SignatureLives() {"
+    },
+    "src/components/SignatureMeaning.tsx": {
+      "description": "Chapter 2 — What goes into the build.",
+      "tokens": 892,
+      "hash": "d2b35dadc093e650",
+      "size": 3125,
+      "mtimeMs": 1785573497595.3335,
+      "updatedAt": "2026-09-25T07:59:09.630Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SignatureMeaning",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 91,
+          "tokens": 693
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/Triquetra.tsx": {
+      "description": "Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left",
+      "tokens": 502,
+      "hash": "d8412ef0de844dba",
+      "size": 1760,
+      "mtimeMs": 1790318612402.4624,
+      "updatedAt": "2026-09-25T07:59:09.630Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "TriquetraProps",
+          "kind": "section",
+          "startLine": 3,
+          "endLine": 14,
+          "tokens": 127
+        },
+        {
+          "name": "Triquetra",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 59,
+          "tokens": 298
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/components/worlds/WorldCode.tsx": {
+      "description": "World B — Code. Ambient terminal loop: the build log streams in, metrics",
+      "tokens": 4511,
+      "hash": "981197728a384e3d",
+      "size": 15811,
+      "mtimeMs": 1790321770338.6616,
+      "updatedAt": "2026-09-25T07:59:09.631Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LogLine",
+          "kind": "section",
+          "startLine": 6,
+          "endLine": 6,
+          "tokens": 18
+        },
+        {
+          "name": "formatMetric",
+          "kind": "fn",
+          "startLine": 36,
+          "endLine": 39,
+          "tokens": 50
+        },
+        {
+          "name": "WorldCode",
+          "kind": "fn",
+          "startLine": 47,
+          "endLine": 458,
+          "tokens": 3850
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type LogLine = { text: string; kind: \"cmd\" | \"ok\" | \"info\" };\nfunction formatMetric(el: HTMLElement, v: number): string {\nexport function WorldCode() {"
+    },
+    "src/components/worlds/WorldCreative.tsx": {
+      "description": "Indices of ~target dots per loop, denser where curvature is higher.",
+      "tokens": 5754,
+      "hash": "1ecad0eb7a99e3b1",
+      "size": 20148,
+      "mtimeMs": 1790318564666.8633,
+      "updatedAt": "2026-09-25T07:59:09.632Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Pt",
+          "kind": "section",
+          "startLine": 6,
+          "endLine": 6,
+          "tokens": 10
+        },
+        {
+          "name": "hexA",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 30,
+          "tokens": 65
+        },
+        {
+          "name": "pickDots",
+          "kind": "fn",
+          "startLine": 33,
+          "endLine": 62,
+          "tokens": 252
+        },
+        {
+          "name": "WorldCreative",
+          "kind": "fn",
+          "startLine": 72,
+          "endLine": 563,
+          "tokens": 5074
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type Pt = { x: number; y: number };\nfunction hexA(hex: string, alpha: number): string {\nfunction pickDots(pts: Pt[], target: number): number[] {\nexport function WorldCreative() {"
+    },
+    "src/components/worlds/WorldLogic.tsx": {
+      "description": "Built once at mount — pure geometry, no data:",
+      "tokens": 6068,
+      "hash": "aba12c1a74b19fa3",
+      "size": 21269,
+      "mtimeMs": 1785573726903.1294,
+      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "loopStart",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 24,
+          "tokens": 17
+        },
+        {
+          "name": "Guide",
+          "kind": "section",
+          "startLine": 26,
+          "endLine": 26,
+          "tokens": 15
+        },
+        {
+          "name": "Line",
+          "kind": "section",
+          "startLine": 27,
+          "endLine": 27,
+          "tokens": 18
+        },
+        {
+          "name": "Label",
+          "kind": "section",
+          "startLine": 28,
+          "endLine": 28,
+          "tokens": 31
+        },
+        {
+          "name": "buildGeometry",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 165,
+          "tokens": 1326
+        },
+        {
+          "name": "WorldLogic",
+          "kind": "fn",
+          "startLine": 176,
+          "endLine": 557,
+          "tokens": 4032
+        }
+      ],
+      "symbolSource": "ts",
+      "skeleton": "const loopStart = (i: number) => LOOP_START + i * LOOP_GAP;\ntype Guide = { cx: number; cy: number; r: number };\ntype Line = { x1: number; y1: number; x2: number; y2: number };\ntype Label = { x: number; y: number; text: string; anchor?: \"start\" | \"middle\" | \"end\"; micro?: boolean };\nfunction buildGeometry() {\nexport function WorldLogic() {"
+    },
+    "src/data/friezeCompositions.ts": {
+      "description": "Curated header-frieze compositions — DESIGNER-TUNABLE. Ghassan edits the",
+      "tokens": 1276,
+      "hash": "026190c238ace9cf",
+      "size": 4501,
+      "mtimeMs": 1785602876450.5403,
+      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "FriezePosition",
+          "kind": "section",
+          "startLine": 17,
+          "endLine": 23,
+          "tokens": 65
+        },
+        {
+          "name": "FriezeComposition",
+          "kind": "section",
+          "startLine": 24,
+          "endLine": 24,
+          "tokens": 14
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/data/triquetra.ts": {
+      "description": "CCL triquetra mark — authored vector (v2), redesigned 2026-07-30.",
+      "tokens": 1183,
+      "hash": "7ee49dede0f12b59",
+      "size": 4152,
+      "mtimeMs": 1785399274675.8086,
+      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "sampleMarkBBox",
+          "kind": "fn",
+          "startLine": 42,
+          "endLine": 61,
+          "tokens": 207
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/data/triquetraAscii.ts": {
+      "description": "Authored ASCII rendering of the v2 triquetra mark, embedded verbatim from",
+      "tokens": 457,
+      "hash": "3f1b92f1e08471c4",
+      "size": 1601,
+      "mtimeMs": 1785406966598.0466,
+      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "source": "scan"
+    },
+    "src/data/triquetraBuild.ts": {
+      "description": "Real construction geometry for the v2 triquetra, extracted from the designer's",
+      "tokens": 497,
+      "hash": "2477c31505b3650d",
+      "size": 1747,
+      "mtimeMs": 1785407635920.076,
+      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "source": "scan"
+    },
+    "src/hooks/useMagnetic.ts": {
+      "description": "Magnetic hover: the element leans toward the cursor when it comes within",
+      "tokens": 731,
+      "hash": "a122b88d36d4a66a",
+      "size": 2560,
+      "mtimeMs": 1784307600432.191,
+      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "useMagnetic",
+          "kind": "fn",
+          "startLine": 10,
+          "endLine": 83,
+          "tokens": 611
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/hooks/usePrefersReducedMotion.ts": {
+      "description": "Reactive prefers-reduced-motion flag.",
+      "tokens": 165,
+      "hash": "08999fde236f2b97",
+      "size": 575,
+      "mtimeMs": 1784304148112.8594,
+      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "source": "scan"
+    },
+    "src/index.css": {
+      "description": "Styles: 23 rules, 8 vars",
+      "tokens": 1560,
+      "hash": "b34dbc0d83b4c6b0",
+      "size": 5469,
+      "mtimeMs": 1785407906462.2334,
+      "updatedAt": "2026-09-25T07:59:09.635Z",
+      "source": "scan"
+    },
+    "src/lib/captcha.ts": {
+      "description": "Lazy-load the reCAPTCHA script exactly once (explicit render mode).",
+      "tokens": 682,
+      "hash": "ef1e380b61b5ff98",
+      "size": 2390,
+      "mtimeMs": 1785014827312.6765,
+      "updatedAt": "2026-09-25T07:59:09.635Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "RenderParams",
+          "kind": "section",
+          "startLine": 3,
+          "endLine": 10,
+          "tokens": 64
+        },
+        {
+          "name": "Grecaptcha",
+          "kind": "section",
+          "startLine": 12,
+          "endLine": 16,
+          "tokens": 46
+        },
+        {
+          "name": "loadScript",
+          "kind": "fn",
+          "startLine": 27,
+          "endLine": 45,
+          "tokens": 174
+        },
+        {
+          "name": "CheckboxCaptcha",
+          "kind": "section",
+          "startLine": 47,
+          "endLine": 50,
+          "tokens": 40
+        },
+        {
+          "name": "renderCheckbox",
+          "kind": "fn",
+          "startLine": 59,
+          "endLine": 87,
+          "tokens": 193
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/lib/consent.ts": {
+      "description": "Consent-first analytics under Consent Mode v2. The gtag.js library loads with",
+      "tokens": 1110,
+      "hash": "8a3ee8abb3bc7ea6",
+      "size": 3897,
+      "mtimeMs": 1790318610059.4678,
+      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ConsentChoice",
+          "kind": "section",
+          "startLine": 12,
+          "endLine": 12,
+          "tokens": 14
+        },
+        {
+          "name": "Stored",
+          "kind": "section",
+          "startLine": 13,
+          "endLine": 13,
+          "tokens": 18
+        },
+        {
+          "name": "getConsent",
+          "kind": "fn",
+          "startLine": 20,
+          "endLine": 31,
+          "tokens": 121
+        },
+        {
+          "name": "setConsent",
+          "kind": "fn",
+          "startLine": 33,
+          "endLine": 39,
+          "tokens": 69
+        },
+        {
+          "name": "clearConsent",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 52,
+          "tokens": 60
+        },
+        {
+          "name": "grantAnalytics",
+          "kind": "fn",
+          "startLine": 66,
+          "endLine": 68,
+          "tokens": 33
+        },
+        {
+          "name": "recordPageView",
+          "kind": "fn",
+          "startLine": 80,
+          "endLine": 84,
+          "tokens": 40
+        },
+        {
+          "name": "denyAnalytics",
+          "kind": "fn",
+          "startLine": 86,
+          "endLine": 88,
+          "tokens": 32
+        },
+        {
+          "name": "clearGaCookies",
+          "kind": "fn",
+          "startLine": 92,
+          "endLine": 104,
+          "tokens": 156
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/lib/flags.ts": {
+      "description": "Feature flags from the environment (see .env / .env.example).",
+      "tokens": 433,
+      "hash": "d88ef81e61ab8efd",
+      "size": 1525,
+      "mtimeMs": 1790318635617.6096,
+      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "source": "scan"
+    },
+    "src/lib/scroll.ts": {
+      "description": "Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and",
+      "tokens": 549,
+      "hash": "89d7a259b36e3d2f",
+      "size": 1920,
+      "mtimeMs": 1785573871957.7732,
+      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "prefersReducedMotion",
+          "kind": "fn",
+          "startLine": 7,
+          "endLine": 9,
+          "tokens": 36
+        },
+        {
+          "name": "initSmoothScroll",
+          "kind": "fn",
+          "startLine": 17,
+          "endLine": 37,
+          "tokens": 152
+        },
+        {
+          "name": "scrollToId",
+          "kind": "fn",
+          "startLine": 40,
+          "endLine": 48,
+          "tokens": 76
+        },
+        {
+          "name": "scrollToTop",
+          "kind": "fn",
+          "startLine": 51,
+          "endLine": 57,
+          "tokens": 42
+        },
+        {
+          "name": "stopScroll",
+          "kind": "fn",
+          "startLine": 60,
+          "endLine": 63,
+          "tokens": 32
+        },
+        {
+          "name": "startScroll",
+          "kind": "fn",
+          "startLine": 66,
+          "endLine": 69,
+          "tokens": 30
+        }
+      ],
+      "symbolSource": "ts"
+    },
+    "src/lib/seal.ts": {
+      "description": "The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an",
+      "tokens": 344,
+      "hash": "72eeca91bca46712",
+      "size": 1208,
+      "mtimeMs": 1785572131909.542,
+      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "source": "scan"
+    },
+    "src/lib/submit.ts": {
+      "description": "Shared submission path. Honeypot short-circuits; an empty form id falls back",
+      "tokens": 358,
+      "hash": "c292bd9834fb4a45",
+      "size": 1256,
+      "mtimeMs": 1790318624870.1118,
+      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "source": "scan"
+    },
+    "src/main.tsx": {
+      "description": "",
+      "tokens": 68,
+      "hash": "4418921046c0beff",
+      "size": 235,
+      "mtimeMs": 1784304264418.9146,
+      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "source": "scan"
+    },
+    "tsconfig.json": {
+      "description": "TypeScript configuration",
+      "tokens": 144,
+      "hash": "60a7a96acbaf32d9",
+      "size": 503,
+      "mtimeMs": 1784304471072.5144,
+      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "source": "scan"
+    },
+    "vite.config.ts": {
+      "description": "A production build without these ships a site whose forms, captcha or",
+      "tokens": 343,
+      "hash": "11a056bb43897f1b",
+      "size": 1202,
+      "mtimeMs": 1790318636196.5432,
+      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "source": "scan"
+    }
+  }
+}

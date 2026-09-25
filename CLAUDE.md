@@ -8,7 +8,9 @@ For the full operating protocol (session handoff, memory discipline, bug logging
 CCL (Creative Code Logic) corporate website v4 — single-page scroll-driven
 marketing site. React 19 + TypeScript strict, Vite 8, Tailwind CSS v4
 (design tokens in @theme in src/index.css), GSAP 3 + ScrollTrigger, Lenis,
-bun as package manager. Five-chapter scroll story around the triquetra mark.
+bun as package manager. Four-chapter scroll story around the triquetra mark
+(Hero, the three worlds, How we build, Invitation), plus a Work chapter
+behind VITE_SHOW_WORK.
 AGENTS.md is deprecated — never follow it.
 
 # Rules
@@ -26,4 +28,5 @@ AGENTS.md is deprecated — never follow it.
 
 # Commands
 - bun run dev (:5173) | bun run build (tsc --noEmit + vite build) | bun run preview
-- Visual verification: node scripts/verify6.mjs against a running dev server (latest pass; verify.mjs–verify5.mjs are older iterations).
+- Visual verification: node scripts/verify6.mjs against a running dev server on :5173 (latest pass; verify.mjs–verify5.mjs are older iterations). It must print VERIFY6: PASS and exit 0.
+- Production builds fail unless VITE_FORMSPARK_FORM_ID_BRIEF, VITE_FORMSPARK_FORM_ID_CONTACT, VITE_CAPTCHA_SITEKEY and VITE_GA_MEASUREMENT_ID are set (vite.config.ts).

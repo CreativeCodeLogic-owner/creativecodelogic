@@ -8,6 +8,8 @@
       "max_description_length": 100,
       "max_files": 500,
       "exclude_patterns": [
+        ".secrets",
+        ".env*",
         "node_modules",
         ".git",
         "dist",

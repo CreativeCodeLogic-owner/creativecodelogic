@@ -1,45 +1,21 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-24T17:27:09.890Z
-> Files: 75 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T08:01:58.906Z
+> Files: 79 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.firebaserc` (~16 tok)
-- `.gitattributes` (~4 tok)
-- `.gitignore` — Git ignore rules (~99 tok)
-- `AGENTS.md` — CCL Website (www-v4) (~1851 tok)
-- `CHANGELOG.md` — Changelog (~3369 tok)
-- `CLAUDE.md` — OpenWolf (~519 tok)
+- `.gitattributes` — Git attributes (~4 tok)
+- `.gitignore` — Git ignore rules (~107 tok)
+- `CHANGELOG.md` — Changelog (~3684 tok)
+- `CLAUDE.md` — OpenWolf (~603 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)
 - `package.json` — Node.js package manifest (~181 tok)
-- `README.md` — Project documentation (~1567 tok)
+- `README.md` — Project documentation (~2089 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
-- `vite.config.ts` — Vite build configuration (~98 tok)
-- `www-v4.code-workspace` (~16 tok)
-
-## .claude/
-
-- `settings.json` (~441 tok)
-
-## .claude/rules/
-
-- `openwolf.md` (~313 tok)
-
-## .review/
-
-- `h2b.json` (~48 tok)
-
-## .secrets/
-
-- `firebase.md` — Declares firebaseConfig (~260 tok)
-- `formspark.md` (~21 tok)
-- `github.md` (~36 tok)
-
-## C:/Users/GHASSA~1.ABB/AppData/Local/Temp/claude/V--ACTIVE-JOBS-CCL-20260319-ccl-CCL-Corporate-www-v4/da4caafb-5690-4a2c-8b59-2f79a228aaf2/scratchpad/
-
-- `probe-decline.mjs` — API routes: GET (1 endpoints) (~402 tok)
+- `vite.config.ts` — A production build without these ships a site whose forms, captcha or (~343 tok)
 
 ## copy/
 
@@ -48,8 +24,8 @@
 
 ## docs/
 
-- `architecture.md` — Architecture (~1906 tok)
-- `deployment.md` — Deployment (~1124 tok)
+- `architecture.md` — Architecture (~2654 tok)
+- `deployment.md` — Deployment (~1694 tok)
 
 ## docs/superpowers/plans/
 
@@ -63,14 +39,21 @@
 
 - `404.html` — Page not found · Creative Code Logic (~1043 tok)
 - `privacy.html` — Privacy Policy · Creative Code Logic (~1743 tok)
-- `robots.txt` (~19 tok)
-- `sitemap.xml` (~83 tok)
+- `robots.txt` (~24 tok)
+- `site.webmanifest` (~108 tok)
+- `sitemap.xml` (~89 tok)
 - `terms.html` — Terms of Use · Creative Code Logic (~1565 tok)
+
+## public/email/
+
+- `admin.html` — CCL Admin | CCL signature (~878 tok)
+- `devteam.html` — CCL Dev Team | CCL signature (~881 tok)
+- `ghassan.html` — Ghassan Abboud | CCL signature (~913 tok)
+- `nadim.html` — Nadim | CCL signature (~907 tok)
+- `oussama.html` — Oussama | CCL signature (~907 tok)
 
 ## scripts/
 
-- `_shot-naked.mjs` — Declares CHROME (~379 tok)
-- `_shot-wordmark.mjs` — Declares CHROME (~423 tok)
 - `extract_triquetra.py` — Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade). (~2211 tok)
 - `make_product_placeholders.py` — Generate placeholder case-card images (public/products/*.png). (~1722 tok)
 - `rasterize-frieze.mjs` — Build-time asset step (not shipped, no runtime dep): rasterize each triquetra (~513 tok)
@@ -79,7 +62,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~15998 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~17932 tok)
 
 ## src/
 
@@ -87,13 +70,23 @@
 - `index.css` — Styles: 23 rules, 8 vars (~1560 tok)
 - `main.tsx` (~68 tok)
 
+## src/assets/triquetra-variants/
+
+- `01_triquetra_build.webp` (~2845 tok)
+- `02_triquetra_outline.webp` (~2037 tok)
+- `03_triquetra_fill.webp` (~1426 tok)
+- `04_triquetra_8bit_fill.webp` (~878 tok)
+- `05_triquetra_8bit_outline.webp` (~1243 tok)
+- `06_triquetra_dots_lines.webp` (~1815 tok)
+- `07_triquetra_dots.webp` (~1208 tok)
+- `08_triquetra_ascii.webp` (~3053 tok)
+
 ## src/components/
 
 - `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
 - `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~820 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
-- `CaptchaNotice.tsx` — Google's required attribution when the reCAPTCHA badge is hidden. Renders (~244 tok)
-- `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1182 tok)
+- `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1186 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~2030 tok)
 - `Footer.tsx` — Footer (~458 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
@@ -105,18 +98,20 @@
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)
 - `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~892 tok)
-- `Triquetra.tsx` — Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left (~501 tok)
+- `Triquetra.tsx` — Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left (~502 tok)
 
 ## src/components/worlds/
 
-- `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4486 tok)
-- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5682 tok)
+- `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4511 tok)
+- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5754 tok)
 - `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~6068 tok)
 
 ## src/data/
 
 - `friezeCompositions.ts` — Curated header-frieze compositions — DESIGNER-TUNABLE. Ghassan edits the (~1276 tok)
 - `triquetra.ts` — CCL triquetra mark — authored vector (v2), redesigned 2026-07-30. (~1183 tok)
+- `triquetraAscii.ts` — Authored ASCII rendering of the v2 triquetra mark, embedded verbatim from (~457 tok)
+- `triquetraBuild.ts` — Real construction geometry for the v2 triquetra, extracted from the designer's (~497 tok)
 
 ## src/hooks/
 
@@ -126,8 +121,8 @@
 ## src/lib/
 
 - `captcha.ts` — Lazy-load the reCAPTCHA script exactly once (explicit render mode). (~682 tok)
-- `consent.ts` — Consent-first analytics. GA never loads and no cookie is set until the visitor (~1069 tok)
-- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~386 tok)
+- `consent.ts` — Consent-first analytics under Consent Mode v2. The gtag.js library loads with (~1110 tok)
+- `flags.ts` — Feature flags from the environment (see .env / .env.example). (~433 tok)
 - `scroll.ts` — Wire Lenis smooth scrolling into the GSAP ticker so ScrollTrigger and (~549 tok)
 - `seal.ts` — The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an (~344 tok)
-- `submit.ts` — Shared submission path. Honeypot short-circuits; an empty form id falls back (~326 tok)
+- `submit.ts` — Shared submission path. Honeypot short-circuits; an empty form id falls back (~358 tok)
