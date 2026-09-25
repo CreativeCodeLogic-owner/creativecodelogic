@@ -620,3 +620,5 @@
 | 11:01 | Edited docs/architecture.md | expanded (+11 lines) | ~277 |
 | 11:01 | Edited docs/architecture.md | expanded (+29 lines) | ~547 |
 | 11:01 | Created docs/deployment.md | — | ~1807 |
+| 11:03 | Edited src/components/worlds/WorldCode.tsx | "LH desktop" → "Lighthouse" | ~18 |
+| 11:03 | Edited CHANGELOG.md | 2→5 lines | ~33 |

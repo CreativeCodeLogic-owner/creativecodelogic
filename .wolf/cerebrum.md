@@ -7,6 +7,7 @@
 ## User Preferences
 
 - Git: stage explicit paths only and show `git diff --cached --stat` before every commit; never sweep unrelated changes in. Commit, push, tag and deploy only when the task grants it.
+- Every commit also includes the hook-maintained `.wolf/anatomy.md`, `.wolf/anatomy-index.json` and `.wolf/memory.md` whenever they are modified (since 2026-09-25). Buglog auto-detect is off (`openwolf.buglog.auto_detect: false`); log real bugs by hand.
 - Release commits are titled `release: X.Y.Z`; release tags are annotated.
 - On a stated stop condition (for example machine-specific values), stop and report with options before committing.
 - Reports: facts over prose, file:line citations, tables for verification.
@@ -26,7 +27,7 @@
 - Contact drawer: empty form id returns "error" (retry state), never fake success. Brief keeps its mailto fallback. Captcha is the VISIBLE v2 checkbox (contact only); the single VITE_FORMSPARK_FORM_ID and the invisible captcha are gone.
 - Fonts: Aptos (display + body) and JetBrains Mono, self-hosted. Inter and Space Grotesk are gone.
 - Cloudflare fronts creativecodelogic.com; .web.app is the Firebase origin. Cloudflare Email Obfuscation rewrites mailto links unless the "Email Signatures Folder" rule (/email/) stays. Compare .com vs .web.app when served HTML differs from dist.
-- OpenWolf hooks: settings.json must use `$CLAUDE_PROJECT_DIR/.wolf/hooks/...` (portable; verified firing in a fresh headless session). All hook modules are tracked; only `hooks/_*.json` and `hooks/sessions/` are ignored. Buglog auto-logging is `openwolf.buglog.auto_detect` (on by default).
+- OpenWolf hooks: settings.json must use `$CLAUDE_PROJECT_DIR/.wolf/hooks/...` (portable; verified firing in a fresh headless session). All hook modules are tracked; only `hooks/_*.json` and `hooks/sessions/` are ignored. Buglog auto-logging is `openwolf.buglog.auto_detect` (off since 2026-09-25).
 
 ## Do-Not-Repeat
 

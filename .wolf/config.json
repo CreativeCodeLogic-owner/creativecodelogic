@@ -135,6 +135,9 @@
       "gemini",
       "cursor",
       "antigravity"
-    ]
+    ],
+    "buglog": {
+      "auto_detect": false
+    }
   }
 }

@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-25T08:01:58.906Z",
+    "lastScanned": "2026-09-25T08:03:46.553Z",
     "fileCount": 79,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "dd7ec56bad814d37236704ab19014d10cac60ec32dededf42244faae81dea283",
-    "storeUpdatedAt": "2026-09-25T08:01:58.921Z",
-    "rootHash": "5ec0d21cdef9f451"
+    "renderedHash": "32f24ca3c86b9d3a9c55c9bcd8cd4fb0c1d1679ff83cdf1d3b2a7c4790c17f9e",
+    "storeUpdatedAt": "2026-09-25T08:03:46.570Z",
+    "rootHash": "2cdad7bb70dad9ad"
   },
   "files": {
     ".firebaserc": {
@@ -39,12 +39,12 @@
     },
     "CHANGELOG.md": {
       "description": "Changelog",
-      "tokens": 3684,
-      "hash": "329561188f2f49de",
-      "size": 14842,
-      "mtimeMs": 1790321793778.699,
-      "updatedAt": "2026-09-25T07:59:09.594Z",
-      "source": "scan"
+      "tokens": 3711,
+      "hash": "e0e832c454e38f56",
+      "size": 14949,
+      "mtimeMs": 1790323426395.09,
+      "updatedAt": "2026-09-25T08:03:46.552Z",
+      "source": "hook"
     },
     "CLAUDE.md": {
       "description": "OpenWolf",
@@ -1139,36 +1139,27 @@
     "src/components/worlds/WorldCode.tsx": {
       "description": "World B — Code. Ambient terminal loop: the build log streams in, metrics",
       "tokens": 4511,
-      "hash": "981197728a384e3d",
+      "hash": "cb7984d136784e33",
       "size": 15811,
-      "mtimeMs": 1790321770338.6616,
-      "updatedAt": "2026-09-25T07:59:09.631Z",
-      "source": "scan",
+      "mtimeMs": 1790323425096.6594,
+      "updatedAt": "2026-09-25T08:03:45.271Z",
+      "source": "hook",
       "symbols": [
-        {
-          "name": "LogLine",
-          "kind": "section",
-          "startLine": 6,
-          "endLine": 6,
-          "tokens": 18
-        },
         {
           "name": "formatMetric",
           "kind": "fn",
           "startLine": 36,
-          "endLine": 39,
-          "tokens": 50
+          "endLine": 46,
+          "tokens": 136
         },
         {
           "name": "WorldCode",
           "kind": "fn",
           "startLine": 47,
-          "endLine": 458,
+          "endLine": 459,
           "tokens": 3850
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "type LogLine = { text: string; kind: \"cmd\" | \"ok\" | \"info\" };\nfunction formatMetric(el: HTMLElement, v: number): string {\nexport function WorldCode() {"
+      ]
     },
     "src/components/worlds/WorldCreative.tsx": {
       "description": "Indices of ~target dots per loop, denser where curvature is higher.",

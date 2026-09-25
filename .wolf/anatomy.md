@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T08:01:58.906Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T08:03:46.553Z
 > Files: 79 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -8,7 +8,7 @@
 - `.firebaserc` (~16 tok)
 - `.gitattributes` — Git attributes (~4 tok)
 - `.gitignore` — Git ignore rules (~107 tok)
-- `CHANGELOG.md` — Changelog (~3684 tok)
+- `CHANGELOG.md` — Changelog (~3711 tok)
 - `CLAUDE.md` — OpenWolf (~603 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1272 tok)
