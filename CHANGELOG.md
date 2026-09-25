@@ -6,6 +6,9 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+- Terminal metric label reads Lighthouse again; the build log line keeps the desktop qualifier.
+
 ## [4.2.2] - 2026-09-25
 
 ### Added

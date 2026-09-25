@@ -28,7 +28,7 @@ const BUILD_LOG: LogLine[] = [
 ];
 
 const METRICS = [
-  { label: "LH desktop", target: 95, decimals: 0, suffix: "" },
+  { label: "Lighthouse", target: 95, decimals: 0, suffix: "" },
   { label: "LCP", target: 1.0, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
