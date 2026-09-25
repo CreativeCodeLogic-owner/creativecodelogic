@@ -1,0 +1,17 @@
+# OpenWolf: machine-local state (committed state: cerebrum.md, STATUS.md,
+# memory.md, buglog.json, anatomy.md, anatomy-index.json, config.json, OPENWOLF.md)
+# hook scripts are tracked (settings.json runs them); only their runtime state is ignored
+hooks/_*.json
+hooks/sessions/
+backups/
+cache/
+daemon.log
+daemon.pid
+dashboard-token
+token-ledger.json
+suggestions.json
+cron-state.json
+_scan-state.json
+_*.json
+*.lock
+*.tmp
