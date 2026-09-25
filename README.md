@@ -120,15 +120,14 @@ it before changing code rather than duplicating the rules here.
 
 ## Current quality bar
 
-Lighthouse (desktop preset), measured **2026-08-04** against the live
-production URL (<https://creativecodelogic.web.app>) for v4.2.0:
+PageSpeed Insights (Lighthouse 13.5.0), measured **2026-09-25** against the live
+site <https://creativecodelogic.com>:
 
-| Performance | Accessibility | Best Practices | SEO |
-| --- | --- | --- | --- |
-| 91 | 100 | 100 | 100 |
+| Form factor | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS | Speed Index | Report |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Desktop | 95 | 100 | 100 | 100 | 0.8s | 1.0s | 140ms | 0 | 0.8s | [desktop](https://pagespeed.web.dev/analysis/https-creativecodelogic-com/o8ty0auv7a?form_factor=desktop) |
+| Mobile (emulated Moto G Power, slow 4G) | 75 | 100 | 100 | 100 | 3.3s | 4.3s | 140ms | 0 | 4.9s | [mobile](https://pagespeed.web.dev/analysis/https-creativecodelogic-com/o8ty0auv7a?form_factor=mobile) |
 
-LCP 1.0s, CLS 0 (Performance varies 90–92 across warm runs — a cold first request
-dips lower). Shipping GA4 (Consent Mode v2) puts the gtag library in the lab run,
-which costs ~220ms TBT and ~3 points versus the pre-GA 94. Re-measured after each
-meaningful change and against the production URL after deploy. The terminal in the
-Code chapter shows these same real values — it never claims anything unmeasured.
+Mobile performance work is planned. Re-measured against the live site after each
+meaningful deploy. The terminal in the Code chapter shows the desktop values, and
+it never claims anything unmeasured.

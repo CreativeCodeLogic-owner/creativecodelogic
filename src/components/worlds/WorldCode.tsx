@@ -10,25 +10,25 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 // Build lines re-measured 2026-09-25 from a production build (`bun run build`):
 //   vite 8.1.5 · 50 modules · tsc --noEmit clean · verify6 3/3 viewports
 //   0 console errors (VERIFY6: PASS).
-// Lighthouse / LCP are still the 4.2.0 LIVE measurement (2026-08-04), pending
-// the 4.2.1+ live sync — do not replace them with local preview numbers:
-//   CHROME_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe" \
-//     lighthouse https://creativecodelogic.web.app/ --preset=desktop \
-//     --output=json --chrome-flags="--headless=new"
-//   Lighthouse desktop performance 91 (90–92 across warm runs; the GA4 gtag
-//   runs in the lab and costs ~220ms TBT, down from 94 pre-GA; cold requests
-//   dip lower), LCP 1.0s (accessibility 100, best-practices 100, SEO 100).
+// Lighthouse / LCP: PageSpeed Insights (Lighthouse 13.5.0) against the LIVE
+// site https://creativecodelogic.com/, 2026-09-25 10:28 GMT+3 (bundle
+// index-CQvK_tRC.js, commit 56b35a1). Desktop: performance 95, accessibility
+// 100, best practices 100, SEO 100 · FCP 0.8s · LCP 1.0s · TBT 140ms · CLS 0
+// · Speed Index 0.8s.
+//   https://pagespeed.web.dev/analysis/https-creativecodelogic-com/o8ty0auv7a?form_factor=desktop
+// Mobile performance is 75 (emulated Moto G Power, slow 4G): tracked in the
+// README quality bar, not shown here. Never replace these with local numbers.
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
   { text: "50 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
-  { text: "lighthouse performance 91", kind: "ok" },
+  { text: "lighthouse desktop 95", kind: "ok" },
 ];
 
 const METRICS = [
-  { label: "Lighthouse", target: 91, decimals: 0, suffix: "" },
+  { label: "LH desktop", target: 95, decimals: 0, suffix: "" },
   { label: "LCP", target: 1.0, decimals: 1, suffix: "s" },
   { label: "console errors", target: 0, decimals: 0, suffix: "" },
 ];
