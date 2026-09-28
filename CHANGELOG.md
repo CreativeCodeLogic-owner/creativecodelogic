@@ -15,6 +15,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - "How we build" follows the client process (Listen, Think, Build, Ship, Care), grouped under the two pillars Designed to Solve and Built to Last, replacing the four standards. New heading: "From first conversation to long after launch."
 - The Ship seal is kept (it marks the signature going on at ship), and Care ends the timeline with a slow breathing pulse that runs only while the section is on screen.
 - The triquetra path samples the worlds need are precomputed (`src/data/triquetraSamples.ts`, generated in Chrome by `bun run gen:triquetra`) instead of sampled with SVG `getPointAtLength()` at load, the largest main-thread cost on mobile. Production builds fail while the data is stale. The terminal's module count reads 51.
+- The nav's scroll-state trigger is created after first paint, so it no longer forces the first full layout inside the mount task (the scrolled state is still set immediately from the scroll position).
 - On md and up, the whole "How we build" chapter (heading, pillars and timeline) pins as one frame, falling back to pinning only the strip when the viewport is too short; below md it scrubs unpinned.
 
 ### Fixed

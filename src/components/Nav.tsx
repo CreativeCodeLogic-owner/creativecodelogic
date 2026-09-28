@@ -34,13 +34,26 @@ export function Nav() {
     // its trigger deactivates past "max".
     const apply = (scroll: number) => bar.classList.toggle("nav-scrolled", scroll > 40);
     apply(window.scrollY); // correct initial state (page may load mid-scroll via #anchor)
-    const trigger = ScrollTrigger.create({
-      start: 0,
-      end: "max",
-      onUpdate: (self) => apply(self.scroll()),
-      onRefresh: (self) => apply(self.scroll()),
+    // Create the trigger after first paint: ScrollTrigger.create measures the
+    // page, which forced the first full layout inside the mount task. Its own
+    // refresh re-applies the state (e.g. after a deep-link jump in between).
+    let trigger: ReturnType<typeof ScrollTrigger.create> | undefined;
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        trigger = ScrollTrigger.create({
+          start: 0,
+          end: "max",
+          onUpdate: (self) => apply(self.scroll()),
+          onRefresh: (self) => apply(self.scroll()),
+        });
+      });
     });
-    return () => trigger.kill();
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      trigger?.kill();
+    };
   }, []);
 
   const go = (hash: string) => (event: React.MouseEvent) => {
