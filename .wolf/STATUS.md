@@ -16,24 +16,23 @@ budget_tokens: 1000
   - `3b8c7c5` "How we build" = the client process (Listen, Think, Build, Ship, Care) under the pillars Designed to Solve / Built to Last; md+ pins the whole chapter as one frame (strip fallback on short viewports, unpinned scrub below md); Ship seal = signature at ship; Care pulse while on screen. Slogan "Designed to Solve. Built to Last." everywhere (hero, footer, Terms/Privacy footers). Brand system in CLAUDE.md, copy/, cerebrum.
   - `72794e2` back-to-top lifts clear of the footer.
   - `cdd3fcc` OpenWolf `init`/`update` rewrite settings.json to absolute paths: committed file stays portable, local copy is skip-worktree (see docs/deployment.md).
+  - `b9a6ab9` triquetra path samples precomputed (`bun run gen:triquetra` → `src/data/triquetraSamples.ts`, 5 decimals; prod build fails if stale). No path sampling at load (live: 0 getPointAtLength / 0 detached getTotalLength). Local lab Perf 67 → 85, TBT 1147 → 343ms.
+  - `79e2256` nav scroll-state trigger created after first paint (TBT median 343 → 321ms).
 
-### Open item
+### Open items
 - The email signature source (`signatures/v2/hosted/email/*.html`) still says "Built to Perform"; `public/email/` is unchanged until it's updated.
+- verify6 `hello.tabStaysInside` / `shiftTabStaysInside` flake intermittently (12 rapid Tabs race the reCAPTCHA iframe's focus bounce); pacing the Tabs would harden it.
+- Mid-page reload restores scroll only sometimes on live (the browser restores before the client render has height); the nav state always matches the real position.
 
 ---
 
-## Next phase: mobile performance, part 2 → release 4.3.0
+## Next phase: live numbers → release 4.3.0
 
 **Goal:** lift PSI mobile (75 · LCP 4.3s · FCP 3.3s on the last live run) without touching desktop (95) or the 100s. Unreleased changes since v4.2.2 are live but untagged.
 
-1. **Precompute the triquetra path samples.** The CPU profile (4x throttle) puts ~3s of main thread in SVG `getPointAtLength()` sampling at mount: `WorldCreative.tsx:107` (~2.1s), `WorldLogic.tsx:47` (~0.9s), plus `sampleMarkBBox()` in `src/data/triquetra.ts`. The geometry is constant: precompute at build time (or one shared plain-JS sampler), keep the output pixel-identical.
-2. **Static hero shell with a pre-painted consent banner (option B).** Hand-written final-state hero + banner markup in `index.html`, shown before JS; an inline pre-paint script shows the banner only without a stored `ccl-consent`. React `createRoot` replaces it (no hydration). Guard shell/React geometry drift with a verify6 check. The banner text is the mobile LCP element on a first visit.
-3. Then: PageSpeed Insights (desktop + mobile) on https://creativecodelogic.com, sync terminal + README, release 4.3.0 (see the release checklist in `docs/deployment.md`).
-
-### Acceptance criteria
-1. PSI mobile performance measurably above 75, desktop still ≥ 95, accessibility / best practices / SEO at 100.
-2. `VERIFY6: PASS`, zero console errors, no CLS regression, reduced-motion screenshots pixel-identical.
-3. Terminal + README quality bar re-synced from the live PSI run.
+1. **Ghassan runs PageSpeed Insights** (desktop + mobile) on https://creativecodelogic.com.
+2. Sync the terminal (desktop) + README quality bar (desktop + mobile) with those numbers, then release 4.3.0 (release checklist in `docs/deployment.md`).
+3. **Optional, decided after the live numbers:** static hero shell with a pre-painted consent banner (option B): final-state hero + banner markup in `index.html`, an inline pre-paint script shows the banner only without a stored `ccl-consent`, React `createRoot` replaces it; guard shell/React drift with a verify6 check. The banner text is the mobile LCP element on a first visit.
 
 ---
 
