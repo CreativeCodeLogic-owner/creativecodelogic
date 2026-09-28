@@ -1,4 +1,6 @@
 # CCL Website — Homepage Narrative v2
+
+> **Brand system (2026-09-28).** Slogan: **"Designed to Solve. Built to Last."** It describes how we build for a client; always this exact wording, in Title Case ("Built to Perform" is retired). Signature: **"Built with Creative Code Logic\*"** (accent asterisk after "Logic"); it goes on a product once it ships: always in the footer of our own products, in a client's footer only with their permission. The site keeps "build" wording ("How we build", "Process", "See how we build"); the client deck's "How we work" is for non-technical readers and doesn't apply here.
 **Concept:** "Built with Creative Code Logic." The journey shows the three ingredients that go into every build — unique creativity, lightweight code, solid logic — then invites the visitor to build with us.
 **Voice:** Measured, intelligent, direct, humble-confident. We describe the work, not ourselves. No exclamation marks.
 **Change log vs v1:** "signature/signing" language removed (read as arrogance in MENA/GCC/Africa markets); journey re-spined on "Built with..."; slogan woven in as a hint; triquetra embedded into each world's visuals.
@@ -22,12 +24,12 @@ Built with unique creativity. → Built with lightweight code. → Built with so
 # Built with Creative Code Logic.
 
 **Subheadline:**
-Websites, webapps, and apps — designed to solve, built to perform.
+\*Designed to Solve. Built to Last.
 
 **Primary CTA:** See how we build
 **Secondary:** Start a project
 
-> Annotation: the rotation syncs with the triquetra loops lighting one by one, then the full mark. The slogan appears folded into prose ("designed to solve, built to perform") — a hint, not a billboard; the footer keeps the official line. Humble: every claim is about what goes into the work.
+> Annotation: the rotation syncs with the triquetra loops lighting one by one, then the full mark. The subline carries the slogan in its exact form, "Designed to Solve. Built to Last.", keyed to the headline by the accent asterisk; the footer repeats it after the signature. Humble: every claim is about what goes into the work.
 
 ---
 
@@ -75,23 +77,23 @@ Everything we ask you to trust — the design, the engineering, the thinking —
 
 ## Chapter 4 — How we build
 
-**Section intro:**
-Nothing ships until it earns the mark.
+**Eyebrow:** How we build
 
-Every build is held to the standard we built the company on:
+**Heading:**
+From first conversation to long after launch.
 
-- **It solves the real problem.** Utility first — not noise, not features for their own sake.
-- **Every detail has a reason.** If an element, interaction, or line of code can't justify itself, it goes.
-- **It performs.** Speed, reliability, and polish are not finishing touches. They are the product.
-- **It adapts.** Built to flex across your brand, your market, and your growth.
+**Pillars (the slogan's two halves, spanning their steps):**
+- **DESIGNED TO SOLVE** (01–02): We start from your problem, not a template. Every screen, feature and line of code has to earn its place.
+- **BUILT TO LAST** (03–05): Fast, reliable, tested work, documented and ready to grow with you.
 
-**Process strip (4 steps):**
-1. **Listen** — we start with your problem, not our portfolio
-2. **Think** — structure before pixels; the logic comes first
-3. **Build** — designed, engineered, and tested to the standard above
-4. **Mark** — the mark goes on only when the standard is met
+**Process (5 steps):**
+1. **Listen** · We sit with you to understand your business and what you need.
+2. **Think** · We research, find the best route and send you a clear, phased proposal.
+3. **Build** · Brick by brick, phase by phase, with your approval at every step.
+4. **Ship** · It goes live only when it's tested, approved and ready.
+5. **Care** · We watch how it performs and keep tuning it.
 
-> Annotation: step 4 keeps the ✦ stamp mechanic — but framed as a quality gate the work must pass, not a boast we make.
+> Annotation: mirrors the client deck's process slide. The accent \* seal stamps beside "Ship": the signature goes on at ship. Care closes the timeline with a slow breathing pulse ("still watching"). No asterisk in any step body.
 
 ---
 
@@ -112,8 +114,8 @@ Tell us what you're trying to make. Three questions, two minutes — and we'll c
 
 [Triquetra mark]
 
-**Built with Creative Code Logic**
-Designed to solve. Built to perform.
+**Built with Creative Code Logic\***
+Designed to Solve. Built to Last.
 
 [Contact] · [LinkedIn/social] · © 2026 Creative Code Logic
 

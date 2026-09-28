@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-25T09:22:27.355Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-28T08:54:15.467Z
 > Files: 80 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -8,8 +8,8 @@
 - `.firebaserc` (~16 tok)
 - `.gitattributes` — Git attributes (~4 tok)
 - `.gitignore` — Git ignore rules (~107 tok)
-- `CHANGELOG.md` — Changelog (~3878 tok)
-- `CLAUDE.md` — OpenWolf (~603 tok)
+- `CHANGELOG.md` — Changelog (~4094 tok)
+- `CLAUDE.md` — OpenWolf (~707 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1543 tok)
 - `package.json` — Node.js package manifest (~181 tok)
@@ -20,12 +20,12 @@
 ## copy/
 
 - `homepage-narrative-v1.md` — CCL Website — Homepage Narrative v1 (~1612 tok)
-- `homepage-narrative-v2.md` — CCL Website — Homepage Narrative v2 (~1294 tok)
+- `homepage-narrative-v2.md` — CCL Website — Homepage Narrative v2 (~1464 tok)
 
 ## docs/
 
-- `architecture.md` — Architecture (~2654 tok)
-- `deployment.md` — Deployment (~1694 tok)
+- `architecture.md` — Architecture (~2687 tok)
+- `deployment.md` — Deployment (~1979 tok)
 
 ## docs/superpowers/plans/
 
@@ -38,11 +38,11 @@
 ## public/
 
 - `404.html` — Page not found · Creative Code Logic (~1043 tok)
-- `privacy.html` — Privacy Policy · Creative Code Logic (~1754 tok)
+- `privacy.html` — Privacy Policy · Creative Code Logic (~1766 tok)
 - `robots.txt` (~24 tok)
 - `site.webmanifest` (~108 tok)
 - `sitemap.xml` (~89 tok)
-- `terms.html` — Terms of Use · Creative Code Logic (~1565 tok)
+- `terms.html` — Terms of Use · Creative Code Logic (~1578 tok)
 
 ## public/email/
 
@@ -62,7 +62,7 @@
 - `verify3.mjs` — v3 verification: hero rotation, world triquetra embeddings, v2 copy. (~1095 tok)
 - `verify4.mjs` — v4 verification: hero loop, creative game, ascii playground, logic drag, (~2575 tok)
 - `verify5.mjs` — v5 verification: hero state model (2 loops), creative persistence+reset+ (~2685 tok)
-- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~18351 tok)
+- `verify6.mjs` — v6 verification: hero y-stability across 2 loops, comet ambient, matrix (~20280 tok)
 
 ## src/
 
@@ -84,14 +84,14 @@
 ## src/components/
 
 - `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
-- `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~820 tok)
+- `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~1138 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
 - `ChunkMounted.tsx` — Rendered as the last child inside a lazy chapter's Suspense boundary: it (~180 tok)
 - `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1186 tok)
-- `EarnSignature.tsx` — Chapter 4 — How we build. (~2030 tok)
-- `Footer.tsx` — Footer (~458 tok)
+- `EarnSignature.tsx` — Chapter 4 — How we build. (~3672 tok)
+- `Footer.tsx` — Footer (~457 tok)
 - `HelloDrawer.tsx` — A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form (~3531 tok)
-- `HeroSignature.tsx` — Chapter 1 — The Mark. (~2461 tok)
+- `HeroSignature.tsx` — Chapter 1 — The Mark. (~2460 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1797 tok)
 - `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1732 tok)
 - `Nav.tsx` — import { NavFrieze } from "@/components/NavFrieze"; // benched per team feedback 2026-08 (~1430 tok)

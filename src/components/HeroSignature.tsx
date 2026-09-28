@@ -222,7 +222,7 @@ export function HeroSignature() {
         data-hero-sub
         className="mt-6 max-w-xl text-base leading-relaxed text-mist md:text-lg"
       >
-        *Designed to solve. Built to perform.
+        *Designed to Solve. Built to Last.
       </p>
 
       <div

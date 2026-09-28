@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-25T09:22:27.355Z",
+    "lastScanned": "2026-09-28T08:54:15.467Z",
     "fileCount": 80,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "48ce45412cb6862d81000a541766234f3eefcdc9ae31ac0210e1668bbd6164c6",
-    "storeUpdatedAt": "2026-09-25T09:22:27.373Z",
-    "rootHash": "2f09f2daebe074b1"
+    "renderedHash": "db72d83032071bed460190c319faa2dba94c9f506bcd63e3ab59c342c6213936",
+    "storeUpdatedAt": "2026-09-28T08:54:15.488Z",
+    "rootHash": "d29ba6fc5ee22c2f"
   },
   "files": {
     ".firebaserc": {
@@ -39,20 +39,20 @@
     },
     "CHANGELOG.md": {
       "description": "Changelog",
-      "tokens": 3878,
-      "hash": "a2abdf0bab7ee33a",
-      "size": 15617,
-      "mtimeMs": 1790328147203.2754,
-      "updatedAt": "2026-09-25T09:22:27.354Z",
+      "tokens": 4094,
+      "hash": "d6d50ee40e6f7b3b",
+      "size": 16484,
+      "mtimeMs": 1790585655287.632,
+      "updatedAt": "2026-09-28T08:54:15.466Z",
       "source": "hook"
     },
     "CLAUDE.md": {
       "description": "OpenWolf",
-      "tokens": 603,
-      "hash": "42953a6cc027b688",
-      "size": 2423,
-      "mtimeMs": 1790323192970.3154,
-      "updatedAt": "2026-09-25T07:59:53.174Z",
+      "tokens": 707,
+      "hash": "6c009d405dba82ea",
+      "size": 2838,
+      "mtimeMs": 1790582769298.9922,
+      "updatedAt": "2026-09-28T08:06:09.505Z",
       "source": "hook"
     },
     "copy/homepage-narrative-v1.md": {
@@ -66,29 +66,29 @@
     },
     "copy/homepage-narrative-v2.md": {
       "description": "CCL Website — Homepage Narrative v2",
-      "tokens": 1294,
-      "hash": "80ef1e4ab66d7f9e",
-      "size": 5260,
-      "mtimeMs": 1784356959194.2864,
-      "updatedAt": "2026-09-25T07:59:09.596Z",
-      "source": "scan"
+      "tokens": 1464,
+      "hash": "e0da2783731c321f",
+      "size": 5933,
+      "mtimeMs": 1790582759424.402,
+      "updatedAt": "2026-09-28T08:05:59.582Z",
+      "source": "hook"
     },
     "docs/architecture.md": {
       "description": "Architecture",
-      "tokens": 2654,
-      "hash": "0c3530c95c2eec27",
-      "size": 10671,
-      "mtimeMs": 1790323285074.662,
-      "updatedAt": "2026-09-25T08:01:25.951Z",
+      "tokens": 2687,
+      "hash": "e11dd2a43dcdc684",
+      "size": 10803,
+      "mtimeMs": 1790582921817.4595,
+      "updatedAt": "2026-09-28T08:08:42.873Z",
       "source": "hook"
     },
     "docs/deployment.md": {
       "description": "Deployment",
-      "tokens": 1694,
-      "hash": "5eacd0914a3f6865",
-      "size": 6781,
-      "mtimeMs": 1790323318725.7324,
-      "updatedAt": "2026-09-25T08:01:58.905Z",
+      "tokens": 1979,
+      "hash": "e87d6ba3b062b774",
+      "size": 7924,
+      "mtimeMs": 1790584190690.2178,
+      "updatedAt": "2026-09-28T08:29:50.882Z",
       "source": "hook"
     },
     "docs/superpowers/plans/2026-07-18-polish-pass-plan.md": {
@@ -192,11 +192,11 @@
     },
     "public/privacy.html": {
       "description": "Privacy Policy · Creative Code Logic",
-      "tokens": 1754,
-      "hash": "a8541c9b7e84ce35",
-      "size": 6575,
-      "mtimeMs": 1790327965962.1646,
-      "updatedAt": "2026-09-25T09:19:26.133Z",
+      "tokens": 1766,
+      "hash": "c204aa042584efea",
+      "size": 6621,
+      "mtimeMs": 1790582735938.2644,
+      "updatedAt": "2026-09-28T08:05:36.118Z",
       "source": "hook"
     },
     "public/robots.txt": {
@@ -228,12 +228,12 @@
     },
     "public/terms.html": {
       "description": "Terms of Use · Creative Code Logic",
-      "tokens": 1565,
-      "hash": "b791e7fa4f9013d9",
-      "size": 5869,
-      "mtimeMs": 1785573842902.6846,
-      "updatedAt": "2026-09-25T07:59:09.605Z",
-      "source": "scan"
+      "tokens": 1578,
+      "hash": "fa35df83944f7f1a",
+      "size": 5915,
+      "mtimeMs": 1790582735472.6272,
+      "updatedAt": "2026-09-28T08:05:35.648Z",
+      "source": "hook"
     },
     "README.md": {
       "description": "Project documentation",
@@ -569,11 +569,11 @@
     },
     "scripts/verify6.mjs": {
       "description": "v6 verification: hero y-stability across 2 loops, comet ambient, matrix",
-      "tokens": 18351,
-      "hash": "827cbd9f2f6dc028",
-      "size": 68925,
-      "mtimeMs": 1790328134675.13,
-      "updatedAt": "2026-09-25T09:22:14.848Z",
+      "tokens": 20280,
+      "hash": "6de4f4368ebe6371",
+      "size": 76174,
+      "mtimeMs": 1790584417196.4631,
+      "updatedAt": "2026-09-28T08:33:37.375Z",
       "source": "hook",
       "symbols": [
         {
@@ -615,8 +615,8 @@
           "name": "scrollToEl",
           "kind": "fn",
           "startLine": 89,
-          "endLine": 1445,
-          "tokens": 18716
+          "endLine": 1573,
+          "tokens": 20784
         }
       ]
     },
@@ -767,22 +767,21 @@
     },
     "src/components/BackToTop.tsx": {
       "description": "A floating \"back to top\" pill, fixed bottom-right (below the drawer/menu at",
-      "tokens": 820,
-      "hash": "4cc03b68c8752e6b",
-      "size": 2873,
-      "mtimeMs": 1785853521125.5542,
-      "updatedAt": "2026-09-25T07:59:09.623Z",
-      "source": "scan",
+      "tokens": 1138,
+      "hash": "32f4373228708c2a",
+      "size": 3989,
+      "mtimeMs": 1790584297960.318,
+      "updatedAt": "2026-09-28T08:31:38.133Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "BackToTop",
           "kind": "fn",
-          "startLine": 13,
-          "endLine": 62,
-          "tokens": 639
+          "startLine": 19,
+          "endLine": 91,
+          "tokens": 848
         }
-      ],
-      "symbolSource": "ts"
+      ]
     },
     "src/components/BriefForm.tsx": {
       "description": "The brief's data — lifted to the caller so it survives close/reopen.",
@@ -867,32 +866,44 @@
     },
     "src/components/EarnSignature.tsx": {
       "description": "Chapter 4 — How we build.",
-      "tokens": 2030,
-      "hash": "44945d147cfd8268",
-      "size": 7111,
-      "mtimeMs": 1785573705695.9443,
-      "updatedAt": "2026-09-25T07:59:09.626Z",
-      "source": "scan",
+      "tokens": 3672,
+      "hash": "ffa9d4000ebb7c07",
+      "size": 12872,
+      "mtimeMs": 1790584749439.1492,
+      "updatedAt": "2026-09-28T08:39:09.597Z",
+      "source": "hook",
       "symbols": [
+        {
+          "name": "dotAt",
+          "kind": "fn",
+          "startLine": 41,
+          "endLine": 42,
+          "tokens": 16
+        },
+        {
+          "name": "PillarBlock",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 67,
+          "tokens": 325
+        },
         {
           "name": "EarnSignature",
           "kind": "fn",
-          "startLine": 40,
-          "endLine": 212,
-          "tokens": 1674
+          "startLine": 68,
+          "endLine": 333,
+          "tokens": 2900
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "export function EarnSignature() {"
+      ]
     },
     "src/components/Footer.tsx": {
       "description": "Footer",
-      "tokens": 458,
-      "hash": "5a3d113ae9333a22",
-      "size": 1606,
-      "mtimeMs": 1785853479195.7173,
-      "updatedAt": "2026-09-25T07:59:09.627Z",
-      "source": "scan"
+      "tokens": 457,
+      "hash": "84ce72824a2e80ce",
+      "size": 1603,
+      "mtimeMs": 1790582724567.344,
+      "updatedAt": "2026-09-28T08:05:24.737Z",
+      "source": "hook"
     },
     "src/components/HelloDrawer.tsx": {
       "description": "A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form",
@@ -916,23 +927,21 @@
     },
     "src/components/HeroSignature.tsx": {
       "description": "Chapter 1 — The Mark.",
-      "tokens": 2461,
-      "hash": "8b300692cb891337",
-      "size": 8631,
-      "mtimeMs": 1785602087747.967,
-      "updatedAt": "2026-09-25T07:59:09.628Z",
-      "source": "scan",
+      "tokens": 2460,
+      "hash": "c165140b2d6bb99a",
+      "size": 8628,
+      "mtimeMs": 1790582724088.2693,
+      "updatedAt": "2026-09-28T08:05:24.283Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "HeroSignature",
           "kind": "fn",
           "startLine": 20,
-          "endLine": 249,
+          "endLine": 250,
           "tokens": 2245
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "export function HeroSignature() {"
+      ]
     },
     "src/components/Invitation.tsx": {
       "description": "Chapter 5 — The Invitation.",

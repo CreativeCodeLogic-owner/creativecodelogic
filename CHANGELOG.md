@@ -11,6 +11,10 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The Aptos faces the first viewport uses (Regular and Bold) are preloaded.
 - Google's tag library loads after the page has loaded instead of with it; consent behaviour is unchanged (defaults and queued events still run first).
 - Privacy policy wording updated to match: the tag library loads shortly after the page does, whatever you choose.
+- The slogan is now "Designed to Solve. Built to Last." across the site (hero subline, footer, and the Terms and Privacy footers, which now carry the full signature line).
+- "How we build" follows the client process (Listen, Think, Build, Ship, Care), grouped under the two pillars Designed to Solve and Built to Last, replacing the four standards. New heading: "From first conversation to long after launch."
+- The Ship seal is kept (it marks the signature going on at ship), and Care ends the timeline with a slow breathing pulse that runs only while the section is on screen.
+- On md and up, the whole "How we build" chapter (heading, pillars and timeline) pins as one frame, falling back to pinning only the strip when the viewport is too short; below md it scrubs unpinned.
 
 ### Fixed
 - Terminal metric label reads Lighthouse again; the build log line keeps the desktop qualifier.

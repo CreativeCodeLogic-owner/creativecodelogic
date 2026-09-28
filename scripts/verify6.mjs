@@ -272,6 +272,7 @@ async function scrollToEl(page, sel, offset = -60) {
     h1: document.querySelector("[data-hero-final]")?.textContent,
     sub: document.querySelector("[data-hero-sub]")?.textContent?.trim(),
   }));
+  out.heroSloganOk = out.heroCopy.sub === "*Designed to Solve. Built to Last.";
 
   // --- 2. creative comet ----------------------------------------------------
   await scrollToEl(page, '[data-world="0"]');
@@ -461,44 +462,110 @@ async function scrollToEl(page, sel, offset = -60) {
   });
   await page.screenshot({ path: `${OUT}/full-logic.png` });
 
-  // --- 4. process dots fill (pin now draws over +=80% — slower pacing) --------
-  await page.evaluate(() => {
-    const el = document.querySelector("[data-steps]");
-    const y = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2;
-    window.scrollTo({ top: y + window.innerHeight * 0.4, behavior: "instant" });
+  // --- 4. process: pillars + 5 steps; the pin (+=100%) draws 01 → 05 --------
+  // md+ tall viewports pin the whole chapter ("frame": top under the 64px nav);
+  // short md+ viewports pin only the strip ("strip": centre at centre). Measure
+  // through the .pin-spacer (a pinned element's rect is fixed to the viewport).
+  // Scroll offsets below are fractions of the pin length (1vh).
+  await scrollToEl(page, "#process");
+  await sleep(600);
+  out.processPinMode = await page.evaluate(() => document.querySelector("#process")?.dataset.pinMode ?? null);
+  out.processFramePinned = out.processPinMode === "frame";
+  const pinStart = await page.evaluate(() => {
+    const docTop = (el) => {
+      const box = el.parentElement?.classList.contains("pin-spacer") ? el.parentElement : el;
+      const r = box.getBoundingClientRect();
+      return { top: r.top + window.scrollY, height: r.height };
+    };
+    if (document.querySelector("#process").dataset.pinMode === "frame") {
+      return docTop(document.querySelector("#process")).top - 64;
+    }
+    const strip = document.querySelector("[data-process-strip]");
+    const { top } = docTop(strip);
+    return top + strip.offsetHeight / 2 - window.innerHeight / 2;
   });
-  await sleep(1500);
-  out.dotsMid = await page.evaluate(() =>
-    [...document.querySelectorAll("[data-step-dot]")].map(
-      (d) => getComputedStyle(d).backgroundColor === "rgb(83, 210, 255)",
-    ),
-  );
-  // step 04 is now "Ship"
-  out.step04Heading = await page.evaluate(
-    () => [...document.querySelectorAll("[data-step] h3")].map((h) => h.textContent)[3],
-  );
-  await page.evaluate(() => {
-    const el = document.querySelector("[data-steps]");
-    const y = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2;
-    window.scrollTo({ top: y + window.innerHeight * 0.75, behavior: "instant" });
+  const toPin = async (frac) => {
+    await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), pinStart + 900 * frac);
+    await sleep(1500);
+  };
+  const processState = () =>
+    page.evaluate(() => {
+      const lit = (el) => !!el && getComputedStyle(el).color === "rgb(83, 210, 255)";
+      const visibleLabel = (id) =>
+        [...document.querySelectorAll(`[data-pillar="${id}"] [data-pillar-label]`)].find((l) => l.offsetParent !== null);
+      return {
+        dots: [...document.querySelectorAll("[data-step-dot]")].map(
+          (d) => getComputedStyle(d).backgroundColor === "rgb(83, 210, 255)",
+        ),
+        pillars: { solve: lit(visibleLabel("solve")), last: lit(visibleLabel("last")) },
+      };
+    });
+  out.processStatic = await page.evaluate(() => {
+    const headings = [...document.querySelectorAll("[data-step] h3")].map((h) => h.textContent);
+    const bodies = [...document.querySelectorAll("[data-step] h3")].map(
+      (h) => h.parentElement.nextElementSibling?.textContent ?? "",
+    );
+    const labels = [...document.querySelectorAll("[data-pillar-label]")]
+      .filter((l) => l.offsetParent !== null)
+      .map((l) => l.textContent);
+    const steps = [...document.querySelectorAll("[data-step]")].map((s) => s.getBoundingClientRect());
+    const solve = [...document.querySelectorAll('[data-pillar="solve"]')].find((p) => p.offsetParent !== null)?.getBoundingClientRect();
+    const last = [...document.querySelectorAll('[data-pillar="last"]')].find((p) => p.offsetParent !== null)?.getBoundingClientRect();
+    const near = (a, b) => Math.abs(a - b) <= 2;
+    return {
+      stepsNamed: headings.join(",") === "Listen,Think,Build,Ship,Care",
+      stepBodiesNoAsterisk: bodies.length === 5 && bodies.every((b) => !b.includes("*")),
+      noStandards: !document.querySelector("[data-standard]"),
+      pillarsVisible: labels.join("|") === "Designed to Solve|Built to Last",
+      // Designed spans columns 1–2, Built spans 3–5
+      pillarsAlignColumns:
+        !!solve && !!last && steps.length === 5 &&
+        near(solve.left, steps[0].left) && near(solve.right, steps[1].right) &&
+        near(last.left, steps[2].left) && near(last.right, steps[4].right),
+    };
   });
-  await sleep(1500);
-  out.dotsEnd = await page.evaluate(() =>
-    [...document.querySelectorAll("[data-step-dot]")].map(
-      (d) => getComputedStyle(d).backgroundColor === "rgb(83, 210, 255)",
-    ),
-  );
+  // the scrub timeline is ~1.28 long (line 0–1, Ship seal stamps after 0.78),
+  // so 30% of the pin ≈ t 0.38: dots 01–02 settled, dot 03 and Built not yet
+  await toPin(0.3);
+  const mid = await processState();
+  out.dotsMid = mid.dots;
+  out.pillarsMid = mid.pillars;
+  await toPin(0.38);
+  await page.screenshot({ path: `${OUT}/full-process-mid.png` });
+  await toPin(1.2);
+  const end = await processState();
+  out.dotsEnd = end.dots;
+  out.pillarsEnd = end.pillars;
   // the Ship step's seal stamps during the pin
   out.sealStamped = await page.evaluate(() => {
     const s = document.querySelector("[data-step] [data-seal]");
     return s ? parseFloat(getComputedStyle(s).opacity) > 0.9 : false;
   });
+  // Care breathes once the line has reached 05, while the section is on screen
+  const samplePulse = async (n, gap) => {
+    const v = [];
+    for (let i = 0; i < n; i++) {
+      v.push(await page.evaluate(() => {
+        const p = document.querySelector("[data-care-pulse]");
+        return p ? Math.round(parseFloat(getComputedStyle(p).opacity) * 1000) / 1000 : null;
+      }));
+      await sleep(gap);
+    }
+    return v;
+  };
+  const onScreenPulse = await samplePulse(7, 300);
+  out.carePulseAnimating =
+    onScreenPulse.every((x) => x !== null) && new Set(onScreenPulse).size > 2 && Math.max(...onScreenPulse) > 0.05;
   await page.screenshot({ path: `${OUT}/full-process.png` });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await sleep(900);
+  const offScreenPulse = await samplePulse(3, 400);
+  out.carePulseStopsOffscreen = offScreenPulse.every((x) => x === 0);
 
   // --- 5. footer + budget -----------------------------------------------------
   out.footerLine = await page.evaluate(() => {
     const t = document.querySelector("footer")?.textContent ?? "";
-    return t.includes("© 2026 Built with Creative Code Logic") && t.includes("Designed to solve. Built to perform.");
+    return t.includes("© 2026 Built with Creative Code Logic*. Designed to Solve. Built to Last.");
   });
   out.scrollHeight = await page.evaluate(() => Math.round(document.body.scrollHeight));
 
@@ -1083,6 +1150,17 @@ async function scrollToEl(page, sel, offset = -60) {
     const seal = document.querySelector("[data-step] [data-seal]");
     return headings[3] === "Ship" && !!seal && getComputedStyle(seal).opacity !== "0";
   });
+  // final static state: all five dots filled, both pillars lit, no Care pulse
+  out.processReduced = await page.evaluate(() => {
+    const ACC = "rgb(83, 210, 255)";
+    const dots = [...document.querySelectorAll("[data-step-dot]")];
+    const labels = [...document.querySelectorAll("[data-pillar-label]")].filter((l) => l.offsetParent !== null);
+    return {
+      dotsAllFilled: dots.length === 5 && dots.every((d) => getComputedStyle(d).backgroundColor === ACC),
+      pillarsLit: labels.length === 2 && labels.every((l) => getComputedStyle(l).color === ACC),
+      carePulseAbsent: !document.querySelector("[data-care-pulse]"),
+    };
+  });
   await scrollToEl(page, '[data-world="1"]');
   await sleep(600);
   out.terminalStatic = await page.evaluate(() => {
@@ -1293,6 +1371,27 @@ async function scrollToEl(page, sel, offset = -60) {
   errors.push(...rmErrors);
   await rmPage.close();
 
+  // --- process on mobile: vertical timeline, pillar headings before 01 and
+  //     03, one continuous connector (checked past the pin, fully drawn) -----
+  await page.evaluate(() => document.querySelector("footer").scrollIntoView({ block: "end" }));
+  await sleep(1200);
+  out.processMobile = await page.evaluate(() => {
+    const vis = (sel) => [...document.querySelectorAll(sel)].find((e) => e.offsetParent !== null);
+    const steps = [...document.querySelectorAll("[data-step]")];
+    const dots = [...document.querySelectorAll("[data-step-dot]")].map((d) => d.getBoundingClientRect());
+    const solve = vis('[data-pillar="solve"]')?.getBoundingClientRect();
+    const last = vis('[data-pillar="last"]');
+    const line = document.querySelector("[data-connector-y]")?.getBoundingClientRect();
+    const sec = document.querySelector("#process");
+    return {
+      pillarBeforeStep1: !!solve && dots.length === 5 && solve.bottom <= dots[0].top,
+      pillarBeforeStep3: !!last && steps[2].contains(last) && last.getBoundingClientRect().bottom <= dots[2].top,
+      connectorContinuous:
+        !!line && line.width > 0 && line.top <= dots[0].top + 8 && line.bottom >= dots[4].top + 7,
+      noHScroll: sec.scrollWidth <= sec.clientWidth + 1 && document.documentElement.scrollWidth <= 390,
+    };
+  });
+
   console.log("\n=== MOBILE ===");
   console.log(JSON.stringify(out, null, 1));
   console.log(errors.length ? `ERRORS:\n${errors.join("\n")}` : "no page errors");
@@ -1320,10 +1419,20 @@ const EXPECTED = {
     "logic.hasAngleLabel": t, "logic.hasSheetDims": t, "logic.noOneToOne": t,
     "logic.hasCircleLegend": t, "logic.hasPersonalText": f,
     logicLoopDrag: t,
-    // mid-scroll: the first two process dots are filled, the last two not yet
-    "dotsMid.0": t, "dotsMid.1": t, "dotsMid.2": f, "dotsMid.3": f,
-    "dotsEnd.0": t, "dotsEnd.1": t, "dotsEnd.2": t, "dotsEnd.3": t,
-    sealStamped: t, footerLine: t,
+    heroSloganOk: t,
+    // 1440×900: the whole chapter pins as one frame
+    processFramePinned: t,
+    // process: 5 steps under two pillars; no standards cards, no body asterisk
+    "processStatic.stepsNamed": t, "processStatic.stepBodiesNoAsterisk": t,
+    "processStatic.noStandards": t, "processStatic.pillarsVisible": t,
+    "processStatic.pillarsAlignColumns": t,
+    // 30% into the pin: dots 01–02 filled, Designed lit, Built not yet
+    "dotsMid.0": t, "dotsMid.1": t, "dotsMid.2": f, "dotsMid.3": f, "dotsMid.4": f,
+    "pillarsMid.solve": t, "pillarsMid.last": f,
+    "dotsEnd.0": t, "dotsEnd.1": t, "dotsEnd.2": t, "dotsEnd.3": t, "dotsEnd.4": t,
+    "pillarsEnd.solve": t, "pillarsEnd.last": t,
+    sealStamped: t, carePulseAnimating: t, carePulseStopsOffscreen: t,
+    footerLine: t,
     "briefClose.ctaVisibleAfterClose": t, "briefClose.focusOnCta": t,
     "briefClose.footerUnchanged": t, "briefClose.reopenSameStep": t,
     "briefClose.emailIntact": t, "briefClose.timingChipIntact": t,
@@ -1364,6 +1473,8 @@ const EXPECTED = {
   reduced: {
     rotatingLine: f, // reduced motion renders the final headline, no rotation
     shipStepReduced: t, terminalStatic: t, noInteractive: t,
+    "processReduced.dotsAllFilled": t, "processReduced.pillarsLit": t,
+    "processReduced.carePulseAbsent": t,
     pinSpacer: f, // no ScrollTrigger pinning under reduced motion
     rmBriefOpens: t, rmBriefCloses: t, rmBriefReopensWithState: t,
     navScrolledAtBottom: t,
@@ -1384,6 +1495,8 @@ const EXPECTED = {
     backToTopMobileHiddenTop: t,
     "backToTopMobile.present": t, "backToTopMobile.visible": t,
     "backToTopMobile.inViewport": t,
+    "processMobile.pillarBeforeStep1": t, "processMobile.pillarBeforeStep3": t,
+    "processMobile.connectorContinuous": t, "processMobile.noHScroll": t,
   },
 };
 

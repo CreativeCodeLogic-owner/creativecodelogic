@@ -7,8 +7,8 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-8 text-center md:px-10">
         <p className="text-[10px] leading-relaxed text-mist">
           © 2026 Built with Creative Code Logic
-          <span className="text-accent">*</span>. Designed to solve. Built to
-          perform.
+          <span className="text-accent">*</span>. Designed to Solve. Built to
+          Last.
           {" · "}
           <a
             href="/terms"

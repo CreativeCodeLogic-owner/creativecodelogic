@@ -16,6 +16,7 @@
 ## Key Learnings
 
 - **Project:** ccl-website. AGENTS.md is deprecated (2026-07-21); CLAUDE.md + .wolf/ are the authority.
+- Brand system (from Ghassan, 2026-09-28): slogan "Designed to Solve. Built to Last." (how we build for a client; exact wording, Title Case; "Built to Perform" retired). Signature "Built with Creative Code Logic*" goes on a product once it ships: always in our own products' footers, in a client's only with permission. Site keeps "build" wording; the client deck's "How we work" is deck-only. The Ship seal in "How we build" = the signature going on at ship.
 - Architecture, consent flow, forms and release process are documented in `docs/architecture.md` and `docs/deployment.md`; read those instead of re-deriving.
 - `src/data/triquetra.ts` holds the authored v2 mark (source `.brief/branding/triquetra-v2.svg`). The old PNG trace pipeline (`scripts/extract_triquetra.py`) is obsolete for v2.
 - GA4 = Consent Mode v2. gtag.js always loads; `analytics_storage` defaults to denied; `config` has `send_page_view:false`. The APP owns page_view (`recordPageView()`, once-guarded per load, called on mount for a stored accept and on Accept); index.html never fires one. Correct pre-consent test = 0 `/g/collect` + 0 `_ga*` cookies, not "0 Google requests".

@@ -14,7 +14,7 @@ mark.
 | The Mark (hero) | `HeroSignature` | `#signature` | The triquetra draws itself loop by loop, then the headline rotates through the three ingredients. |
 | What goes into the build | `SignatureMeaning` | none | Hosts the three worlds (below). |
 | Built and live (Work) | `SignatureLives` | `#work` | Case cards (still placeholders). Rendered only when `SHOW_WORK` is set. |
-| How we build (Process) | `EarnSignature` | `#process` | The build standard, step dots filling, the seal stamp. |
+| How we build (Process) | `EarnSignature` | `#process` | Five steps (Listen, Think, Build, Ship, Care) under the two slogan pillars; one pinned scrub fills the dots, lights the pillars, stamps the Ship seal, then Care breathes while on screen. |
 | The Invitation | `Invitation` | `#contact` | The closer: opens the brief flow and the hello drawer. |
 
 Chrome: `Nav`, `Footer`, `BackToTop`, `ConsentBanner`, and `Triquetra` (the
