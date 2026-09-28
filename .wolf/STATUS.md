@@ -5,19 +5,20 @@ budget_tokens: 1000
 # STATUS: ccl-website
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
-> Last updated: 2026-09-25
+> Last updated: 2026-09-28
 
 ---
 
-## Done (2026-09-25)
+## Done
 
-- `f657a9e` `/email/` signature assets (robots Disallow); Cloudflare rule "Email Signatures Folder" keeps mailto links intact.
-- `56b35a1` fix round (consent copy, contact-form guard, build guard, palette gap, verify6 gate) and `dfcef74` / `v4.2.2` live PSI sync.
-- Housekeeping: OpenWolf upgrade (portable hooks, all modules tracked), docs + `.wolf/` synced, buglog auto-detect off.
-- `3862c41` terminal metric label restored to "Lighthouse" (log line keeps "lighthouse desktop 95"). Deployed.
-- `74b1a7d` perf: Aptos Regular + Bold preloaded, gtag.js injected after the load event (consent unchanged; live: load 772ms, gtag start 1469ms), Tailwind scanning scoped to `src/` + `index.html`, privacy wording updated. Local mobile lab (guidance only): Perf 58 → 67, LCP 4.41s → 3.37s. Deployed.
-- `30e4aba` deep links `/#process` and `/#contact` land on their sections on load (verify6 deepLinks checks). Deployed.
-- Tried and dropped: React.lazy code-splitting of below-fold chapters (TBT worse), inlined CSS (no FCP gain; FCP is JS-bound).
+- 2026-09-25: `/email/` signature assets, fix round, `v4.2.2` PSI sync, OpenWolf housekeeping, perf (`74b1a7d`: font preloads, deferred gtag.js, Tailwind scoping; local lab Perf 58 → 67), deep links (`30e4aba`). Dropped: React.lazy splitting (TBT worse), inlined CSS (no FCP gain).
+- 2026-09-28, all deployed:
+  - `3b8c7c5` "How we build" = the client process (Listen, Think, Build, Ship, Care) under the pillars Designed to Solve / Built to Last; md+ pins the whole chapter as one frame (strip fallback on short viewports, unpinned scrub below md); Ship seal = signature at ship; Care pulse while on screen. Slogan "Designed to Solve. Built to Last." everywhere (hero, footer, Terms/Privacy footers). Brand system in CLAUDE.md, copy/, cerebrum.
+  - `72794e2` back-to-top lifts clear of the footer.
+  - `cdd3fcc` OpenWolf `init`/`update` rewrite settings.json to absolute paths: committed file stays portable, local copy is skip-worktree (see docs/deployment.md).
+
+### Open item
+- The email signature source (`signatures/v2/hosted/email/*.html`) still says "Built to Perform"; `public/email/` is unchanged until it's updated.
 
 ---
 

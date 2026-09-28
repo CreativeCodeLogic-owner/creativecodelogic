@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-28T08:54:15.467Z
-> Files: 80 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-28T09:00:00.748Z
+> Files: 79 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -86,7 +86,6 @@
 - `AmbientField.tsx` — Deterministic PRNG so a chapter's scatter is identical across reloads. (~4020 tok)
 - `BackToTop.tsx` — A floating "back to top" pill, fixed bottom-right (below the drawer/menu at (~1138 tok)
 - `BriefForm.tsx` — The brief's data — lifted to the caller so it survives close/reopen. (~3847 tok)
-- `ChunkMounted.tsx` — Rendered as the last child inside a lazy chapter's Suspense boundary: it (~180 tok)
 - `ConsentBanner.tsx` — Consent-first analytics notice. Shown on first visit only when a GA id is (~1186 tok)
 - `EarnSignature.tsx` — Chapter 4 — How we build. (~3672 tok)
 - `Footer.tsx` — Footer (~457 tok)
@@ -98,7 +97,7 @@
 - `NavFrieze.tsx` — Deal distinct variants onto a composition's positions (no repeats within a (~1038 tok)
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)
-- `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~1207 tok)
+- `SignatureMeaning.tsx` — Chapter 2 — What goes into the build. (~892 tok)
 - `Triquetra.tsx` — Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left (~502 tok)
 
 ## src/components/worlds/

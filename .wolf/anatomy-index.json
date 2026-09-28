@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-28T08:54:15.467Z",
-    "fileCount": 80,
+    "lastScanned": "2026-09-28T09:00:00.748Z",
+    "fileCount": 79,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "db72d83032071bed460190c319faa2dba94c9f506bcd63e3ab59c342c6213936",
-    "storeUpdatedAt": "2026-09-28T08:54:15.488Z",
-    "rootHash": "d29ba6fc5ee22c2f"
+    "renderedHash": "4a80f58f6dd4a01107b3081a30b9e120644b18549d47e6a5bdd02f13ea1f6a36",
+    "storeUpdatedAt": "2026-09-28T09:00:00.750Z",
+    "rootHash": "5ccd8d77613bec2a"
   },
   "files": {
     ".firebaserc": {
@@ -16,7 +16,7 @@
       "hash": "e7cfd47b5e7127fd",
       "size": 59,
       "mtimeMs": 1785041928979.6448,
-      "updatedAt": "2026-09-25T07:59:09.593Z",
+      "updatedAt": "2026-09-28T09:00:00.227Z",
       "source": "scan"
     },
     ".gitattributes": {
@@ -25,7 +25,7 @@
       "hash": "e753774a5c6c845d",
       "size": 12,
       "mtimeMs": 1784632127098.3057,
-      "updatedAt": "2026-09-25T07:59:09.593Z",
+      "updatedAt": "2026-09-28T09:00:00.227Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -34,7 +34,7 @@
       "hash": "c87941834c0d6998",
       "size": 399,
       "mtimeMs": 1790323131567.255,
-      "updatedAt": "2026-09-25T07:59:09.594Z",
+      "updatedAt": "2026-09-28T09:00:00.228Z",
       "source": "scan"
     },
     "CHANGELOG.md": {
@@ -43,8 +43,8 @@
       "hash": "d6d50ee40e6f7b3b",
       "size": 16484,
       "mtimeMs": 1790585655287.632,
-      "updatedAt": "2026-09-28T08:54:15.466Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.229Z",
+      "source": "scan"
     },
     "CLAUDE.md": {
       "description": "OpenWolf",
@@ -52,8 +52,8 @@
       "hash": "6c009d405dba82ea",
       "size": 2838,
       "mtimeMs": 1790582769298.9922,
-      "updatedAt": "2026-09-28T08:06:09.505Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.229Z",
+      "source": "scan"
     },
     "copy/homepage-narrative-v1.md": {
       "description": "CCL Website — Homepage Narrative v1",
@@ -61,7 +61,7 @@
       "hash": "87e031df3ebaf19d",
       "size": 6536,
       "mtimeMs": 1784280467116.02,
-      "updatedAt": "2026-09-25T07:59:09.595Z",
+      "updatedAt": "2026-09-28T09:00:00.230Z",
       "source": "scan"
     },
     "copy/homepage-narrative-v2.md": {
@@ -70,8 +70,8 @@
       "hash": "e0da2783731c321f",
       "size": 5933,
       "mtimeMs": 1790582759424.402,
-      "updatedAt": "2026-09-28T08:05:59.582Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.230Z",
+      "source": "scan"
     },
     "docs/architecture.md": {
       "description": "Architecture",
@@ -79,8 +79,8 @@
       "hash": "e11dd2a43dcdc684",
       "size": 10803,
       "mtimeMs": 1790582921817.4595,
-      "updatedAt": "2026-09-28T08:08:42.873Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.232Z",
+      "source": "scan"
     },
     "docs/deployment.md": {
       "description": "Deployment",
@@ -88,8 +88,8 @@
       "hash": "e87d6ba3b062b774",
       "size": 7924,
       "mtimeMs": 1790584190690.2178,
-      "updatedAt": "2026-09-28T08:29:50.882Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.233Z",
+      "source": "scan"
     },
     "docs/superpowers/plans/2026-07-18-polish-pass-plan.md": {
       "description": "Team + Reviewer Polish Pass — Implementation Plan",
@@ -97,7 +97,7 @@
       "hash": "e675e67204051aaa",
       "size": 8974,
       "mtimeMs": 1784397009456.408,
-      "updatedAt": "2026-09-25T07:59:09.597Z",
+      "updatedAt": "2026-09-28T09:00:00.236Z",
       "source": "scan"
     },
     "docs/superpowers/specs/2026-07-18-polish-pass-design.md": {
@@ -106,7 +106,7 @@
       "hash": "8b9e10c86f325321",
       "size": 3691,
       "mtimeMs": 1784396932100.329,
-      "updatedAt": "2026-09-25T07:59:09.598Z",
+      "updatedAt": "2026-09-28T09:00:00.236Z",
       "source": "scan"
     },
     "firebase.json": {
@@ -115,7 +115,7 @@
       "hash": "65c214972ea67aeb",
       "size": 785,
       "mtimeMs": 1784710147050.627,
-      "updatedAt": "2026-09-25T07:59:09.598Z",
+      "updatedAt": "2026-09-28T09:00:00.238Z",
       "source": "scan"
     },
     "index.html": {
@@ -124,8 +124,8 @@
       "hash": "6c21bdd978f288c5",
       "size": 5790,
       "mtimeMs": 1790326371754.461,
-      "updatedAt": "2026-09-25T08:52:51.936Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.238Z",
+      "source": "scan"
     },
     "package.json": {
       "description": "Node.js package manifest",
@@ -133,7 +133,7 @@
       "hash": "7b4c90fc186f8da3",
       "size": 633,
       "mtimeMs": 1790321787717.043,
-      "updatedAt": "2026-09-25T07:59:09.599Z",
+      "updatedAt": "2026-09-28T09:00:00.239Z",
       "source": "scan"
     },
     "public/404.html": {
@@ -142,7 +142,7 @@
       "hash": "0cfe071db887a7cd",
       "size": 3909,
       "mtimeMs": 1785573785068.0867,
-      "updatedAt": "2026-09-25T07:59:09.600Z",
+      "updatedAt": "2026-09-28T09:00:00.240Z",
       "source": "scan"
     },
     "public/email/admin.html": {
@@ -151,7 +151,7 @@
       "hash": "dcaa6729d0d88f1d",
       "size": 3289,
       "mtimeMs": 1790314494131.6887,
-      "updatedAt": "2026-09-25T07:59:09.601Z",
+      "updatedAt": "2026-09-28T09:00:00.241Z",
       "source": "scan"
     },
     "public/email/devteam.html": {
@@ -160,7 +160,7 @@
       "hash": "b5fd44b55e98b288",
       "size": 3302,
       "mtimeMs": 1790314498049.6052,
-      "updatedAt": "2026-09-25T07:59:09.601Z",
+      "updatedAt": "2026-09-28T09:00:00.242Z",
       "source": "scan"
     },
     "public/email/ghassan.html": {
@@ -169,7 +169,7 @@
       "hash": "35e91f25152aba54",
       "size": 3422,
       "mtimeMs": 1790314498431.361,
-      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "updatedAt": "2026-09-28T09:00:00.242Z",
       "source": "scan"
     },
     "public/email/nadim.html": {
@@ -178,7 +178,7 @@
       "hash": "6c0616ff1714909d",
       "size": 3399,
       "mtimeMs": 1790314498847.735,
-      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "updatedAt": "2026-09-28T09:00:00.243Z",
       "source": "scan"
     },
     "public/email/oussama.html": {
@@ -187,7 +187,7 @@
       "hash": "04703cf0e090c508",
       "size": 3399,
       "mtimeMs": 1790314499386.7388,
-      "updatedAt": "2026-09-25T07:59:09.602Z",
+      "updatedAt": "2026-09-28T09:00:00.243Z",
       "source": "scan"
     },
     "public/privacy.html": {
@@ -196,8 +196,8 @@
       "hash": "c204aa042584efea",
       "size": 6621,
       "mtimeMs": 1790582735938.2644,
-      "updatedAt": "2026-09-28T08:05:36.118Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.245Z",
+      "source": "scan"
     },
     "public/robots.txt": {
       "description": "",
@@ -205,7 +205,7 @@
       "hash": "023bbcbde47e40ae",
       "size": 93,
       "mtimeMs": 1790317125832.648,
-      "updatedAt": "2026-09-25T07:59:09.604Z",
+      "updatedAt": "2026-09-28T09:00:00.246Z",
       "source": "scan"
     },
     "public/site.webmanifest": {
@@ -214,7 +214,7 @@
       "hash": "2fd9b659c000d9cf",
       "size": 402,
       "mtimeMs": 1785570973458.5388,
-      "updatedAt": "2026-09-25T07:59:09.605Z",
+      "updatedAt": "2026-09-28T09:00:00.246Z",
       "source": "scan"
     },
     "public/sitemap.xml": {
@@ -223,7 +223,7 @@
       "hash": "10a07b1039cd21ee",
       "size": 311,
       "mtimeMs": 1784710114765.396,
-      "updatedAt": "2026-09-25T07:59:09.605Z",
+      "updatedAt": "2026-09-28T09:00:00.246Z",
       "source": "scan"
     },
     "public/terms.html": {
@@ -232,8 +232,8 @@
       "hash": "fa35df83944f7f1a",
       "size": 5915,
       "mtimeMs": 1790582735472.6272,
-      "updatedAt": "2026-09-28T08:05:35.648Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.247Z",
+      "source": "scan"
     },
     "README.md": {
       "description": "Project documentation",
@@ -241,8 +241,8 @@
       "hash": "84bedb3e189813cd",
       "size": 8373,
       "mtimeMs": 1790323240132.803,
-      "updatedAt": "2026-09-25T08:00:40.296Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.247Z",
+      "source": "scan"
     },
     "scripts/extract_triquetra.py": {
       "description": "Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade).",
@@ -250,7 +250,7 @@
       "hash": "77c6e71ac9155984",
       "size": 7738,
       "mtimeMs": 1784302375670.7703,
-      "updatedAt": "2026-09-25T07:59:09.608Z",
+      "updatedAt": "2026-09-28T09:00:00.248Z",
       "source": "scan",
       "symbols": [
         {
@@ -312,7 +312,7 @@
       "hash": "feb1956b23349cd1",
       "size": 6025,
       "mtimeMs": 1784307489634.476,
-      "updatedAt": "2026-09-25T07:59:09.609Z",
+      "updatedAt": "2026-09-28T09:00:00.249Z",
       "source": "scan",
       "symbols": [
         {
@@ -380,7 +380,7 @@
       "hash": "5d94c1bce5970e3f",
       "size": 1924,
       "mtimeMs": 1785604835050.0845,
-      "updatedAt": "2026-09-25T07:59:09.610Z",
+      "updatedAt": "2026-09-28T09:00:00.251Z",
       "source": "scan",
       "symbols": [
         {
@@ -399,7 +399,7 @@
       "hash": "1ef64462e5dafbde",
       "size": 3225,
       "mtimeMs": 1784304722384.1338,
-      "updatedAt": "2026-09-25T07:59:09.611Z",
+      "updatedAt": "2026-09-28T09:00:00.252Z",
       "source": "scan",
       "symbols": [
         {
@@ -425,7 +425,7 @@
       "hash": "bf757fb8461a6d93",
       "size": 4540,
       "mtimeMs": 1784308102050.2925,
-      "updatedAt": "2026-09-25T07:59:09.611Z",
+      "updatedAt": "2026-09-28T09:00:00.253Z",
       "source": "scan",
       "symbols": [
         {
@@ -458,7 +458,7 @@
       "hash": "8867ec894d66ba06",
       "size": 4105,
       "mtimeMs": 1784359146477.4565,
-      "updatedAt": "2026-09-25T07:59:09.612Z",
+      "updatedAt": "2026-09-28T09:00:00.254Z",
       "source": "scan",
       "symbols": [
         {
@@ -491,7 +491,7 @@
       "hash": "8669f2791d28b847",
       "size": 9653,
       "mtimeMs": 1784364132675.0242,
-      "updatedAt": "2026-09-25T07:59:09.612Z",
+      "updatedAt": "2026-09-28T09:00:00.255Z",
       "source": "scan",
       "symbols": [
         {
@@ -532,7 +532,7 @@
       "hash": "b7d666dafcda44b2",
       "size": 10068,
       "mtimeMs": 1784369415540.8306,
-      "updatedAt": "2026-09-25T07:59:09.613Z",
+      "updatedAt": "2026-09-28T09:00:00.255Z",
       "source": "scan",
       "symbols": [
         {
@@ -573,21 +573,21 @@
       "hash": "6de4f4368ebe6371",
       "size": 76174,
       "mtimeMs": 1790584417196.4631,
-      "updatedAt": "2026-09-28T08:33:37.375Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.259Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "sleep",
           "kind": "fn",
           "startLine": 9,
-          "endLine": 16,
-          "tokens": 118
+          "endLine": 9,
+          "tokens": 18
         },
         {
           "name": "seedConsent",
           "kind": "fn",
           "startLine": 17,
-          "endLine": 28,
+          "endLine": 27,
           "tokens": 76
         },
         {
@@ -601,24 +601,26 @@
           "name": "watch",
           "kind": "fn",
           "startLine": 37,
-          "endLine": 56,
-          "tokens": 280
+          "endLine": 53,
+          "tokens": 222
         },
         {
           "name": "deepLinks",
           "kind": "fn",
           "startLine": 57,
-          "endLine": 88,
+          "endLine": 87,
           "tokens": 291
         },
         {
           "name": "scrollToEl",
           "kind": "fn",
           "startLine": 89,
-          "endLine": 1573,
-          "tokens": 20784
+          "endLine": 98,
+          "tokens": 82
         }
-      ]
+      ],
+      "symbolSource": "ts",
+      "skeleton": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nconst seedConsent = (page) =>\nasync function launch(viewport) {\nfunction watch(page) {\nasync function deepLinks(browser, reduced, errors) {\nasync function scrollToEl(page, sel, offset = -60) {"
     },
     "src/App.tsx": {
       "description": "import { ProgressLine } from \"@/components/ProgressLine\"; // benched per team feedback 2026-08",
@@ -626,17 +628,18 @@
       "hash": "83deefe77fbf3e54",
       "size": 1751,
       "mtimeMs": 1790328036459.1777,
-      "updatedAt": "2026-09-25T09:20:36.635Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.260Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "App",
           "kind": "fn",
           "startLine": 16,
-          "endLine": 49,
+          "endLine": 48,
           "tokens": 262
         }
-      ]
+      ],
+      "symbolSource": "ts"
     },
     "src/assets/triquetra-variants/01_triquetra_build.webp": {
       "description": "",
@@ -644,7 +647,7 @@
       "hash": "cbfb54f65c562b1d",
       "size": 11208,
       "mtimeMs": 1785604847268.7405,
-      "updatedAt": "2026-09-25T07:59:09.617Z",
+      "updatedAt": "2026-09-28T09:00:00.262Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/02_triquetra_outline.webp": {
@@ -653,7 +656,7 @@
       "hash": "d11997f7cf1f6d90",
       "size": 7986,
       "mtimeMs": 1785604847350.6038,
-      "updatedAt": "2026-09-25T07:59:09.618Z",
+      "updatedAt": "2026-09-28T09:00:00.262Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/03_triquetra_fill.webp": {
@@ -662,7 +665,7 @@
       "hash": "c03d792588667141",
       "size": 5622,
       "mtimeMs": 1785604847430.8518,
-      "updatedAt": "2026-09-25T07:59:09.618Z",
+      "updatedAt": "2026-09-28T09:00:00.263Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/04_triquetra_8bit_fill.webp": {
@@ -671,7 +674,7 @@
       "hash": "cba63d33fabf71fe",
       "size": 3442,
       "mtimeMs": 1785604847496.927,
-      "updatedAt": "2026-09-25T07:59:09.619Z",
+      "updatedAt": "2026-09-28T09:00:00.264Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/05_triquetra_8bit_outline.webp": {
@@ -680,7 +683,7 @@
       "hash": "5c9e772a35c6332b",
       "size": 4918,
       "mtimeMs": 1785604847562.7766,
-      "updatedAt": "2026-09-25T07:59:09.619Z",
+      "updatedAt": "2026-09-28T09:00:00.264Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/06_triquetra_dots_lines.webp": {
@@ -689,7 +692,7 @@
       "hash": "1697748d96bf86db",
       "size": 7124,
       "mtimeMs": 1785604847631.9224,
-      "updatedAt": "2026-09-25T07:59:09.620Z",
+      "updatedAt": "2026-09-28T09:00:00.265Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/07_triquetra_dots.webp": {
@@ -698,7 +701,7 @@
       "hash": "87a013a379e3f934",
       "size": 4740,
       "mtimeMs": 1785604847699.5403,
-      "updatedAt": "2026-09-25T07:59:09.621Z",
+      "updatedAt": "2026-09-28T09:00:00.265Z",
       "source": "scan"
     },
     "src/assets/triquetra-variants/08_triquetra_ascii.webp": {
@@ -707,7 +710,7 @@
       "hash": "b93622ec19169c89",
       "size": 12082,
       "mtimeMs": 1785604847747.069,
-      "updatedAt": "2026-09-25T07:59:09.621Z",
+      "updatedAt": "2026-09-28T09:00:00.266Z",
       "source": "scan"
     },
     "src/components/AmbientField.tsx": {
@@ -716,7 +719,7 @@
       "hash": "3122c01b5b67b171",
       "size": 14101,
       "mtimeMs": 1785399329174.4639,
-      "updatedAt": "2026-09-25T07:59:09.623Z",
+      "updatedAt": "2026-09-28T09:00:00.268Z",
       "source": "scan",
       "symbols": [
         {
@@ -771,17 +774,18 @@
       "hash": "32f4373228708c2a",
       "size": 3989,
       "mtimeMs": 1790584297960.318,
-      "updatedAt": "2026-09-28T08:31:38.133Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.268Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "BackToTop",
           "kind": "fn",
           "startLine": 19,
-          "endLine": 91,
+          "endLine": 90,
           "tokens": 848
         }
-      ]
+      ],
+      "symbolSource": "ts"
     },
     "src/components/BriefForm.tsx": {
       "description": "The brief's data — lifted to the caller so it survives close/reopen.",
@@ -789,7 +793,7 @@
       "hash": "4ab12fe24f234674",
       "size": 13488,
       "mtimeMs": 1785573699329.8965,
-      "updatedAt": "2026-09-25T07:59:09.625Z",
+      "updatedAt": "2026-09-28T09:00:00.270Z",
       "source": "scan",
       "symbols": [
         {
@@ -851,7 +855,7 @@
       "hash": "0f905e5659bc3983",
       "size": 4159,
       "mtimeMs": 1790318609512.6345,
-      "updatedAt": "2026-09-25T07:59:09.626Z",
+      "updatedAt": "2026-09-28T09:00:00.270Z",
       "source": "scan",
       "symbols": [
         {
@@ -870,31 +874,47 @@
       "hash": "ffa9d4000ebb7c07",
       "size": 12872,
       "mtimeMs": 1790584749439.1492,
-      "updatedAt": "2026-09-28T08:39:09.597Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.271Z",
+      "source": "scan",
       "symbols": [
+        {
+          "name": "PinMode",
+          "kind": "section",
+          "startLine": 10,
+          "endLine": 10,
+          "tokens": 13
+        },
+        {
+          "name": "Pillar",
+          "kind": "section",
+          "startLine": 12,
+          "endLine": 12,
+          "tokens": 29
+        },
         {
           "name": "dotAt",
           "kind": "fn",
           "startLine": 41,
-          "endLine": 42,
-          "tokens": 16
+          "endLine": 41,
+          "tokens": 15
         },
         {
           "name": "PillarBlock",
           "kind": "fn",
           "startLine": 43,
-          "endLine": 67,
-          "tokens": 325
+          "endLine": 56,
+          "tokens": 156
         },
         {
           "name": "EarnSignature",
           "kind": "fn",
           "startLine": 68,
-          "endLine": 333,
+          "endLine": 332,
           "tokens": 2900
         }
-      ]
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type PinMode = \"frame\" | \"strip\" | \"scrub\";\ntype Pillar = { id: \"solve\" | \"last\"; label: string; line: string; span: 2 | 3; firstStep: number };\nconst dotAt = (i: number) => i / (STEPS.length - 1);\nfunction PillarBlock({ pillar, reduced, className = \"\" }: { pillar: Pillar; reduced: boolean; className?: string }) {\nexport function EarnSignature() {"
     },
     "src/components/Footer.tsx": {
       "description": "Footer",
@@ -902,8 +922,8 @@
       "hash": "84ce72824a2e80ce",
       "size": 1603,
       "mtimeMs": 1790582724567.344,
-      "updatedAt": "2026-09-28T08:05:24.737Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.273Z",
+      "source": "scan"
     },
     "src/components/HelloDrawer.tsx": {
       "description": "A slide-in drawer for a quick hello. Posts to the CONTACT Formspark form",
@@ -911,7 +931,7 @@
       "hash": "f34855b207c9f555",
       "size": 12372,
       "mtimeMs": 1785014843628.191,
-      "updatedAt": "2026-09-25T07:59:09.627Z",
+      "updatedAt": "2026-09-28T09:00:00.274Z",
       "source": "scan",
       "symbols": [
         {
@@ -931,17 +951,19 @@
       "hash": "c165140b2d6bb99a",
       "size": 8628,
       "mtimeMs": 1790582724088.2693,
-      "updatedAt": "2026-09-28T08:05:24.283Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.274Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "HeroSignature",
           "kind": "fn",
           "startLine": 20,
-          "endLine": 250,
-          "tokens": 2245
+          "endLine": 249,
+          "tokens": 2244
         }
-      ]
+      ],
+      "symbolSource": "ts",
+      "skeleton": "export function HeroSignature() {"
     },
     "src/components/Invitation.tsx": {
       "description": "Chapter 5 — The Invitation.",
@@ -949,7 +971,7 @@
       "hash": "d6db3dbff0f03a04",
       "size": 6295,
       "mtimeMs": 1785573515834.8252,
-      "updatedAt": "2026-09-25T07:59:09.628Z",
+      "updatedAt": "2026-09-28T09:00:00.275Z",
       "source": "scan",
       "symbols": [
         {
@@ -968,7 +990,7 @@
       "hash": "2b92d49c00d46591",
       "size": 6065,
       "mtimeMs": 1787591510801.466,
-      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "updatedAt": "2026-09-28T09:00:00.275Z",
       "source": "scan",
       "symbols": [
         {
@@ -1001,7 +1023,7 @@
       "hash": "ed96510682c805e4",
       "size": 5010,
       "mtimeMs": 1787591490495.1257,
-      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "updatedAt": "2026-09-28T09:00:00.275Z",
       "source": "scan",
       "symbols": [
         {
@@ -1020,7 +1042,7 @@
       "hash": "e2083cf7bf8c9080",
       "size": 3638,
       "mtimeMs": 1785604888590.8955,
-      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "updatedAt": "2026-09-28T09:00:00.276Z",
       "source": "scan",
       "symbols": [
         {
@@ -1074,7 +1096,7 @@
       "hash": "1d2308f7d69974db",
       "size": 2675,
       "mtimeMs": 1785575699089.5923,
-      "updatedAt": "2026-09-25T07:59:09.629Z",
+      "updatedAt": "2026-09-28T09:00:00.276Z",
       "source": "scan",
       "symbols": [
         {
@@ -1093,7 +1115,7 @@
       "hash": "0610f82723076192",
       "size": 7810,
       "mtimeMs": 1785573764998.8958,
-      "updatedAt": "2026-09-25T07:59:09.630Z",
+      "updatedAt": "2026-09-28T09:00:00.277Z",
       "source": "scan",
       "symbols": [
         {
@@ -1116,21 +1138,22 @@
     },
     "src/components/SignatureMeaning.tsx": {
       "description": "Chapter 2 — What goes into the build.",
-      "tokens": 1207,
-      "hash": "3b62502348291a5f",
-      "size": 4228,
-      "mtimeMs": 1790327175556.2954,
-      "updatedAt": "2026-09-25T09:06:15.755Z",
-      "source": "hook",
+      "tokens": 892,
+      "hash": "d2b35dadc093e650",
+      "size": 3125,
+      "mtimeMs": 1790327330324.9382,
+      "updatedAt": "2026-09-28T09:00:00.277Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "SignatureMeaning",
           "kind": "fn",
-          "startLine": 23,
-          "endLine": 118,
-          "tokens": 915
+          "startLine": 15,
+          "endLine": 91,
+          "tokens": 693
         }
-      ]
+      ],
+      "symbolSource": "ts"
     },
     "src/components/Triquetra.tsx": {
       "description": "Index of the loop that glows cyan — 0 top, 1 lower-right, 2 lower-left",
@@ -1138,7 +1161,7 @@
       "hash": "d8412ef0de844dba",
       "size": 1760,
       "mtimeMs": 1790318612402.4624,
-      "updatedAt": "2026-09-25T07:59:09.630Z",
+      "updatedAt": "2026-09-28T09:00:00.277Z",
       "source": "scan",
       "symbols": [
         {
@@ -1164,24 +1187,33 @@
       "hash": "cb7984d136784e33",
       "size": 15811,
       "mtimeMs": 1790323425096.6594,
-      "updatedAt": "2026-09-25T08:03:45.271Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.278Z",
+      "source": "scan",
       "symbols": [
+        {
+          "name": "LogLine",
+          "kind": "section",
+          "startLine": 6,
+          "endLine": 6,
+          "tokens": 18
+        },
         {
           "name": "formatMetric",
           "kind": "fn",
           "startLine": 36,
-          "endLine": 46,
-          "tokens": 136
+          "endLine": 39,
+          "tokens": 50
         },
         {
           "name": "WorldCode",
           "kind": "fn",
           "startLine": 47,
-          "endLine": 459,
+          "endLine": 458,
           "tokens": 3850
         }
-      ]
+      ],
+      "symbolSource": "ts",
+      "skeleton": "type LogLine = { text: string; kind: \"cmd\" | \"ok\" | \"info\" };\nfunction formatMetric(el: HTMLElement, v: number): string {\nexport function WorldCode() {"
     },
     "src/components/worlds/WorldCreative.tsx": {
       "description": "Indices of ~target dots per loop, denser where curvature is higher.",
@@ -1189,7 +1221,7 @@
       "hash": "1ecad0eb7a99e3b1",
       "size": 20148,
       "mtimeMs": 1790318564666.8633,
-      "updatedAt": "2026-09-25T07:59:09.632Z",
+      "updatedAt": "2026-09-28T09:00:00.279Z",
       "source": "scan",
       "symbols": [
         {
@@ -1230,7 +1262,7 @@
       "hash": "aba12c1a74b19fa3",
       "size": 21269,
       "mtimeMs": 1785573726903.1294,
-      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "updatedAt": "2026-09-28T09:00:00.280Z",
       "source": "scan",
       "symbols": [
         {
@@ -1285,7 +1317,7 @@
       "hash": "026190c238ace9cf",
       "size": 4501,
       "mtimeMs": 1785602876450.5403,
-      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "updatedAt": "2026-09-28T09:00:00.281Z",
       "source": "scan",
       "symbols": [
         {
@@ -1311,7 +1343,7 @@
       "hash": "7ee49dede0f12b59",
       "size": 4152,
       "mtimeMs": 1785399274675.8086,
-      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "updatedAt": "2026-09-28T09:00:00.281Z",
       "source": "scan",
       "symbols": [
         {
@@ -1330,7 +1362,7 @@
       "hash": "3f1b92f1e08471c4",
       "size": 1601,
       "mtimeMs": 1785406966598.0466,
-      "updatedAt": "2026-09-25T07:59:09.633Z",
+      "updatedAt": "2026-09-28T09:00:00.281Z",
       "source": "scan"
     },
     "src/data/triquetraBuild.ts": {
@@ -1339,7 +1371,7 @@
       "hash": "2477c31505b3650d",
       "size": 1747,
       "mtimeMs": 1785407635920.076,
-      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "updatedAt": "2026-09-28T09:00:00.282Z",
       "source": "scan"
     },
     "src/hooks/useMagnetic.ts": {
@@ -1348,7 +1380,7 @@
       "hash": "a122b88d36d4a66a",
       "size": 2560,
       "mtimeMs": 1784307600432.191,
-      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "updatedAt": "2026-09-28T09:00:00.282Z",
       "source": "scan",
       "symbols": [
         {
@@ -1367,7 +1399,7 @@
       "hash": "08999fde236f2b97",
       "size": 575,
       "mtimeMs": 1784304148112.8594,
-      "updatedAt": "2026-09-25T07:59:09.634Z",
+      "updatedAt": "2026-09-28T09:00:00.283Z",
       "source": "scan"
     },
     "src/index.css": {
@@ -1376,8 +1408,8 @@
       "hash": "d0ea50f28be1af36",
       "size": 5661,
       "mtimeMs": 1790326154620.4832,
-      "updatedAt": "2026-09-25T08:49:14.810Z",
-      "source": "hook"
+      "updatedAt": "2026-09-28T09:00:00.284Z",
+      "source": "scan"
     },
     "src/lib/captcha.ts": {
       "description": "Lazy-load the reCAPTCHA script exactly once (explicit render mode).",
@@ -1385,7 +1417,7 @@
       "hash": "ef1e380b61b5ff98",
       "size": 2390,
       "mtimeMs": 1785014827312.6765,
-      "updatedAt": "2026-09-25T07:59:09.635Z",
+      "updatedAt": "2026-09-28T09:00:00.285Z",
       "source": "scan",
       "symbols": [
         {
@@ -1432,7 +1464,7 @@
       "hash": "8a3ee8abb3bc7ea6",
       "size": 3897,
       "mtimeMs": 1790318610059.4678,
-      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "updatedAt": "2026-09-28T09:00:00.285Z",
       "source": "scan",
       "symbols": [
         {
@@ -1507,7 +1539,7 @@
       "hash": "d88ef81e61ab8efd",
       "size": 1525,
       "mtimeMs": 1790318635617.6096,
-      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "updatedAt": "2026-09-28T09:00:00.286Z",
       "source": "scan"
     },
     "src/lib/scroll.ts": {
@@ -1516,59 +1548,60 @@
       "hash": "e7a8a4004a5d8bea",
       "size": 3140,
       "mtimeMs": 1790328035448.7202,
-      "updatedAt": "2026-09-25T09:20:35.633Z",
-      "source": "hook",
+      "updatedAt": "2026-09-28T09:00:00.286Z",
+      "source": "scan",
       "symbols": [
         {
           "name": "prefersReducedMotion",
           "kind": "fn",
           "startLine": 7,
-          "endLine": 16,
-          "tokens": 90
+          "endLine": 9,
+          "tokens": 36
         },
         {
           "name": "initSmoothScroll",
           "kind": "fn",
           "startLine": 17,
-          "endLine": 40,
-          "tokens": 197
+          "endLine": 37,
+          "tokens": 152
         },
         {
           "name": "scrollToId",
           "kind": "fn",
           "startLine": 41,
-          "endLine": 63,
-          "tokens": 259
+          "endLine": 55,
+          "tokens": 150
         },
         {
           "name": "scrollToInitialHash",
           "kind": "fn",
           "startLine": 64,
-          "endLine": 78,
-          "tokens": 168
+          "endLine": 76,
+          "tokens": 143
         },
         {
           "name": "scrollToTop",
           "kind": "fn",
           "startLine": 79,
-          "endLine": 87,
-          "tokens": 62
+          "endLine": 85,
+          "tokens": 42
         },
         {
           "name": "stopScroll",
           "kind": "fn",
           "startLine": 88,
-          "endLine": 93,
-          "tokens": 41
+          "endLine": 91,
+          "tokens": 32
         },
         {
           "name": "startScroll",
           "kind": "fn",
           "startLine": 94,
-          "endLine": 100,
-          "tokens": 40
+          "endLine": 97,
+          "tokens": 30
         }
-      ]
+      ],
+      "symbolSource": "ts"
     },
     "src/lib/seal.ts": {
       "description": "The physical seal stamp: scale 1.6 → 1 with a -8deg → 0deg settle and an",
@@ -1576,7 +1609,7 @@
       "hash": "72eeca91bca46712",
       "size": 1208,
       "mtimeMs": 1785572131909.542,
-      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "updatedAt": "2026-09-28T09:00:00.286Z",
       "source": "scan"
     },
     "src/lib/submit.ts": {
@@ -1585,7 +1618,7 @@
       "hash": "c292bd9834fb4a45",
       "size": 1256,
       "mtimeMs": 1790318624870.1118,
-      "updatedAt": "2026-09-25T07:59:09.636Z",
+      "updatedAt": "2026-09-28T09:00:00.286Z",
       "source": "scan"
     },
     "src/main.tsx": {
@@ -1594,7 +1627,7 @@
       "hash": "4418921046c0beff",
       "size": 235,
       "mtimeMs": 1784304264418.9146,
-      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "updatedAt": "2026-09-28T09:00:00.287Z",
       "source": "scan"
     },
     "tsconfig.json": {
@@ -1603,7 +1636,7 @@
       "hash": "60a7a96acbaf32d9",
       "size": 503,
       "mtimeMs": 1784304471072.5144,
-      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "updatedAt": "2026-09-28T09:00:00.288Z",
       "source": "scan"
     },
     "vite.config.ts": {
@@ -1612,17 +1645,8 @@
       "hash": "11a056bb43897f1b",
       "size": 1202,
       "mtimeMs": 1790318636196.5432,
-      "updatedAt": "2026-09-25T07:59:09.637Z",
+      "updatedAt": "2026-09-28T09:00:00.288Z",
       "source": "scan"
-    },
-    "src/components/ChunkMounted.tsx": {
-      "description": "Rendered as the last child inside a lazy chapter's Suspense boundary: it",
-      "tokens": 180,
-      "hash": "d784a2e66041b3be",
-      "size": 629,
-      "mtimeMs": 1790327067147.0876,
-      "updatedAt": "2026-09-25T09:04:27.319Z",
-      "source": "hook"
     }
   }
 }
