@@ -19,6 +19,7 @@ to follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - Terminal metric label reads Lighthouse again; the build log line keeps the desktop qualifier.
 - Deep links to `#process` and `#contact` now scroll to their section on load (instantly, clearing the nav); unknown hashes, and `#work` while the Work chapter is hidden, are ignored.
+- The back-to-top button lifts clear of the footer so it never covers the footer links.
 
 ## [4.2.2] - 2026-09-25
 

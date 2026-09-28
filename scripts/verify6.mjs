@@ -801,6 +801,12 @@ async function scrollToEl(page, sel, offset = -60) {
   // restore bottom position for the progress-line / footer checks below
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await sleep(600);
+  // at the bottom the pill is lifted clear of the footer (never over its links)
+  out.backToTopClearOfFooter = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]')?.getBoundingClientRect();
+    const f = document.querySelector("footer")?.getBoundingClientRect();
+    return !!b && !!f && b.bottom <= f.top;
+  });
 
   // --- 9. progress line (edge-glued, capped, tip rides to bottom) + footer ----
   out.progressLine = await page.evaluate(() => {
@@ -1391,6 +1397,13 @@ async function scrollToEl(page, sel, offset = -60) {
       noHScroll: sec.scrollWidth <= sec.clientWidth + 1 && document.documentElement.scrollWidth <= 390,
     };
   });
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(600);
+  out.backToTopClearOfFooterMobile = await page.evaluate(() => {
+    const b = document.querySelector('[aria-label="Back to top"]')?.getBoundingClientRect();
+    const f = document.querySelector("footer")?.getBoundingClientRect();
+    return !!b && !!f && b.bottom <= f.top;
+  });
 
   console.log("\n=== MOBILE ===");
   console.log(JSON.stringify(out, null, 1));
@@ -1455,6 +1468,7 @@ const EXPECTED = {
     "backToTopWhenScrolled.present": t, "backToTopWhenScrolled.clickable": t,
     "backToTopWhenScrolled.inViewport": t,
     backToTopFocusable: t, backToTopReturnsTop: t, backToTopHiddenAtTop: t,
+    backToTopClearOfFooter: t,
     "footerLegal.terms": t, "footerLegal.privacy": t, "footerLegal.focusable": t,
     "legal./terms.html.h1": t, "legal./terms.html.email": t,
     "legal./terms.html.noPlaceholders": t,
@@ -1497,6 +1511,7 @@ const EXPECTED = {
     "backToTopMobile.inViewport": t,
     "processMobile.pillarBeforeStep1": t, "processMobile.pillarBeforeStep3": t,
     "processMobile.connectorContinuous": t, "processMobile.noHScroll": t,
+    backToTopClearOfFooterMobile: t,
   },
 };
 
