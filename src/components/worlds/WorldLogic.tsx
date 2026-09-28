@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { TRIQUETRA_LOOPS, TRIQUETRA_VIEWBOX, VB_W, VB_H } from "@/data/triquetra";
 import { TRIQUETRA_BUILD_CIRCLES, BUILD_CENTER } from "@/data/triquetraBuild";
+import { LOOP_CENTROIDS, MARK_BBOX } from "@/data/triquetraSamples";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -33,36 +34,14 @@ type Label = { x: number; y: number; text: string; anchor?: "start" | "middle" |
  *    (src/data/triquetraBuild.ts), already aligned to the mark's coordinates.
  *  - center: the composition centre (the build sheet's centre circle).
  *  - loop centroids (sampled) only pick which real circle each loop's R/C label
- *    and lock-pulse attach to; the mark bbox drives the dimension lines.
+ *    and lock-pulse attach to; the mark bbox drives the dimension lines. Both
+ *    are precomputed (src/data/triquetraSamples.ts) from the browser's own
+ *    path sampling at this density, so no DOM sampling happens at load.
  *  - ticks / dimLines / leaders / arcPath / labels: drafting notation.
  */
 function buildGeometry() {
-  const sampler = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  let minX = Infinity;
-  let minY = Infinity;
-  let maxX = -Infinity;
-  let maxY = -Infinity;
-
-  // sample each loop for its centroid + accumulate the mark's real bbox
-  const loopCentroids = TRIQUETRA_LOOPS.map((d) => {
-    sampler.setAttribute("d", d);
-    const len = sampler.getTotalLength();
-    const steps = Math.max(64, Math.round(len / 6));
-    let sx = 0;
-    let sy = 0;
-    let n = 0;
-    for (let i = 0; i <= steps; i++) {
-      const p = sampler.getPointAtLength((i / steps) * len);
-      sx += p.x;
-      sy += p.y;
-      n++;
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-    return { x: sx / n, y: sy / n };
-  });
+  const { minX, minY, maxX, maxY } = MARK_BBOX;
+  const loopCentroids = LOOP_CENTROIDS;
 
   const guides: Guide[] = TRIQUETRA_BUILD_CIRCLES;
   const center = { x: BUILD_CENTER.x, y: BUILD_CENTER.y };

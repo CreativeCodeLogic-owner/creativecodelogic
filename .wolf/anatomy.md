@@ -1,21 +1,21 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-09-28T09:00:00.748Z
-> Files: 79 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-09-28T09:36:47.804Z
+> Files: 80 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.firebaserc` (~16 tok)
 - `.gitattributes` — Git attributes (~4 tok)
 - `.gitignore` — Git ignore rules (~107 tok)
-- `CHANGELOG.md` — Changelog (~4094 tok)
-- `CLAUDE.md` — OpenWolf (~707 tok)
+- `CHANGELOG.md` — Changelog (~4226 tok)
+- `CLAUDE.md` — OpenWolf (~747 tok)
 - `firebase.json` (~225 tok)
 - `index.html` — Creative Code Logic · Built with creativity, code, and logic (~1543 tok)
-- `package.json` — Node.js package manifest (~181 tok)
+- `package.json` — Node.js package manifest (~199 tok)
 - `README.md` — Project documentation (~2089 tok)
 - `tsconfig.json` — TypeScript configuration (~144 tok)
-- `vite.config.ts` — A production build without these ships a site whose forms, captcha or (~343 tok)
+- `vite.config.ts` — A production build without these ships a site whose forms, captcha or (~513 tok)
 
 ## copy/
 
@@ -55,6 +55,7 @@
 ## scripts/
 
 - `extract_triquetra.py` — Trace the CCL triquetra PNG into three SVG stroke paths (one per loop/blade). (~2211 tok)
+- `gen-triquetra-samples.mjs` — sha256(JSON.stringify({ viewBox, loops })).slice(0, 16) of the source paths. (~1560 tok)
 - `make_product_placeholders.py` — Generate placeholder case-card images (public/products/*.png). (~1722 tok)
 - `rasterize-frieze.mjs` — Build-time asset step (not shipped, no runtime dep): rasterize each triquetra (~513 tok)
 - `verify.mjs` — Visual/runtime verification for the CCL site against the dev server. (~860 tok)
@@ -67,7 +68,7 @@
 ## src/
 
 - `App.tsx` — import { ProgressLine } from "@/components/ProgressLine"; // benched per team feedback 2026-08 (~500 tok)
-- `index.css` — Styles: 25 rules, 8 vars (~1614 tok)
+- `index.css` — Styles: 26 rules, 8 vars (~1651 tok)
 - `main.tsx` (~68 tok)
 
 ## src/assets/triquetra-variants/
@@ -93,7 +94,7 @@
 - `HeroSignature.tsx` — Chapter 1 — The Mark. (~2460 tok)
 - `Invitation.tsx` — Chapter 5 — The Invitation. (~1797 tok)
 - `MobileMenu.tsx` — Close with focus returned to the hamburger. (~1732 tok)
-- `Nav.tsx` — import { NavFrieze } from "@/components/NavFrieze"; // benched per team feedback 2026-08 (~1430 tok)
+- `Nav.tsx` — import { NavFrieze } from "@/components/NavFrieze"; // benched per team feedback 2026-08 (~1582 tok)
 - `NavFrieze.tsx` — Deal distinct variants onto a composition's positions (no repeats within a (~1038 tok)
 - `ProgressLine.tsx` — The journey line — a cyan rule glued to the left edge, drawn by scroll. A (~762 tok)
 - `SignatureLives.tsx` — Chapter 3 — Built and live. (~2227 tok)
@@ -103,13 +104,13 @@
 ## src/components/worlds/
 
 - `WorldCode.tsx` — World B — Code. Ambient terminal loop: the build log streams in, metrics (~4511 tok)
-- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5754 tok)
-- `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~6068 tok)
+- `WorldCreative.tsx` — Indices of ~target dots per loop, denser where curvature is higher. (~5725 tok)
+- `WorldLogic.tsx` — Built once at mount — pure geometry, no data: (~5925 tok)
 
 ## src/data/
 
 - `friezeCompositions.ts` — Curated header-frieze compositions — DESIGNER-TUNABLE. Ghassan edits the (~1276 tok)
-- `triquetra.ts` — CCL triquetra mark — authored vector (v2), redesigned 2026-07-30. (~1183 tok)
+- `triquetra.ts` — CCL triquetra mark — authored vector (v2), redesigned 2026-07-30. (~956 tok)
 - `triquetraAscii.ts` — Authored ASCII rendering of the v2 triquetra mark, embedded verbatim from (~457 tok)
 - `triquetraBuild.ts` — Real construction geometry for the v2 triquetra, extracted from the designer's (~497 tok)
 

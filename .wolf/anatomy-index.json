@@ -1,13 +1,13 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-09-28T09:00:00.748Z",
-    "fileCount": 79,
+    "lastScanned": "2026-09-28T09:36:47.804Z",
+    "fileCount": 80,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "4a80f58f6dd4a01107b3081a30b9e120644b18549d47e6a5bdd02f13ea1f6a36",
-    "storeUpdatedAt": "2026-09-28T09:00:00.750Z",
-    "rootHash": "5ccd8d77613bec2a"
+    "renderedHash": "0d8464e7835b4e0e35d3fa07966798c162eeaa5224f8b6e5e4a57ecbf8d5f1eb",
+    "storeUpdatedAt": "2026-09-28T09:36:47.824Z",
+    "rootHash": "c91d98cab86536ea"
   },
   "files": {
     ".firebaserc": {
@@ -39,21 +39,21 @@
     },
     "CHANGELOG.md": {
       "description": "Changelog",
-      "tokens": 4094,
-      "hash": "d6d50ee40e6f7b3b",
-      "size": 16484,
-      "mtimeMs": 1790585655287.632,
-      "updatedAt": "2026-09-28T09:00:00.229Z",
-      "source": "scan"
+      "tokens": 4226,
+      "hash": "807f573d82194318",
+      "size": 17012,
+      "mtimeMs": 1790588207630.2278,
+      "updatedAt": "2026-09-28T09:36:47.803Z",
+      "source": "hook"
     },
     "CLAUDE.md": {
       "description": "OpenWolf",
-      "tokens": 707,
-      "hash": "6c009d405dba82ea",
-      "size": 2838,
-      "mtimeMs": 1790582769298.9922,
-      "updatedAt": "2026-09-28T09:00:00.229Z",
-      "source": "scan"
+      "tokens": 747,
+      "hash": "8e5bf49336034ec2",
+      "size": 3000,
+      "mtimeMs": 1790587541144.8796,
+      "updatedAt": "2026-09-28T09:25:41.318Z",
+      "source": "hook"
     },
     "copy/homepage-narrative-v1.md": {
       "description": "CCL Website — Homepage Narrative v1",
@@ -129,12 +129,12 @@
     },
     "package.json": {
       "description": "Node.js package manifest",
-      "tokens": 181,
-      "hash": "7b4c90fc186f8da3",
-      "size": 633,
-      "mtimeMs": 1790321787717.043,
-      "updatedAt": "2026-09-28T09:00:00.239Z",
-      "source": "scan"
+      "tokens": 199,
+      "hash": "f3fc156fc5e38efe",
+      "size": 696,
+      "mtimeMs": 1790586666053.3918,
+      "updatedAt": "2026-09-28T09:11:06.250Z",
+      "source": "hook"
     },
     "public/404.html": {
       "description": "Page not found · Creative Code Logic",
@@ -1019,22 +1019,21 @@
     },
     "src/components/Nav.tsx": {
       "description": "import { NavFrieze } from \"@/components/NavFrieze\"; // benched per team feedback 2026-08",
-      "tokens": 1430,
-      "hash": "ed96510682c805e4",
-      "size": 5010,
-      "mtimeMs": 1787591490495.1257,
-      "updatedAt": "2026-09-28T09:00:00.275Z",
-      "source": "scan",
+      "tokens": 1582,
+      "hash": "7d45a53c76ddd015",
+      "size": 5544,
+      "mtimeMs": 1790587127641.9683,
+      "updatedAt": "2026-09-28T09:18:47.809Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "Nav",
           "kind": "fn",
           "startLine": 22,
-          "endLine": 129,
-          "tokens": 1186
+          "endLine": 143,
+          "tokens": 1339
         }
-      ],
-      "symbolSource": "ts"
+      ]
     },
     "src/components/NavFrieze.tsx": {
       "description": "Deal distinct variants onto a composition's positions (no repeats within a",
@@ -1184,132 +1183,91 @@
     "src/components/worlds/WorldCode.tsx": {
       "description": "World B — Code. Ambient terminal loop: the build log streams in, metrics",
       "tokens": 4511,
-      "hash": "cb7984d136784e33",
+      "hash": "ccfd1028db3bc4d7",
       "size": 15811,
-      "mtimeMs": 1790323425096.6594,
-      "updatedAt": "2026-09-28T09:00:00.278Z",
-      "source": "scan",
+      "mtimeMs": 1790587519117.3396,
+      "updatedAt": "2026-09-28T09:25:19.344Z",
+      "source": "hook",
       "symbols": [
-        {
-          "name": "LogLine",
-          "kind": "section",
-          "startLine": 6,
-          "endLine": 6,
-          "tokens": 18
-        },
         {
           "name": "formatMetric",
           "kind": "fn",
           "startLine": 36,
-          "endLine": 39,
-          "tokens": 50
+          "endLine": 46,
+          "tokens": 136
         },
         {
           "name": "WorldCode",
           "kind": "fn",
           "startLine": 47,
-          "endLine": 458,
+          "endLine": 459,
           "tokens": 3850
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "type LogLine = { text: string; kind: \"cmd\" | \"ok\" | \"info\" };\nfunction formatMetric(el: HTMLElement, v: number): string {\nexport function WorldCode() {"
+      ]
     },
     "src/components/worlds/WorldCreative.tsx": {
       "description": "Indices of ~target dots per loop, denser where curvature is higher.",
-      "tokens": 5754,
-      "hash": "1ecad0eb7a99e3b1",
-      "size": 20148,
-      "mtimeMs": 1790318564666.8633,
-      "updatedAt": "2026-09-28T09:00:00.279Z",
-      "source": "scan",
+      "tokens": 5725,
+      "hash": "d1700fec5fb9d32a",
+      "size": 20049,
+      "mtimeMs": 1790586715248.434,
+      "updatedAt": "2026-09-28T09:11:55.423Z",
+      "source": "hook",
       "symbols": [
-        {
-          "name": "Pt",
-          "kind": "section",
-          "startLine": 6,
-          "endLine": 6,
-          "tokens": 10
-        },
         {
           "name": "hexA",
           "kind": "fn",
-          "startLine": 25,
-          "endLine": 30,
-          "tokens": 65
+          "startLine": 26,
+          "endLine": 33,
+          "tokens": 87
         },
         {
           "name": "pickDots",
           "kind": "fn",
-          "startLine": 33,
-          "endLine": 62,
-          "tokens": 252
+          "startLine": 34,
+          "endLine": 72,
+          "tokens": 386
         },
         {
           "name": "WorldCreative",
           "kind": "fn",
-          "startLine": 72,
-          "endLine": 563,
-          "tokens": 5074
+          "startLine": 73,
+          "endLine": 555,
+          "tokens": 5028
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "type Pt = { x: number; y: number };\nfunction hexA(hex: string, alpha: number): string {\nfunction pickDots(pts: Pt[], target: number): number[] {\nexport function WorldCreative() {"
+      ]
     },
     "src/components/worlds/WorldLogic.tsx": {
       "description": "Built once at mount — pure geometry, no data:",
-      "tokens": 6068,
-      "hash": "aba12c1a74b19fa3",
-      "size": 21269,
-      "mtimeMs": 1785573726903.1294,
-      "updatedAt": "2026-09-28T09:00:00.280Z",
-      "source": "scan",
+      "tokens": 5925,
+      "hash": "d6ace8d36bcce171",
+      "size": 20771,
+      "mtimeMs": 1790586716269.059,
+      "updatedAt": "2026-09-28T09:11:56.509Z",
+      "source": "hook",
       "symbols": [
         {
           "name": "loopStart",
           "kind": "fn",
-          "startLine": 24,
-          "endLine": 24,
-          "tokens": 17
-        },
-        {
-          "name": "Guide",
-          "kind": "section",
-          "startLine": 26,
-          "endLine": 26,
-          "tokens": 15
-        },
-        {
-          "name": "Line",
-          "kind": "section",
-          "startLine": 27,
-          "endLine": 27,
-          "tokens": 18
-        },
-        {
-          "name": "Label",
-          "kind": "section",
-          "startLine": 28,
-          "endLine": 28,
-          "tokens": 31
+          "startLine": 25,
+          "endLine": 41,
+          "tokens": 272
         },
         {
           "name": "buildGeometry",
           "kind": "fn",
-          "startLine": 39,
-          "endLine": 165,
-          "tokens": 1326
+          "startLine": 42,
+          "endLine": 154,
+          "tokens": 1280
         },
         {
           "name": "WorldLogic",
           "kind": "fn",
-          "startLine": 176,
-          "endLine": 557,
+          "startLine": 155,
+          "endLine": 537,
           "tokens": 4032
         }
-      ],
-      "symbolSource": "ts",
-      "skeleton": "const loopStart = (i: number) => LOOP_START + i * LOOP_GAP;\ntype Guide = { cx: number; cy: number; r: number };\ntype Line = { x1: number; y1: number; x2: number; y2: number };\ntype Label = { x: number; y: number; text: string; anchor?: \"start\" | \"middle\" | \"end\"; micro?: boolean };\nfunction buildGeometry() {\nexport function WorldLogic() {"
+      ]
     },
     "src/data/friezeCompositions.ts": {
       "description": "Curated header-frieze compositions — DESIGNER-TUNABLE. Ghassan edits the",
@@ -1339,22 +1297,12 @@
     },
     "src/data/triquetra.ts": {
       "description": "CCL triquetra mark — authored vector (v2), redesigned 2026-07-30.",
-      "tokens": 1183,
-      "hash": "7ee49dede0f12b59",
-      "size": 4152,
-      "mtimeMs": 1785399274675.8086,
-      "updatedAt": "2026-09-28T09:00:00.281Z",
-      "source": "scan",
-      "symbols": [
-        {
-          "name": "sampleMarkBBox",
-          "kind": "fn",
-          "startLine": 42,
-          "endLine": 61,
-          "tokens": 207
-        }
-      ],
-      "symbolSource": "ts"
+      "tokens": 956,
+      "hash": "0f6728961e8a1458",
+      "size": 3358,
+      "mtimeMs": 1790588190938.0454,
+      "updatedAt": "2026-09-28T09:36:31.138Z",
+      "source": "hook"
     },
     "src/data/triquetraAscii.ts": {
       "description": "Authored ASCII rendering of the v2 triquetra mark, embedded verbatim from",
@@ -1403,13 +1351,13 @@
       "source": "scan"
     },
     "src/index.css": {
-      "description": "Styles: 25 rules, 8 vars",
-      "tokens": 1614,
-      "hash": "d0ea50f28be1af36",
-      "size": 5661,
-      "mtimeMs": 1790326154620.4832,
-      "updatedAt": "2026-09-28T09:00:00.284Z",
-      "source": "scan"
+      "description": "Styles: 26 rules, 8 vars",
+      "tokens": 1651,
+      "hash": "b2d4f288c2718aa2",
+      "size": 5790,
+      "mtimeMs": 1790586776235.1558,
+      "updatedAt": "2026-09-28T09:12:56.438Z",
+      "source": "hook"
     },
     "src/lib/captcha.ts": {
       "description": "Lazy-load the reCAPTCHA script exactly once (explicit render mode).",
@@ -1641,12 +1589,37 @@
     },
     "vite.config.ts": {
       "description": "A production build without these ships a site whose forms, captcha or",
-      "tokens": 343,
-      "hash": "11a056bb43897f1b",
-      "size": 1202,
-      "mtimeMs": 1790318636196.5432,
-      "updatedAt": "2026-09-28T09:00:00.288Z",
-      "source": "scan"
+      "tokens": 513,
+      "hash": "4eb3aed4bcf62142",
+      "size": 1795,
+      "mtimeMs": 1790586742845.0261,
+      "updatedAt": "2026-09-28T09:12:23.034Z",
+      "source": "hook"
+    },
+    "scripts/gen-triquetra-samples.mjs": {
+      "description": "sha256(JSON.stringify({ viewBox, loops })).slice(0, 16) of the source paths.",
+      "tokens": 1560,
+      "hash": "b82427b3727f8d7b",
+      "size": 5853,
+      "mtimeMs": 1790588192457.1863,
+      "updatedAt": "2026-09-28T09:36:32.629Z",
+      "source": "hook",
+      "symbols": [
+        {
+          "name": "r3",
+          "kind": "fn",
+          "startLine": 76,
+          "endLine": 86,
+          "tokens": 124
+        },
+        {
+          "name": "arr",
+          "kind": "fn",
+          "startLine": 87,
+          "endLine": 120,
+          "tokens": 470
+        }
+      ]
     }
   }
 }

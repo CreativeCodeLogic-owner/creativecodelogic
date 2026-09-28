@@ -34,28 +34,5 @@ export const TRIQUETRA_LOOPS: string[] = [
   "M76.05,218.59c31.72-9.24,78.86-17.17,105.48-32.33,14-7.76,25.09-20.8,30.02-37.36.39-1.31.73-2.62,1.04-3.93h0c.85-2.84,3.84-4.45,6.68-3.61,2.04.61,3.45,2.31,3.77,4.28v.03c2.18,14.81,1.23,30.31-3.32,45.6-8.71,29.27-28.93,51.98-54.24,64.66-29.62,16.87-85.19,32.07-103.48,57.62-4.54,5.95-8.12,12.82-10.38,20.42-9.99,33.56,9.12,68.85,42.67,78.84,13.77,4.1,27.84,3.33,40.33-1.36,1.09-.42,2.32-.49,3.52-.14,2.9.86,4.54,3.91,3.68,6.8-.53,1.78-1.88,3.08-3.51,3.63-19.59,6.23-41.19,6.79-62.38.48C19.71,405.51-12.29,346.38,4.44,290.18c10.63-35.71,38.38-61.71,71.61-71.59Z",
 ];
 
-/**
- * Real bounding box of the mark, sampled from the authored paths at runtime
- * (browser only — uses SVG getTotalLength/getPointAtLength). Replaces the old
- * hard-coded trace bbox. Returns viewBox-space { x, y, w, h }.
- */
-export function sampleMarkBBox(): { x: number; y: number; w: number; h: number } {
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  let minX = Infinity;
-  let minY = Infinity;
-  let maxX = -Infinity;
-  let maxY = -Infinity;
-  for (const d of TRIQUETRA_LOOPS) {
-    path.setAttribute("d", d);
-    const len = path.getTotalLength();
-    const steps = Math.max(64, Math.round(len / 4));
-    for (let i = 0; i <= steps; i++) {
-      const p = path.getPointAtLength((i / steps) * len);
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-  }
-  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
-}
+// Sampled geometry derived from these paths (lengths, points, centroids, the
+// mark's bbox) is precomputed in ./triquetraSamples.ts: `bun run gen:triquetra`.

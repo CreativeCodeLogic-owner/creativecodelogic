@@ -31,3 +31,4 @@ AGENTS.md is deprecated — never follow it.
 - bun run dev (:5173) | bun run build (tsc --noEmit + vite build) | bun run preview
 - Visual verification: node scripts/verify6.mjs against a running dev server on :5173 (latest pass; verify.mjs–verify5.mjs are older iterations). It must print VERIFY6: PASS and exit 0.
 - Production builds fail unless VITE_FORMSPARK_FORM_ID_BRIEF, VITE_FORMSPARK_FORM_ID_CONTACT, VITE_CAPTCHA_SITEKEY and VITE_GA_MEASUREMENT_ID are set (vite.config.ts).
+- src/data/triquetraSamples.ts is generated: after changing TRIQUETRA_LOOPS or the viewBox, run bun run gen:triquetra (production builds fail while it is stale).

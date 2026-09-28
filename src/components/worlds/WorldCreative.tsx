@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { TRIQUETRA_LOOPS, VB_CX, VB_CY, VB_MAX } from "@/data/triquetra";
+import { VB_CX, VB_CY, VB_MAX } from "@/data/triquetra";
+import { LOOP_LENGTHS, LOOP_POINTS_CREATIVE } from "@/data/triquetraSamples";
 import { gsap } from "@/lib/scroll";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -100,26 +101,16 @@ export function WorldCreative() {
     if (!panel || !canvas || !ctx) return;
 
     // --- geometry: dense sampled loops + curvature-picked dot indices ------
-    const sampler = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    const loopsSrc: Pt[][] = TRIQUETRA_LOOPS.map((d) => {
-      sampler.setAttribute("d", d);
-      const len = sampler.getTotalLength();
-      const steps = Math.max(96, Math.round(len / 3));
+    // The samples are precomputed (src/data/triquetraSamples.ts, generated from
+    // the browser's own getPointAtLength at this density); sampling the paths
+    // here at load was the largest main-thread cost on mobile.
+    const loopsSrc: Pt[][] = LOOP_POINTS_CREATIVE.map((flat) => {
       const pts: Pt[] = [];
-      for (let i = 0; i <= steps; i++) {
-        const p = sampler.getPointAtLength((i / steps) * len);
-        pts.push({ x: p.x, y: p.y });
-      }
+      for (let i = 0; i < flat.length; i += 2) pts.push({ x: flat[i], y: flat[i + 1] });
       return pts;
     });
     const dotIdx = loopsSrc.map((pts) => pickDots(pts, DOTS_PER_LOOP));
-    const loopLens = TRIQUETRA_LOOPS.map((d) => {
-      sampler.setAttribute("d", d);
-      return sampler.getTotalLength();
-    });
+    const loopLens = [...LOOP_LENGTHS];
     const totalLen = loopLens.reduce((a, b) => a + b, 0);
     const loopStarts: number[] = [];
     loopLens.reduce((acc, l) => {

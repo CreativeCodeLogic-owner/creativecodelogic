@@ -7,8 +7,8 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 
 // Every line here is REAL and measured — the brand's pitch is "judge it now",
 // so the terminal must not claim anything untrue.
-// Build lines re-measured 2026-09-25 from a production build (`bun run build`):
-//   vite 8.1.5 · 50 modules · tsc --noEmit clean · verify6 3/3 viewports
+// Build lines re-measured 2026-09-28 from a production build (`bun run build`):
+//   vite 8.1.5 · 51 modules · tsc --noEmit clean · verify6 3/3 viewports
 //   0 console errors (VERIFY6: PASS).
 // Lighthouse / LCP: PageSpeed Insights (Lighthouse 13.5.0) against the LIVE
 // site https://creativecodelogic.com/, 2026-09-25 10:28 GMT+3 (bundle
@@ -21,7 +21,7 @@ type LogLine = { text: string; kind: "cmd" | "ok" | "info" };
 const BUILD_LOG: LogLine[] = [
   { text: "bun run build", kind: "cmd" },
   { text: "vite v8.1.5 building client environment for production…", kind: "info" },
-  { text: "50 modules transformed", kind: "ok" },
+  { text: "51 modules transformed", kind: "ok" },
   { text: "type-check clean – 0 errors", kind: "ok" },
   { text: "verification 3/3 viewports – 0 console errors", kind: "ok" },
   { text: "lighthouse desktop 95", kind: "ok" },

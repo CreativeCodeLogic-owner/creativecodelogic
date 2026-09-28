@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen:triquetra": "node scripts/gen-triquetra-samples.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",

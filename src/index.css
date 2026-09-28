@@ -3,6 +3,8 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @source "../index.html";
+/* generated numeric data (its comments would otherwise add classes like "rounded") */
+@source not "./data/triquetraSamples.ts";
 
 /* Self-hosted Aptos (woff2 with woff fallback) — the site's primary typeface
    for both body and display. Uploaded weights: Light 300, Regular 400, Bold
