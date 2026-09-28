@@ -116,6 +116,34 @@ becomes canonical, find-replace the origin in:
 
 If www is added, 301 it to the canonical host.
 
+## OpenWolf and `.claude/settings.json`
+
+The committed `.claude/settings.json` runs every OpenWolf hook through the
+portable form `node "$CLAUDE_PROJECT_DIR/.wolf/hooks/<hook>.js"` (verified
+firing once per event in a fresh headless `claude -p` session).
+
+`openwolf init` and `openwolf update` rewrite those commands to absolute
+machine paths by design, with no option to opt out. So the file is marked
+skip-worktree on this machine:
+
+```bash
+git update-index --skip-worktree .claude/settings.json      # local rewrites stay local
+git ls-files -v .claude/settings.json                       # "S" = skip-worktree is on
+```
+
+To change `settings.json` on purpose:
+
+```bash
+git update-index --no-skip-worktree .claude/settings.json
+git checkout -- .claude/settings.json                       # drop any local rewrite first
+# edit, commit, push
+git update-index --skip-worktree .claude/settings.json
+```
+
+Don't work around a rewrite with a hooks block in `.claude/settings.local.json`:
+Claude Code merges both files, so every hook would run twice. The skip-worktree
+flag is per clone; set it again on a new machine after running `openwolf init`.
+
 ## Release checklist
 
 1. `bun run build` (clean), then `node scripts/verify6.mjs` against a single
